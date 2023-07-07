@@ -20,9 +20,11 @@ const ContactList = () => {
   ];
 
   return (
-    <div className='flex flex-col lg:text-2xl mt-2 leading-relaxed sm:text-lg'>
+    <div className='flex flex-col lg:text-2xl my-3 leading-relaxed sm:text-lg '>
       <div className='flex items-center '>
-        <p className='ml-4 mr-8  sm:text-xl opacity-50 pointer-events-none'>1</p>
+        <p className='ml-4 mr-8  sm:text-xl opacity-50 pointer-events-none'>
+          1
+        </p>
         <p className='text-[#ddfd8c] '>.social</p>
       </div>
       {myContacts.map((contact, index) => (

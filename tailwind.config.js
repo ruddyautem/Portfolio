@@ -8,10 +8,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        monaco: ['var(--font-monaco)', ...fontFamily.sans],
-        consolas: ['var(--font-consolas)', ...fontFamily.sans],
+        inter: ['var(--font-inter)'],
+        inconsolata: ['var(--font-inconsolata)'],
       },
     },
-    plugins: [require('tailwind-scrollbar-hide')],
+    plugins: [
+      require('@tailwindcss/container-queries'),
+    ]
   },
 };

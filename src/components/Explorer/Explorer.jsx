@@ -9,15 +9,15 @@ const Explorer = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   const navLinks = [
-    { name: 'Accueil.jsx', link: '/', icon: 'jsx.svg' },
-    { name: 'Profil.html', link: '/about', icon: 'html5.svg' },
-    { name: 'Contact.css', link: '/contact', icon: 'css.svg' },
-    { name: 'Projets.js', link: '/projects', icon: 'js.svg' },
-    { name: 'Github.md', link: '/github', icon: 'githubIcon.svg' },
+    { name: 'accueil.jsx', link: '/', icon: 'jsx.svg' },
+    { name: 'profil.html', link: '/about', icon: 'html5.svg' },
+    { name: 'contact.css', link: '/contact', icon: 'css.svg' },
+    { name: 'projets.js', link: '/projects', icon: 'js.svg' },
+    { name: 'github.md', link: '/github', icon: 'githubIcon.svg' },
   ];
 
   return (
-    <div className='sm:flex md:w-60 flex-col hidden sm:w-36'>
+    <div className=' sm:flex md:w-60 flex-col hidden sm:w-36'>
       <div className='flex items-center justify-between '>
         <p className='flex items-center h-6 ml-4 text-[12px] opacity-60 uppercase my-1'>
           Explorer
@@ -51,8 +51,8 @@ const Explorer = () => {
 
         <div
           className={`overflow-y-auto flex flex-col ${
-            isOpen ? 'max-h-48' : 'max-h-0'
-          } transition-all duration-300 ease-in-out scrollbar-hide`}
+            isOpen && 'max-h-48'
+          }  max-h-0 transition-all duration-300 ease-in-out no-scrollbar`}
         >
           {navLinks.map(({ name, link, icon }) => {
             const isActive = currentRoute === link;

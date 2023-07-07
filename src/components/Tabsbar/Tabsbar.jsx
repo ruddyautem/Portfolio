@@ -9,11 +9,11 @@ const Tabsbar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   const navLinks = [
-    { name: 'Accueil.jsx', link: '/', icon: 'jsx.svg' },
-    { name: 'Profil.html', link: '/about', icon: 'html5.svg' },
-    { name: 'Contact.css', link: '/contact', icon: 'css.svg' },
-    { name: 'Projets.js', link: '/projects', icon: 'js.svg' },
-    { name: 'Github.md', link: '/github', icon: 'githubIcon.svg' },
+    { name: 'accueil.jsx', link: '/', icon: 'jsx.svg' },
+    { name: 'profil.html', link: '/about', icon: 'html5.svg' },
+    { name: 'contact.css', link: '/contact', icon: 'css.svg' },
+    { name: 'projets.js', link: '/projects', icon: 'js.svg' },
+    { name: 'github.md', link: '/github', icon: 'githubIcon.svg' },
   ];
 
   return (
