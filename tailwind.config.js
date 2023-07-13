@@ -12,8 +12,5 @@ module.exports = {
         inconsolata: ['var(--font-inconsolata)'],
       },
     },
-    plugins: [
-      require('@tailwindcss/container-queries'),
-    ]
   },
 };

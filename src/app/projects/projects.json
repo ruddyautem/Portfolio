@@ -1,0 +1,68 @@
+[
+    {
+      "id": 1,
+      "title": "Portfolio VSCode",
+      "img": "/portfolio.jpg",
+      "desc": "Mon portfolio aux couleurs de VsCode. Souriez, vous-êtes ici :)",
+      "tags": ["react", "styled-components"],
+      "source": "https://github.com/panderawan/myVscodePortfolio",
+      "demo": "https://ruddy.autem.dev"
+    },
+    {
+      "id": 2,
+      "title": "E-Commerce",
+      "img": "/ecommerce.jpg",
+      "desc": "Plateforme d'E-Commerce fonctionnelle. Ajoutez vos articles dans le panier et payez avec Stripe!",
+      "tags": [
+        "react",
+        "redux",
+        "styled-components",
+        "mysql",
+        "material-ui",
+        "axios"
+      ],
+      "source": "https://github.com/panderawan/E-Commerce",
+      "demo": "https://ecommerce.autem.dev"
+    },
+    {
+      "id": 3,
+      "title": "Slack Clone",
+      "img": "/slack.jpg",
+      "desc": "Clone fonctionnel de Slack. Une fois votre compte créé, Entrez sur un canal de discussion et laissez un message!",
+      "tags": ["react", "redux", "styled-components", "firebase"],
+      "source": "https://github.com/panderawan/SlackClone",
+      "demo": "https://slack.autem.dev"
+    },
+    {
+      "id": 4,
+      "title": "Gmail Clone",
+      "img": "/gmail.jpg",
+      "desc": "Clone fonctionnel de Gmail. Une fois votre compte créé, Rédigez un nouveau mail qui s'ajoutera à la liste!",
+      "tags": ["react", "styled-components"],
+      "source": "https://github.com/panderawan/GmailClone",
+      "demo": "https://gmail.autem.dev"
+    },
+    {
+      "id": 5,
+      "title": "LinkedIn Clone", 
+      "img": "/linkedin.jpg",
+      "desc": "Clone fonctionnel de LinkedIn. Une fois votre compte créé, écrivez un article qui s'ajoutera à ceux déjà présents!",
+      "tags": [
+        "react",
+        "redux",
+        "material-ui",
+        "firebase"
+      ],
+      "source": "https://github.com/panderawan/linkedinClone",
+      "demo": "https://linkedin.autem.dev"
+    },
+    {
+      "id": 6,
+      "title": "GPT-3",
+      "img": "/gpt3.jpg",
+      "desc": "Page d'Accueil d'une plateforme de tutoriel d'utilisation de GPT3",
+      "tags": ["react"],
+      "source": "https://github.com/panderawan/gpt3",
+      "demo": "https://gpt3.autem.dev"
+    }
+  ]

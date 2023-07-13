@@ -17,7 +17,7 @@ const Explorer = () => {
   ];
 
   return (
-    <div className=' sm:flex md:w-60 flex-col hidden sm:w-36'>
+    <div className='sm:flex md:w-48 flex-col hidden sm:w-36'>
       <div className='flex items-center justify-between '>
         <p className='flex items-center h-6 ml-4 text-[12px] opacity-60 uppercase my-1'>
           Explorer

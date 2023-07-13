@@ -20,26 +20,33 @@ const ContactList = () => {
   ];
 
   return (
-    <div className='flex flex-col lg:text-2xl my-3 leading-relaxed sm:text-lg '>
+    <div className='flex flex-col my-3 leading-relaxed text-[17px] sm:text-xl lg:text-2xl'>
       <div className='flex items-center '>
-        <p className='ml-4 mr-8  sm:text-xl opacity-50 pointer-events-none'>
+        <p className='ml-4 mr-6 opacity-50 sm:text-xl '>
           1
         </p>
-        <p className='text-[#ddfd8c] '>.social</p>
+        <p className='text-[#ddfd8c] '>.social </p> &nbsp; &#123;
       </div>
       {myContacts.map((contact, index) => (
         <div key={index} className='flex flex-row items-center'>
-          <p className='pointer-events-none ml-4 mr-16 sm:text-xl opacity-50'>
+          <p className='ml-4 mr-12 opacity-50 sm:text-xl'>
             {index + 2}
           </p>
           <p className=''>
-            {contact.social} : &nbsp;
+            {contact.social}: &nbsp; 
             <a href={contact.href} className='text-[#ddfd8c] pb-2 underline'>
               {contact.link}
-            </a>
+            </a>;
           </p>
         </div>
+        
       ))}
+            <div className='flex items-center '>
+        <p className='ml-4 mr-8 opacity-50 sm:text-xl '>
+          5 
+        </p>
+        <p className=''>&#125;</p>
+      </div>
     </div>
   );
 };
