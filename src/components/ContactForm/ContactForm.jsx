@@ -22,9 +22,9 @@ const ContactForm = () => {
       body: JSON.stringify(data),
     });
 
-    const responseJson = await response.json();
-
+    
     if (response.ok) {
+      const responseJson = await response.json();
       console.log('Message sent success'), setLoading(false);
       setNotification(responseJson.message);
       e.target.name.value = '';
@@ -34,9 +34,9 @@ const ContactForm = () => {
     }
 
     if (!response.ok) {
-      const error = await response.json();
+      const errorJson = await response.json();
         console.log('Error sending message'), setLoading(true);
-        setNotification(responseJson.message);
+        setNotification(errorJson.message);
     }
     };
     
