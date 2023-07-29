@@ -21,8 +21,6 @@ const ContactAPI = async (req, res) => {
       pass: process.env.PASS,
     },
   });
-    
-
 
   try {
     const mail = await transporter.sendMail({
@@ -36,18 +34,15 @@ const ContactAPI = async (req, res) => {
       <p>Objet: ${objet}</p>
       <p>Message: ${message}</p>
         `,
-      
-    }
-      );
+    });
 
     return res.status(200).json({
       message: 'Votre message a été envoyé. Je reviens vers vous rapidement :)',
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ message: "Votre message n'a pas pû être envoyé" });
   }
 };
-
 
 export default ContactAPI;
