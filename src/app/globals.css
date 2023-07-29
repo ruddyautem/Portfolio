@@ -5,11 +5,11 @@
 :root {
   --green-contact: #ddfd8c;
   --purple-contact: #bd93f9;
+  --ti-cursor-color: #ffcc66;
 }
 
 body {
   /* background-color: #1e202c; */
-
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

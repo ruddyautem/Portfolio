@@ -17,7 +17,7 @@ const Tabsbar = () => {
   ];
 
   return (
-    <div className='max-h-7'>
+    <div className='h-7'>
       <div
         className='flex flex-row justify-center sm:justify-start '
       >
@@ -29,14 +29,14 @@ const Tabsbar = () => {
               key={name}
               className='flex items-center justify-center cursor-pointer relative sm:px-3 px-[2px]'
             >
-              <div className='flex w-full my-1 text-xs  sm:text-sm'>
+              <div className='flex w-full my-1 text-xs sm:text-sm'>
                 <Image className='pr-1 ' src={icon} width={16} height={16} alt='' />
-                <p className={isActive ? 'opacity-100' : 'opacity-60'}>
+                <p className={isActive ? 'text-gray-300' : 'opacity-60'}>
                   {name}
                 </p>
               </div>
                 {isActive && (
-                  <div className='absolute bottom-0 bg-yellow-400 w-full h-[1px]'></div>
+                  <div className='absolute bottom-0 bg-accent-color w-full h-[1px]'></div>
                 )}
             </Link>
           );

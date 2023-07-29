@@ -10,6 +10,11 @@ module.exports = {
       fontFamily: {
         inter: ['var(--font-inter)'],
         inconsolata: ['var(--font-inconsolata)'],
+        oswald: ['var(--font-oswald)'],
+
+      },
+      colors: {
+        'accent-color': '#FFCC66',
       },
     },
   },

@@ -10,7 +10,7 @@ export const metadata = {
 const Projects = () => {
   return (
     <div className=''>
-      <p className='text-3xl text-center mb-4  '>Mes projets</p>
+      <p className='text-3xl text-center mb-4 '>Mes projets</p>
       <div
         className='grid gap-8'
         style={{

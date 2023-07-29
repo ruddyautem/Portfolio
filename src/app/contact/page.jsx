@@ -8,8 +8,7 @@ export const metadata = {
 
 const Contact = () => {
   return (
-    <div className='h-full overflow-auto no-scrollbar'>
-      <p className='text-3xl text-center mb-4 '>Contact</p>
+    <div className='h-full no-scrollbar'>
       <ContactList />
     </div>
   );

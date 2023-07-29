@@ -52,7 +52,7 @@ const Explorer = () => {
         <div
           className={`overflow-y-auto flex flex-col ${
             isOpen && 'max-h-48'
-          }  max-h-0 transition-all duration-300 ease-in-out no-scrollbar`}
+          }  max-h-0 transition-all duration-200 ease-in-out no-scrollbar`}
         >
           {navLinks.map(({ name, link, icon }) => {
             const isActive = currentRoute === link;

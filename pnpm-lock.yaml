@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  semver@>=6.0.0 <6.3.1: '>=6.3.1'
-
 dependencies:
   '@rollup/plugin-terser':
     specifier: ^0.4.3
@@ -23,6 +20,9 @@ dependencies:
   next:
     specifier: 13.4.8
     version: 13.4.8(react-dom@18.2.0)(react@18.2.0)
+  nodemailer:
+    specifier: ^6.9.4
+    version: 6.9.4
   postcss:
     specifier: 8.4.24
     version: 8.4.24
@@ -38,6 +38,9 @@ dependencies:
   tailwindcss:
     specifier: 3.3.2
     version: 3.3.2
+  typeit-react:
+    specifier: ^2.6.4
+    version: 2.6.4
 
 packages:
 
@@ -1944,6 +1947,11 @@ packages:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
     dev: false
 
+  /nodemailer@6.9.4:
+    resolution: {integrity: sha512-CXjQvrQZV4+6X5wP6ZIgdehJamI63MFoYFGGPtHudWym9qaEHDNdPzaj5bfMCvxG1vhAileSWW90q7nL0N36mA==}
+    engines: {node: '>=6.0.0'}
+    dev: false
+
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
@@ -2717,6 +2725,19 @@ packages:
       call-bind: 1.0.2
       for-each: 0.3.3
       is-typed-array: 1.1.10
+    dev: false
+
+  /typeit-react@2.6.4:
+    resolution: {integrity: sha512-ZFx7MYYirvQ1P6qvzN+ONMOWzkktuw2skBln/GQc5xpzqfSA48J2Fn5De/KtVkYbWOuLfKBPTwzJTH+clbAsAA==}
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      typeit: 8.7.1
+    dev: false
+
+  /typeit@8.7.1:
+    resolution: {integrity: sha512-Bx/O4NMz10NWh9FWYtVwV4XwGHF9UDJfpCZPJRtw2/oUcahFAStU8J0t19aroPfTV6s1UlS5ICoqilOqmEnh2Q==}
+    requiresBuild: true
     dev: false
 
   /typescript@5.1.6:

@@ -30,7 +30,7 @@ const Sidebar = () => {
             <div
               key={name}
               className={`${
-                isActive ? 'opacity-100' : 'opacity-60'
+                isActive ? 'opacity-100' : 'opacity-30'
               } flex items-center justify-center hover:opacity-100 relative`}
             >
               <Tooltip tooltipText={name}>
@@ -47,7 +47,7 @@ const Sidebar = () => {
                 </Link>
               </Tooltip>
               {isActive && (
-                <div className='absolute bg-opacity-100 left-0 w-[2px] h-full bg-yellow-400'></div>
+                <div className='absolute bg-opacity-100 left-0 w-[2px] h-full bg-accent-color'></div>
               )}
             </div>
           );
@@ -58,7 +58,7 @@ const Sidebar = () => {
           return (
             <div
               key={name}
-              className='flex items-center justify-center opacity-60 hover:opacity-100 cursor-pointer '
+              className='flex items-center justify-center opacity-30 hover:opacity-100 cursor-pointer '
             >
               <Tooltip tooltipText={name}>
                 <div className='relative flex justify-center w-full group h-11'>
