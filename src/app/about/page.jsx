@@ -21,14 +21,13 @@ const About = () => {
             />
           </div>
 
-          <div className='flex items-center justify-center w-full h-2/3 xl:w-1/2 xl:h-5/6 bg-gray-200 shadow-xl rounded-b-2xl xl:rounded-none xl:rounded-r-2xl overflow-auto p-4 max-w-[700px]'>
-            <p className='text-justify text-lg 2xl:text-2xl  h-full font-semibold tracking-wide pb-8 relative'>
+            <p className='text-justify text-lg 2xl:text-2xl  font-semibold tracking-widest p-8 h-2/3 xl:w-1/2 xl:h-5/6 bg-gray-200 shadow-xl rounded-b-2xl xl:rounded-none xl:rounded-r-2xl overflow-auto p-4 max-w-[700px]'>
               Bonjour 👋,
               <br />
               Je m&apos;appelle Ruddy, j&apos;ai 34 ans, et je suis{' '}
               <b>DEVELOPPEUR WEB</b>.
               <br />
-              Mon parcours dans le développement Web a commencé en 2020.
+              Mon parcours dans le développement web a commencé en 2020.
               J&apos;ai suivi le Bootcamp -{' '}
               <span className='font-bold italic'>
                 The Web Developer Bootcamp
@@ -70,12 +69,10 @@ const About = () => {
               musique Française, ainsi que de musculation que je pratique au
               quotidien. <br />
               Si mon profil a retenu votre attention, n&apos;hésitez pas à me
-              laisser un message!              
+              laisser un message!
             </p>
-            
           </div>
         </div>
-      </div>
     </div>
   );
 };
