@@ -13,7 +13,7 @@ const Tabsbar = () => {
     { name: 'profil.html', link: '/about', icon: 'html5.svg' },
     { name: 'contact.css', link: '/contact', icon: 'css.svg' },
     { name: 'projets.js', link: '/projects', icon: 'js.svg' },
-    { name: 'github.md', link: '/github', icon: 'githubIcon.svg' },
+    // { name: 'github.md', link: '/github', icon: 'githubIcon.svg' },
   ];
 
   return (

@@ -1,14 +1,21 @@
 'use client';
+import React from 'react';
 import TypeIt from 'typeit-react';
 
-import React from 'react';
-
 const Typewriter = () => {
+  const [Done, setDone] = React.useState(false);
+
   return (
     <>
       <TypeIt
         className='px-8 py-4 text-4xl tracking-widest xl:p-12 font-oswald sm:text-4xl md:text-5xl lg:text-8xl 2xl:text-9xl'
-        options={{ lifeLike: true, html: true }}
+        options={{ 
+          lifeLike: true, 
+          html: true,
+          afterComplete: (instance) => {
+            setDone(true);
+          }
+        }}
         getBeforeInit={(instance) => {
           instance
             .type('Rudyd Auetm')
@@ -34,33 +41,33 @@ const Typewriter = () => {
         }}
       />
       <hr className='w-4/6 m-4 mx-auto border-t-4 border-accent-color' />
-      <TypeIt
-        className='px-8 py-4 text-2xl text-center xl:p-12 xl:text-4xl'
-        options={{
-          lifeLike: true,
-          html: true,
-          cursor: false,
-          speed: 10,
-          startDelay: 8500,
-        }}
-        lifeLike
-        getBeforeInit={(instance) => {
-          instance
-            .type('HTML |')
-            .type(' CSS |')
-            .type(' JAVASCRIPT |')
-            .type(' REACT |')
-            .type(' NEXTJS |')
-            .type(' REDUX |')
-            .type(' TAILWINDCSS |')
-            .type(' STYLED-COMPONENTS |')
-            .type(' FIREBASE |')
-            .type(' MONGODB |')
-            .type(' MYSQL');
-
-          return instance;
-        }}
-      />
+      {Done ? (
+        <TypeIt
+          className='px-8 py-4 text-2xl text-center xl:p-12 xl:text-4xl'
+          options={{
+            lifeLike: true,
+            html: true,
+            cursor: false,
+            speed: 10,
+          }}
+          lifeLike
+          getBeforeInit={(instance) => {
+            instance
+              .type('HTML |')
+              .type(' CSS |')
+              .type(' JAVASCRIPT |')
+              .type(' REACT |')
+              .type(' NEXTJS |')
+              .type(' REDUX |')
+              .type(' TAILWINDCSS |')
+              .type(' STYLED-COMPONENTS |')
+              .type(' FIREBASE |')
+              .type(' MONGODB |')
+              .type(' MYSQL');
+            return instance;
+          }}
+        />
+      ) : null}
     </>
   );
 };

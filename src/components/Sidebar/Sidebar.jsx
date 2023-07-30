@@ -13,13 +13,13 @@ const Sidebar = () => {
     { name: 'Profil', link: '/about', icon: '/code.svg' },
     { name: 'Contact', link: '/contact', icon: '/email.svg' },
     { name: 'Projets', link: '/projects', icon: '/source-control.svg' },
-    { name: 'Github', link: '/github', icon: '/github.svg' },
+    // { name: 'Github', link: '/github', icon: '/github.svg' }, don't forget to modify the slice when you add it back ,
     { name: 'Comptes', icon: '/account.svg' },
     { name: 'Settings', icon: '/settings-gear.svg' },
   ];
 
-  const topLinks = navLinks.slice(0, 5);
-  const bottomLinks = navLinks.slice(5);
+  const topLinks = navLinks.slice(0, 4);
+  const bottomLinks = navLinks.slice(4);
 
   return (
     <div className='hidden w-12 sm:flex flex-col justify-between '>
