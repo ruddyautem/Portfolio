@@ -36,7 +36,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en' className={`${inconsolata.variable} ${inter.variable} ${oswald.variable}`}>
-      <body className='flex flex-col h-screen '>
+      <body className='flex flex-col h-screen'>
         <ThemeProvider>
           <Menu className='' />
           <div className='flex flex-1'>
