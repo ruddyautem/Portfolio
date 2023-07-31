@@ -28,14 +28,12 @@ const About = () => {
             <b> DEVELOPPEUR WEB</b>.
             <br />
             Mon parcours dans le développement web a commencé en 2020. J&apos;ai
-            suivi le Bootcamp -
-            <span className='font-bold italic'>The Web Developer Bootcamp</span>
-            - de Colt Steele où j&apos;ai découvert le HTML, le CSS, Javascript,
+            suivi le Bootcamp <span className='font-bold italic'> The Web Developer Bootcamp </span> de Colt Steele où j&apos;ai découvert le HTML, le CSS, Javascript,
             Node et MongoDB.
             <br />
-            En 2021, j&apos;ai rejoint le Bootcamp -
+            En 2021, j&apos;ai rejoint le Bootcamp 
             <span className='font-bold italic'> Complete React Developer </span>
-            - d&apos;Andrei Neagoie et Yihua Zang, et j&apos;ai été fasciné par
+             d&apos;Andrei Neagoie et Yihua Zang, et j&apos;ai été fasciné par
             le potentiel de
             <span className='text-[#43c3ec] font-extrabold uppercase'>
               {' '}
