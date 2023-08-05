@@ -12,6 +12,10 @@ body {
   /* background-color: #1e202c; */
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
