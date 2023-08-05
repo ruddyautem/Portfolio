@@ -4,6 +4,7 @@ const ContactAPI = async (req, res) => {
   const { name, email, objet, message } = req.body;
 
   const user = process.env.USER;
+  const password = process.env.PASSWORD;
 
   const data = {
     name,
@@ -18,7 +19,7 @@ const ContactAPI = async (req, res) => {
     secure: true,
     auth: {
       user: user,
-      pass: process.env.PASS,
+      pass: password,
     },
   });
 
@@ -29,11 +30,16 @@ const ContactAPI = async (req, res) => {
       replyTo: email,
       subject: `Contact via portfolio de la part de ${name}`,
       html: `
-      <p>Message de la part de: ${name}</p>
-      <p>Email: ${email}</p>
-      <p>Objet: ${objet}</p>
-      <p>Message: ${message}</p>
-        `,
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 5px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+          <h2 style="color: #333; margin-bottom: 20px;">Nouveau message de la part de ${name}</h2>
+          <hr style="border: none; border-top: 1px solid #eee;">
+          <p style="font-weight: bold; color: #0066cc; margin-bottom: 10px; font-size: 16px;">${email}</p>
+          <hr style="border: none; border-top: 1px solid #eee;">
+          <p style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 16px;">${objet}</p>
+          <hr style="border: none; border-top: 1px solid #eee;">
+          <p style="font-size: 14px; color: #222222;">${message}</p>
+        </div>
+      `,
     });
 
     return res.status(200).json({

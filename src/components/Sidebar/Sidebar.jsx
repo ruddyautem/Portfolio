@@ -11,8 +11,9 @@ const Sidebar = () => {
   const navLinks = [
     { name: 'Accueil', link: '/', icon: '/files.svg' },
     { name: 'Profil', link: '/about', icon: '/code.svg' },
-    { name: 'Contact', link: '/contact', icon: '/email.svg' },
     { name: 'Projets', link: '/projects', icon: '/source-control.svg' },
+    { name: 'Contact', link: '/contact', icon: '/email.svg' },
+
     // { name: 'Github', link: '/github', icon: '/github.svg' }, don't forget to modify the slice when you add it back ,
     { name: 'Comptes', icon: '/account.svg' },
     { name: 'Settings', icon: '/settings-gear.svg' },

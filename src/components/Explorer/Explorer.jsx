@@ -11,8 +11,9 @@ const Explorer = () => {
   const navLinks = [
     { name: 'accueil.jsx', link: '/', icon: 'jsx.svg' },
     { name: 'profil.html', link: '/about', icon: 'html5.svg' },
-    { name: 'contact.css', link: '/contact', icon: 'css.svg' },
     { name: 'projets.js', link: '/projects', icon: 'js.svg' },
+    { name: 'contact.css', link: '/contact', icon: 'css.svg' },
+
     // { name: 'github.md', link: '/github', icon: 'githubIcon.svg' },
   ];
 

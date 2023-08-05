@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+import { PageWrapper } from '../../components/PageWrapper/PageWrapper';
 
 export const metadata = {
   title: 'Profil Ruddy Autem',
@@ -8,7 +9,7 @@ export const metadata = {
 
 const About = () => {
   return (
-    <div className='h-full overflow-hidden'>
+    <PageWrapper className='h-full overflow-hidden'>
       <p className='text-3xl text-center '>Profil</p>
       <div className='flex items-center justify-center h-full text-[#242936] '>
         <div className='flex flex-col xl:flex-row justify-center items-center p-8 h-full w-full min-w-[300px]'>
@@ -28,13 +29,18 @@ const About = () => {
             <b> DEVELOPPEUR WEB</b>.
             <br />
             Mon parcours dans le développement web a commencé en 2020. J&apos;ai
-            suivi le Bootcamp <span className='font-bold italic'> The Web Developer Bootcamp </span> de Colt Steele où j&apos;ai découvert le HTML, le CSS, Javascript,
+            suivi le Bootcamp{' '}
+            <span className='font-bold italic'>
+              {' '}
+              The Web Developer Bootcamp{' '}
+            </span>{' '}
+            de Colt Steele où j&apos;ai découvert le HTML, le CSS, Javascript,
             Node et MongoDB.
             <br />
-            En 2021, j&apos;ai rejoint le Bootcamp 
+            En 2021, j&apos;ai rejoint le Bootcamp
             <span className='font-bold italic'> Complete React Developer </span>
-             d&apos;Andrei Neagoie et Yihua Zang, et j&apos;ai été fasciné par
-            le potentiel de
+            d&apos;Andrei Neagoie et Yihua Zang, et j&apos;ai été fasciné par le
+            potentiel de
             <span className='text-[#43c3ec] font-extrabold uppercase'>
               {' '}
               React
@@ -75,7 +81,7 @@ const About = () => {
           </p>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 
