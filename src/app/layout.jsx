@@ -31,7 +31,10 @@ const inconsolata = Inconsolata({
 export const metadata = {
   title: 'Portfolio Ruddy Autem',
   description: 'Portfolio Ruddy Autem',
-};
+  icons: {
+    icon: '/vsclogo.svg',
+ }
+}
 
 export default function RootLayout({ children }) {
   return (
