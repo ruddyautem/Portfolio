@@ -17,8 +17,8 @@ const Card = ({ project }) => {
   };
 
   return (
-    <div className='flex flex-col m-4 overflow-hidden shadow-2xl rounded-2xl text-[#242936] p-2 bg-gray-200'>
-      <div className='relative w-full overflow-hidden h-72 rounded-2xl '>
+    <div className='flex flex-col m-4 overflow-hidden shadow-2xl rounded-[14px] text-[#242936] p-2 bg-gray-200'>
+      <div className='relative w-full overflow-hidden h-72 rounded-md '>
         <Image
           src={project.img}
           alt={project.title}

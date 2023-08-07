@@ -18,7 +18,7 @@ const Explorer = () => {
   ];
 
   return (
-    <div className='sm:flex md:w-48 flex-col hidden sm:w-36'>
+    <div className='sm:flex w-48 flex-col hidden'>
       <div className='flex items-center justify-between '>
         <p className='flex items-center h-6 ml-4 text-[12px] opacity-60 uppercase my-1'>
           Explorer
@@ -35,7 +35,7 @@ const Explorer = () => {
       </div>
       <div className=''>
         <div
-          className=' h-6 text-[9px] md:text-[11px] flex items-center font-bold cursor-pointer uppercase'
+          className=' h-6 text-[11px] flex items-center font-bold cursor-pointer uppercase'
           onClick={() => setIsOpen(!isOpen)}
         >
           <Image

@@ -102,7 +102,7 @@ const ContactForm = () => {
           <textarea
             id='message'
             name='message'
-            className='w-full h-48 px-2 py-1 bg-gray-400 border-none bg-opacity-5 focus:outline-accent-color focus:outline-1 focus:outline-none'
+            className='w-full h-48 px-2 py-1 bg-gray-400 border-none bg-opacity-5 focus:outline-accent-color focus:outline-1 focus:outline-none resize-none'
             minLength={10}
             required
           />
