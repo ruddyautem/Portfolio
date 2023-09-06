@@ -58,6 +58,15 @@
     },
     {
       "id": 6,
+      "title": "Netflix Clone",
+      "img": "/netflix.jpg",
+      "desc": "Est-il nécessaire de présenter Netflix? Voici un clone plus vrai que nature (sans le visionnage de film), avec création de compte et souscription!",
+      "tags": ["react", "redux", "firebase","axios"],
+      "source": "https://github.com/panderawan/gpt3",
+      "demo": "https://netflix.autem.dev"
+    },
+    {
+      "id": 7,
       "title": "GPT-3",
       "img": "/gpt3.jpg",
       "desc": "Page d'Accueil d'une plateforme de tutoriel d'utilisation de GPT3",
