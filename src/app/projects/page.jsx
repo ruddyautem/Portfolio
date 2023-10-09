@@ -11,7 +11,7 @@ export const metadata = {
 const Projects = () => {
   return (
     <PageWrapper>
-      <p className='text-3xl text-center mb-4 '>Mes projets</p>
+      <p className='text-3xl text-center mb-4 text-accent'>Mes projets</p>
       <div
         className='grid gap-8'
         style={{

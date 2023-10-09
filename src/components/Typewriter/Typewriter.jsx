@@ -1,9 +1,9 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import TypeIt from 'typeit-react';
 
 const Typewriter = () => {
-  const [Done, setDone] = React.useState(false);
+  const [Done, setDone] = useState(false);
 
   return (
     <>
@@ -40,7 +40,7 @@ const Typewriter = () => {
           return instance;
         }}
       />
-      <hr className='w-4/6 m-4 mx-auto border-t-4 border-accent-color' />
+      <hr className='w-4/6 m-4 mx-auto border-t-4 border-accent' />
       {Done ? (
         <TypeIt
           className='px-8 py-4 text-2xl text-center xl:p-12 xl:text-4xl'

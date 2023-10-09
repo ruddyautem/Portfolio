@@ -1,6 +1,8 @@
+'use client';
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Minimize, Restore, Close } from '../Icons/Icons';
+import { ThemeContext } from '@/context/ThemeContext';
 
 const Menu = () => {
   const menuItems = [
@@ -14,9 +16,11 @@ const Menu = () => {
     'Help',
   ];
 
+  const { toggle, theme } = useContext(ThemeContext);
+
   return (
-    <div className='flex items-center h-8  z-50'>
-      <div className='hidden text-xs font-semibold text-white lg:flex-1 lg:flex text-opacity-80 h-8'>
+    <div className='flex items-center h-8 z-50 bg-menu'>
+      <div className='hidden text-xs font-semibold text-light lg:flex-1 lg:flex text-opacity-80 h-8'>
         <ul className='flex items-center'>
           <Image
             className='mx-2'
@@ -68,7 +72,25 @@ const Menu = () => {
       </div>
 
       <div className='items-center flex-1 hidden ml-auto text-white lg:flex'>
-        <div className='px-3 py-2 ml-auto cursor-pointer hover:bg-white hover:bg-opacity-10'>
+        <label className='ml-auto bg-menu text-darker '>
+          <span className='text-accent'>Theme:</span>
+          <select
+            className='m-2 bg-transparent cursor-pointer text-white outline-none border-none'
+            value={theme}
+            onChange={(e) => toggle(e.target.value)}
+          >
+            <option className='bg-menu' value='ayu'>
+              Ayu
+            </option>
+            <option className='bg-menu' value='oneDarkPro'>
+              OneDarkPro
+            </option>
+            <option className='bg-menu' value='dracula'>
+              Dracula
+            </option>
+          </select>
+        </label>
+        <div className='px-3 py-2 cursor-pointer hover:bg-white hover:bg-opacity-10'>
           <Minimize className='' />
         </div>
         <div className='px-3 py-2 cursor-pointer hover:bg-white hover:bg-opacity-10'>

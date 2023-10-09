@@ -10,7 +10,7 @@ export const metadata = {
 const About = () => {
   return (
     <PageWrapper className='h-full overflow-hidden'>
-      <p className='text-3xl text-center '>Profil</p>
+      <p className='text-3xl text-center text-accent'>Profil</p>
       <div className='flex items-center justify-center h-full text-[#242936] '>
         <div className='flex flex-col xl:flex-row justify-center items-center p-8 h-full w-full min-w-[300px]'>
           <div className='flex items-center justify-center w-full h-5/6 xl:w-5/6 xl:h-5/6 relative  xl:rounded-none max-w-[700px]'>

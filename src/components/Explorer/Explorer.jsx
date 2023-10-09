@@ -2,11 +2,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { ThemeContext } from '@/context/ThemeContext';
 
 const Explorer = () => {
   const currentRoute = usePathname();
   const [isOpen, setIsOpen] = useState(true);
+  const { theme } = useContext(ThemeContext);
 
   const navLinks = [
     { name: 'accueil.jsx', link: '/', icon: 'jsx.svg' },
@@ -18,9 +20,9 @@ const Explorer = () => {
   ];
 
   return (
-    <div className='sm:flex w-48 flex-col hidden'>
+    <div className='sm:flex w-48 flex-col hidden bg-explorerBg text-light'>
       <div className='flex items-center justify-between '>
-        <p className='flex items-center h-6 ml-4 text-[12px] opacity-60 uppercase my-1'>
+        <p className='flex items-center h-5 ml-4 text-[12px] opacity-60 uppercase my-1'>
           Explorer
         </p>
         <div className='p-0.5 mr-2 rounded hover:bg-white hover:bg-opacity-5 cursor-pointer '>
@@ -33,9 +35,9 @@ const Explorer = () => {
           />
         </div>
       </div>
-      <div className=''>
+      <div className='text-darker'>
         <div
-          className=' h-6 text-[11px] flex items-center font-bold cursor-pointer uppercase'
+          className=' h-6 text-[11px] flex items-center font-bold cursor-pointer uppercase bg-tabsBg'
           onClick={() => setIsOpen(!isOpen)}
         >
           <Image
@@ -62,20 +64,22 @@ const Explorer = () => {
                 href={link}
                 key={name}
                 className={`${
-                  isActive && 'bg-white bg-opacity-5 text-white text-opacity-80'
-                } flex items-center pl-3 text-sm cursor-pointer hover:bg-white hover:bg-opacity-5 gap-1`}
+                  isActive && 'bg-activeExplorerTab'
+                } flex items-center pl-3 text-sm text-explorerColor cursor-pointer hover:bg-white hover:bg-opacity-5 gap-1`}
               >
                 <Image className='' src={icon} width={16} height={16} alt='' />
-                <p className={isActive ? 'opacity-100' : 'opacity-60'}>
-                  {name}
-                </p>
+                <p className={isActive && 'text-activeTabText'}>{name}</p>
               </Link>
             );
           })}
         </div>
       </div>
-      <div className='flex flex-col mt-auto opacity-100 '>
-        <div className='flex items-center h-6 text-[9px] font-bold uppercase cursor-pointer '>
+      <div
+        className={`${theme === 'dracula' && 'bg-activeExplorerTab'} ${theme === 'oneDarkPro' && 'bg-sidebarBg'} flex flex-col mt-auto opacity-100 text-darker`}
+      >
+        <div
+          className={`${theme === 'dracula' && 'border-y border-black'} flex items-center h-6 text-[9px] font-bold uppercase cursor-pointer `}
+        >
           <Image
             className=''
             src='chevron-right.svg'
@@ -85,7 +89,11 @@ const Explorer = () => {
           />
           <p>Outline</p>
         </div>
-        <div className='flex items-center h-6 text-[9px] font-bold uppercase cursor-pointer '>
+        <div
+          className={`${
+            theme === 'dracula' && 'border-b border-black'
+          } flex items-center h-6 text-[9px] font-bold uppercase cursor-pointer `}
+        >
           <Image
             className=''
             src='chevron-right.svg'

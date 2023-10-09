@@ -31,7 +31,7 @@ const Card = ({ project }) => {
         <h1 className='p-2 text-3xl font-semibold uppercase text-[#242936] tracking-wide '>
           {project.title}
         </h1>
-        <span className='p-2 text-gray-500'>{project.desc}</span>
+        <span className='p-2 text-darker'>{project.desc}</span>
         <div className='flex flex-wrap justify-center flex-none gap-2 mt-4 text-sm font-semibold'>
           {project.tags.map((tag) => (
             <span
@@ -47,14 +47,14 @@ const Card = ({ project }) => {
         <div className='flex items-center gap-3 px-4 pt-4 mt-auto font-semibold text-white'>
           <button
             onClick={() => window.location.href = `${project.source}`}
-            className='p-2 w-28 hover:text-white bg-[#242936]  transition-all duration-200 ease-in-out rounded-lg hover:bg-[#f60055] hover:scale-110 active:scale-100 shadow'
+            className='p-2 w-28 hover:text-white bg-[#242936]  transition-all duration-200 ease-in-out rounded-lg hover:bg-accent hover:scale-110 active:scale-100 shadow'
           >
             Code Source
           </button>
 
           <button
             onClick={() => window.location.href = `${project.demo}`}
-            className='p-2 w-28 mx-1 hover:text-white bg-[#242936]  transition-all duration-200 ease-in-out rounded-lg hover:bg-[#f60055] hover:scale-110 active:scale-100 shadow'
+            className='p-2 w-28 mx-1 hover:text-white bg-[#242936]  transition-all duration-200 ease-in-out rounded-lg hover:bg-accent hover:scale-110 active:scale-100 shadow'
           >
             <span>Demo</span>
           </button>

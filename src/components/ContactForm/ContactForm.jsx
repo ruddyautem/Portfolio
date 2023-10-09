@@ -61,7 +61,7 @@ const ContactForm = () => {
             autoComplete='off'
             type='text'
             id='name'
-            className='w-full px-2 py-1 bg-gray-400 border-none bg-opacity-5 focus:outline-accent-color focus:outline-1 focus:outline-none'
+            className='w-full px-2 py-1 bg-gray-400 border-none bg-opacity-5 focus:outline-accent focus:outline-1 focus:outline-none'
             minLength={2}
             maxLength={150}
             required
@@ -75,7 +75,7 @@ const ContactForm = () => {
             autoComplete='off'
             type='email'
             id='email'
-            className='w-full px-2 py-1 bg-gray-400 border-none bg-opacity-5 focus:outline-accent-color focus:outline-1 focus:outline-none'
+            className='w-full px-2 py-1 bg-gray-400 border-none bg-opacity-5 focus:outline-accent focus:outline-1 focus:outline-none'
             maxLength={150}
             required
           />
@@ -90,7 +90,7 @@ const ContactForm = () => {
             autoComplete='off'
             type='text'
             id='objet'
-            className='w-full px-2 py-1 text-gray-200 bg-gray-400 border-none bg-opacity-5 focus:outline-accent-color focus:outline-1 focus:outline-none'
+            className='w-full px-2 py-1 text-lighter bg-gray-400 border-none bg-opacity-5 focus:outline-accent focus:outline-1 focus:outline-none'
           />
         </div>
       </div>
@@ -102,7 +102,7 @@ const ContactForm = () => {
           <textarea
             id='message'
             name='message'
-            className='w-full h-48 px-2 py-1 bg-gray-400 border-none bg-opacity-5 focus:outline-accent-color focus:outline-1 focus:outline-none resize-none'
+            className='w-full h-48 px-2 py-1 bg-gray-400 border-none bg-opacity-5 focus:outline-accent focus:outline-1 focus:outline-none resize-none'
             minLength={10}
             required
           />
@@ -113,7 +113,7 @@ const ContactForm = () => {
       <button
         type='submit'
         disabled={loading}
-        className='px-2 py-1 w-24 h-9 text-base m-4 font-bold transition-all duration-200 ease-in-out active:scale-90 border border-accent-color shadow disabled:bg-gray-800 disabled:opacity-50'
+        className='px-2 py-1 w-24 h-9 text-base m-4 font-bold transition-all duration-200 ease-in-out active:scale-90 border border-accent shadow disabled:bg-gray-800 disabled:opacity-50'
       >
         ENVOYER
           </button>

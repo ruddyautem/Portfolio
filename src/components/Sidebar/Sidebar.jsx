@@ -23,7 +23,7 @@ const Sidebar = () => {
   const bottomLinks = navLinks.slice(4);
 
   return (
-    <div className='hidden w-12 sm:flex flex-col justify-between '>
+    <div className='hidden w-12 sm:flex flex-col justify-between bg-sidebarBg'>
       <div>
         {topLinks.map(({ name, link, icon }) => {
           const isActive = currentRoute === link;
@@ -48,7 +48,7 @@ const Sidebar = () => {
                 </Link>
               </Tooltip>
               {isActive && (
-                <div className='absolute bg-opacity-100 left-0 w-[2px] h-full bg-accent-color'></div>
+                <div className='absolute bg-opacity-100 left-0 w-[2px] h-full bg-accent'></div>
               )}
             </div>
           );

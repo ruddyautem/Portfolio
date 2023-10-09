@@ -5,27 +5,28 @@ import Footer from '@/components/Footer/Footer';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import Explorer from '@/components/Explorer/Explorer';
 import Tabsbar from '@/components/Tabsbar/Tabsbar';
-import { ThemeProvider } from '@/context/ThemeContext';
+import { ThemeContextProvider} from '@/context/ThemeContext';
+import ThemeProvider from './providers/ThemeProvider';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
-    display: 'swap',
+  display: 'swap',
 });
 const oswald = Oswald({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-oswald',
   weight: ['300', '400', '500', '700'],
-    display: 'swap',
+  display: 'swap',
 });
 
 const inconsolata = Inconsolata({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inconsolata',
-    display: 'swap',
+  display: 'swap',
 });
 
 export const metadata = {
@@ -33,29 +34,34 @@ export const metadata = {
   description: 'Portfolio Ruddy Autem',
   icons: {
     icon: '/vsclogo.svg',
- }
-}
+  },
+};
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='en' className={`${inconsolata.variable} ${inter.variable} ${oswald.variable}`}>
+    <html
+      lang='en'
+      className={`${inconsolata.variable} ${inter.variable} ${oswald.variable}`}
+    >
       <body className='flex flex-col h-screen'>
-        <ThemeProvider>
-          <Menu className='' />
-          <div className='flex flex-1'>
-            <div className='flex '>
-              <Sidebar className='' />
-              <Explorer className='' />
-            </div>
-            <div className='flex flex-col flex-1 overflow-hidden '>
-              <Tabsbar className='' />
-              <div className='overflow-y-scroll h-[calc(100vh-80px)] p-4 font-inconsolata text-gray-300'>
-                {children}
+        <ThemeContextProvider>
+          <ThemeProvider>
+            <Menu className='' />
+            <div className='flex flex-1'>
+              <div className='flex '>
+                <Sidebar className='' />
+                <Explorer className='' />
+              </div>
+              <div className='flex flex-col flex-1 overflow-hidden '>
+                <Tabsbar className='' />
+                <div className='overflow-y-scroll h-[calc(100vh-80px)] p-4 font-inconsolata text-light '>
+                  {children}
+                </div>
               </div>
             </div>
-          </div>
-          <Footer className='' />
-        </ThemeProvider>
+            <Footer className='' />
+          </ThemeProvider>
+        </ThemeContextProvider>
       </body>
     </html>
   );

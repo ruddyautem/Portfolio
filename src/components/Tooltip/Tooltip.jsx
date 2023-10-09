@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { createRef } from 'react';
 
 function Tooltip({ children, tooltipText }) {
-  const tipRef = React.createRef();
+  const tipRef = createRef();
 
   function handleMouseEnter() {
     tipRef.current.style.opacity = '1';

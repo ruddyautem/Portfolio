@@ -4,7 +4,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className='flex items-center h-5 text-[10px] text-opacity-50 gap-1 w-full  z-50'>
+    <div className='flex items-center h-5 text-[10px] text-opacity-50 gap-1 w-full  z-50 bg-menu'>
       <a
         href='http://github.com/panderawan'
         className='flex items-center h-5 px-1 ml-1 rounded-sm cursor-pointer hover:bg-white hover:bg-opacity-10'

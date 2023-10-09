@@ -29,7 +29,7 @@ const ContactList = () => {
         </p>
         <div className='flex items-center '>
           <p className='ml-4 mr-3 opacity-50 sm:text-xl '>1</p>
-          <p className='text-accent-color '>.social </p> &nbsp; &#123;
+          <p className='text-accent '>.social </p> &nbsp; &#123;
         </div>
         {myContacts.map((contact, index) => (
           <div key={index} className='flex flex-row items-center'>
@@ -38,7 +38,7 @@ const ContactList = () => {
               {contact.social}: &nbsp;
               <a
                 href={contact.href}
-                className='pb-2 text-accent-color hover:underline'
+                className='pb-2 text-accent hover:underline'
               >
                 {contact.link}
               </a>
@@ -52,7 +52,7 @@ const ContactList = () => {
         </div>
       </div>
       <div className='flex-col items-center justify-center hidden mx-1 xl:flex'>
-        <div className='h-full m-2 my-4 border-l border-yellow-500' />
+        <div className='h-full m-2 my-4 border-l border-accent' />
       </div>
       <div className='flex flex-col leading-relaxed text-[17px] sm:text-xl lg:text-xl flex-1 mt-2 xl:mt-0'>
         <p className='m-4 font-bold text-[17px] sm:text-xl lg:text-xl 2xl:text-2xl'>

@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --green-contact: #ddfd8c;
-  --purple-contact: #bd93f9;
-  --ti-cursor-color: #ffcc66;
+  --light: rgb(209, 213, 219);
+  --lighter: rgb(229, 231, 235);
+  --darker: rgb(107, 114, 128);
 }
 
 body {
-  /* background-color: #1e202c; */
+  --ti-cursor-color: var(--accent);
 }
 
 ::-webkit-scrollbar {
@@ -30,14 +30,55 @@ body {
 .ayu {
   background-color: #242936;
   color: #727a8b;
+  --accent: #ffcc66;
+  --ti-cursor-color: var(--accent);
+  --menu: #242936;
+  --explorerBg: #242936;
+  --sidebarBg: #242936;
+  --activeTabBg: rgba(255, 255, 255, 0.05);
+  --activeExplorerTab: rgba(255, 255, 255, 0.05);
+  --activeTabText: #fff;
 }
 
 .dracula {
   background-color: #282a36;
-  color: #ff79c6;
+  color: #f8f8f2;
+  --accent: #ff79c6;
+  --ti-cursor-color: var(--accent);
+  --menu: #21222c;
+  --activeTabBg: #282a36;
+  --activeExplorerTab: #282a36;
+  --sidebarBg: #44475a;
+  --explorerBg: #21222c;
+  --activeTabText: #fff;
+}
+.oneDarkPro {
+  background-color: #282c34;
+  color: #abb2bf;
+  --accent: #98c379;
+  --ti-cursor-color: var(--accent);
+  --menu: #24272e;
+  --activeTabBg: #2c313a;
+  --activeExplorerTab: #2c313a;
+  --sidebarBg: #282c34;
+  --explorerBg: #24272e;
+  --activeTabText: #fff;
 }
 
 /* *{
   box-shadow: 0 0 0 3px red
   inset
 } */
+
+/* Background Color: #282c34
+Text Color: #abb2bf
+Comment Color: #5c6370
+Keyword Color: #c678dd
+String Color: #98c379
+Function Color: #61afef
+Variable Color: #d19a66
+Constant Color: #d19a66
+Selection Background Color: #3e4451
+Selection Text Color: #abb2bf
+Line Highlight Background Color: #2c313a
+Cursor Color: #528bff */
