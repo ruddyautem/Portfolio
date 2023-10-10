@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React, { useContext } from 'react';
 import { Minimize, Restore, Close } from '../Icons/Icons';
 import { ThemeContext } from '@/context/ThemeContext';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 
 const Menu = () => {
   const menuItems = [
@@ -19,7 +20,7 @@ const Menu = () => {
   const { toggle, theme } = useContext(ThemeContext);
 
   return (
-    <div className='flex items-center h-8 z-50 bg-menu'>
+    <div className='flex items-center h-8 z-50 bg-menu relative'>
       <div className='hidden text-xs font-semibold text-light lg:flex-1 lg:flex text-opacity-80 h-8'>
         <ul className='flex items-center'>
           <Image
@@ -71,33 +72,20 @@ const Menu = () => {
         </div>
       </div>
 
-      <div className='items-center flex-1 hidden ml-auto text-white lg:flex'>
-        <label className='ml-auto bg-menu text-darker '>
-          <span className='text-accent'>Theme:</span>
-          <select
-            className='m-2 bg-transparent cursor-pointer text-white outline-none border-none'
-            value={theme}
-            onChange={(e) => toggle(e.target.value)}
-          >
-            <option className='bg-menu' value='ayu'>
-              Ayu
-            </option>
-            <option className='bg-menu' value='oneDarkPro'>
-              OneDarkPro
-            </option>
-            <option className='bg-menu' value='dracula'>
-              Dracula
-            </option>
-          </select>
-        </label>
-        <div className='px-3 py-2 cursor-pointer hover:bg-white hover:bg-opacity-10'>
-          <Minimize className='' />
-        </div>
-        <div className='px-3 py-2 cursor-pointer hover:bg-white hover:bg-opacity-10'>
-          <Restore className='' />
-        </div>
-        <div className='px-3 py-2 cursor-pointer hover:bg-red-500'>
-          <Close className='' />
+      <div className='flex items-center flex-0 lg:flex-1 ml-auto text-white'>
+        <div className='flex ml-auto absolute top-0 right-0'>
+          <ThemeToggle className='' />
+          <div className='items-center align-items hidden lg:flex'>
+            <div className='px-3 py-2 cursor-pointer hover:bg-white hover:bg-opacity-10'>
+              <Minimize />
+            </div>
+            <div className='px-3 py-2 cursor-pointer hover:bg-white hover:bg-opacity-10'>
+              <Restore />
+            </div>
+            <div className='px-3 py-2 cursor-pointer hover:bg-red-500'>
+              <Close />
+            </div>
+          </div>
         </div>
       </div>
     </div>

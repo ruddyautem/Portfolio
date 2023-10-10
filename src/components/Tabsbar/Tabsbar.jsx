@@ -32,7 +32,7 @@ const Tabsbar = () => {
                 isActive && (theme === 'dracula' || theme === 'oneDarkPro') ? 'bg-activeTabBg' : ''
               } flex items-center justify-center cursor-pointer relative sm:px-3 px-[2px]`}
             >
-              <div className='flex w-full my-1 text-xs sm:text-sm'>
+              <div className='flex w-full my-1.5 sm:my-1 text-xs sm:text-sm px-2'>
                 <Image
                   className='pr-1 '
                   src={icon}
