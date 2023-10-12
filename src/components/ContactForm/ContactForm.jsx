@@ -113,11 +113,11 @@ const ContactForm = () => {
       <button
         type='submit'
         disabled={loading}
-        className='px-2 py-1 w-24 h-9 text-base m-4 font-bold transition-all duration-200 ease-in-out active:scale-90 border border-accent shadow disabled:bg-gray-800 disabled:opacity-50'
+        className='px-2 py-1 w-24 h-9 text-base m-4 font-bold transition-all duration-300 ease-in-out active:scale-90 border border-accent shadow disabled:bg-gray-800 disabled:opacity-50'
       >
         ENVOYER
           </button>
-          {notification &&<p className='px-2 text-sm xl:text-base mx-2 my-2 font-bold transition-all duration-200 ease-in-out'>{notification}</p>}
+          {notification &&<p className='px-2 text-sm xl:text-base mx-2 my-2 font-bold transition-all duration-300 ease-in-out'>{notification}</p>}
           </div>
     </form>
   );

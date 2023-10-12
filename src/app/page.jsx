@@ -10,14 +10,14 @@ export default function Home() {
         <div className='flex items-center justify-center gap-3 p-4 pt-12 text-2xl font-bold text-center text-white lg:text-3xl xl:text-4xl'>
           <Link
             href='/projects'
-            className='p-4 mx-1 transition-all duration-200 ease-in-out rounded-lg shadow-xl w-36 sm:w-40 xl:w-56  bg-accent hover:scale-110 active:scale-100'
+            className='p-4 mx-1 transition-all duration-200 ease-in-out rounded-lg shadow-xl w-36 sm:w-40 xl:w-56  bg-accent hover:scale-105 active:scale-100'
           >
             PROJETS
           </Link>
 
           <Link
             href='/contact'
-            className='p-4 mx-1 transition-all duration-200 ease-in-out rounded-lg shadow-xl w-36 sm:w-40 xl:w-56  bg-accent hover:scale-110 active:scale-100'
+            className='p-4 mx-1 transition-all duration-200 ease-in-out rounded-lg shadow-xl w-36 sm:w-40 xl:w-56  bg-accent hover:scale-105 active:scale-100'
           >
             <span>CONTACT</span>
           </Link>

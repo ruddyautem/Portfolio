@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import { PageWrapper } from '../../components/PageWrapper/PageWrapper';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Profil Ruddy Autem',
@@ -25,59 +26,52 @@ const About = () => {
 
           <div className='grid place-items-center text-md sm:text-xl 2xl:text-xl font-semibold tracking-wider p-8 h-2/3 xl:w-1/2 xl:h-5/6 bg-gray-200 shadow-xl rounded-b-2xl xl:rounded-none xl:rounded-r-2xl overflow-auto max-w-[600px]'>
             <p className='text-justify'>
-              Bonjour 👋,
-              <br />
-              Je m&apos;appelle Ruddy, j&apos;ai 34 ans, et je suis{' '}
-              <b className=''>DÉVELOPPEUR WEB</b>.
-              <br />
-              Mon parcours dans le développement web a commencé en 2020.
-              J&apos;ai suivi le Bootcamp{' '}
-              <span className='font-bold italic'>
+              Bonjour 👋, <br /> Je suis Ruddy, <b>développeur web</b> de 34
+              ans, passionné d&apos;informatique et de nouvelles technologies.{' '}
+              <br /> Mon initiation au développement web a débuté en 2020 avec
+              le Bootcamp{' '}
+              <span className='text-bootcamp1 font-bold italic'>
                 The Web Developer Bootcamp
               </span>{' '}
-              de Colt Steele où j&apos;ai découvert le HTML, le CSS, Javascript,
-              Node et MongoDB.
+              de Colt Steele, où j&apos;ai découvert les fondamentaux tels que
+              le HTML, le CSS et JavaScript, mais aussi Node.js et MongoDB.{' '}
               <br />
-              En 2021, j&apos;ai rejoint le Bootcamp{' '}
-              <span className='font-bold italic'>
+              En 2021, j&apos;ai poursuivi ma formation avec le Bootcamp{' '}
+              <span className='text-bootcamp2 font-bold italic'>
                 Complete React Developer
               </span>{' '}
-              d&apos;Andrei Neagoie et Yihua Zang, et j&apos;ai été fasciné par
-              le potentiel de{' '}
-              <span className='text-[#43c3ec] font-extrabold uppercase'>
-                React
+              d&apos;Andrei Neagoie et Yihua Zang. J&apos;ai été captivé par les
+              possibilités offertes par{' '}
+              <span className='text-react font-extrabold'>React</span> et son
+              système de composants,{' '}
+              <span className='text-redux font-extrabold'>Redux</span>, Sass,{' '}
+              <span className='text-styled font-extrabold'>
+                Styled-Components
               </span>{' '}
-              et de son système de composants,{' '}
-              <span className='text-[#764bbe] font-extrabold uppercase'>
-                Redux
-              </span>
-              , Sass,{' '}
-              <span className='text-[#f60055] font-extrabold uppercase'>
-                styled-components
-              </span>
-              , et{' '}
-              <span className='text-[#38bdf8] font-extrabold uppercase'>
-                TailwindCSS
-              </span>
-              .
+              et{' '}
+              <span className='text-tailwind font-extrabold'>TailwindCSS</span>
+              .<br />
+              En 2022, j&apos;ai étendu mes compétences en back-end en me
+              familiarisant avec{' '}
+              <span className='text-firebase font-extrabold '>
+                Firebase
+              </span>, <span className='text-mysql font-extrabold '>MySQL</span>{' '}
+              et <span className='text-[#0c344b] font-extrabold'>Prisma</span>.{' '}
               <br />
-              En 2022, je me suis familiarisé avec{' '}
-              <span className='font-extrabold uppercase'>Firebase</span> et{' '}
-              <span className='font-extrabold uppercase text-[#f49310]'>
-                Mysql
-              </span>
-              . <br />
-              Nous sommes en 2023 et, en parallèle des projets sur lesquels
-              j&apos;ai travaillé, je me concentre sur NextJS qui apporte à
-              React de nouvelles fonctionnalités et de meilleures performances.
-              <br />
-              En dehors du développement web, je suis passionné de jeux-vidéo,
-              notamment Zelda qui est mon jeu préféré, de Synthwave et de
-              musique Française, ainsi que de musculation que je pratique au
-              quotidien.
-              <br />
-              Si mon profil a retenu votre attention, n&apos;hésitez pas à me
-              laisser un message!
+              Aujourd&apos;hui, en 2023, mon attention se tourne vers Next.js
+              qui apporte à React de nouvelles fonctionnalités et des
+              performances optimisées. <br />
+              En dehors du développement web, je suis un passionné de jeux vidéo
+              avec une affection particulière pour la série Zelda, de musique
+              (Synthwave, LoFi, rock, chanson française) et de cinéma
+              (science-fiction, thrillers). <br /> Si mon profil a retenu votre
+              attention, n&apos;hésitez pas à m&apos;envoyer{' '}
+              <Link href='/contact'>
+                <button className='px-3 font-extrabold hover:scale-110 transition-all ease-in-out duration-300 rounded-md bg-accent active:scale-100 shadow-md text-white '>
+                  UN MESSAGE
+                </button>
+              </Link>{' '}
+              !
             </p>
           </div>
         </div>
