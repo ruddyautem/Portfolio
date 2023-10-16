@@ -20,20 +20,22 @@ const Card = ({ project, isLoading }) => {
   return (
     <div className='flex flex-col m-4 overflow-hidden shadow-2xl rounded-[14px] text-[#242936] p-2 bg-gray-200'>
       <div className='relative w-full overflow-hidden h-72 rounded-md'>
-        {isLoading ? (
-          <Skeleton
-            className='h-full'
-            baseColor='#cecece'
-            highlightColor='#a5a5a5'
-          />
-        ) : (
-          <Image
-            src={project.img}
-            alt={project.title}
-            fill
-            className='object-cover transition-all duration-500 ease-in-out hover:scale-110'
-          />
-        )}
+      {isLoading ? (
+  <Skeleton
+    className='h-full'
+    baseColor='#cecece'
+    highlightColor='#a5a5a5'
+  />
+) : (
+  <Image
+    src={project.img}
+    alt={project.title}
+    fill
+    className='object-cover transition-all duration-500 ease-in-out hover:scale-110'
+    onLoad={(e) => (e.target.style.opacity = 1)}
+    style={{ opacity: 0 }}
+  />
+)}
       </div>
 
       <div className='flex flex-col items-center flex-grow gap-2 p-4 text-center'>
