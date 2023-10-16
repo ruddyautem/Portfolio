@@ -1,10 +1,12 @@
 'use client';
 import Image from 'next/image';
-import React from 'react';
-import Skeleton from 'react-loading-skeleton'; // Import the Skeleton component
+import React, { useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 const Card = ({ project, isLoading }) => {
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
   const tagColors = {
     react: 'border-react hover:bg-react hover:bg-reactHover',
     tailwindcss: 'border-tailwind hover:bg-tailwind hover:bg-tailwindHover',
@@ -12,7 +14,7 @@ const Card = ({ project, isLoading }) => {
     redux: 'border-redux hover:bg-redux hover:bg-reduxHover',
     firebase: 'border-firebase hover-bg-firebase hover-bg-firebaseHover',
     'styled-components': 'border-styled hover-bg-styled hover-bg-styledHover',
-    'material-ui': 'border-material hover-bg-material hover-bg-materialHover',
+    'material-ui': 'border-material hover-bg-material hover:bg-materialHover',
     mysql: 'border-mysql hover-bg-mysql hover-bg-mysqlHover',
     axios: 'border-axios hover-bg-axios hover-bg-axiosHover',
   };
@@ -20,23 +22,22 @@ const Card = ({ project, isLoading }) => {
   return (
     <div className='flex flex-col m-4 overflow-hidden shadow-2xl rounded-[14px] text-[#242936] p-2 bg-gray-200'>
       <div className='relative w-full overflow-hidden h-72 rounded-md'>
-      {isLoading ? (
-  <Skeleton
-    className='h-full'
-    baseColor='#cecece'
-    highlightColor='#a5a5a5'
-  />
-) : (
+  {(isLoading || isImageLoading) && (
+    <Skeleton
+      className='h-full'
+      baseColor='#cecece'
+      highlightColor='#a5a5a5'
+    />
+  )}
   <Image
     src={project.img}
     alt={project.title}
     fill
     className='object-cover transition-all duration-500 ease-in-out hover:scale-110'
-    onLoad={(e) => (e.target.style.opacity = 1)}
-    style={{ opacity: 0 }}
+    onLoad={() => setIsImageLoading(false)}
+    style={{ opacity: isLoading || isImageLoading ? 0 : 1 }}
   />
-)}
-      </div>
+</div>
 
       <div className='flex flex-col items-center flex-grow gap-2 p-4 text-center'>
         <h1 className='p-2 text-3xl font-semibold uppercase text-[#242936] tracking-wide'>
