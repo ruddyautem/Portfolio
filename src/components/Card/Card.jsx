@@ -12,11 +12,11 @@ const Card = ({ project, isLoading }) => {
     tailwindcss: 'border-tailwind hover:bg-tailwind hover:bg-tailwindHover',
     nextjs: 'border-black hover:bg-black hover:bg-opacity-10',
     redux: 'border-redux hover:bg-redux hover:bg-reduxHover',
-    firebase: 'border-firebase hover-bg-firebase hover-bg-firebaseHover',
-    'styled-components': 'border-styled hover-bg-styled hover-bg-styledHover',
+    firebase: 'border-firebase hover:bg-firebase hover:bg-firebaseHover',
+    'styled-components': 'border-styled hover:bg-styled hover:bg-styledHover',
     'material-ui': 'border-material hover-bg-material hover:bg-materialHover',
-    mysql: 'border-mysql hover-bg-mysql hover-bg-mysqlHover',
-    axios: 'border-axios hover-bg-axios hover-bg-axiosHover',
+    mysql: 'border-mysql hover-bg-mysql hover:bg-mysqlHover',
+    axios: 'border-axios hover-bg-axios hover:bg-axiosHover',
   };
 
   return (
