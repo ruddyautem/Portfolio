@@ -56,6 +56,7 @@ const Typewriter = () => {
               .type('HTML |')
               .type(' CSS |')
               .type(' JAVASCRIPT |')
+              .type(' TYPESCRIPT |')
               .type(' REACT |')
               .type(' NEXTJS |')
               .type(' REDUX |')
@@ -63,7 +64,8 @@ const Typewriter = () => {
               .type(' STYLED-COMPONENTS |')
               .type(' FIREBASE |')
               .type(' MONGODB |')
-              .type(' MYSQL');
+              .type(' MYSQL |')
+              .type(' PRISMA')
             return instance;
           }}
         />

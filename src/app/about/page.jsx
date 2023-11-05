@@ -14,7 +14,7 @@ const About = () => {
       <p className='text-3xl text-center text-accent'>Mon Profil</p>
       <div className='flex items-center justify-center h-full text-[#242936] '>
         <div className='flex flex-col xl:flex-row justify-center items-center p-8 h-full w-full min-w-[300px]'>
-          <div className='relative w-full h-5/6 xl:w-5/6 xl:h-5/6 max-w-[600px]'>
+          <div className='relative w-full h-5/6 xl:w-5/6 xl:h-5/6 max-w-[600px] xl:max-w-[900px]'>
             <Image
               src='/profil.jpg'
               alt='photo de profil'
@@ -30,14 +30,14 @@ const About = () => {
               ans, passionné d&apos;informatique et de nouvelles technologies.{' '}
               <br /> Mon initiation au développement web a débuté en 2020 avec
               le Bootcamp{' '}
-              <span className='text-bootcamp1 font-bold italic'>
+              <span className='font-bold italic'>
                 The Web Developer Bootcamp
               </span>{' '}
               de Colt Steele, où j&apos;ai découvert les fondamentaux tels que
               le HTML, le CSS et JavaScript, mais aussi Node.js et MongoDB.{' '}
               <br />
               En 2021, j&apos;ai poursuivi ma formation avec le Bootcamp{' '}
-              <span className='text-bootcamp2 font-bold italic'>
+              <span className='font-bold italic'>
                 Complete React Developer
               </span>{' '}
               d&apos;Andrei Neagoie et Yihua Zang. J&apos;ai été captivé par les
