@@ -23,6 +23,9 @@ const ProjectList = () => {
 
   console.log(projects);
 
+  // Slice the projects array to display only the first 4 projects
+  const displayedProjects = projects.slice(0, 4);
+
   return (
     <div
       className='grid gap-8'
@@ -30,7 +33,7 @@ const ProjectList = () => {
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, max-content))',
       }}
     >
-      {projects.map((project) => (
+      {displayedProjects.map((project) => (
         <Card key={project.id} project={project} isLoading={isLoading} />
       ))}
     </div>
