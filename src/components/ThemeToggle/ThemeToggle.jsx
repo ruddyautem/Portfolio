@@ -1,5 +1,6 @@
+import React, { useContext, useEffect, useState } from 'react';
+
 import { ThemeContext } from '@/context/ThemeContext';
-import React, { useContext, useState, useEffect } from 'react';
 
 const ThemeToggle = () => {
   const [isOpen, setIsOpen] = useState(false);

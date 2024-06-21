@@ -1,6 +1,8 @@
-'use client';
-import React, { useState } from 'react';
-import TypeIt from 'typeit-react';
+"use client";
+
+import React, { useState } from "react";
+
+import TypeIt from "typeit-react";
 
 const Typewriter = () => {
   const [Done, setDone] = useState(false);
@@ -9,34 +11,22 @@ const Typewriter = () => {
     <>
       <TypeIt
         className='px-8 py-4 text-4xl tracking-widest xl:p-12 font-oswald sm:text-4xl md:text-5xl lg:text-8xl 2xl:text-9xl'
-        options={{ 
-          lifeLike: true, 
+        options={{
+          lifeLike: true,
           html: true,
+          speed: 50,
           afterComplete: (instance) => {
             setDone(true);
-          }
+          },
         }}
         getBeforeInit={(instance) => {
           instance
-            .type('Rudyd Auetm')
+            .type("Ruddy Autem")
             .pause(500)
-            .move(-6)
-            .pause(300)
-            .delete(2)
-            .pause(300)
-            .type('dy')
-            .pause(300)
-            .move(5)
-            .pause(300)
-            .delete(2)
-            .pause(300)
-            .type('te')
-            .pause(300)
-            .move(1)
-            .pause(300)
             .break()
-            .pause(300)
-            .type('Développeur Web');
+            .pause(500)
+            .type("Développeur Web")
+            .pause(500)
           return instance;
         }}
       />
@@ -53,19 +43,19 @@ const Typewriter = () => {
           lifeLike
           getBeforeInit={(instance) => {
             instance
-              .type('HTML |')
-              .type(' CSS |')
-              .type(' JAVASCRIPT |')
-              .type(' TYPESCRIPT |')
-              .type(' REACT |')
-              .type(' NEXTJS |')
-              .type(' REDUX |')
-              .type(' TAILWINDCSS |')
-              .type(' STYLED-COMPONENTS |')
-              .type(' FIREBASE |')
-              .type(' MONGODB |')
-              .type(' MYSQL |')
-              .type(' PRISMA')
+              .type("HTML |")
+              .type(" CSS |")
+              .type(" JAVASCRIPT |")
+              .type(" TYPESCRIPT |")
+              .type(" REACT |")
+              .type(" NEXTJS |")
+              .type(" REDUX |")
+              .type(" TAILWINDCSS |")
+              .type(" STYLED-COMPONENTS |")
+              .type(" FIREBASE |")
+              .type(" MONGODB |")
+              .type(" MYSQL |")
+              .type(" PRISMA");
             return instance;
           }}
         />
