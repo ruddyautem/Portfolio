@@ -1,7 +1,9 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore'; // Import `query` and `orderBy`
+
 import Card from '@/components/Card/Card';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore'; // Import `query` and `orderBy`
 import { db } from '@/utils/firebase';
 
 const ProjectList = () => {
@@ -30,7 +32,7 @@ const ProjectList = () => {
     <div
       className='grid gap-8'
       style={{
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, max-content))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(325px, max-content))',
       }}
     >
       {displayedProjects.map((project) => (
