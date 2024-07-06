@@ -1,11 +1,13 @@
-import Menu from '@/components/Menu/Menu';
 import './globals.css';
-import { Inter, Inconsolata, Oswald } from 'next/font/google';
-import Footer from '@/components/Footer/Footer';
-import Sidebar from '@/components/Sidebar/Sidebar';
+
+import { Inconsolata, Inter, Oswald } from 'next/font/google';
+
 import Explorer from '@/components/Explorer/Explorer';
+import Footer from '@/components/Footer/Footer';
+import Menu from '@/components/Menu/Menu';
+import Sidebar from '@/components/Sidebar/Sidebar';
 import Tabsbar from '@/components/Tabsbar/Tabsbar';
-import { ThemeContextProvider} from '@/context/ThemeContext';
+import { ThemeContextProvider } from '@/context/ThemeContext';
 import ThemeProvider from './providers/ThemeProvider';
 
 const inter = Inter({
@@ -54,7 +56,7 @@ export default function RootLayout({ children }) {
               </div>
               <div className='flex flex-col flex-1 overflow-hidden '>
                 <Tabsbar className='' />
-                <div className='overflow-y-scroll h-[calc(100vh-80px)] p-4 font-inconsolata text-light '>
+                <div className='h-[calc(100vh-80px)] p-4 font-inconsolata text-light overflow-y-scroll'>
                   {children}
                 </div>
               </div>

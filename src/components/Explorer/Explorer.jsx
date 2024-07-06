@@ -1,9 +1,11 @@
 'use client';
+
+import React, { useContext, useState } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React, { useContext, useState } from 'react';
 import { ThemeContext } from '@/context/ThemeContext';
+import { usePathname } from 'next/navigation';
 
 const Explorer = () => {
   const currentRoute = usePathname();
@@ -20,8 +22,8 @@ const Explorer = () => {
   ];
 
   return (
-    <div className='sm:flex w-48 flex-col hidden bg-explorerBg text-light'>
-      <div className='flex items-center justify-between '>
+    <div className='bg-explorerBg text-light w-48 hidden flex-col lg:flex'>
+      <div className='flex justify-between items-center'>
         <p className='flex items-center h-5 ml-4 text-[12px] opacity-60 uppercase my-1'>
           Explorer
         </p>

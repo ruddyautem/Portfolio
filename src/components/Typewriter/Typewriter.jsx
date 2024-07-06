@@ -43,19 +43,7 @@ const Typewriter = () => {
           lifeLike
           getBeforeInit={(instance) => {
             instance
-              .type("HTML |")
-              .type(" CSS |")
-              .type(" JAVASCRIPT |")
-              .type(" TYPESCRIPT |")
-              .type(" REACT |")
-              .type(" NEXTJS |")
-              .type(" REDUX |")
-              .type(" TAILWINDCSS |")
-              .type(" STYLED-COMPONENTS |")
-              .type(" FIREBASE |")
-              .type(" MONGODB |")
-              .type(" MYSQL |")
-              .type(" PRISMA");
+            .type("HTML | CSS | JAVASCRIPT | TYPESCRIPT | REACT | NEXTJS | REDUX | TAILWINDCSS | STYLED-COMPONENTS | FIREBASE | MONGODB | MYSQL | PRISMA")
             return instance;
           }}
         />

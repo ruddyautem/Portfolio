@@ -23,7 +23,7 @@
     "react-loading-skeleton": "^3.3.1",
     "svgo": "^3.0.2",
     "tailwindcss": "3.3.2",
-    "typeit-react": "^2.6.4"
+    "typeit-react": "^2.7.1"
   },
   "packageManager": "pnpm@9.4.0+sha256.b6fd0bfda555e7e584ad7e56b30c68b01d5a04f9ee93989f4b93ca8473c49c74"
 }

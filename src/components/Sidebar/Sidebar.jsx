@@ -1,9 +1,10 @@
 'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { usePathname } from 'next/navigation';
 import Tooltip from '../Tooltip/Tooltip';
+import { usePathname } from 'next/navigation';
 
 const Sidebar = () => {
   const currentRoute = usePathname();
@@ -23,7 +24,7 @@ const Sidebar = () => {
   const bottomLinks = navLinks.slice(4);
 
   return (
-    <div className='hidden w-12 sm:flex flex-col justify-between bg-sidebarBg'>
+    <div className='bg-sidebarBg w-12 hidden flex-col justify-between lg:flex'>
       <div>
         {topLinks.map(({ name, link, icon }) => {
           const isActive = currentRoute === link;
@@ -36,7 +37,7 @@ const Sidebar = () => {
             >
               <Tooltip tooltipText={name}>
                 <Link href={link}>
-                  <div className='flex items-center justify-center w-full group h-11'>
+                  <div className='w-full h-11 flex justify-center items-center group'>
                     <Image
                       className=''
                       src={icon}
@@ -59,10 +60,10 @@ const Sidebar = () => {
           return (
             <div
               key={name}
-              className='flex items-center justify-center opacity-30 hover:opacity-100 cursor-pointer '
+              className='flex justify-center items-center opacity-30 cursor-pointer hover:opacity-100'
             >
               <Tooltip tooltipText={name}>
-                <div className='relative flex justify-center w-full group h-11'>
+                <div className='w-full h-11 relative flex justify-center group'>
                   <Image
                     className=''
                     src={icon}

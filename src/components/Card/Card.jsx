@@ -29,7 +29,7 @@ const Card = ({ project, isLoading }) => {
 
   return (
     <div className='flex flex-col m-4 overflow-hidden shadow-2xl rounded-lg text-[#242936] p-3 bg-gray-100 min-w-[325px]'>
-      <div className='w-full h-72 overflow-hidden relative rounded-md'>
+      <div className='w-full h-80  overflow-hidden relative rounded-md'>
         {(isLoading || isImageLoading) && (
           <Skeleton
             className='h-full'
@@ -47,7 +47,7 @@ const Card = ({ project, isLoading }) => {
         />
       </div>
 
-      <div className='bg-gray-300/30 flex-grow flex flex-col items-center gap-4 p-4 mt-2 text-center rounded-md border'>
+      <div className='bg-gray-300/60 flex-grow flex flex-col items-center gap-4 p-4 mt-2 text-center rounded-md border'>
         <h1 className='p-2 text-3xl font-semibold uppercase text-[#242936] tracking-wide'>
           {isLoading? (
             <Skeleton width={180} baseColor="#cecece" highlightColor="#a5a5a5" className="h-10" />
@@ -62,8 +62,8 @@ const Card = ({ project, isLoading }) => {
             project.desc
           )}
         </span>
-        {/* Tags Container Moved Above Buttons */}
-        <div className='flex flex-wrap justify-center gap-2 text-sm font-semibold p-4'> {/* Adjusted here */}
+        
+        <div className='flex flex-wrap justify-center gap-2 text-sm font-semibold p-4'> 
           {isLoading
        ? [1, 2, 3].map((index) => (
                 <span

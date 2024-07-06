@@ -80,6 +80,18 @@ body {
   --explorerBg: #24272e;
   --activeTabText: #fff;
 }
+.poimandres {
+  background-color: #252b37;
+  color: #abb2bf;
+  --accent: #5DE4c7;
+  --ti-cursor-color: var(--accent);
+  --menu: #252b37;
+  --activeTabBg: #252b37;
+  --activeExplorerTab: #252b37;
+  --sidebarBg: #252b37;
+  --explorerBg: #252b37;
+  --activeTabText: #fff;
+}
 
 /* *{
   box-shadow: 0 0 0 3px red

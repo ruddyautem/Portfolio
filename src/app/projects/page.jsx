@@ -1,6 +1,6 @@
-import React from 'react';
 import { PageWrapper } from '../../components/PageWrapper/PageWrapper';
 import ProjectList from '@/components/ProjectsList/ProjectsList';
+import React from 'react';
 
 export const metadata = {
   title: 'Projets Ruddy Autem',
@@ -10,7 +10,7 @@ export const metadata = {
 const Projects = () => {
   return (
     <PageWrapper>
-      <p className='text-3xl text-center mb-4 text-accent'>Mes projets</p>
+      {/* <p className='text-3xl text-center mb-4 text-accent'>Mes projets</p> */}
      <ProjectList/>
     </PageWrapper>
   );

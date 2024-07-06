@@ -1,9 +1,11 @@
 'use client';
+
+import React, { useContext } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React, { useContext } from 'react';
 import { ThemeContext } from '@/context/ThemeContext';
+import { usePathname } from 'next/navigation';
 
 const Tabsbar = () => {
   const currentRoute = usePathname();
@@ -21,7 +23,7 @@ const Tabsbar = () => {
 
   return (
     <div className='h-7 bg-menu text-darker '>
-      <div className='flex flex-row justify-center items-center sm:justify-start '>
+      <div className='flex flex-row justify-center items-center lg:justify-start '>
         {navLinks.map(({ name, link, icon }) => {
           const isActive = currentRoute === link;
           return (
@@ -45,7 +47,7 @@ const Tabsbar = () => {
               {isActive && (
                 <div
                   className={`absolute ${
-                    (theme === 'ayu') || (theme === 'oneDarkPro') ? 'bottom-0' : 'top-0'
+                    (theme === 'ayu') || (theme === 'oneDarkPro') || (theme === 'poimandres') ? 'bottom-0' : 'top-0'
                   } bg-accent w-full h-[1px]`}
                 ></div>
               )}

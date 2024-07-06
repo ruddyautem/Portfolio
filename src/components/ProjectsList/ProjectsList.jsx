@@ -30,9 +30,9 @@ const ProjectList = () => {
 
   return (
     <div
-      className='grid gap-8'
+      className='grid gap-8 lg:p-12 '
       style={{
-        gridTemplateColumns: 'repeat(auto-fit, minmax(325px, max-content))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(375px, max-content))',
       }}
     >
       {displayedProjects.map((project) => (

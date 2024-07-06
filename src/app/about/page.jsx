@@ -1,79 +1,161 @@
-import Image from 'next/image';
-import React from 'react';
-import { PageWrapper } from '../../components/PageWrapper/PageWrapper';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
+import { PageWrapper } from "../../components/PageWrapper/PageWrapper";
+import React from "react";
+import SkillItem from "@/components/SkillList/SkillList";
 
 export const metadata = {
-  title: 'Profil Ruddy Autem',
-  description: 'Profil Ruddy Autem',
+  title: "Profil Ruddy Autem",
+  description: "Profil Ruddy Autem",
+};
+
+const skills = {
+  frontend: [
+    {
+      skill: "HTML",
+      icon: "/html52.svg",
+    },
+    {
+      skill: "CSS",
+      icon: "/css.svg",
+    },
+    {
+      skill: "Javascript",
+      icon: "/js.svg",
+    },
+    {
+      skill: "React",
+      icon: "/react.svg",
+    },
+    {
+      skill: "Typescript",
+      icon: "/typescript.svg",
+    },
+    {
+      skill: "Next.js",
+      icon: "/nextjs.svg",
+    },
+    {
+      skill: "Vite",
+      icon: "/vite.svg",
+    },
+    {
+      skill: "TailwindCSS",
+      icon: "/tailwind.svg",
+    },
+    {
+      skill: "Styled Components",
+      icon: "/styled.svg",
+    },
+    {
+      skill: "SASS",
+      icon: "/sass.svg",
+    },
+    {
+      skill: "Redux",
+      icon: "/redux.svg",
+    },
+    {
+      skill: "Bootstrap",
+      icon: "/bootstrap.svg",
+    },
+    {
+      skill: "Shadcn",
+      icon: "/shadcn.svg",
+    },
+  ],
+  backend: [
+    {
+      skill: "Mongodb",
+      icon: "/mongodb.svg",
+    },
+    {
+      skill: "Firebase",
+      icon: "/firebase.svg",
+    },
+    {
+      skill: "NodeJS",
+      icon: "/nodejs.svg",
+    },
+    {
+      skill: "Express.js",
+      icon: "/express.svg",
+    },
+    {
+      skill: "Prisma",
+      icon: "/prisma.svg",
+    },
+    {
+      skill: "MySQL",
+      icon: "/mysql.svg",
+    },
+  ],
+  tools: [
+    {
+      skill: "Git",
+      icon: "/git.svg",
+    },
+    {
+      skill: "Github",
+      icon: "/github.svg",
+    },
+    {
+      skill: "Vercel",
+      icon: "/vercel2.svg",
+    },
+    {
+      skill: "Heroku",
+      icon: "/heroku.svg",
+    },
+    {
+      skill: "Netlify",
+      icon: "/netlify.svg",
+    },
+    {
+      skill: "VsCode",
+      icon: "/vsclogo.svg",
+    },
+    {
+      skill: "Postman",
+      icon: "/postman.svg",
+    },
+  ],
 };
 
 const About = () => {
-  return (
-    <PageWrapper className='h-full overflow-hidden'>
-      <p className='text-3xl text-center text-accent'>Mon Profil</p>
-      <div className='flex items-center justify-center h-full text-[#242936] '>
-        <div className='flex flex-col xl:flex-row justify-center items-center p-8 h-full w-full min-w-[300px]'>
-          <div className='relative w-full h-5/6 xl:w-5/6 xl:h-5/6 max-w-[600px] xl:max-w-[900px]'>
-            <Image
-              src='/profil.jpg'
-              alt='photo de profil'
-              layout='fill'
-              objectFit='cover'
-              className='rounded-t-2xl xl:rounded-none xl:rounded-l-2xl border-2 border-gray-200'
-            />
-          </div>
+  const renderSkillsSection = (skillsArray, title) => (
+    <div className='flex-1 mt-8'>
+      <span>{title}</span>
+      <span className='mt-2 h-[1px] bg-accent w-full' />
+      <div className='grid grid-cols-2 gap-3 mt-4 sm:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-3 '>
+        {skillsArray.map((item, index) => (
+          <SkillItem
+            key={index}
+            skill={item.skill}
+            icon={item.icon}
+            altText={item.skill}
+          />
+        ))}
+      </div>
+    </div>
+  );
 
-          <div className='grid place-items-center text-md sm:text-xl 2xl:text-xl font-semibold tracking-wider p-8 h-2/3 xl:w-1/2 xl:h-5/6 bg-gray-200 shadow-xl rounded-b-2xl xl:rounded-none xl:rounded-r-2xl overflow-auto max-w-[600px]'>
-            <p className='text-justify'>
-              Bonjour 👋, <br /> Je suis Ruddy, <b>développeur web</b> de 34
-              ans, passionné d&apos;informatique et de nouvelles technologies.{' '}
-              <br /> Mon initiation au développement web a débuté en 2020 avec
-              le Bootcamp{' '}
-              <span className='font-bold italic'>
-                The Web Developer Bootcamp
-              </span>{' '}
-              de Colt Steele, où j&apos;ai découvert les fondamentaux tels que
-              le HTML, le CSS et JavaScript, mais aussi Node.js et MongoDB.{' '}
-              <br />
-              En 2021, j&apos;ai poursuivi ma formation avec le Bootcamp{' '}
-              <span className='font-bold italic'>
-                Complete React Developer
-              </span>{' '}
-              d&apos;Andrei Neagoie et Yihua Zang. J&apos;ai été captivé par les
-              possibilités offertes par{' '}
-              <span className='text-react font-extrabold'>React</span> et son
-              système de composants,{' '}
-              <span className='text-redux font-extrabold'>Redux</span>, Sass,{' '}
-              <span className='text-styled font-extrabold'>
-                Styled-Components
-              </span>{' '}
-              et{' '}
-              <span className='text-tailwind font-extrabold'>TailwindCSS</span>
-              .<br />
-              En 2022, j&apos;ai étendu mes compétences en back-end en me
-              familiarisant avec{' '}
-              <span className='text-firebase font-extrabold '>
-                Firebase
-              </span>, <span className='text-mysql font-extrabold '>MySQL</span>{' '}
-              et <span className='text-[#0c344b] font-extrabold'>Prisma</span>.{' '}
-              <br />
-              Aujourd&apos;hui, en 2023, mon attention se tourne vers Next.js
-              qui apporte à React de nouvelles fonctionnalités et des
-              performances optimisées. <br />
-              En dehors du développement web, je suis un passionné de jeux vidéo
-              avec une affection particulière pour la série Zelda, de musique
-              (Synthwave, LoFi, rock, chanson française) et de cinéma
-              (science-fiction, thrillers). <br /> Si mon profil a retenu votre
-              attention, n&apos;hésitez pas à m&apos;envoyer{' '}
-              <Link href='/contact'>
-                <button className='px-3 font-extrabold hover:scale-110 transition-all ease-in-out duration-300 rounded-md bg-accent active:scale-100 shadow-md text-white '>
-                  UN MESSAGE
-                </button>
-              </Link>{' '}
-              !
-            </p>
-          </div>
+  return (
+    <PageWrapper className='h-full p-6 sm:p-12 w-full'>
+      <div className='flex flex-col mb-6'>
+        
+      </div>
+      <div className='flex flex-col mb-6'>
+        <span className='text-2xl font-bold'>Stack Technologique</span>
+        <span className='mt-2 h-[1px] bg-accent w-full' />
+        <div className='flex flex-col justify-center gap-8 xl:flex-row'>
+          {/* FRONTEND */}
+          {renderSkillsSection(skills.frontend, "FrontEnd")}
+          <span className='hidden xl:flex w-[1px]  bg-accent opacity-50 my-24 ' />
+          {/* BACKEND */}
+          {renderSkillsSection(skills.backend, "BackEnd")}
+          <span className='hidden xl:flex w-[1px]  bg-accent opacity-50 my-24 ' />
+          {renderSkillsSection(skills.tools, "Outils")}
         </div>
       </div>
     </PageWrapper>
