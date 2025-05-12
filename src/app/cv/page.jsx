@@ -9,6 +9,7 @@ const SKILLS = [
   "Typescript",
   "AGILE",
   "TailwindCSS",
+  "Zustand",
   "Git",
   "Clerk",
   "SCSS",
@@ -18,7 +19,6 @@ const SKILLS = [
   "Prisma",
   "MySQL",
   "Node",
-  "Redux",
   "Express",
 ];
 
@@ -30,7 +30,7 @@ const CONTACT_DETAILS = [
   },
   { icon: "phoneIcon.svg", text: "06.59.73.57.28" },
   { icon: "locationIcon.svg", text: "Leers, HDF" },
-  { icon: "linkIcon.svg", text: "Portfolio", link: "https://ruddyautem.fr/" },
+  { icon: "linkIcon.svg", text: "Portfolio", link: "https://autem.dev/" },
   {
     icon: "githubIcon2.svg",
     text: "/ruddyautem",
@@ -45,9 +45,19 @@ const CONTACT_DETAILS = [
 
 const PROJECTS = [
   {
+    title: "OhMyBlog!",
+    year: "2025",
+    link: "https://ohmyblog.vercel.app", // lien corrigé à titre d'exemple
+    points: [
+      "Création d’une plateforme de création de blogs moderne et entièrement responsive avec React 19 et Tailwind CSS 4.1.",
+      "Authentification rapide et sécurisée avec Clerk, et API gérées via Express.",
+      "Intégration d'ImageKit.io pour l'upload et l'optimisation des images.",
+    ],
+  },
+  {
     title: "Portfolio VsCode",
-    year: "Présent",
-    link: "https://www.ruddyautem.fr",
+    year: "2024",
+    link: "https://www.autem.dev",
     points: [
       "Conception et réalisation d'un portfolio en Next.js entièrement responsive inspiré de l'interface de VSCode.",
       "Intégration de thèmes de couleurs dynamiques améliorant l'attrait visuel et la convivialité.",
@@ -59,19 +69,20 @@ const PROJECTS = [
     year: "2024",
     link: "https://style-d.vercel.app",
     points: [
-      "Développement d'un service de messagerie inspiré de Slack en React.js.",
-      "Intégration de l'authentification Google pour optimiser l'inscription et la connexion.",
+      "Développement d’une plateforme de E-Commerce entièrement responsive au design vibrant, offrant une expérience d’achat fluide et rapide en quelques clics.",
+      "Mise en place d'une authentification Google pour simplifier et accélérer l'inscription et la connexion des utilisateurs.",
+      "Intégration des paiements sécurisés via Stripe et création automatisée des factures sur Firebase",
     ],
   },
-  {
-    title: "GPT3",
-    year: "2023",
-    link: "",
-    points: [
-      "Création de la page d'accueil d'une plateforme de tutoriels sur GPT-3 en React.js.",
-      "Approche mobile first pour une expérience utilisateur fluide sur tous les périphériques.",
-    ],
-  },
+  // {
+  //   title: "GPT3",
+  //   year: "2023",
+  //   link: "",
+  //   points: [
+  //     "Création de la page d'accueil d'une plateforme de tutoriels sur GPT-3 en React.js.",
+  //     "Approche mobile first pour une expérience utilisateur fluide sur tous les périphériques.",
+  //   ],
+  // },
 ];
 
 const FORMATIONS = [

@@ -22,22 +22,28 @@ const ContactForm = () => {
       formData[field.name] = e.target[field.name].value;
     });
 
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    if (response.ok) {
       const responseJson = await response.json();
-      console.log("Message sent success", responseJson.message);
-      setNotification(responseJson.message);
-      resetForm(e); // Pass the event object here
-      setLoading(false);
-    } else {
-      const errorJson = await response.json();
-      console.error("Error sending message", errorJson.message);
-      setNotification(errorJson.message);
+
+      if (response.ok) {
+        console.log("Message sent success", responseJson.message);
+        setNotification(responseJson.message);
+        resetForm(e);
+      } else {
+        console.error("Error sending message", responseJson.message);
+        setNotification(responseJson.message);
+      }
+    } catch (error) {
+      console.error("Network or server error", error);
+      setNotification("Une erreur est survenue. Veuillez réessayer.");
+    } finally {
+      setLoading(false); // Always re-enable the button
     }
   };
 
@@ -61,7 +67,7 @@ const ContactForm = () => {
     <form onSubmit={handleSubmit}>
       {/* Name and Email */}
       <div className='flex flex-col gap-4 m-4 mt-0 sm:flex-row'>
-        {fieldsConfig.slice(0, 2).map((field, index) => (
+        {fieldsConfig.slice(0, 2).map((field) => (
           <InputField
             key={field.name}
             {...field}
@@ -95,7 +101,7 @@ const ContactForm = () => {
           disabled={loading}
           className='px-2 py-1 w-24 h-9 text-base m-4 font-bold transition-all duration-300 ease-in-out active:scale-90 border border-accent shadow disabled:bg-gray-800 disabled:opacity-50'
         >
-          ENVOYER
+          {loading ? "ENVOI..." : "ENVOYER"}
         </button>
         {notification && (
           <p className='px-2 text-sm xl:text-base mx-2 my-2 font-bold transition-all duration-300 ease-in-out'>
@@ -116,10 +122,7 @@ const InputField = ({
   className,
 }) => (
   <div className={`flex flex-col gap-2 ${className}`}>
-    <label
-      htmlFor={name}
-      className={`text-base uppercase ${required ? "" : "minLength=10"}`}
-    >
+    <label htmlFor={name} className={`text-base uppercase`}>
       {label}
     </label>
     {type === "textarea" ? (
@@ -127,10 +130,9 @@ const InputField = ({
         id={name}
         name={name}
         autoComplete={autoComplete}
-        onChange={(e) => (e.target.value = e.target.value.trim())}
+        onChange={(e) => (e.target.value = e.target.value.trimStart())}
         className='w-full px-2 py-1 bg-gray-400 border-none bg-opacity-5 h-48 focus:outline-accent focus:outline-1 focus:outline-none resize-none'
         minLength={10}
-        maxLength={30}
         required={required}
       />
     ) : (
@@ -139,10 +141,9 @@ const InputField = ({
         type={type}
         name={name}
         autoComplete={autoComplete}
-        onChange={(e) => (e.target.value = e.target.value.trim())}
-        className={`w-full px-2 py-1 bg-gray-400 border-none bg-opacity-5 focus:outline-accent focus:outline-1 focus:outline-none ${
-          required ? "minLength=2 maxLength=30" : "maxLength=30"
-        }`}
+        onChange={(e) => (e.target.value = e.target.value.trimStart())}
+        className='w-full px-2 py-1 bg-gray-400 border-none bg-opacity-5 focus:outline-accent focus:outline-1 focus:outline-none'
+        minLength={2}
         required={required}
       />
     )}
