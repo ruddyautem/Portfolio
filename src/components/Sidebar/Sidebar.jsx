@@ -1,27 +1,28 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import Tooltip from '../Tooltip/Tooltip';
-import { usePathname } from 'next/navigation';
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import Tooltip from "../Tooltip/Tooltip";
+import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
   const currentRoute = usePathname();
 
   const navLinks = [
-    { name: 'Accueil', link: '/', icon: '/files.svg' },
-    { name: 'Profil', link: '/about', icon: '/code.svg' },
-    { name: 'Projets', link: '/projects', icon: '/source-control.svg' },
-    { name: 'Contact', link: '/contact', icon: '/email.svg' },
+    { name: "Accueil", link: "/", icon: "/files.svg" },
+    { name: "Profil", link: "/about", icon: "/code.svg" },
+    { name: "Projets", link: "/projects", icon: "/source-control.svg" },
+    { name: "Contact", link: "/contact", icon: "/email.svg" },
+    { name: "CV", link: "/cv", icon: "/CV-sidebar.svg" },
 
     // { name: 'Github', link: '/github', icon: '/github.svg' }, don't forget to modify the slice when you add it back ,
-    { name: 'Comptes', icon: '/account.svg' },
-    { name: 'Settings', icon: '/settings-gear.svg' },
+    { name: "Comptes", icon: "/account.svg" },
+    { name: "Settings", icon: "/settings-gear.svg" },
   ];
 
-  const topLinks = navLinks.slice(0, 4);
-  const bottomLinks = navLinks.slice(4);
+  const topLinks = navLinks.slice(0, 5);
+  const bottomLinks = navLinks.slice(5);
 
   return (
     <div className='bg-sidebarBg w-12 hidden flex-col justify-between lg:flex'>
@@ -32,7 +33,7 @@ const Sidebar = () => {
             <div
               key={name}
               className={`${
-                isActive ? 'opacity-100' : 'opacity-30'
+                isActive ? "opacity-100" : "opacity-30"
               } flex items-center justify-center hover:opacity-100 relative`}
             >
               <Tooltip tooltipText={name}>

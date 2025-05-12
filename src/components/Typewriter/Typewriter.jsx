@@ -40,10 +40,10 @@ const Typewriter = () => {
             cursor: false,
             speed: 5,
           }}
-          lifeLike
           getBeforeInit={(instance) => {
-            instance
-            .type("HTML | CSS | JAVASCRIPT | TYPESCRIPT | REACT | NEXTJS | REDUX | TAILWINDCSS | STYLED-COMPONENTS | FIREBASE | MONGODB | MYSQL | PRISMA")
+            instance.type(
+              "HTML | CSS | JAVASCRIPT | TYPESCRIPT | REACT | NEXTJS | TAILWINDCSS | STYLED-COMPONENTS | CLERK | FIREBASE | MONGODB | REDUX | MYSQL | PRISMA"
+            );
             return instance;
           }}
         />

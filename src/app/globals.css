@@ -7,21 +7,29 @@
   --lighter: rgb(229, 231, 235);
   --darker: rgb(107, 114, 128);
   --react: #43c3ec;
-  --reactHover: rgba(67, 195, 236, 0.2);
+  --reactHover: rgba(67, 195, 236, 0.8);
   --tailwind: #38bdf8;
-  --tailwindHover: rgba(56, 189, 248, 0.2);
+  --tailwindHover: rgba(56, 189, 248, 0.8);
   --redux: #764bbe;
-  --reduxHover: rgba(118, 75, 190, 0.2);
+  --reduxHover: rgba(118, 75, 190, 0.8);
   --firebase: #f5820b;
-  --firebaseHover: rgba(245, 130, 11, 0.2);
+  --firebaseHover: rgba(245, 130, 11, 0.8);
   --styled: #f60055;
-  --styledHover: rgba(246, 0, 85, 0.2);
+  --styledHover: rgba(246, 0, 85, 0.8);
   --material: #00affe;
-  --materialHover: rgba(0, 175, 254, 0.2);
+  --materialHover: rgba(0, 175, 254, 0.8);
   --mysql: #f49310;
-  --mysqlHover: rgba(244, 147, 16, 0.2);
+  --mysqlHover: rgba(244, 147, 16, 0.8);
   --axios: #3d68ec;
-  --axiosHover: rgba(61, 104, 236, 0.2);
+  --axiosHover: rgba(61, 104, 236, 0.8);
+  --clerk: #aea1f6;
+  --clerkHover: rgba(174, 161, 246, 0.8);
+  --sanity: #f03f30;
+  --sanityHover: rgba(240, 63, 48, 0.8);
+  --typescript: #3178c6;
+  --typescriptHover: rgba(49, 120, 198, 0.8);
+  --zustand: #cdb898;
+  --zustandHover: #b6986d;
 }
 
 body {
@@ -83,7 +91,7 @@ body {
 .poimandres {
   background-color: #252b37;
   color: #abb2bf;
-  --accent: #5DE4c7;
+  --accent: #5de4c7;
   --ti-cursor-color: var(--accent);
   --menu: #252b37;
   --activeTabBg: #252b37;

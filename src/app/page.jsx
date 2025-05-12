@@ -27,6 +27,7 @@ export default function Home() {
           <AnimatedLink href='/about'>PROFIL</AnimatedLink>
           <AnimatedLink href='/projects'>PROJETS</AnimatedLink>
           <AnimatedLink href='/contact'>CONTACT</AnimatedLink>
+          <AnimatedLink href='/cv'>CV</AnimatedLink>
         </div>
       </div>
     </PageWrapper>

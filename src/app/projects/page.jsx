@@ -1,17 +1,24 @@
-import { PageWrapper } from '../../components/PageWrapper/PageWrapper';
-import ProjectList from '@/components/ProjectsList/ProjectsList';
-import React from 'react';
+import Card from "@/components/Card/Card";
+import { PageWrapper } from "../../components/PageWrapper/PageWrapper";
+import React from "react";
+import projects from "./projects.json";
 
 export const metadata = {
-  title: 'Projets Ruddy Autem',
-  description: 'Projets Ruddy Autem',
+  title: "Projets Ruddy Autem",
+  description: "Projets Ruddy Autem",
 };
 
 const Projects = () => {
   return (
-    <PageWrapper>
-      {/* <p className='text-3xl text-center mb-4 text-accent'>Mes projets</p> */}
-     <ProjectList/>
+    <PageWrapper
+      className='flex flex-wrap justify-center gap-6'
+      style={{
+        maxWidth: "100%",
+      }}
+    >
+      {projects.map((project) => (
+        <Card key={project.id} project={project} />
+      ))}
     </PageWrapper>
   );
 };

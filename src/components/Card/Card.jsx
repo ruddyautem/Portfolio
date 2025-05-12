@@ -1,98 +1,96 @@
-// Card.jsx
 "use client";
 
-import "react-loading-skeleton/dist/skeleton.css";
-
-import React, { useState } from "react";
-
+import React from "react";
 import Image from "next/image";
-import Skeleton from "react-loading-skeleton";
+import Link from "next/link";
 
-const Card = ({ project, isLoading }) => {
-  const [isImageLoading, setIsImageLoading] = useState(true);
+// Define tagColors object outside the component for better performance
+const tagColors = {
+  react: "bg-reactHover border-react",
+  tailwindcss: "bg-tailwindHover border-tailwind",
+  nextjs: "bg-black border-black",
+  express: "bg-black border-black",
+  redux: "bg-reduxHover border-redux",
+  firebase: "bg-firebaseHover border-firebase",
+  "styled-components": "bg-styledHover border-styled",
+  "material-ui": "bg-materialHover border-material",
+  mysql: "bg-mysqlHover border-mysql",
+  axios: "bg-axiosHover border-axios",
+  clerk: "bg-clerkHover border-clerk",
+  sanity: "bg-sanityHover border-sanity",
+  typescript: "bg-typescriptHover border-typescript",
+  zustand: "bg-zustandHover border-zustand",
+};
 
-  const handleRedirect = (url) => {
-    window.location.href = url;
-  };
+// Create a reusable Button component
+const Button = ({ text, onClick }) => (
+  <button className='bg-[#242936] p-2 w-20 h-10 flex justify-center items-center rounded hover:scale-105 transition-all duration-200'>
+    {text}
+  </button>
+);
 
-  const tagColors = {
-    react: "border-react hover:bg-react hover:bg-reactHover",
-    tailwindcss: "border-tailwind hover:bg-tailwind hover:bg-tailwindHover",
-    nextjs: "border-black hover:bg-black hover:bg-opacity-10",
-    redux: "border-redux hover:bg-redux hover:bg-reduxHover",
-    firebase: "border-firebase hover:bg-firebase hover:bg-firebaseHover",
-    "styled-components": "border-styled hover:bg-styled hover:bg-styledHover",
-    "material-ui": "border-material hover:bg-material hover:bg-materialHover",
-    mysql: "border-mysql hover:bg-mysql hover:bg-mysqlHover",
-    axios: "border-axios hover:bg-axios hover:bg-axiosHover",
-  };
+// Use useCallback to memoize handleRedirect function
+const Card = ({ project }) => {
+  const handleRedirect = React.useCallback(
+    () =>
+      ({ url }) =>
+        (window.location.href = url),
+    []
+  );
 
   return (
-    <div className='flex flex-col m-4 overflow-hidden shadow-2xl rounded-lg text-[#242936] p-3 bg-gray-100 min-w-[325px]'>
-      <div className='w-full h-80  overflow-hidden relative rounded-md'>
-        {(isLoading || isImageLoading) && (
-          <Skeleton
-            className='h-full'
-            baseColor='#cecece'
-            highlightColor='#a5a5a5'
-          />
-        )}
+    <div className='flex flex-col m-4 overflow-hidden shadow-2xl rounded text-[#242936] bg-gray-100 lg:w-[450px] w-[500px] '>
+      {/* Image Container */}
+      <div className='w-full h-80 overflow-hidden relative'>
         <Image
           src={project.img}
           alt={project.title}
           fill
           className='object-cover transition-all duration-500 ease-in-out hover:scale-105'
-          onLoad={() => setIsImageLoading(false)}
-          style={{ opacity: isLoading || isImageLoading? 0 : 1 }}
         />
       </div>
 
-      <div className='bg-gray-300/60 flex-grow flex flex-col items-center gap-4 p-4 mt-2 text-center rounded-md border'>
-        <h1 className='p-2 text-3xl font-semibold uppercase text-[#242936] tracking-wide'>
-          {isLoading? (
-            <Skeleton width={180} baseColor="#cecece" highlightColor="#a5a5a5" className="h-10" />
-          ) : (
-            project.title
-          )}
+      {/* Content Section */}
+      <div className='bg-gray-300/60 flex-grow flex flex-col items-center gap-4 p-4 text-center border'>
+        {/* Title */}
+        <h1 className='p-2 text-3xl font-semibold uppercase tracking-wide'>
+          {project.title}
         </h1>
-        <span className='text-darker p-4'>
-          {isLoading? (
-            <Skeleton width={240} baseColor="#cecece" highlightColor="#a5a5a5" className="h-28" />
-          ) : (
-            project.desc
-          )}
-        </span>
-        
-        <div className='flex flex-wrap justify-center gap-2 text-sm font-semibold p-4'> 
-          {isLoading
-       ? [1, 2, 3].map((index) => (
-                <span
-                  key={index}
-                  className="px-2 font-semibold rounded-lg border-2 transition-all duration-300 ease-in-out cursor-pointer select-none">
-                  <Skeleton baseColor="#cecece" highlightColor="#a5a5a5" width={50} />
-                </span>
-              ))
-            : project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className={`px-2 border-2 rounded-lg cursor-pointer font-semibold transition-all duration-300 ease-in-out hover:scale-105 select-none ${tagColors[tag] || "border-gray-500"}`}>
-                  {tag}
-                </span>
-              ))}
-        </div>
-        {/* Buttons Container */}
-        <div className='mt-auto w-full flex justify-center gap-8 pt-12 text-white font-bold'>
-          <button
-            onClick={() => handleRedirect(project.source)}
-            className='bg-[#242936]  w-32 h-12 flex justify-center items-center rounded-md hover:scale-110 transition-all duration-200'>
-            Code Source
-          </button>
 
-          <button
-            onClick={() => handleRedirect(project.demo)}
-            className='bg-[#242936]  w-32 h-12 flex justify-center items-center rounded-md hover:scale-110 transition-all duration-200'>
-            Demo
-          </button>
+        {/* Description */}
+        <span className='text-darker p-4'>{project.desc}</span>
+
+        {/* Tags */}
+        <div className='flex flex-wrap justify-center gap-4 text-xs text-white font-semibold p-4'>
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className={`p-2 w-20 h-10 flex items-center justify-center rounded transition-transform duration-200 hover:scale-105 hover:cursor-pointer ${
+                tagColors[tag] || "border-gray-500"
+              }`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Buttons */}
+        <div className='mt-auto flex gap-4 pt-12 text-xs'>
+          {["source", "demo"].map((key) => (
+            <Link
+              key={`${project.id}-${key}`}
+              href={project[key]}
+              target='_blank'
+              rel='noopener noreferrer'
+              className={`p-2 w-28 h-12 flex items-center justify-center rounded transition-transform duration-200 font-semibold text-white ${
+                key === "source"
+                  ? "bg-[#242936] hover:bg-gray-700"
+                  : "bg-[#1a73e8] hover:bg-blue-600"
+              } hover:scale-105`}
+            >
+              {key === "source" ? "Code Source" : "Demo"}
+            </Link>
+          ))}
         </div>
       </div>
     </div>

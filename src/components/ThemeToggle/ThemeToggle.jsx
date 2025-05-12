@@ -68,7 +68,9 @@ const ThemeToggle = () => {
       </div>
       <div
         className={`absolute text-center right-0 mt-2 bg-white border-none rounded shadow-xl capitalize transition-all ease-in-out duration-200 overflow-hidden ${
-          isOpen ? "opacity-100" : "opacity-0"
+          isOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
       >
         {themeOptions.map((option) => (
