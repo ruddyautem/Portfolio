@@ -3,8 +3,8 @@ import nodemailer from 'nodemailer';
 const ContactAPI = async (req, res) => {
   const { name, email, objet, message } = req.body;
 
-  const user = process.env.USER;
-  const password = process.env.PASSWORD;
+const user = process.env.SMTP_USER;
+const password = process.env.SMTP_PASSWORD;
 
   const data = {
     name,
