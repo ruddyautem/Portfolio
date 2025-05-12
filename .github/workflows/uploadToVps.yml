@@ -6,7 +6,7 @@ on:
 
 jobs:
   run_pull:
-    name: Run Pull
+    name: Run Pull and Restart PM2
     runs-on: ubuntu-latest
     
     steps:
@@ -22,9 +22,10 @@ jobs:
           # Add the repository to the list of safe directories to avoid dubious ownership errors
           git config --global --add safe.directory /home/autem/htdocs/autem.dev &&
           cd /home/autem/htdocs/autem.dev && 
-          # Pull the latest changes from the main branch
           git checkout ${{ secrets.MAIN_BRANCH }} && 
           git pull && 
+          # Restart PM2 to apply new changes
+          pm2 restart portfolio && 
           exit"
     
     - name: Cleanup
