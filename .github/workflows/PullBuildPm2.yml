@@ -1,3 +1,5 @@
+name: Deploy to VPS
+
 on:
   push:
     branches:
@@ -15,6 +17,7 @@ jobs:
         install -m 600 -D /dev/null ~/.ssh/id_rsa
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+        
     - name: connect and pull
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
@@ -25,5 +28,6 @@ jobs:
           git pull && 
           bun install && 
           exit"
+    
     - name: cleanup
       run: rm -rf ~/.ssh
