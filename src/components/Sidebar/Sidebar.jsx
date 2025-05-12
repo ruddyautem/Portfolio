@@ -14,7 +14,7 @@ const Sidebar = () => {
     { name: "Profil", link: "/about", icon: "/code.svg" },
     { name: "Projets", link: "/projects", icon: "/source-control.svg" },
     { name: "Contact", link: "/contact", icon: "/email.svg" },
-    { name: "CV", link: "/cv", icon: "/CV-sidebar.svg" },
+    { name: "CV", link: "/cv", icon: "/cv-sidebar.svg" },
 
     // { name: 'Github', link: '/github', icon: '/github.svg' }, don't forget to modify the slice when you add it back ,
     { name: "Comptes", icon: "/account.svg" },
