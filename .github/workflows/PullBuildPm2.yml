@@ -18,16 +18,33 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-    - name: Pull, Install, Build, and Restart
+    - name: Deploy Application
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+          # Navigate to project (confirmed correct path)
           cd /home/autem/htdocs/autem.dev &&
+          
+          # Reset permissions (critical for Next.js builds)
+          sudo chown -R autem:autem . &&
+          sudo chmod -R 755 . &&
+          
+          # Git operations
+          git stash &&  # Prevents merge conflicts
           git checkout main &&
           git pull origin main &&
-          bun install &&
-          bun run build &&
-          pm2 restart portfolio &&
-          exit"
-
+          
+          # Clean install and build (using full Bun path)
+          /root/.bun/bin/bun install --frozen-lockfile &&
+          /root/.bun/bin/bun next build &&
+          
+          # PM2 restart (using your ecosystem file)
+          pm2 delete portfolio || true &&  # Force-clean if exists
+          pm2 start ecosystem.config.cjs &&
+          pm2 save &&
+          
+          # Optional: Verify deployment
+          echo 'Deployment complete. Current status:' &&
+          pm2 list portfolio
+          "
     - name: Cleanup
       run: rm -rf ~/.ssh
