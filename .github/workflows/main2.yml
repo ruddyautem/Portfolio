@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run_pull:
+    name: Run Pull
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Install SSH Keys
+      run: |
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+        
+    - name: Connect and Pull
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+          # Add the repository to the list of safe directories to avoid dubious ownership errors
+          git config --global --add safe.directory /home/autem/htdocs/autem.dev &&
+          cd /home/autem/htdocs/autem.dev && 
+          # Pull the latest changes from the main branch
+          git checkout ${{ secrets.MAIN_BRANCH }} && 
+          git pull && 
+          exit"
+    
+    - name: Cleanup
+      run: rm -rf ~/.ssh
