@@ -30,7 +30,7 @@ const CONTACT_DETAILS = [
   },
   { icon: "phoneIcon.svg", text: "06.59.73.57.28" },
   { icon: "locationIcon.svg", text: "Leers, HDF" },
-  { icon: "linkIcon.svg", text: "Portfolio", link: "https://autem.dev/" },
+  { icon: "linkIcon.svg", text: "www.autem.dev", link: "https://autem.dev/" },
   {
     icon: "githubIcon2.svg",
     text: "/ruddyautem",
@@ -45,18 +45,8 @@ const CONTACT_DETAILS = [
 
 const PROJECTS = [
   {
-    title: "OhMyBlog!",
-    year: "2025",
-    link: "https://ohmyblog.vercel.app", // lien corrigé à titre d'exemple
-    points: [
-      "Création d’une plateforme de création de blogs moderne et entièrement responsive avec React 19 et Tailwind CSS 4.1.",
-      "Authentification rapide et sécurisée avec Clerk, et API gérées via Express.",
-      "Intégration d'ImageKit.io pour l'upload et l'optimisation des images.",
-    ],
-  },
-  {
     title: "Portfolio VsCode",
-    year: "2024",
+    year: "2025",
     link: "https://www.autem.dev",
     points: [
       "Conception et réalisation d'un portfolio en Next.js entièrement responsive inspiré de l'interface de VSCode.",
@@ -65,8 +55,18 @@ const PROJECTS = [
     ],
   },
   {
+    title: "OhMyBlog!",
+    year: "2025",
+    link: "https://ohmyblog.vercel.app",
+    points: [
+      "Création d’une plateforme de création de blogs moderne et entièrement responsive avec React 19 et Tailwind CSS 4.1.",
+      "Authentification rapide et sécurisée avec Clerk, et API gérées via Express.",
+      "Intégration d'ImageKit.io pour l'upload et l'optimisation des images.",
+    ],
+  },
+  {
     title: "Style-D",
-    year: "2024",
+    year: "2025",
     link: "https://style-d.vercel.app",
     points: [
       "Développement d’une plateforme de E-Commerce entièrement responsive au design vibrant, offrant une expérience d’achat fluide et rapide en quelques clics.",
