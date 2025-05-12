@@ -6,7 +6,7 @@ on:
 
 jobs:
   run_pull:
-    name: Run Pull and Restart PM2
+    name: Run Pull, Build, and Restart PM2
     runs-on: ubuntu-latest
     
     steps:
@@ -16,13 +16,6 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
         
-    - name: Install Bun
-      run: |
-        curl -fsSL https://bun.sh/install | bash
-        export BUN_INSTALL="/root/.bun"
-        export PATH="$BUN_INSTALL/bin:$PATH"
-        echo "Bun installed successfully"
-
     - name: Connect and Pull
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
@@ -31,8 +24,10 @@ jobs:
           cd /home/autem/htdocs/autem.dev && 
           git checkout ${{ secrets.MAIN_BRANCH }} && 
           git pull && 
-          # Run Bun build
-          bun build && 
+          
+          # Run the build command using Bun
+          bun next build && 
+          
           # Restart PM2 to apply new changes
           pm2 restart portfolio && 
           exit"
