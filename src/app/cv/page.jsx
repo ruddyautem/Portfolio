@@ -28,7 +28,7 @@ const CONTACT_DETAILS = [
     text: "ruddy.autem@gmail.com",
     link: "mailto:ruddy.autem@gmail.com",
   },
-  { icon: "phoneIcon.svg", text: "06.59.73.57.28" },
+  // { icon: "phoneIcon.svg", text: "06.59.73.57.28" },
   { icon: "locationIcon.svg", text: "Leers, HDF" },
   { icon: "linkIcon.svg", text: "www.autem.dev", link: "https://autem.dev/" },
   {
