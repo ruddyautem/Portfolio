@@ -21,38 +21,25 @@ jobs:
     - name: Deploy and Restart PM2
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-          # Set up environment for Bun
+          set -e  # Exit immediately if any command fails
+          
+          # Set up Bun environment
           export BUN_INSTALL='/home/autem/.bun'
           export PATH=\"\$BUN_INSTALL/bin:\$PATH\"
 
-          # Ensure Bun is installed
-          if ! command -v bun &> /dev/null; then
-            echo 'Installing Bun...'
-            curl -fsSL https://bun.sh/install | bash
-          fi
-
           # Navigate to project directory
-          cd /home/autem/htdocs/autem.dev &&
+          cd /home/autem/htdocs/autem.dev || exit 1
 
-          # Clean old build
-          rm -rf .next &&
-
-          # Pull latest code
-          git checkout main &&
-          git pull origin main &&
+          # Clean old build and safely update code
+          rm -rf .next
+          git pull origin main  # Simple and safe
 
           # Install dependencies and build
-          bun install &&
-          bun run build &&
+          bun install
+          bun run build
 
-          # Restart PM2 with ecosystem file
-          pm2 delete portfolio || true &&
-          pm2 start ecosystem.config.cjs --update-env &&
-          pm2 save &&
-
-          # Ensure PM2 restarts on reboot
-          pm2 startup systemd && 
-          systemctl enable pm2-root
+          # Zero-downtime PM2 reload
+          pm2 reload ecosystem.config.cjs --update-env
         "
 
     - name: Cleanup SSH Keys
