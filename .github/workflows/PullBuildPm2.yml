@@ -18,33 +18,35 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-    - name: Pull, Install, Build, and Restart PM2
+    - name: Deploy and Restart PM2
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-          # Ensure bun is installed or set up
+          # Set up environment for Bun
+          export BUN_INSTALL='/home/autem/.bun'
+          export PATH=\"\$BUN_INSTALL/bin:\$PATH\"
+
+          # Ensure Bun is installed
           if ! command -v bun &> /dev/null; then
-            echo 'Bun is not installed, installing it...'
+            echo 'Installing Bun...'
             curl -fsSL https://bun.sh/install | bash
-            export BUN_INSTALL='/home/autem/.bun'
-            export PATH='$BUN_INSTALL/bin:$PATH'
           fi
-          
-          # Navigate to project folder
+
+          # Navigate to project directory
           cd /home/autem/htdocs/autem.dev &&
-          
-          # Pull latest changes from git
+
+          # Pull latest code
           git checkout main &&
           git pull origin main &&
-          
-          # Install dependencies
-          bun install &&
-          
-          # Run the build command
-          bun run build &&
-          
-          # Restart PM2 process
-          pm2 restart portfolio &&
-          exit"
 
-    - name: Cleanup
+          # Install dependencies and build
+          bun install &&
+          bun run build &&
+
+          # Restart PM2 with ecosystem file
+          pm2 delete portfolio || true &&
+          pm2 start ecosystem.config.cjs --update-env &&
+          pm2 save
+        "
+
+    - name: Cleanup SSH Keys
       run: rm -rf ~/.ssh
