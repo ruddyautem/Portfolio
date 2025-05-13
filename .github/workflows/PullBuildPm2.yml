@@ -34,6 +34,9 @@ jobs:
           # Navigate to project directory
           cd /home/autem/htdocs/autem.dev &&
 
+          # Clean old build
+          rm -rf .next &&
+
           # Pull latest code
           git checkout main &&
           git pull origin main &&
