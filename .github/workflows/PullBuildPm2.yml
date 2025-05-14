@@ -23,23 +23,22 @@ jobs:
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
           set -e  # Exit immediately if any command fails
           
-          # Set up Bun environment
-          export BUN_INSTALL='/home/autem/.bun'
-          export PATH=\"\$BUN_INSTALL/bin:\$PATH\"
-
           # Navigate to project directory
           cd /home/autem/htdocs/autem.dev || exit 1
 
-          # Clean old build and safely update code
+          # Clean old build and update code
           rm -rf .next
-          git pull origin main  # Simple and safe
+          git pull origin main
 
-          # Install dependencies and build
+          # Install dependencies using Bun
           bun install
           bun run build
 
-          # Zero-downtime PM2 reload
-          pm2 reload ecosystem.config.cjs --update-env
+          # Restart via PM2 using Node.js
+          pm2 reload pm2.config.cjs --update-env
+          
+          # Save PM2 state
+          pm2 save
         "
 
     - name: Cleanup SSH Keys
