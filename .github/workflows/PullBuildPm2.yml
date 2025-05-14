@@ -22,22 +22,23 @@ jobs:
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
           set -e  # Exit immediately if any command fails
-          
-          # Navigate to project directory
+
+          # Ajouter Bun au PATH
+          export PATH=\"/root/.bun/bin:\$PATH\"
+
+          # Aller dans le dossier du projet
           cd /home/autem/htdocs/autem.dev || exit 1
 
-          # Clean old build and update code
+          # Nettoyer l'ancien build et mettre à jour le code
           rm -rf .next
           git pull origin main
 
-          # Install dependencies using Bun
+          # Installer les dépendances et builder avec Bun
           bun install
           bun run build
 
-          # Restart via PM2 using Node.js
+          # Redémarrer PM2 (avec Node)
           pm2 reload pm2.config.cjs --update-env
-          
-          # Save PM2 state
           pm2 save
         "
 
