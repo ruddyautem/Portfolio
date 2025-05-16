@@ -12,35 +12,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install SSH Keys
-      run: |
-        install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      # Step 1: Set up SSH credentials
+      - name: Configure SSH Access
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-    - name: Deploy and Restart PM2
-      run: |
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-          set -e  # Exit immediately if any command fails
+      # Step 2: Pull latest code
+      - name: Pull Latest Code
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd /home/autem/htdocs/autem.dev || exit 1
+            git pull origin main
+          "
 
-          # Ajouter Bun au PATH
-          export PATH=\"/root/.bun/bin:\$PATH\"
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            export PATH=\"/root/.bun/bin:\$PATH\"
+            cd /home/autem/htdocs/autem.dev
+            bun install
+          "
 
-          # Aller dans le dossier du projet
-          cd /home/autem/htdocs/autem.dev || exit 1
+      # Step 4: Build project
+      - name: Build Project
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            export PATH=\"/root/.bun/bin:\$PATH\"
+            cd /home/autem/htdocs/autem.dev
+            rm -rf .next
+            bun run build
+          "
 
-          # Nettoyer l'ancien build et mettre à jour le code
-          rm -rf .next
-          git pull origin main
+      # Step 5: Restart application
+      - name: Restart Application
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            pm2 reload pm2.config.cjs --update-env
+            pm2 save
+          "
 
-          # Installer les dépendances et builder avec Bun
-          bun install
-          bun run build
-
-          # Redémarrer PM2 (avec Node)
-          pm2 reload pm2.config.cjs --update-env
-          pm2 save
-        "
-
-    - name: Cleanup SSH Keys
-      run: rm -rf ~/.ssh
+      # Step 6: Cleanup
+      - name: Cleanup SSH Keys
+        run: rm -rf ~/.ssh
