@@ -12,23 +12,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Set up SSH credentials
-      - name: Configure SSH Access
+      # Step 1: SSH Setup
+      - name: Install SSH Private Key
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+
+      - name: Add SSH Host to known_hosts
+        run: |
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      # Step 2: Pull latest code
+      # Step 2: Clean previous build
+      - name: Clean Previous Build
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd /home/autem/htdocs/autem.dev
+            rm -rf .next
+          "
+
+      # Step 3: Git Operations
       - name: Pull Latest Code
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-            cd /home/autem/htdocs/autem.dev || exit 1
+            cd /home/autem/htdocs/autem.dev
             git pull origin main
           "
 
-      # Step 3: Install dependencies
-      - name: Install Dependencies
+      # Step 4: Dependency Management
+      - name: Install Dependencies with Bun
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
             export PATH=\"/root/.bun/bin:\$PATH\"
@@ -36,24 +47,24 @@ jobs:
             bun install
           "
 
-      # Step 4: Build project
+      # Step 5: Build Project
       - name: Build Project
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
             export PATH=\"/root/.bun/bin:\$PATH\"
             cd /home/autem/htdocs/autem.dev
-            rm -rf .next
             bun run build
           "
 
-      # Step 5: Restart application
-      - name: Restart Application
+      # Step 6: PM2 Reload (exactly as your working version)
+      - name: Reload PM2 Process
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd /home/autem/htdocs/autem.dev
             pm2 reload pm2.config.cjs --update-env
             pm2 save
           "
 
-      # Step 6: Cleanup
+      # Step 7: Cleanup
       - name: Cleanup SSH Keys
         run: rm -rf ~/.ssh
