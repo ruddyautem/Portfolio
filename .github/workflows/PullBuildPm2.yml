@@ -6,36 +6,35 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  WORKING_DIR: /home/autem/htdocs/autem.dev
-  SSH_CMD: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ env.WORKING_DIR }}"
-
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    env:
+      WORKING_DIR: /home/autem/htdocs/autem.dev
+      SSH_CMD: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}  # Base command
 
     steps:
-      # SSH Setup
+      # 1. SSH Setup (single step)
       - name: Configure SSH
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      # Deployment Commands
+      # 2. Deployment commands (reuse variables)
       - name: Clean build
-        run: ${{ env.SSH_CMD }} "rm -rf .next"
+        run: ${{ env.SSH_CMD }} "cd ${{ env.WORKING_DIR }} && rm -rf .next"
 
       - name: Git pull
-        run: ${{ env.SSH_CMD }} "git pull origin main"
+        run: ${{ env.SSH_CMD }} "cd ${{ env.WORKING_DIR }} && git pull origin main"
 
-      - name: Bun install & build
-        run: ${{ env.SSH_CMD }} "export PATH=\"/root/.bun/bin:\$PATH\" && bun install && bun run build"
+      - name: Install & build
+        run: ${{ env.SSH_CMD }} "cd ${{ env.WORKING_DIR }} && export PATH=\"/root/.bun/bin:\$PATH\" && bun install && bun run build"
 
       - name: PM2 reload
-        run: ${{ env.SSH_CMD }} "pm2 reload pm2.config.cjs --update-env && pm2 save"
+        run: ${{ env.SSH_CMD }} "cd ${{ env.WORKING_DIR }} && pm2 reload pm2.config.cjs --update-env && pm2 save"
 
-      # Cleanup
+      # 3. Cleanup
       - name: Remove SSH keys
         run: rm -rf ~/.ssh
