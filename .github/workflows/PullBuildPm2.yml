@@ -15,26 +15,33 @@ jobs:
       SSH_CMD: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
 
     steps:
+      # 1. Setup SSH
       - name: Configure SSH
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
+      # 2. Clean old build
       - name: Clean build
         run: ${{ env.SSH_CMD }} "sudo -u ruddya bash -c 'cd $WORKING_DIR && rm -rf .next'"
 
+      # 3. Reset Git state (but keep untracked files like pm2.config.cjs)
       - name: Reset local changes (preserve pm2.config.cjs)
         run: ${{ env.SSH_CMD }} "sudo -u ruddya bash -c 'cd $WORKING_DIR && git reset --hard HEAD'"
 
+      # 4. Pull latest code
       - name: Git pull
         run: ${{ env.SSH_CMD }} "sudo -u ruddya bash -c 'cd $WORKING_DIR && git pull origin main'"
 
+      # 5. Install dependencies & build
       - name: Install & build
-        run: ${{ env.SSH_CMD }} "sudo -u ruddya bash -c 'export PATH=\"$HOME/.bun/bin:\$PATH\" && cd $WORKING_DIR && bun install && bun run build'"
+        run: ${{ env.SSH_CMD }} "sudo -u ruddya bash -c 'cd $WORKING_DIR && /home/ruddya/.bun/bin/bun install && /home/ruddya/.bun/bin/bun run build'"
 
+      # 6. Reload PM2 with existing config on the VPS
       - name: PM2 reload
         run: ${{ env.SSH_CMD }} "sudo -u ruddya bash -c 'cd $WORKING_DIR && pm2 reload pm2.config.cjs --update-env && pm2 save'"
 
+      # 7. Cleanup SSH keys
       - name: Remove SSH keys
         run: rm -rf ~/.ssh
