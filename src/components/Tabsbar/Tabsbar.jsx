@@ -27,8 +27,8 @@ const Tabsbar = () => {
       : "top-0";
 
   return (
-    <div className='h-7 bg-menu text-darker '>
-      <div className='flex flex-row justify-center items-center lg:justify-start '>
+    <div className="h-7 bg-menu text-darker">
+      <div className="flex flex-row items-center justify-center lg:justify-start">
         {navLinks.map(({ name, link, icon }) => {
           const isActive = currentRoute === link;
           const baseName = name.replace(/\..+$/, ""); // Remove extension
@@ -37,19 +37,19 @@ const Tabsbar = () => {
             <Link
               href={link}
               key={name}
-              className={`flex items-center justify-center cursor-pointer relative sm:px-3 px-[2px] ${
+              className={`relative flex cursor-pointer items-center justify-center px-[2px] sm:px-3 ${
                 isActive ? activeBackgroundStyle : ""
               }`}
             >
-              <div className='flex w-full my-1.5 sm:my-1 text-xs sm:text-sm px-2 gap-1'>
-                <Image className=' ' src={icon} width={16} height={16} alt='' />
+              <div className="my-1.5 flex w-full gap-1 px-2 text-xs sm:my-1 sm:text-sm">
+                <Image className=" " src={icon} width={16} height={16} alt="" />
                 {/* Show full name on larger screens, trimmed version on small screens */}
-                <p className='sm:hidden'>{baseName}</p>
-                <p className='hidden sm:inline'>{name}</p>
+                <p className="sm:hidden">{baseName}</p>
+                <p className="hidden sm:inline">{name}</p>
               </div>
               {isActive && (
                 <div
-                  className={`absolute ${activePositionStyle} bg-accent w-full h-[1px]`}
+                  className={`absolute ${activePositionStyle} h-[1px] w-full bg-accent`}
                 ></div>
               )}
             </Link>

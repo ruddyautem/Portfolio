@@ -1,5 +1,4 @@
 import "./globals.css";
-
 import {
   Inconsolata,
   Inter,
@@ -7,7 +6,6 @@ import {
   DM_Mono,
   Comfortaa,
 } from "next/font/google";
-
 import Explorer from "@/components/Explorer/Explorer";
 import Footer from "@/components/Footer/Footer";
 import Menu from "@/components/Menu/Menu";
@@ -16,21 +14,40 @@ import Tabsbar from "@/components/Tabsbar/Tabsbar";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "./providers/ThemeProvider";
 
+// Metadata configuration
+export const metadata = {
+  title: "Ruddy Autem | Full Stack Developer",
+  description:
+    "Portfolio of Ruddy Autem - Full Stack Developer specializing in modern web technologies",
+  keywords: [
+    "Full Stack Developer",
+    "Web Development",
+    "React",
+    "Next.js",
+    "Portfolio",
+  ],
+  authors: [{ name: "Ruddy Autem" }],
+  creator: "Ruddy Autem",
+  icons: {
+    icon: "/vsclogo.svg",
+  },
+};
+
+// Font configurations - must be in module scope
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap",
   variable: "--font-inter",
   display: "swap",
 });
 
 const comfortaa = Comfortaa({
   subsets: ["latin"],
-  display: "swap",
   variable: "--font-comfortaa",
+  display: "swap",
 });
+
 const oswald = Oswald({
   subsets: ["latin"],
-  display: "swap",
   variable: "--font-oswald",
   weight: ["300", "400", "500", "700"],
   display: "swap",
@@ -38,49 +55,52 @@ const oswald = Oswald({
 
 const inconsolata = Inconsolata({
   subsets: ["latin"],
-  display: "swap",
   variable: "--font-inconsolata",
   display: "swap",
 });
 
 const dmMono = DM_Mono({
   subsets: ["latin"],
-  display: "swap",
   variable: "--font-dm-mono",
   weight: ["300", "400", "500"],
+  display: "swap",
 });
 
-export const metadata = {
-  title: "Portfolio Ruddy Autem",
-  description: "Portfolio Ruddy Autem",
-  icons: {
-    icon: "/vsclogo.svg",
-  },
-};
+// Layout Components
+const MainContent = ({ children }) => (
+  <div className="font-inconsolata text-light h-[calc(100vh-80px)] overflow-y-scroll p-4">
+    {children}
+  </div>
+);
+
+const SideSection = () => (
+  <div className="flex">
+    <Sidebar />
+    <Explorer />
+  </div>
+);
+
+const ContentSection = ({ children }) => (
+  <div className="flex flex-1 flex-col overflow-hidden">
+    <Tabsbar />
+    <MainContent>{children}</MainContent>
+  </div>
+);
 
 export default function RootLayout({ children }) {
+  const fontVariables = `${inter.variable} ${oswald.variable} ${inconsolata.variable} ${dmMono.variable} ${comfortaa.variable}`;
+
   return (
-    <html
-      lang='en'
-      className={`${inconsolata.variable} ${inter.variable} ${oswald.variable} ${dmMono.variable} ${comfortaa.variable}`}
-    >
-      <body className='flex flex-col h-screen'>
+    <html lang="en" className={fontVariables}>
+      <body className="flex h-screen flex-col">
         <ThemeContextProvider>
           <ThemeProvider>
-            <Menu className='' />
-            <div className='flex flex-1'>
-              <div className='flex '>
-                <Sidebar className='' />
-                <Explorer className='' />
-              </div>
-              <div className='flex flex-col flex-1 overflow-hidden '>
-                <Tabsbar className='' />
-                <div className='h-[calc(100vh-80px)] p-4 font-inconsolata text-light overflow-y-scroll'>
-                  {children}
-                </div>
-              </div>
+            <Menu />
+            <div className="flex flex-1">
+              <SideSection />
+              <ContentSection>{children}</ContentSection>
             </div>
-            <Footer className='' />
+            <Footer />
           </ThemeProvider>
         </ThemeContextProvider>
       </body>

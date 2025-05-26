@@ -10,7 +10,7 @@ const Typewriter = () => {
   return (
     <>
       <TypeIt
-        className='font-oswald px-8 py-4 text-3xl tracking-widest 2xl:text-9xl lg:text-7xl md:text-5xl sm:text-4xl 2xl:p-12'
+        className="px-8 py-4 font-oswald text-3xl tracking-widest sm:text-4xl md:text-5xl lg:text-7xl 2xl:p-12 2xl:text-9xl "
         options={{
           lifeLike: true,
           html: true,
@@ -30,10 +30,10 @@ const Typewriter = () => {
           return instance;
         }}
       />
-      <hr className='border-accent mx-auto w-4/6 m-4 border-t-1 md:border-t-2 xl:border-t-4' />
+      <hr className="border-t-1 m-4 mx-auto w-4/6 border-accent md:border-t-2 xl:border-t-4" />
       {Done ? (
         <TypeIt
-          className='px-8 py-4 text-lg text-center sm:text-2xl 2xl:p-12 xl:text-2xl'
+          className="px-8 py-4 text-center text-lg sm:text-2xl xl:text-2xl 2xl:p-12"
           options={{
             lifeLike: true,
             html: true,
@@ -42,7 +42,7 @@ const Typewriter = () => {
           }}
           getBeforeInit={(instance) => {
             instance.type(
-              "HTML | CSS | JAVASCRIPT | TYPESCRIPT | REACT | NEXTJS | TAILWINDCSS | STYLED-COMPONENTS | CLERK | FIREBASE | MONGODB | REDUX | MYSQL | PRISMA"
+              "HTML | CSS | JAVASCRIPT | TYPESCRIPT | REACT | NEXTJS | TAILWINDCSS | STYLED-COMPONENTS | CLERK | FIREBASE | MONGODB | REDUX | MYSQL | PRISMA",
             );
             return instance;
           }}

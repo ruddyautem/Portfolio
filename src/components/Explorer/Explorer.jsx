@@ -20,36 +20,36 @@ const Explorer = () => {
   ];
 
   return (
-    <div className='bg-explorerBg text-light w-48 hidden flex-col xl:flex'>
-      <div className='flex justify-between items-center'>
-        <p className='flex items-center h-5 ml-4 text-[12px] opacity-60 uppercase my-1'>
+    <div className="hidden w-48 flex-col bg-explorerBg text-light xl:flex">
+      <div className="flex items-center justify-between">
+        <p className="my-1 ml-4 flex h-5 items-center text-[12px] uppercase opacity-60">
           Explorer
         </p>
-        <div className='p-0.5 mr-2 rounded hover:bg-white hover:bg-opacity-5 cursor-pointer'>
-          <Image src='ellipsis.svg' width={16} height={16} alt='' />
+        <div className="mr-2 cursor-pointer rounded p-0.5 hover:bg-white hover:bg-opacity-5">
+          <Image src="ellipsis.svg" width={16} height={16} alt="" />
         </div>
       </div>
-      <div className='text-darker'>
+      <div className="text-darker">
         <div
-          className='h-6 text-[11px] flex items-center font-bold cursor-pointer uppercase bg-tabsBg'
+          className="flex h-6 cursor-pointer items-center bg-tabsBg text-[11px] font-bold uppercase"
           onClick={() => setIsOpen(!isOpen)}
         >
           <Image
             className={`transform transition-transform duration-200 ${
               isOpen ? "rotate-90" : ""
             }`}
-            src='chevron-right.svg'
+            src="chevron-right.svg"
             width={16}
             height={16}
-            alt=''
+            alt=""
           />
           <p>Ruddy Autem Portfolio</p>
         </div>
 
         <div
-          className={`overflow-y-auto flex flex-col ${
+          className={`flex flex-col overflow-y-auto ${
             isOpen ? "max-h-48" : ""
-          } max-h-0 transition-all duration-200 ease-in-out no-scrollbar`}
+          } no-scrollbar max-h-0 transition-all duration-200 ease-in-out`}
         >
           {navLinks.map(({ name, link, icon }) => (
             <Link
@@ -57,9 +57,9 @@ const Explorer = () => {
               key={name}
               className={`${
                 currentRoute === link ? "bg-activeExplorerTab" : ""
-              } flex items-center pl-3 text-sm text-explorerColor cursor-pointer hover:bg-white hover:bg-opacity-5 gap-1`}
+              } text-explorerColor flex cursor-pointer items-center gap-1 pl-3 text-sm hover:bg-white hover:bg-opacity-5`}
             >
-              <Image src={icon} width={16} height={16} alt='' />
+              <Image src={icon} width={16} height={16} alt="" />
               <p className={currentRoute === link ? "text-activeTabText" : ""}>
                 {name}
               </p>
@@ -70,7 +70,7 @@ const Explorer = () => {
       <div
         className={`${theme === "dracula" ? "bg-activeExplorerTab" : ""} ${
           theme === "oneDarkPro" ? "bg-sidebarBg" : ""
-        } flex flex-col mt-auto opacity-100 text-darker`}
+        } mt-auto flex flex-col text-darker opacity-100`}
       >
         {["Outline", "Timeline"].map((title, index) => (
           <div
@@ -79,9 +79,9 @@ const Explorer = () => {
               theme === "dracula" && index === 0 ? "border-y border-black" : ""
             } ${
               theme === "dracula" && index === 1 ? "border-b border-black" : ""
-            } flex items-center h-6 text-[9px] font-bold uppercase cursor-pointer`}
+            } flex h-6 cursor-pointer items-center text-[9px] font-bold uppercase`}
           >
-            <Image src='chevron-right.svg' width={16} height={16} alt='' />
+            <Image src="chevron-right.svg" width={16} height={16} alt="" />
             <p>{title}</p>
           </div>
         ))}
