@@ -12,19 +12,20 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WORKING_DIR: /home/autem/htdocs/autem.dev
-      SSH_CMD: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}  # Base command
+      SSH_CMD: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
 
     steps:
-      # 1. SSH Setup (single step)
       - name: Configure SSH
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      # 2. Deployment commands (reuse variables)
       - name: Clean build
         run: ${{ env.SSH_CMD }} "cd ${{ env.WORKING_DIR }} && rm -rf .next"
+
+      - name: Reset local changes
+        run: ${{ env.SSH_CMD }} "cd ${{ env.WORKING_DIR }} && git reset --hard HEAD && git clean -fd"
 
       - name: Git pull
         run: ${{ env.SSH_CMD }} "cd ${{ env.WORKING_DIR }} && git pull origin main"
@@ -35,6 +36,5 @@ jobs:
       - name: PM2 reload
         run: ${{ env.SSH_CMD }} "cd ${{ env.WORKING_DIR }} && pm2 reload pm2.config.cjs --update-env && pm2 save"
 
-      # 3. Cleanup
       - name: Remove SSH keys
         run: rm -rf ~/.ssh
