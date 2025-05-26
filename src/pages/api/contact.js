@@ -1,10 +1,10 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 
 const ContactAPI = async (req, res) => {
   const { name, email, objet, message } = req.body;
 
-const user = process.env.SMTP_USER;
-const password = process.env.SMTP_PASSWORD;
+  const user = process.env.SMTP_USER;
+  const password = process.env.SMTP_PASSWORD;
 
   const data = {
     name,
@@ -14,7 +14,7 @@ const password = process.env.SMTP_PASSWORD;
   };
 
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: "smtp.gmail.com",
     port: 465,
     secure: true,
     auth: {
@@ -26,7 +26,7 @@ const password = process.env.SMTP_PASSWORD;
   try {
     const mail = await transporter.sendMail({
       from: user,
-      to: 'ruddy.autem@gmail.com',
+      to: "ruddy.autem@gmail.com",
       replyTo: email,
       subject: `Contact via portfolio de la part de ${name}`,
       html: `
@@ -43,7 +43,7 @@ const password = process.env.SMTP_PASSWORD;
     });
 
     return res.status(200).json({
-      message: 'Votre message a été envoyé. Je reviens vers vous rapidement :)',
+      message: "Votre message a été envoyé. Je reviens vers vous rapidement :)",
     });
   } catch (error) {
     console.error(error);

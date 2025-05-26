@@ -1,7 +1,7 @@
 import Card from "@/components/Card/Card";
 import { PageWrapper } from "../../components/PageWrapper/PageWrapper";
 import React from "react";
-import projects from "./projects.json";
+import { projects } from "./projects.js";
 
 export const metadata = {
   title: "Projets Ruddy Autem",
@@ -11,7 +11,7 @@ export const metadata = {
 const Projects = () => {
   return (
     <PageWrapper
-      className='flex flex-wrap justify-center gap-6'
+      className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,335px),1fr))] gap-12 p-6"
       style={{
         maxWidth: "100%",
       }}

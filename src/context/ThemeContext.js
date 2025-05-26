@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from "react";
 
 export const ThemeContext = createContext();
 
 const getFromLocalStorage = () => {
-  if (typeof window !== 'undefined') {
-    const value = localStorage.getItem('theme');
-    return value || 'ayu';
+  if (typeof window !== "undefined") {
+    const value = localStorage.getItem("theme");
+    return value || "ayu";
   }
 };
 
@@ -21,7 +21,7 @@ export const ThemeContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem('theme', theme);
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   return (
@@ -30,4 +30,3 @@ export const ThemeContextProvider = ({ children }) => {
     </ThemeContext.Provider>
   );
 };
-

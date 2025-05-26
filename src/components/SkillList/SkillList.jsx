@@ -1,22 +1,66 @@
 import Image from "next/image";
 
-const SkillItem = ({ skill, icon, altText }) => {
+const SkillItem = ({ skill, icon, altText, category }) => {
+  // Define category-specific styles using project colors
+  const categoryStyles = {
+    frontend: {
+      from: "#2563eb", // More vibrant royal blue
+      to: "#60a5fa", // Lighter sky blue
+    },
+    backend: {
+      from: "#764bbe",
+      to: "#aea1f6",
+    },
+    outils: {
+      from: "#059669", // Rich emerald
+      to: "#34d399", // Light emerald
+    },
+  };
+
+  const style =
+    categoryStyles[category.toLowerCase()] || categoryStyles.frontend;
+
   return (
     <div
-      className='bg-gray-600/20 h-24 flex justify-center items-center gap-2 py-4 rounded-md border border-transparent transition-all duration-300 hover:bg-gray-600/30 hover:border-accent hover:scale-105 overflow-hidden cursor-pointer'
-      key={skill}
+      className="group relative flex h-32 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-lg transition-all duration-300"
+      style={{
+        background: `linear-gradient(45deg, ${style.from}15, ${style.to}15)`,
+        boxShadow: `0 0 20px ${style.from}10`,
+      }}
     >
-      <div className='flex flex-col justify-center items-center gap-2 m-2'>
-        <div
-          className='bg-[#242936]/50 w-10 h-10 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10
-       rounded-md flex justify-center items-center flex-shrink-0'
-        >
-          <div className='w-10 h-10 flex justify-center items-center p-1'>
-            <Image src={icon} alt={altText} height={28} width={28} />
-          </div>
-        </div>
-        <span className='text-sm md:text-base text-center'>{skill}</span>
+      {/* Hover gradient */}
+      <div
+        className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{
+          background: `linear-gradient(45deg, ${style.from}25, ${style.to}25)`,
+        }}
+      />
+
+      {/* Icon container */}
+      <div
+        className="relative mb-2 flex h-12 w-12 items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-110"
+        style={{
+          background: `linear-gradient(45deg, ${style.from}20, ${style.to}20)`,
+        }}
+      >
+        <Image
+          src={icon}
+          alt={altText}
+          width={36}
+          height={36}
+          className="object-contain"
+        />
       </div>
+
+      {/* Skill name */}
+      <p
+        className="relative mt-1 text-center text-sm font-medium text-white/90 transition-all duration-300 group-hover:scale-110 group-hover:text-white"
+        style={{
+          textShadow: `0 2px 8px ${style.from}40`,
+        }}
+      >
+        {skill}
+      </p>
     </div>
   );
 };

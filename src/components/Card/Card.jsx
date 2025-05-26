@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,50 +22,37 @@ const tagColors = {
   zustand: "bg-zustandHover border-zustand",
 };
 
-// Create a reusable Button component
-const Button = ({ text, onClick }) => (
-  <button className='bg-[#242936] p-2 w-20 h-10 flex justify-center items-center rounded hover:scale-105 transition-all duration-200'>
-    {text}
-  </button>
-);
-
-// Use useCallback to memoize handleRedirect function
 const Card = ({ project }) => {
-  const handleRedirect = React.useCallback(
-    () =>
-      ({ url }) =>
-        (window.location.href = url),
-    []
-  );
-
   return (
-    <div className='flex flex-col m-4 overflow-hidden shadow-2xl rounded text-[#242936] bg-gray-100 lg:w-[450px] w-[500px] '>
+    <div className="flex h-full w-full min-w-[320px] flex-col overflow-hidden rounded bg-gray-100 text-[#242936] shadow-2xl">
       {/* Image Container */}
-      <div className='w-full h-80 overflow-hidden relative'>
+      <div className="relative aspect-[4/3] w-full overflow-hidden">
         <Image
           src={project.img}
           alt={project.title}
           fill
-          className='object-cover transition-all duration-500 ease-in-out hover:scale-105'
+          className="object-cover transition-all duration-500 ease-in-out hover:scale-105"
         />
       </div>
 
       {/* Content Section */}
-      <div className='bg-gray-300/60 flex-grow flex flex-col items-center gap-4 p-4 text-center border'>
+      <div className="flex flex-1 flex-col items-center gap-4 border bg-gray-300/60 p-6 text-center">
         {/* Title */}
-        <h1 className='p-2 text-3xl font-semibold uppercase tracking-wide'>
+        <h1 className="text-2xl font-semibold uppercase tracking-wide sm:text-3xl">
           {project.title}
         </h1>
 
         {/* Description */}
-        <span className='text-darker p-4'>{project.desc}</span>
+        <span className="text-darker line-clamp-3 text-base sm:text-lg">
+          {project.desc}
+        </span>
 
         {/* Tags */}
-        <div className='flex flex-wrap justify-center gap-4 text-xs text-white font-semibold p-4'>
+        <div className="flex flex-wrap justify-center gap-2.5 py-4 text-xs font-semibold text-white">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className={`p-2 w-20 h-10 flex items-center justify-center rounded transition-transform duration-200 hover:scale-105 hover:cursor-pointer ${
+              className={`w-18 flex h-9 items-center justify-center rounded p-1.5 transition-transform duration-200 hover:scale-105 hover:cursor-pointer sm:h-10 sm:w-20 ${
                 tagColors[tag] || "border-gray-500"
               }`}
             >
@@ -75,14 +62,14 @@ const Card = ({ project }) => {
         </div>
 
         {/* Buttons */}
-        <div className='mt-auto flex gap-4 pt-12 text-xs'>
+        <div className="mt-auto flex gap-4 text-sm">
           {["source", "demo"].map((key) => (
             <Link
               key={`${project.id}-${key}`}
               href={project[key]}
-              target='_blank'
-              rel='noopener noreferrer'
-              className={`p-2 w-28 h-12 flex items-center justify-center rounded transition-transform duration-200 font-semibold text-white ${
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex h-10 w-28 items-center justify-center rounded p-1.5 font-semibold text-white transition-transform duration-200 sm:h-11 sm:w-32 ${
                 key === "source"
                   ? "bg-[#242936] hover:bg-gray-700"
                   : "bg-[#1a73e8] hover:bg-blue-600"

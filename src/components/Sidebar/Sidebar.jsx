@@ -25,7 +25,7 @@ const Sidebar = () => {
   const bottomLinks = navLinks.slice(5);
 
   return (
-    <div className='bg-sidebarBg w-12 hidden flex-col justify-between lg:flex'>
+    <div className="hidden w-12 flex-col justify-between bg-sidebarBg lg:flex">
       <div>
         {topLinks.map(({ name, link, icon }) => {
           const isActive = currentRoute === link;
@@ -34,23 +34,23 @@ const Sidebar = () => {
               key={name}
               className={`${
                 isActive ? "opacity-100" : "opacity-30"
-              } flex items-center justify-center hover:opacity-100 relative`}
+              } relative flex items-center justify-center hover:opacity-100`}
             >
               <Tooltip tooltipText={name}>
                 <Link href={link}>
-                  <div className='w-full h-11 flex justify-center items-center group'>
+                  <div className="group flex h-11 w-full items-center justify-center">
                     <Image
-                      className=''
+                      className=""
                       src={icon}
                       width={24}
                       height={24}
-                      alt=''
+                      alt=""
                     />
                   </div>
                 </Link>
               </Tooltip>
               {isActive && (
-                <div className='absolute bg-opacity-100 left-0 w-[2px] h-full bg-accent'></div>
+                <div className="absolute left-0 h-full w-[2px] bg-accent bg-opacity-100"></div>
               )}
             </div>
           );
@@ -61,16 +61,16 @@ const Sidebar = () => {
           return (
             <div
               key={name}
-              className='flex justify-center items-center opacity-30 cursor-pointer hover:opacity-100'
+              className="flex cursor-pointer items-center justify-center opacity-30 hover:opacity-100"
             >
               <Tooltip tooltipText={name}>
-                <div className='w-full h-11 relative flex justify-center group'>
+                <div className="group relative flex h-11 w-full justify-center">
                   <Image
-                    className=''
+                    className=""
                     src={icon}
                     width={24}
                     height={24}
-                    alt=''
+                    alt=""
                   />
                 </div>
               </Tooltip>

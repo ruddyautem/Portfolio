@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Github = () => {
-  return (
-    <div>Github</div>
-  )
-}
+  return <div>Github</div>;
+};
 
-export default Github
+export default Github;

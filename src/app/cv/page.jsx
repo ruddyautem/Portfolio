@@ -111,10 +111,10 @@ const LANGUAGES = [
 
 // Component definitions
 const ContactItem = ({ icon, text, link }) => (
-  <div className='flex gap-2 transition-transform duration-100 ease-in-out hover:scale-105'>
+  <div className="flex gap-2 transition-transform duration-100 ease-in-out hover:scale-105">
     <Image src={icon} height={20} width={20} alt={`${text} icon`} unoptimized />
     {link ? (
-      <a href={link} className='text-black hover:underline'>
+      <a href={link} className="text-black hover:underline">
         {text}
       </a>
     ) : (
@@ -124,40 +124,37 @@ const ContactItem = ({ icon, text, link }) => (
 );
 
 const SkillBadge = ({ skill }) => (
-  <span
-    className='bg-[#192a56] text-white px-3 py-2 rounded-md font-semibold shadow-md 
-    hover:scale-105 transition-transform ease-in-out duration-200 select-none'
-  >
+  <span className="select-none rounded-md bg-[#192a56] px-3 py-2 font-semibold text-white shadow-md transition-transform duration-200 ease-in-out hover:scale-105">
     {skill}
   </span>
 );
 
 const ProjectItem = ({ title, year, points, link }) => (
-  <div className='space-y-1'>
-    <div className='flex justify-between items-center'>
+  <div className="space-y-1">
+    <div className="flex items-center justify-between">
       {link ? (
         <a
           href={link}
-          className='flex items-center gap-2 text-sm font-extrabold hover:underline'
+          className="flex items-center gap-2 text-sm font-extrabold hover:underline"
         >
           {title}
           <Image
-            src='link.svg'
+            src="link.svg"
             height={12}
             width={12}
-            alt='Project link'
+            alt="Project link"
             unoptimized
           />
         </a>
       ) : (
-        <span className='text-sm font-extrabold'>{title}</span>
+        <span className="text-sm font-extrabold">{title}</span>
       )}
-      <span className='text-[#192a56]'>{year}</span>
+      <span className="text-[#192a56]">{year}</span>
     </div>
-    <ul className='ml-3 max-w-[75%] space-y-1'>
+    <ul className="ml-3 max-w-[75%] space-y-1">
       {points.map((point, index) => (
-        <li key={index} className='flex'>
-          <span className='mr-1'>-</span> {point}
+        <li key={index} className="flex">
+          <span className="mr-1">-</span> {point}
         </li>
       ))}
     </ul>
@@ -165,23 +162,23 @@ const ProjectItem = ({ title, year, points, link }) => (
 );
 
 const FormationItem = ({ title, institution, year }) => (
-  <div className='flex justify-between items-center'>
-    <p className='max-w-lg mr-3 font-extrabold'>
-      {title} <span className='italic font-normal'>- {institution}</span>
+  <div className="flex items-center justify-between">
+    <p className="mr-3 max-w-lg font-extrabold">
+      {title} <span className="font-normal italic">- {institution}</span>
     </p>
-    <span className='text-[#192a56]'>{year}</span>
+    <span className="text-[#192a56]">{year}</span>
   </div>
 );
 
 const LanguageItem = ({ language, level }) => (
   <div>
-    <span className='font-extrabold'>{language}</span> — {level}
+    <span className="font-extrabold">{language}</span> — {level}
   </div>
 );
 
 const Section = ({ title, icon, children }) => (
-  <section className='mt-3'>
-    <div className='flex items-center gap-3 border-b-2 border-[#192a56] pb-1'>
+  <section className="mt-3">
+    <div className="flex items-center gap-3 border-b-2 border-[#192a56] pb-1">
       <Image
         src={icon}
         height={20}
@@ -189,47 +186,44 @@ const Section = ({ title, icon, children }) => (
         alt={`${title} icon`}
         unoptimized
       />
-      <h3 className='text-xl font-semibold'>{title}</h3>
+      <h3 className="text-xl font-semibold">{title}</h3>
     </div>
     {children}
   </section>
 );
 
 const CV = () => (
-  <PageWrapper
-    className='max-w-4xl mx-auto py-10 px-8 sm:px-16 bg-[#F8F6F1] text-black 
-    rounded shadow-lg font-semibold border-8 border-[#192a56] text-sm text-justify relative'
-  >
+  <PageWrapper className="relative mx-auto max-w-4xl rounded border-8 border-[#192a56] bg-[#F8F6F1] px-8 py-10 text-justify text-sm font-semibold text-black shadow-lg sm:px-16">
     <a
-      href='/CV.pdf'
-      download='Ruddy_Autem_CV.pdf'
-      className='absolute top-2 right-2 hover:scale-110 transition-transform duration-200'
+      href="/CV.pdf"
+      download="Ruddy_Autem_CV.pdf"
+      className="absolute right-2 top-2 transition-transform duration-200 hover:scale-110"
     >
       <Image
-        src='downloadIcon.svg'
+        src="downloadIcon.svg"
         height={36}
         width={36}
-        alt='Download CV'
+        alt="Download CV"
         unoptimized
       />
     </a>
 
-    <header className='text-center pb-2'>
-      <h1 className='text-4xl sm:text-5xl text-[#192a56] font-comfortaa'>
+    <header className="pb-2 text-center">
+      <h1 className="font-comfortaa text-4xl text-[#192a56] sm:text-5xl">
         Ruddy Autem
       </h1>
-      <h2 className='text-2xl sm:text-3xl italic font-normal text-[#192a56]'>
+      <h2 className="text-2xl font-normal italic text-[#192a56] sm:text-3xl">
         Développeur Web Full-Stack
       </h2>
     </header>
 
-    <div className='flex flex-wrap justify-center gap-3 mt-2'>
+    <div className="mt-2 flex flex-wrap justify-center gap-3">
       {CONTACT_DETAILS.map((item, index) => (
         <ContactItem key={index} {...item} />
       ))}
     </div>
 
-    <p className='mt-3'>
+    <p className="mt-3">
       Développeur Web Full-Stack passionné, je conçois des applications fluides,
       performantes et optimisées pour offrir la meilleure expérience
       utilisateur. Attentif aux détails et exigeant sur la qualité du code, je
@@ -240,32 +234,32 @@ const CV = () => (
       chance d’évoluer et de dépasser les objectifs fixés.
     </p>
 
-    <Section title='Compétences Techniques' icon='skillsIcon.svg'>
-      <div className='flex flex-wrap gap-3 mt-3'>
+    <Section title="Compétences Techniques" icon="skillsIcon.svg">
+      <div className="mt-3 flex flex-wrap gap-3">
         {SKILLS.map((skill) => (
           <SkillBadge key={skill} skill={skill} />
         ))}
       </div>
     </Section>
 
-    <Section title='Projets' icon='projectsIcon.svg'>
-      <div className='mt-3 space-y-4'>
+    <Section title="Projets" icon="projectsIcon.svg">
+      <div className="mt-3 space-y-4">
         {PROJECTS.map((project, index) => (
           <ProjectItem key={index} {...project} />
         ))}
       </div>
     </Section>
 
-    <Section title='Formations' icon='schoolIcon.svg'>
-      <div className='mt-3 '>
+    <Section title="Formations" icon="schoolIcon.svg">
+      <div className="mt-3">
         {FORMATIONS.map((formation, index) => (
           <FormationItem key={index} {...formation} />
         ))}
       </div>
     </Section>
 
-    <Section title='Langues' icon='languagesIcon.svg'>
-      <ul className='flex flex-wrap gap-4 mt-3'>
+    <Section title="Langues" icon="languagesIcon.svg">
+      <ul className="mt-3 flex flex-wrap gap-4">
         {LANGUAGES.map((language, index) => (
           <li key={index}>
             <LanguageItem {...language} />

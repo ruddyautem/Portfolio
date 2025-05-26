@@ -1,26 +1,43 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import InputField from "./InputField";
+
+const INITIAL_FORM_STATE = {
+  name: "",
+  email: "",
+  objet: "",
+  message: "",
+};
+
+const FIELDS_CONFIG = [
+  { name: "name", label: "Nom", type: "text", required: true, minLength: 2 },
+  { name: "email", label: "Email", type: "email", required: true },
+  { name: "objet", label: "Objet", type: "text", required: true, minLength: 2 },
+  {
+    name: "message",
+    label: "Message",
+    type: "textarea",
+    required: true,
+    minLength: 10,
+  },
+];
 
 const ContactForm = () => {
-  const [loading, setLoading] = useState(false);
-  const [notification, setNotification] = useState(null);
+  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
+  const [status, setStatus] = useState({ loading: false, notification: null });
 
-  const fieldsConfig = [
-    { name: "name", label: "Nom", type: "text", required: true },
-    { name: "email", label: "Email", type: "email", required: true },
-    { name: "objet", label: "objet", type: "text", required: true },
-    { name: "message", label: "Message", type: "textarea" },
-  ];
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value.trimStart(),
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    const formData = {};
-    fieldsConfig.forEach((field) => {
-      formData[field.name] = e.target[field.name].value;
-    });
+    setStatus((prev) => ({ ...prev, loading: true }));
 
     try {
       const response = await fetch("/api/contact", {
@@ -32,122 +49,99 @@ const ContactForm = () => {
       const responseJson = await response.json();
 
       if (response.ok) {
-        console.log("Message sent success", responseJson.message);
-        setNotification(responseJson.message);
-        resetForm(e);
+        setStatus({
+          loading: false,
+          notification: {
+            type: "success",
+            message: responseJson.message,
+          },
+        });
+        setFormData(INITIAL_FORM_STATE);
       } else {
-        console.error("Error sending message", responseJson.message);
-        setNotification(responseJson.message);
+        throw new Error(responseJson.message);
       }
     } catch (error) {
-      console.error("Network or server error", error);
-      setNotification("Une erreur est survenue. Veuillez réessayer.");
-    } finally {
-      setLoading(false); // Always re-enable the button
+      console.error("Form submission error:", error);
+      setStatus({
+        loading: false,
+        notification: {
+          type: "error",
+          message:
+            error.message || "Une erreur est survenue. Veuillez réessayer.",
+        },
+      });
     }
   };
 
   useEffect(() => {
-    if (notification) {
+    if (status.notification) {
       const timer = setTimeout(() => {
-        setNotification(null);
+        setStatus((prev) => ({ ...prev, notification: null }));
       }, 5000);
-
       return () => clearTimeout(timer);
     }
-  }, [notification]);
-
-  const resetForm = (e) => {
-    fieldsConfig.forEach((field) => {
-      e.target[field.name].value = "";
-    });
-  };
+  }, [status.notification]);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-6 text-center md:text-left"
+    >
       {/* Name and Email */}
-      <div className='flex flex-col gap-4 m-4 mt-0 sm:flex-row'>
-        {fieldsConfig.slice(0, 2).map((field) => (
+      <div className="flex flex-col gap-6 sm:flex-row">
+        {FIELDS_CONFIG.slice(0, 2).map((field) => (
           <InputField
             key={field.name}
             {...field}
-            autoComplete='off'
-            className={`flex flex-col gap-2 w-full 2xl:w-80`}
+            value={formData[field.name]}
+            onChange={handleChange}
+            autoComplete="off"
+            className="w-full"
           />
         ))}
       </div>
 
-      {/* Objet */}
-      <div className='flex flex-col gap-4 m-4 sm:flex-row'>
+      {/* Objet and Message */}
+      {FIELDS_CONFIG.slice(2).map((field) => (
         <InputField
-          {...fieldsConfig[2]}
-          autoComplete='off'
-          className='w-full'
+          key={field.name}
+          {...field}
+          value={formData[field.name]}
+          onChange={handleChange}
+          autoComplete="off"
+          className="w-full"
         />
-      </div>
+      ))}
 
-      {/* Message */}
-      <div className='flex flex-col gap-4 m-4 sm:flex-row'>
-        <InputField
-          {...fieldsConfig[3]}
-          autoComplete='off'
-          className='w-full'
-        />
-      </div>
-
-      <div className='flex items-center'>
+      <div className="mt-2 flex flex-col items-center gap-4 md:flex-row md:items-start">
         <button
-          type='submit'
-          disabled={loading}
-          className='px-2 py-1 w-24 h-9 text-base m-4 font-bold transition-all duration-300 ease-in-out active:scale-90 border border-accent shadow disabled:bg-gray-800 disabled:opacity-50'
+          type="submit"
+          disabled={status.loading}
+          className="group relative h-12 w-32 overflow-hidden border border-accent bg-transparent px-4 py-2 text-base font-bold shadow transition-all duration-300 ease-in-out hover:bg-accent hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {loading ? "ENVOI..." : "ENVOYER"}
+          <span className="relative z-10">
+            {status.loading ? "ENVOI..." : "ENVOYER"}
+          </span>
+          {status.loading && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-accent border-t-transparent"></div>
+            </div>
+          )}
         </button>
-        {notification && (
-          <p className='px-2 text-sm xl:text-base mx-2 my-2 font-bold transition-all duration-300 ease-in-out'>
-            {notification}
+        {status.notification && (
+          <p
+            className={`rounded-md px-4 py-2 text-center text-sm font-medium transition-all duration-300 ease-in-out md:text-left ${
+              status.notification.type === "success"
+                ? "bg-green-500/10 text-green-500"
+                : "bg-red-500/10 text-red-500"
+            }`}
+          >
+            {status.notification.message}
           </p>
         )}
       </div>
     </form>
   );
 };
-
-const InputField = ({
-  label,
-  type,
-  name,
-  required,
-  autoComplete,
-  className,
-}) => (
-  <div className={`flex flex-col gap-2 ${className}`}>
-    <label htmlFor={name} className={`text-base uppercase`}>
-      {label}
-    </label>
-    {type === "textarea" ? (
-      <textarea
-        id={name}
-        name={name}
-        autoComplete={autoComplete}
-        onChange={(e) => (e.target.value = e.target.value.trimStart())}
-        className='w-full px-2 py-1 bg-gray-400 border-none bg-opacity-5 h-48 focus:outline-accent focus:outline-1 focus:outline-none resize-none'
-        minLength={10}
-        required={required}
-      />
-    ) : (
-      <input
-        id={name}
-        type={type}
-        name={name}
-        autoComplete={autoComplete}
-        onChange={(e) => (e.target.value = e.target.value.trimStart())}
-        className='w-full px-2 py-1 bg-gray-400 border-none bg-opacity-5 focus:outline-accent focus:outline-1 focus:outline-none'
-        minLength={2}
-        required={required}
-      />
-    )}
-  </div>
-);
 
 export default ContactForm;
