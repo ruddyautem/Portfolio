@@ -89,9 +89,12 @@ const ContentSection = ({ children }) => (
 
 export default function RootLayout({ children }) {
   const fontVariables = `${inter.variable} ${oswald.variable} ${inconsolata.variable} ${dmMono.variable} ${comfortaa.variable}`;
-
   return (
-    <html lang="en" className={fontVariables}>
+    <html
+      lang="en"
+      className={fontVariables}
+      style={{ fontFamily: "var(--font-system-ui)" }}
+    >
       <body className="flex h-screen flex-col">
         <ThemeContextProvider>
           <ThemeProvider>

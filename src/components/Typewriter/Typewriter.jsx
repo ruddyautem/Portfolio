@@ -30,7 +30,7 @@ const Typewriter = () => {
           return instance;
         }}
       />
-      <hr className="border-t-1 m-4 mx-auto w-4/6 border-accent md:border-t-2 xl:border-t-4" />
+      <hr className="border-t m-4 mx-auto w-4/6 border-accent md:border-t-2 xl:border-t-4" />
       {Done ? (
         <TypeIt
           className="px-8 py-4 text-center text-lg sm:text-2xl xl:text-2xl 2xl:p-12"

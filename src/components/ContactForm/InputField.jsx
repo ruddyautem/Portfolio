@@ -1,15 +1,17 @@
+"use client";
+
 const InputField = ({
   label,
-  type,
+  type = "text",
   name,
   value,
   onChange,
   required,
-  autoComplete,
-  className,
+  autoComplete = "off",
+  className = "",
   minLength,
 }) => {
-  const isTextarea = type === "textarea";
+  const isTextarea = type === "textarea"; // Check if type is textarea
   const InputComponent = isTextarea ? "textarea" : "input";
 
   return (
@@ -18,12 +20,12 @@ const InputField = ({
     >
       <label
         htmlFor={name}
-        className="text-base font-medium uppercase tracking-wide"
+        className="text-base font-medium tracking-wide uppercase"
       >
         {label} {required && <span className="text-accent">*</span>}
       </label>
       <div className="group relative overflow-hidden rounded-md">
-        <div className="absolute left-0 h-full w-0.5 bg-accent opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100" />
+        <div className="bg-accent absolute left-0 h-full w-0.5 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100" />
         <InputComponent
           id={name}
           name={name}
@@ -31,7 +33,7 @@ const InputField = ({
           value={value}
           onChange={onChange}
           autoComplete={autoComplete}
-          className={`w-full rounded-md border border-transparent bg-gray-400 bg-opacity-5 px-4 py-3 text-center transition-[border,opacity] duration-200 hover:bg-opacity-10 focus:bg-opacity-10 focus:outline-none md:text-left ${
+          className={`w-full rounded-md border border-transparent bg-gray-400/5 px-4 py-3 text-center transition-colors duration-200 hover:bg-gray-400/10 focus:bg-gray-400/10 focus:outline-none md:text-left ${
             isTextarea ? "h-48 resize-none" : ""
           }`}
           minLength={minLength}

@@ -19,12 +19,12 @@ const About = () => {
   };
 
   const renderSkillsSection = (skillsArray, title) => (
-    <div className="relative mt-8 flex-1 rounded-xl bg-gray-900/10 p-6 backdrop-blur-sm">
+    <div className="relative mt-8 flex-1 rounded-xl bg-gray-900/10 p-6 backdrop-blur-xs">
       {/* Section Title with Custom Color Underline */}
       <div className="mb-8">
         <div className="inline-block">
           <h2 className="mb-2 text-3xl font-bold tracking-tight">{title}</h2>
-          <div className={`h-1 w-full rounded ${sectionColors[title]}`} />
+          <div className={`h-1 w-full rounded-sm ${sectionColors[title]}`} />
         </div>
       </div>
 

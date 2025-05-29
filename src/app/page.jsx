@@ -1,26 +1,10 @@
-import Link from "next/link";
 import { PageWrapper } from "../components/PageWrapper/PageWrapper";
 import Typewriter from "@/components/Typewriter/Typewriter";
-
-const AnimatedLink = ({ href, children }) => {
-  return (
-    <Link
-      href={href}
-      className="group relative flex w-56 items-center justify-center border border-accent px-12 py-6 text-xl text-light transition-all duration-300 hover:scale-105 sm:w-64 sm:text-3xl"
-    >
-      <span className="relative z-10 group-hover:text-white">{children}</span>
-      <div className="absolute inset-0 h-full w-full border-2 border-transparent transition-all duration-300 ease-out group-hover:border-accent"></div>
-      <div className="absolute left-0 top-0 h-1 w-0 bg-accent transition-all duration-300 ease-out group-hover:w-full"></div>
-      <div className="absolute right-0 top-0 h-0 w-1 bg-accent transition-all duration-300 ease-out group-hover:h-full"></div>
-      <div className="absolute bottom-0 right-0 h-1 w-0 bg-accent transition-all duration-300 ease-out group-hover:w-full"></div>
-      <div className="absolute bottom-0 left-0 h-0 w-1 bg-accent transition-all duration-300 ease-out group-hover:h-full"></div>
-    </Link>
-  );
-};
+import AnimatedLink from "@/components/AnimatedLink/AnimatedLink";
 
 export default function Home() {
   return (
-    <PageWrapper className="relative flex h-full select-none flex-col">
+    <PageWrapper className="relative flex h-full flex-col select-none">
       <div className="flex h-full flex-col items-center justify-center text-center">
         <Typewriter />
         <div className="mt-4 flex flex-col gap-6 lg:flex-row">

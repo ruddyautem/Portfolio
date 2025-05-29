@@ -193,7 +193,7 @@ const Section = ({ title, icon, children }) => (
 );
 
 const CV = () => (
-  <PageWrapper className="relative mx-auto max-w-4xl rounded border-8 border-[#192a56] bg-[#F8F6F1] px-8 py-10 text-justify text-sm font-semibold text-black shadow-lg sm:px-16">
+  <PageWrapper className="relative mx-auto max-w-4xl rounded-sm border-8 border-[#192a56] bg-[#F8F6F1] px-8 py-10 text-justify text-sm font-semibold text-black shadow-lg sm:px-16">
     <a
       href="/CV.pdf"
       download="Ruddy_Autem_CV.pdf"
