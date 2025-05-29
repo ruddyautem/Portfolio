@@ -1,24 +1,22 @@
 import Image from "next/image";
 
-const SkillItem = ({ skill, icon, altText, category }) => {
-  // Define category-specific styles using project colors
-  const categoryStyles = {
-    frontend: {
-      from: "#2563eb", // More vibrant royal blue
-      to: "#60a5fa", // Lighter sky blue
-    },
-    backend: {
-      from: "#764bbe",
-      to: "#aea1f6",
-    },
-    outils: {
-      from: "#059669", // Rich emerald
-      to: "#34d399", // Light emerald
-    },
-  };
+const categoryStyles = {
+  frontend: {
+    from: "#2563eb", // Royal blue
+    to: "#60a5fa", // Sky blue
+  },
+  backend: {
+    from: "#764bbe", // Purple
+    to: "#aea1f6", // Light purple
+  },
+  outils: {
+    from: "#059669", // Emerald
+    to: "#34d399", // Light emerald
+  },
+};
 
-  const style =
-    categoryStyles[category.toLowerCase()] || categoryStyles.frontend;
+const SkillList = ({ skill, icon, altText, category }) => {
+  const style = categoryStyles[category.toLowerCase()];
 
   return (
     <div
@@ -36,7 +34,7 @@ const SkillItem = ({ skill, icon, altText, category }) => {
         }}
       />
 
-      {/* Icon container */}
+      {/* Icon */}
       <div
         className="relative mb-2 flex h-12 w-12 items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-110"
         style={{
@@ -65,4 +63,4 @@ const SkillItem = ({ skill, icon, altText, category }) => {
   );
 };
 
-export default SkillItem;
+export default SkillList;

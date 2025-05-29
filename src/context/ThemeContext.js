@@ -16,11 +16,12 @@ export const ThemeContextProvider = ({ children }) => {
     return getFromLocalStorage();
   });
 
-  const toggle = (theme) => {
-    setTheme(theme);
+  const toggle = (newTheme) => {
+    setTheme(newTheme);
   };
 
   useEffect(() => {
+    // Save theme to localStorage
     localStorage.setItem("theme", theme);
   }, [theme]);
 

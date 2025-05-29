@@ -1,3 +1,4 @@
+// ThemeProvider.jsx
 "use client";
 
 import { ThemeContext } from "@/context/ThemeContext";
@@ -9,9 +10,11 @@ const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    // Apply theme class to <html>
+    document.documentElement.className = theme;
+  }, [theme]);
 
-  return mounted && <div className={theme}>{children}</div>;
+  return mounted && children;
 };
 
 export default ThemeProvider;

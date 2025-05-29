@@ -29,10 +29,7 @@ const ContactForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value.trimStart(),
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value.trimStart() }));
   };
 
   const handleSubmit = async (e) => {
@@ -46,22 +43,18 @@ const ContactForm = () => {
         body: JSON.stringify(formData),
       });
 
-      const responseJson = await response.json();
+      const data = await response.json();
 
       if (response.ok) {
         setStatus({
           loading: false,
-          notification: {
-            type: "success",
-            message: responseJson.message,
-          },
+          notification: { type: "success", message: data.message },
         });
         setFormData(INITIAL_FORM_STATE);
       } else {
-        throw new Error(responseJson.message);
+        throw new Error(data.message || "Failed to submit form");
       }
     } catch (error) {
-      console.error("Form submission error:", error);
       setStatus({
         loading: false,
         notification: {
@@ -75,9 +68,10 @@ const ContactForm = () => {
 
   useEffect(() => {
     if (status.notification) {
-      const timer = setTimeout(() => {
-        setStatus((prev) => ({ ...prev, notification: null }));
-      }, 5000);
+      const timer = setTimeout(
+        () => setStatus((prev) => ({ ...prev, notification: null })),
+        5000,
+      );
       return () => clearTimeout(timer);
     }
   }, [status.notification]);
@@ -113,18 +107,19 @@ const ContactForm = () => {
         />
       ))}
 
+      {/* Submit Button and Notification */}
       <div className="mt-2 flex flex-col items-center gap-4 md:flex-row md:items-start">
         <button
           type="submit"
           disabled={status.loading}
-          className="group relative h-12 w-32 overflow-hidden border border-accent bg-transparent px-4 py-2 text-base font-bold shadow transition-all duration-300 ease-in-out hover:bg-accent hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
+          className="group border-accent hover:bg-accent relative h-12 w-32 overflow-hidden border bg-transparent px-4 py-2 text-base font-bold shadow-sm transition-all duration-300 ease-in-out hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
         >
           <span className="relative z-10">
             {status.loading ? "ENVOI..." : "ENVOYER"}
           </span>
           {status.loading && (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-5 w-5 animate-spin rounded-full border-2 border-accent border-t-transparent"></div>
+              <div className="border-accent h-5 w-5 animate-spin rounded-full border-2 border-t-transparent"></div>
             </div>
           )}
         </button>
