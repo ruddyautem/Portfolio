@@ -2,6 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+const FooterItem = ({ icon, label, alt = "" }) => (
+  <>
+    <Image
+      className="h-3 opacity-60"
+      src={icon}
+      width={15}
+      height={15}
+      alt={alt}
+    />
+    {label && <p>{label}</p>}
+  </>
+);
+
 const Footer = () => {
   const statusItems = [
     { icon: "/error.svg", label: "0" },
@@ -14,51 +27,40 @@ const Footer = () => {
     { icon: "/bell.svg", label: null },
   ];
 
+  const containerClasses =
+    "flex h-5 cursor-pointer items-center rounded-xs px-1 hover:bg-white/10";
+  const footerClasses =
+    "bg-menu text-opacity-50 z-50 flex h-5 w-full items-center gap-1 text-[10px] relative";
+
   return (
-    <div className="bg-menu text-opacity-50 z-50 flex h-5 w-full items-center gap-1 text-[10px]">
+    <div className={footerClasses}>
       <Link
         href="https://github.com/ruddyautem"
-        className="ml-1 flex h-5 cursor-pointer items-center rounded-xs px-1 hover:bg-white/10"
+        className={`${containerClasses} ml-1`}
       >
-        <Image
-          className="h-3 opacity-60"
-          src="/source-control.svg"
-          width={15}
-          height={15}
+        <FooterItem
+          icon="/source-control.svg"
+          label="main"
           alt="Source control"
         />
-        <p>main</p>
       </Link>
-      <div className="flex gap-2">
-        <div className="flex h-5 cursor-pointer items-center rounded-xs px-1 hover:bg-white/10">
+
+      <div className="hidden gap-2 sm:flex">
+        <div className={containerClasses}>
           {statusItems.map((item, index) => (
-            <React.Fragment key={index}>
-              <Image
-                className="h-3 opacity-60"
-                src={item.icon}
-                width={15}
-                height={15}
-                alt=""
-              />
-              <p>{item.label}</p>
-            </React.Fragment>
+            <FooterItem key={index} {...item} />
           ))}
         </div>
       </div>
+
+      <span className="absolute left-1/2 ml-[-5px] -translate-x-1/2 lg:ml-[20px] xl:ml-[115px]">
+        © 2025 Ruddy Autem
+      </span>
+
       <div className="ml-auto flex gap-1 px-1">
         {rightSideItems.map((item, index) => (
-          <div
-            key={index}
-            className="flex h-5 cursor-pointer items-center rounded-xs px-1 hover:bg-white/10"
-          >
-            <Image
-              className="h-3 opacity-60"
-              src={item.icon}
-              width={15}
-              height={15}
-              alt=""
-            />
-            {item.label && <p>{item.label}</p>}
+          <div key={index} className={containerClasses}>
+            <FooterItem {...item} />
           </div>
         ))}
       </div>
