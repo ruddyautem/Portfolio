@@ -9,7 +9,10 @@ export const metadata = {
 
 const Contact = () => {
   return (
-    <PageWrapper className="no-scrollbar h-full">
+    <PageWrapper
+      className="h-full xl:overflow-y-hidden"
+      skipChildWrapping={true}
+    >
       <ContactList />
     </PageWrapper>
   );

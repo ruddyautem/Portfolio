@@ -124,7 +124,7 @@ const ContactItem = ({ icon, text, link }) => (
 );
 
 const SkillBadge = ({ skill }) => (
-  <span className="select-none rounded-md bg-[#192a56] px-3 py-2 font-semibold text-white shadow-md transition-transform duration-200 ease-in-out hover:scale-105">
+  <span className="rounded-md bg-[#192a56] px-3 py-2 font-semibold text-white shadow-md transition-transform duration-200 ease-in-out select-none hover:scale-105">
     {skill}
   </span>
 );
@@ -197,7 +197,7 @@ const CV = () => (
     <a
       href="/CV.pdf"
       download="Ruddy_Autem_CV.pdf"
-      className="absolute right-2 top-2 transition-transform duration-200 hover:scale-110"
+      className="absolute -top-8 -right-6 transition-transform duration-200 hover:scale-110 sm:-top-8 sm:-right-14"
     >
       <Image
         src="downloadIcon.svg"
@@ -212,7 +212,7 @@ const CV = () => (
       <h1 className="font-comfortaa text-4xl text-[#192a56] sm:text-5xl">
         Ruddy Autem
       </h1>
-      <h2 className="text-2xl font-normal italic text-[#192a56] sm:text-3xl">
+      <h2 className="text-2xl font-normal text-[#192a56] italic sm:text-3xl">
         Développeur Web Full-Stack
       </h2>
     </header>

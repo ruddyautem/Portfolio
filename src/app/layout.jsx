@@ -81,7 +81,7 @@ const SideSection = () => (
 );
 
 const ContentSection = ({ children }) => (
-  <div className="flex flex-1 flex-col overflow-hidden">
+  <div className="p flex flex-1 flex-col overflow-hidden">
     <Tabsbar />
     <MainContent>{children}</MainContent>
   </div>
