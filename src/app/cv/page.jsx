@@ -1,53 +1,52 @@
-import { PageWrapper } from "@/components/PageWrapper/PageWrapper";
-import Image from "next/image";
-import React from "react";
+import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
+import Image from 'next/image';
+import React from 'react';
 
 // Data constants
 const SKILLS = [
-  "React.js",
-  "Next.js",
-  "Typescript",
-  "AGILE",
-  "TailwindCSS",
-  "Zustand",
-  "Git",
-  "Clerk",
-  "SCSS",
-  "Styled-Components",
-  "Firebase",
-  "MongoDB",
-  "Prisma",
-  "MySQL",
-  "Node",
-  "Express",
+  'React.js',
+  'Next.js',
+  'Typescript',
+  'AGILE',
+  'TailwindCSS',
+  'Zustand',
+  'Git',
+  'Clerk',
+  'SCSS',
+  'Styled-Components',
+  'Firebase',
+  'MongoDB',
+  'Prisma',
+  'MySQL',
+  'Node',
+  'Express',
 ];
 
 const CONTACT_DETAILS = [
   {
-    icon: "mailIcon.svg",
-    text: "ruddy.autem@gmail.com",
-    link: "mailto:ruddy.autem@gmail.com",
+    icon: 'mailIcon.svg',
+    text: 'ruddy.autem@gmail.com',
+    link: 'mailto:ruddy.autem@gmail.com',
   },
-  // { icon: "phoneIcon.svg", text: "06.59.73.57.28" },
-  { icon: "locationIcon.svg", text: "Leers, HDF" },
-  { icon: "linkIcon.svg", text: "www.autem.dev", link: "https://autem.dev/" },
+  { icon: 'locationIcon.svg', text: 'Leers, HDF' },
+  { icon: 'linkIcon.svg', text: 'www.autem.dev', link: 'https://autem.dev/' },
   {
-    icon: "githubIcon2.svg",
-    text: "/ruddyautem",
-    link: "https://github.com/ruddyautem",
+    icon: 'githubIcon2.svg',
+    text: '/ruddyautem',
+    link: 'https://github.com/ruddyautem',
   },
   {
-    icon: "linkedinIcon.svg",
-    text: "/ruddyautem",
-    link: "https://www.linkedin.com/in/ruddyautem/",
+    icon: 'linkedinIcon.svg',
+    text: '/ruddyautem',
+    link: 'https://www.linkedin.com/in/ruddyautem/',
   },
 ];
 
 const PROJECTS = [
   {
-    title: "Portfolio VsCode",
-    year: "2025",
-    link: "https://www.autem.dev",
+    title: 'Portfolio VsCode',
+    year: '2025',
+    link: 'https://www.autem.dev',
     points: [
       "Conception et réalisation d'un portfolio en Next.js entièrement responsive inspiré de l'interface de VSCode.",
       "Intégration de thèmes de couleurs dynamiques améliorant l'attrait visuel et la convivialité.",
@@ -55,218 +54,388 @@ const PROJECTS = [
     ],
   },
   {
-    title: "OhMyBlog!",
-    year: "2025",
-    link: "https://ohmyblog.vercel.app",
+    title: 'OhMyBlog!',
+    year: '2025',
+    link: 'https://ohmyblog.vercel.app',
     points: [
-      "Création d’une plateforme de création de blogs moderne et entièrement responsive avec React 19 et Tailwind CSS 4.1.",
-      "Authentification rapide et sécurisée avec Clerk, et API gérées via Express.",
+      "Création d'une plateforme de création de blogs moderne et entièrement responsive avec React 19 et Tailwind CSS 4.1.",
+      'Authentification rapide et sécurisée avec Clerk, et API gérées via Express.',
       "Intégration d'ImageKit.io pour l'upload et l'optimisation des images.",
     ],
   },
   {
-    title: "Style-D",
-    year: "2025",
-    link: "https://style-d.vercel.app",
+    title: 'Style-D',
+    year: '2025',
+    link: 'https://style-d.vercel.app',
     points: [
-      "Développement d’une plateforme de E-Commerce entièrement responsive au design vibrant, offrant une expérience d’achat fluide et rapide en quelques clics.",
+      "Développement d'une plateforme de E-Commerce entièrement responsive au design vibrant, offrant une expérience d'achat fluide et rapide en quelques clics.",
       "Mise en place d'une authentification Google pour simplifier et accélérer l'inscription et la connexion des utilisateurs.",
-      "Intégration des paiements sécurisés via Stripe et création automatisée des factures sur Firebase",
+      'Intégration des paiements sécurisés via Stripe et création automatisée des factures sur Firebase',
     ],
   },
-  // {
-  //   title: "GPT3",
-  //   year: "2023",
-  //   link: "",
-  //   points: [
-  //     "Création de la page d'accueil d'une plateforme de tutoriels sur GPT-3 en React.js.",
-  //     "Approche mobile first pour une expérience utilisateur fluide sur tous les périphériques.",
-  //   ],
-  // },
 ];
 
 const FORMATIONS = [
   {
-    title: "Complete React Developer, Redux, Hooks",
-    institution: "Zero To Mastery Academy",
-    year: "2022",
+    title: 'Complete React Developer, Redux, Hooks',
+    institution: 'Zero To Mastery Academy',
+    year: '2022',
   },
   {
-    title: "The Web Developer Bootcamp",
-    institution: "Colt Steele",
-    year: "2021",
+    title: 'The Web Developer Bootcamp',
+    institution: 'Colt Steele',
+    year: '2021',
   },
   {
-    title:
-      "Licence LLCER - Langues, littératures et civilisations étrangères et régionales",
-    institution: "Sorbonne Nouvelle",
-    year: "2014",
+    title: 'Licence LLCER - Langues, littératures et civilisations étrangères et régionales',
+    institution: 'Sorbonne Nouvelle',
+    year: '2014',
   },
 ];
 
 const LANGUAGES = [
-  { language: "Anglais", level: "Courant" },
-  { language: "Allemand", level: "B1" },
+  { language: 'Anglais', level: 'Courant' },
+  { language: 'Allemand', level: 'B1' },
 ];
 
-// Component definitions
-const ContactItem = ({ icon, text, link }) => (
-  <div className="flex gap-2 transition-transform duration-100 ease-in-out hover:scale-105">
-    <Image src={icon} height={20} width={20} alt={`${text} icon`} unoptimized />
-    {link ? (
-      <a href={link} className="text-black hover:underline">
-        {text}
-      </a>
-    ) : (
-      <span>{text}</span>
-    )}
-  </div>
-);
-
-const SkillBadge = ({ skill }) => (
-  <span className="rounded-md bg-[#192a56] px-3 py-2 font-semibold text-white shadow-md transition-transform duration-200 ease-in-out select-none hover:scale-105">
-    {skill}
-  </span>
-);
-
-const ProjectItem = ({ title, year, points, link }) => (
-  <div className="space-y-1">
-    <div className="flex items-center justify-between">
-      {link ? (
-        <a
-          href={link}
-          className="flex items-center gap-2 text-sm font-extrabold hover:underline"
-        >
-          {title}
-          <Image
-            src="link.svg"
-            height={12}
-            width={12}
-            alt="Project link"
-            unoptimized
-          />
-        </a>
-      ) : (
-        <span className="text-sm font-extrabold">{title}</span>
-      )}
-      <span className="text-[#192a56]">{year}</span>
-    </div>
-    <ul className="ml-3 max-w-[75%] space-y-1">
-      {points.map((point, index) => (
-        <li key={index} className="flex">
-          <span className="mr-1">-</span> {point}
-        </li>
-      ))}
-    </ul>
-  </div>
-);
-
-const FormationItem = ({ title, institution, year }) => (
-  <div className="flex items-center justify-between">
-    <p className="mr-3 max-w-lg font-extrabold">
-      {title} <span className="font-normal italic">- {institution}</span>
-    </p>
-    <span className="text-[#192a56]">{year}</span>
-  </div>
-);
-
-const LanguageItem = ({ language, level }) => (
-  <div>
-    <span className="font-extrabold">{language}</span> — {level}
-  </div>
-);
-
-const Section = ({ title, icon, children }) => (
-  <section className="mt-3">
-    <div className="flex items-center gap-3 border-b-2 border-[#192a56] pb-1">
-      <Image
-        src={icon}
-        height={20}
-        width={20}
-        alt={`${title} icon`}
-        unoptimized
+const CvDownloadButton = () => (
+  <a
+    href="/CV.pdf"
+    download="Ruddy_Autem_CV.pdf"
+    className="inline-flex items-center gap-2 rounded-lg bg-[#192a56] px-4 py-2 text-sm
+      font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#243a6b]"
+  >
+    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
       />
-      <h3 className="text-xl font-semibold">{title}</h3>
-    </div>
-    {children}
-  </section>
+    </svg>
+    CV
+  </a>
 );
 
 const CV = () => (
-  <PageWrapper className="relative mx-auto max-w-4xl rounded-sm border-8 border-[#192a56] bg-[#F8F6F1] px-8 py-10 text-justify text-sm font-semibold text-black shadow-lg sm:px-16">
-    <a
-      href="/CV.pdf"
-      download="Ruddy_Autem_CV.pdf"
-      className="absolute -top-8 -right-6 transition-transform duration-200 hover:scale-110 sm:-top-8 sm:-right-14"
+  <PageWrapper skipChildWrapping>
+    <div
+      className="3xl:p-20 flex w-full items-center justify-center overflow-x-hidden p-4 sm:p-6
+        md:p-8 xl:p-12 2xl:p-16"
     >
-      <Image
-        src="downloadIcon.svg"
-        height={36}
-        width={36}
-        alt="Download CV"
-        unoptimized
-      />
-    </a>
+      <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-[100rem]">
+        <div
+          className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50
+            bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl"
+        >
+          {/* Decorative header bar */}
+          <div
+            className="item-animate flex h-12 items-center bg-gradient-to-r from-slate-800/50
+              to-slate-900/15 px-6"
+          >
+            <div className="flex items-center gap-2 font-mono text-xs text-slate-400">
+              <span className="h-3 w-3 rounded-full bg-red-500/80"></span>
+              <span className="h-3 w-3 rounded-full bg-yellow-500/80"></span>
+              <span className="h-3 w-3 rounded-full bg-green-500/80"></span>
+              <span className="ml-4 text-slate-500">{'// cv.json'}</span>
+            </div>
+          </div>
 
-    <header className="pb-2 text-center">
-      <h1 className="font-comfortaa text-4xl text-[#192a56] sm:text-5xl">
-        Ruddy Autem
-      </h1>
-      <h2 className="text-2xl font-normal text-[#192a56] italic sm:text-3xl">
-        Développeur Web Full-Stack
-      </h2>
-    </header>
+          {/* Header Section */}
+          <div className="item-animate border-b border-slate-700/30 p-6 text-center sm:p-8 md:p-10">
+            {/* <div className="text-accent item-animate mb-4 inline-block rounded-full bg-slate-700/50 px-4 py-1.5 font-mono text-sm 2xl:px-5 2xl:py-2 2xl:text-base">
+              CURRICULUM VITAE
+            </div> */}
+            <h1
+              className="item-animate mb-4 text-3xl font-bold text-white sm:text-4xl md:text-5xl
+                2xl:text-6xl"
+            >
+              Mon <span className="text-accent">CV</span>
+            </h1>
+            <p
+              className="item-animate mx-auto max-w-2xl text-lg text-slate-300 sm:text-xl
+                2xl:text-2xl"
+            >
+              Découvrez mon parcours, mes compétences et mes réalisations en développement web.
+            </p>
+          </div>
 
-    <div className="mt-2 flex flex-wrap justify-center gap-3">
-      {CONTACT_DETAILS.map((item, index) => (
-        <ContactItem key={index} {...item} />
-      ))}
+          {/* CV Content */}
+          <div className="item-animate p-3 sm:p-8 md:p-10">
+            <div className="mx-auto max-w-6xl space-y-4 sm:space-y-6 md:space-y-8">
+              {/* Personal Info + About */}
+              <div
+                className="item-animate relative rounded-xl border border-gray-200 bg-white p-4
+                  shadow-md sm:p-8 md:p-10"
+              >
+                {/* Download Button - Responsive Positioning */}
+                <div className="z-10 mb-4 text-center sm:absolute sm:top-2 sm:right-2 sm:mb-0">
+                  <CvDownloadButton />
+                </div>
+
+                {/* Personal Info Section */}
+                <div className="item-animate text-center">
+                  <h1
+                    className="mb-2 text-4xl font-bold text-[#192a56] sm:mb-3 md:mb-4 md:text-5xl
+                      lg:text-7xl"
+                  >
+                    Ruddy Autem
+                  </h1>
+                  <h2
+                    className="mb-6 text-xl text-[#192a56]/80 italic sm:mb-8 md:text-2xl
+                      lg:text-3xl"
+                  >
+                    Développeur Web Full-Stack
+                  </h2>
+                </div>
+
+                {/* Contact Details - Unified Layout: Responsive via grid */}
+                <div className="item-animate mx-auto max-w-5xl">
+                  <div
+                    className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3
+                      lg:gap-6"
+                  >
+                    {CONTACT_DETAILS.map((item, index) => (
+                      <div
+                        key={index}
+                        className={`flex cursor-pointer items-center gap-3 rounded-lg p-3
+                        transition-colors hover:bg-gray-50 sm:p-4 lg:p-5
+                        ${index >= 3 && 'sm:col-span-2 lg:col-span-1'} `}
+                      >
+                        <div
+                          className="flex h-8 w-8 flex-shrink-0 items-center justify-center
+                            rounded-full bg-[#192a56]/10 sm:h-10 sm:w-10 lg:h-12 lg:w-12"
+                        >
+                          <Image src={item.icon} height={16} width={16} alt="" unoptimized />
+                        </div>
+                        {item.link ? (
+                          <a
+                            href={item.link}
+                            className="truncate text-sm text-gray-800 hover:text-[#192a56]
+                              sm:text-base lg:text-lg"
+                          >
+                            {item.text}
+                          </a>
+                        ) : (
+                          <span className="truncate text-sm text-gray-800 sm:text-base lg:text-lg">
+                            {item.text}
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Separator */}
+                <div className="item-animate my-8 h-px w-full bg-gray-200 sm:my-10 md:my-12"></div>
+
+                {/* About Section */}
+                <div className="item-animate mx-auto max-w-5xl">
+                  <div className="mb-4 flex items-center gap-3 sm:mb-6 sm:gap-4 md:mb-8">
+                    <div className="h-5 w-1.5 rounded bg-[#192a56] sm:h-7"></div>
+                    <h3
+                      className="text-lg font-bold text-[#192a56] sm:text-xl md:text-2xl
+                        lg:text-3xl"
+                    >
+                      À propos
+                    </h3>
+                  </div>
+                  <p
+                    className="text-sm leading-relaxed text-gray-700 sm:text-base md:text-lg
+                      lg:text-xl"
+                  >
+                    Développeur Web Full-Stack passionné, je conçois des applications fluides,
+                    performantes et optimisées pour offrir la meilleure expérience utilisateur.
+                    Attentif aux détails et exigeant sur la qualité du code, je m&apos;efforce de
+                    proposer des solutions solides et adaptatives.
+                    <span className="hidden md:inline">
+                      <br />
+                      <br />
+                      Ma maîtrise du front-end et du back-end garantit une harmonie entre design et
+                      efficacité technique. Avide d&apos;innover, j&apos;aborde chaque projet comme
+                      une chance d&apos;évoluer et de dépasser les objectifs fixés.
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Skills Card */}
+              <div
+                className="item-animate rounded-xl border border-gray-200 bg-white p-4 shadow-md
+                  sm:p-6 md:p-8"
+              >
+                <div className="mx-auto max-w-5xl">
+                  <div className="mb-3 flex items-center gap-2 sm:mb-4 sm:gap-3">
+                    <div className="h-4 w-1 rounded bg-[#192a56] sm:h-6"></div>
+                    <h3
+                      className="text-base font-bold text-[#192a56] sm:text-lg md:text-xl
+                        lg:text-2xl"
+                    >
+                      Compétences
+                    </h3>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3">
+                    {SKILLS.map((skill) => (
+                      <span
+                        key={skill}
+                        className="item-animate rounded-md bg-[#192a56] px-2 py-1 text-xs
+                          font-semibold text-white transition-transform duration-200 hover:scale-105
+                          sm:px-3 sm:py-1.5 sm:text-sm md:px-4 md:py-2 md:text-base"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Projects Card */}
+              <div
+                className="item-animate rounded-xl border border-gray-200 bg-white p-4 shadow-md
+                  sm:p-6 md:p-8"
+              >
+                <div className="mx-auto max-w-5xl">
+                  <div className="mb-3 flex items-center gap-2 sm:mb-4 sm:gap-3">
+                    <div className="h-4 w-1 rounded bg-[#192a56] sm:h-6"></div>
+                    <h3
+                      className="text-base font-bold text-[#192a56] sm:text-lg md:text-xl
+                        lg:text-2xl"
+                    >
+                      Projets
+                    </h3>
+                  </div>
+                  <div className="space-y-4 sm:space-y-6 md:space-y-8">
+                    {PROJECTS.map((project, index) => (
+                      <div
+                        key={index}
+                        className="item-animate border-l-2 border-[#192a56]/30 pl-3 sm:pl-4 md:pl-6"
+                      >
+                        <div className="mb-1 flex items-center justify-between sm:mb-2">
+                          {project.link ? (
+                            <a
+                              href={project.link}
+                              className="text-xs font-bold text-[#192a56] hover:underline sm:text-sm
+                                md:text-base lg:text-lg"
+                            >
+                              {project.title}
+                            </a>
+                          ) : (
+                            <span
+                              className="text-xs font-bold text-[#192a56] sm:text-sm md:text-base
+                                lg:text-lg"
+                            >
+                              {project.title}
+                            </span>
+                          )}
+                          <span
+                            className="flex-shrink-0 rounded bg-[#192a56] px-2 py-0.5 text-xs
+                              text-white sm:px-3 sm:py-1 sm:text-sm md:text-base"
+                          >
+                            {project.year}
+                          </span>
+                        </div>
+                        <ul
+                          className="mr-12 space-y-1 text-xs text-gray-700 sm:mr-16 sm:space-y-2
+                            sm:text-sm md:mr-20 md:text-base"
+                        >
+                          {project.points.map((point, i) => (
+                            <li key={i} className="flex">
+                              <span className="mr-1 flex-shrink-0 sm:mr-2">•</span>
+                              <span>{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Education + Languages */}
+              <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
+                {/* Education Card */}
+                <div
+                  className="item-animate rounded-xl border border-gray-200 bg-white p-4 shadow-md
+                    sm:p-6 md:p-8"
+                >
+                  <div className="mb-3 flex items-center gap-2 sm:mb-4 sm:gap-3">
+                    <div className="h-4 w-1 rounded bg-[#192a56] sm:h-6"></div>
+                    <h3
+                      className="text-base font-bold text-[#192a56] sm:text-lg md:text-xl
+                        lg:text-2xl"
+                    >
+                      Formations
+                    </h3>
+                  </div>
+                  <div className="space-y-3 sm:space-y-4">
+                    {FORMATIONS.map((formation, index) => (
+                      <div
+                        key={index}
+                        className="item-animate border-b border-gray-100 pb-2 last:border-b-0
+                          sm:pb-3"
+                      >
+                        <p
+                          className="mb-1 text-xs font-semibold text-[#192a56] sm:text-sm
+                            md:text-base"
+                        >
+                          {formation.title}
+                        </p>
+                        <p
+                          className="mb-1 text-xs text-gray-600 italic sm:mb-2 sm:text-sm
+                            md:text-base"
+                        >
+                          {formation.institution}
+                        </p>
+                        <span
+                          className="rounded bg-[#192a56] px-2 py-0.5 text-xs text-white sm:px-3
+                            sm:py-1 sm:text-sm"
+                        >
+                          {formation.year}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Languages Card */}
+                <div
+                  className="item-animate rounded-xl border border-gray-200 bg-white p-4 shadow-md
+                    sm:p-6 md:p-8"
+                >
+                  <div className="mb-3 flex items-center gap-2 sm:mb-4 sm:gap-3">
+                    <div className="h-4 w-1 rounded bg-[#192a56] sm:h-6"></div>
+                    <h3
+                      className="text-base font-bold text-[#192a56] sm:text-lg md:text-xl
+                        lg:text-2xl"
+                    >
+                      Langues
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2 sm:gap-3">
+                    {LANGUAGES.map((language, index) => (
+                      <div
+                        key={index}
+                        className="item-animate rounded-lg bg-gray-50 p-2 text-center sm:p-3 md:p-4"
+                      >
+                        <span
+                          className="block text-xs font-semibold text-[#192a56] sm:text-sm
+                            md:text-base lg:text-lg"
+                        >
+                          {language.language}
+                        </span>
+                        <span className="text-xs text-gray-600 sm:text-sm md:text-base">
+                          {language.level}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* END bottom grid */}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <p className="mt-3">
-      Développeur Web Full-Stack passionné, je conçois des applications fluides,
-      performantes et optimisées pour offrir la meilleure expérience
-      utilisateur. Attentif aux détails et exigeant sur la qualité du code, je
-      m’efforce de proposer des solutions solides et adaptatives.
-      <br />
-      Ma maîtrise du front-end et du back-end garantit une harmonie entre design
-      et efficacité technique. Avide d’innover, j’aborde chaque projet comme une
-      chance d’évoluer et de dépasser les objectifs fixés.
-    </p>
-
-    <Section title="Compétences Techniques" icon="skillsIcon.svg">
-      <div className="mt-3 flex flex-wrap gap-3">
-        {SKILLS.map((skill) => (
-          <SkillBadge key={skill} skill={skill} />
-        ))}
-      </div>
-    </Section>
-
-    <Section title="Projets" icon="projectsIcon.svg">
-      <div className="mt-3 space-y-4">
-        {PROJECTS.map((project, index) => (
-          <ProjectItem key={index} {...project} />
-        ))}
-      </div>
-    </Section>
-
-    <Section title="Formations" icon="schoolIcon.svg">
-      <div className="mt-3">
-        {FORMATIONS.map((formation, index) => (
-          <FormationItem key={index} {...formation} />
-        ))}
-      </div>
-    </Section>
-
-    <Section title="Langues" icon="languagesIcon.svg">
-      <ul className="mt-3 flex flex-wrap gap-4">
-        {LANGUAGES.map((language, index) => (
-          <li key={index}>
-            <LanguageItem {...language} />
-          </li>
-        ))}
-      </ul>
-    </Section>
   </PageWrapper>
 );
 
