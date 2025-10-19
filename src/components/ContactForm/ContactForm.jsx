@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -123,19 +124,19 @@ const ContactForm = () => {
       {/* Form Progress */}
       <div className="mb-7">
         <div className="mb-2 flex items-center justify-between">
-          <span className="text-sm font-medium text-gray-600">
+          <span className="text-sm font-medium text-slate-300 mx-auto lg:mx-0">
             {isComplete ? "Formulaire complet!" : "Progression du formulaire"}
           </span>
-          <span className="text-sm font-medium text-[#242936]">
+          <span className="text-accent text-sm font-medium">
             {Math.round(progressPercentage)}%
           </span>
         </div>
-        <div className="h-2.5 w-full rounded-full bg-gray-200">
+        <div className="h-2.5 w-full rounded-full bg-slate-700/50">
           <div
             className={`h-2.5 rounded-full transition-all duration-300 ease-out ${
               isComplete 
                 ? "bg-green-500" 
-                : "bg-gradient-to-r from-[#242936] to-gray-600"
+                : "bg-accent"
             }`}
             style={{ width: `${progressPercentage}%` }}
           />
@@ -180,19 +181,19 @@ const ContactForm = () => {
         ))}
 
         {/* Submit Button */}
-        <div className="relative">
+        <div className="relative text-center lg:text-left">
           <button
             type="submit"
             disabled={status.loading || progressPercentage < 100}
-            className={`mt-5 flex h-15 w-full transform-gpu cursor-pointer items-center justify-center rounded-lg font-bold text-white transition-all duration-300 ${
+            className={`bg-accent mt-5 flex h-15 w-full transform-gpu cursor-pointer items-center justify-center rounded-lg font-bold text-slate-900 transition-all duration-300 ${
               progressPercentage === 100 && !status.loading
-                ? "bg-[#242936] hover:scale-[1.01] hover:bg-gray-800 hover:shadow-lg"
-                : "cursor-not-allowed bg-gray-400"
+                ? "hover:scale-[1.01] hover:shadow-glow"
+                : "cursor-not-allowed opacity-50"
             } disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100`}
           >
             {status.loading ? (
               <>
-                <div className="mr-3 h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                <div className="mr-3 h-5 w-5 animate-spin rounded-full border-2 border-slate-900 border-t-transparent"></div>
                 <span>Envoi en cours...</span>
               </>
             ) : (
@@ -206,7 +207,7 @@ const ContactForm = () => {
           </button>
 
           {progressPercentage < 100 && (
-            <p className="mt-2 text-center text-xs text-gray-500">
+            <p className="mt-2 text-center text-xs text-slate-400">
               Remplissez tous les champs pour activer le bouton d&apos;envoi.
             </p>
           )}

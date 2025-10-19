@@ -33,7 +33,7 @@ export const metadata = {
   },
 };
 
-// Font configurations - must be in module scope
+// Font configurations
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -66,43 +66,39 @@ const dmMono = DM_Mono({
   display: "swap",
 });
 
-// Layout Components
-const MainContent = ({ children }) => (
-  <div className="font-inconsolata text-light h-[calc(100vh-80px)] overflow-y-scroll p-4">
-    {children}
-  </div>
-);
-
-const SideSection = () => (
-  <div className="flex">
-    <Sidebar />
-    <Explorer />
-  </div>
-);
-
-const ContentSection = ({ children }) => (
-  <div className="p flex flex-1 flex-col overflow-hidden">
-    <Tabsbar />
-    <MainContent>{children}</MainContent>
-  </div>
-);
-
 export default function RootLayout({ children }) {
   const fontVariables = `${inter.variable} ${oswald.variable} ${inconsolata.variable} ${dmMono.variable} ${comfortaa.variable}`;
+
   return (
     <html
       lang="en"
       className={fontVariables}
       style={{ fontFamily: "var(--font-system-ui)" }}
     >
-      <body className="flex h-screen flex-col">
+      <body className="flex h-screen flex-col overflow-hidden">
         <ThemeContextProvider>
           <ThemeProvider>
+            {/* Header */}
             <Menu />
+
+            {/* Main content area with flex-1 to take available space */}
             <div className="flex flex-1">
-              <SideSection />
-              <ContentSection>{children}</ContentSection>
+              {/* Left sidebar area */}
+              <aside className="flex h-[calc(100vh-60px)] flex-shrink-0">
+                <Sidebar />
+                <Explorer />
+              </aside>
+
+              {/* Main content with tabsbar */}
+              <main className="flex flex-1 flex-col">
+                <Tabsbar />
+                <div className="font-inconsolata text-light h-[calc(100vh-80px)] overflow-y-auto p-4">
+                  {children}
+                </div>
+              </main>
             </div>
+
+            {/* Footer */}
             <Footer />
           </ThemeProvider>
         </ThemeContextProvider>

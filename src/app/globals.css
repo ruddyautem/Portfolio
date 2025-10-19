@@ -1,15 +1,18 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --breakpoint-3xl: 125rem; /* 2560px */
   --font-inter: Inter, sans-serif;
   --font-inconsolata: Inconsolata, monospace;
   --font-oswald: Oswald, sans-serif;
-  --font-dm-mono: 'DM Mono', monospace;
+  --font-dm-mono: "DM Mono", monospace;
   --font-comfortaa: Comfortaa, cursive;
-  --font-system-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-system-ui:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
   /* Colors with fallback values for utility generation (from .ayu) */
   --color-accent: #ffcc66; /* Default accent, will be overridden by theme classes */
@@ -138,14 +141,16 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --theme-bg: #242936; /* Default theme background */
 }
 
 /* Theme-specific overrides directly setting --color-* variables */
 .ayu {
   background-color: #242936;
+  --theme-bg: #242936;
   color: #727a8b;
-  --color-accent: #ffcc66; /* Directly set --color-accent */
-  --ti-cursor-color: var(--color-accent); /* Use --color-accent here */
+  --color-accent: #ffcc66;
+  --ti-cursor-color: var(--color-accent);
   --color-menu: #242936;
   --color-explorer-bg: #242936;
   --color-sidebar-bg: #242936;
@@ -157,13 +162,14 @@
 
 .dracula {
   background-color: #282a36;
+  --theme-bg: #282a36;
   color: #f8f8f2;
-  --color-accent: #ff79c6; /* Directly set --color-accent */
+  --color-accent: #ff79c6;
   --ti-cursor-color: var(--color-accent);
   --color-menu: #21222c;
   --color-active-tab-bg: #282a36;
   --color-active-explorer-tab: #282a36;
-  --color-sidebar-bg: #44475a;
+  --color-sidebar-bg: #282a36;
   --color-explorer-bg: #21222c;
   --color-active-tab-text: #fff;
   --color-tabs-bg: var(--color-active-tab-bg);
@@ -171,8 +177,9 @@
 
 .oneDarkPro {
   background-color: #282c34;
+  --theme-bg: #282c34;
   color: #abb2bf;
-  --color-accent: #98c379; /* Directly set --color-accent */
+  --color-accent: #98c379;
   --ti-cursor-color: var(--color-accent);
   --color-menu: #24272e;
   --color-active-tab-bg: #2c313a;
@@ -185,8 +192,9 @@
 
 .poimandres {
   background-color: #252b37;
+  --theme-bg: #252b37;
   color: #abb2bf;
-  --color-accent: #5de4c7; /* Directly set --color-accent */
+  --color-accent: #5de4c7;
   --ti-cursor-color: var(--color-accent);
   --color-menu: #252b37;
   --color-active-tab-bg: #252b37;
@@ -213,7 +221,7 @@
 
 /* Cursor color */
 body {
-  --ti-cursor-color: var(--color-accent); /* Changed to --color-accent */
+  --ti-cursor-color: var(--color-accent);
 }
 
 /* Custom utility for accent-color - NO CHANGES NEEDED HERE */
@@ -224,22 +232,22 @@ body {
 
   /* Specific hover utility classes for theme options */
   .hover-ayu-accent:hover {
-    background-color: #ffcc66; /* Ayu's accent color */
-    color: white; /* You might adjust this or use currentcolor if it's based on the theme's text */
+    background-color: #ffcc66;
+    color: white;
   }
 
   .hover-dracula-accent:hover {
-    background-color: #ff79c6; /* Dracula's accent color */
+    background-color: #ff79c6;
     color: white;
   }
 
   .hover-oneDarkPro-accent:hover {
-    background-color: #98c379; /* One Dark Pro's accent color */
+    background-color: #98c379;
     color: white;
   }
 
   .hover-poimandres-accent:hover {
-    background-color: #5de4c7; /* Poimandres' accent color */
+    background-color: #5de4c7;
     color: white;
   }
 }

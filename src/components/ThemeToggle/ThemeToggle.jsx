@@ -1,35 +1,53 @@
-"use client";
-import React, { useContext, useRef, useState, useCallback } from "react";
-import { ThemeContext } from "@/context/ThemeContext";
+'use client';
+import { useContext, useRef, useState, useEffect } from 'react';
+import { ThemeContext } from '@/context/ThemeContext';
+import { cn } from '@/lib/utils';
+
+// Static data outside component - no recreations
+const THEME_OPTIONS = ['ayu', 'oneDarkPro', 'dracula', 'poimandres'];
+
+const THEME_STYLES = {
+  ayu: 'hover:bg-[#ffcc66]',
+  oneDarkPro: 'hover:bg-[#98c379]',
+  dracula: 'hover:bg-[#ff79c6]',
+  poimandres: 'hover:bg-[#5de4c7]',
+};
 
 const ThemeToggle = () => {
   const { toggle, theme } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggleRef = useRef(null);
 
-  // Memoize theme data to prevent recreation
-  const themeData = {
-    options: ["ayu", "oneDarkPro", "dracula", "poimandres"],
-    hoverColors: {
-      ayu: "#ffcc66",
-      oneDarkPro: "#98c379",
-      dracula: "#ff79c6",
-      poimandres: "#5de4c7",
-    },
+  // Close dropdown on outside click
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (e) => {
+      if (toggleRef.current && !toggleRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]); // Only add listener when open
+
+  // Close on Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
+
+  const handleThemeSelect = (option) => {
+    toggle(option);
+    setIsOpen(false);
   };
-
-  // Stable click handler
-  const handleClickOutside = useCallback((e) => {
-    if (toggleRef.current && !toggleRef.current.contains(e.target)) {
-      setIsOpen(false);
-    }
-  }, []);
-
-  // Single effect for event listeners
-  React.useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [handleClickOutside]);
 
   return (
     <div
@@ -38,37 +56,39 @@ const ThemeToggle = () => {
     >
       <div className="flex items-center">
         <span className="text-light hidden lg:flex">Theme :</span>
-        <span className="text-light mx-2 lg:flex"></span>
+        <span className="text-light mx-2 hidden lg:flex" />
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-accent mx-2 my-0.5 cursor-pointer rounded-sm px-2 py-0.5 text-white capitalize md:px-4 lg:mx-0 lg:py-1"
+          aria-expanded={isOpen}
+          aria-haspopup="true"
+          className="bg-accent mx-2 my-0.5 cursor-pointer rounded-sm px-2 py-0.5 capitalize
+            text-black md:px-4 lg:mx-0 lg:py-1"
         >
           <span className="md:hidden">Theme</span>
           <span className="hidden md:inline">{theme}</span>
         </button>
       </div>
 
+      {/* Dropdown Menu */}
       <div
-        className={`absolute right-0 mt-2 rounded bg-white shadow-xl transition-all duration-200 ${
-          isOpen ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
+        role="menu"
+        className={cn(
+          'absolute right-0 mt-2 rounded bg-white shadow-xl transition-all duration-200',
+          isOpen ? 'opacity-100' : 'pointer-events-none opacity-0',
+        )}
       >
-        {themeData.options.map((option) => (
-          <div
+        {THEME_OPTIONS.map((option) => (
+          <button
             key={option}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                themeData.hoverColors[option])
-            }
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}
-            className="cursor-pointer px-4 py-1.5 hover:text-white"
-            onClick={() => {
-              toggle(option);
-              setIsOpen(false);
-            }}
+            role="menuitem"
+            onClick={() => handleThemeSelect(option)}
+            className={cn(
+              'w-full cursor-pointer px-4 py-1.5 text-left transition-colors hover:text-white',
+              THEME_STYLES[option],
+            )}
           >
             {option}
-          </div>
+          </button>
         ))}
       </div>
     </div>

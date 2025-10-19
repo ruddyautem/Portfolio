@@ -4,65 +4,80 @@ import Image from "next/image";
 import Link from "next/link";
 
 const tagColors = {
-  react: "bg-blue-500 border-blue-500 text-white",
-  tailwindcss: "bg-cyan-500 border-cyan-500 text-white",
-  nextjs: "bg-black border-black text-white",
-  express: "bg-green-600 border-green-600 text-white",
-  redux: "bg-purple-600 border-purple-600 text-white",
-  firebase: "bg-orange-500 border-orange-500 text-white",
-  "styled-components": "bg-pink-500 border-pink-500 text-white",
-  "material-ui": "bg-blue-600 border-blue-600 text-white",
-  mysql: "bg-orange-600 border-orange-600 text-white",
-  axios: "bg-blue-400 border-blue-400 text-white",
-  clerk: "bg-indigo-600 border-indigo-600 text-white",
-  sanity: "bg-red-500 border-red-500 text-white",
-  typescript: "bg-blue-700 border-blue-700 text-white",
-  zustand: "bg-amber-600 border-amber-600 text-white",
+  react: "bg-blue-500/20 border-blue-500/30 text-blue-300",
+  tailwindcss: "bg-cyan-500/20 border-cyan-500/30 text-cyan-300",
+  nextjs: "bg-gray-500/20 border-gray-500/30 text-gray-300",
+  express: "bg-green-600/20 border-green-600/30 text-green-300",
+  redux: "bg-purple-600/20 border-purple-600/30 text-purple-300",
+  firebase: "bg-orange-500/20 border-orange-500/30 text-orange-300",
+  "styled-components": "bg-pink-500/20 border-pink-500/30 text-pink-300",
+  "material-ui": "bg-blue-600/20 border-blue-600/30 text-blue-300",
+  mysql: "bg-orange-600/20 border-orange-600/30 text-orange-300",
+  axios: "bg-blue-400/20 border-blue-400/30 text-blue-300",
+  clerk: "bg-indigo-600/20 border-indigo-600/30 text-indigo-300",
+  sanity: "bg-red-500/20 border-red-500/30 text-red-300",
+  typescript: "bg-blue-700/20 border-blue-700/30 text-blue-300",
+  zustand: "bg-amber-600/20 border-amber-600/30 text-amber-300",
 };
 
 const Card = ({ project }) => (
-  <div className="group relative h-full w-full transform transition-all duration-300 hover:translate-x-[4px] hover:translate-y-[4px] hover:scale-103">
-    <div className="relative flex h-full flex-col border-2 border-[#242936] bg-[#f5f5f5] text-[#242936] shadow-[8px_8px_0px_#242936] transition-all duration-300 group-hover:shadow-[0px_0px_30px_rgba(36,41,54,0.3)]">
+  <div className="item-animate group relative h-full w-full transform transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02]">
+    <div className="hover:shadow-glow relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/30 backdrop-blur-xl transition-all duration-500 group-hover:border-slate-600/60 group-hover:bg-slate-700/20 sm:rounded-3xl">
+      {/* Decorative header bar */}
+      <div className="from-accent/30 h-1.5 bg-gradient-to-r via-blue-500/30 to-purple-500/30"></div>
+
       <Link href={project.demo} target="_blank" rel="noopener noreferrer">
         {/* Image Container */}
-        <div className="relative aspect-4/3 w-full cursor-pointer overflow-hidden border-b-2 border-[#242936]">
+        <div className="relative aspect-video w-full cursor-pointer overflow-hidden">
           <Image
             src={project.img}
             alt={project.title}
             fill
-            className="backface-visibility-hidden object-cover transition-all duration-300 ease-in-out will-change-transform group-hover:scale-105"
+            className="object-cover transition-all duration-500 ease-out will-change-transform"
           />
         </div>
       </Link>
 
       {/* Content Section */}
-      <div className="flex h-full flex-col rounded-lg border border-gray-100 bg-white p-7">
-        <span className="mb-2 text-xs font-semibold tracking-widest text-[#E93550] uppercase">
-          {project.demo.slice("https://".length)}
-        </span>
-        <h2 className="mb-3 text-2xl font-black text-[#242936]">
+      <div className="flex h-full flex-col p-6 text-center sm:p-8 md:text-left">
+        {/* Project URL */}
+        <Link href={project.demo} className="cursor-pointer">
+          <span className="text-accent mb-3 text-xs font-semibold tracking-widest uppercase">
+            {project.demo?.slice("https://".length) || "PROJET"}
+          </span>
+        </Link>
+
+        {/* Title */}
+        <h2 className="mb-4 text-xl font-bold text-white transition-colors duration-300 sm:text-2xl">
           {project.title}
         </h2>
-        <p className="mb-6 flex-grow text-gray-700">{project.desc}</p>
-        <div className="mb-6 flex min-h-[48px] flex-wrap items-end gap-2">
-          {project.tags.map((tag) => (
+
+        {/* Description */}
+        <p className="mb-6 flex-grow leading-relaxed text-slate-300">
+          {project.desc}
+        </p>
+
+        {/* Tags */}
+        <div className="z-10 mb-6 flex min-h-[60px] flex-wrap items-start justify-center gap-2 select-none md:justify-start">
+          {project.tags?.map((tag) => (
             <span
               key={tag}
-              className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium"
+              className={`backdrop-blur-sm border border-white/10 px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-300 ${
+                tagColors[tag]?.split(" ")[2] || "text-slate-300"
+              } bg-white/5`}
             >
-              <span
-                className={`h-2 w-2 rounded-full ${tagColors[tag]?.split(" ")[0] || "bg-gray-500"}`}
-              ></span>
               {tag}
             </span>
           ))}
         </div>
-        <div className="mt-auto flex gap-3 text-sm">
+
+        {/* Action Buttons - Version Glassmorphism */}
+        <div className="z-10 mt-auto flex justify-center gap-3 text-sm sm:flex-row">
           <Link
             href={project.source}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-10 flex-1 items-center justify-center rounded bg-[#242936] font-bold text-white transition hover:scale-105 hover:bg-gray-800"
+            className="flex h-10 w-36 items-center justify-center rounded-xl backdrop-blur-sm bg-white/5 border border-white/10 font-medium text-white transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-105 md:flex-1"
           >
             Code Source
           </Link>
@@ -70,9 +85,9 @@ const Card = ({ project }) => (
             href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-10 flex-1 items-center justify-center rounded bg-[#E93550] font-bold text-white transition hover:scale-105"
+            className="bg-accent/90 backdrop-blur-sm flex h-10 w-36 items-center justify-center rounded-xl font-medium text-slate-900 transition-all duration-300 hover:bg-accent hover:shadow-lg hover:scale-105 md:flex-1"
           >
-            Demo
+            Voir Demo
           </Link>
         </div>
       </div>
