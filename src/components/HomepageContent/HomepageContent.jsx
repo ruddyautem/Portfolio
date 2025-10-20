@@ -500,29 +500,38 @@ const HomepageContent = () => {
 
   return (
     <div
-      className="3xl:p-16 flex h-full w-full items-center justify-center overflow-hidden p-4 sm:p-6
-        lg:p-6 2xl:p-10"
+      className="3xl:p-16 flex w-full flex-col p-4 sm:p-6 lg:p-6 2xl:p-10 overflow-hidden
+        // Mobile (< lg): full page scroll, start from top, horizontally centered
+        min-h-screen h-auto overflow-y-auto items-center justify-start
+        // lg+: exactly original - vertically centered, no page scroll
+        lg:min-h-0 lg:h-full lg:overflow-hidden lg:justify-center"
     >
       <div
-        className="item-animate 3xl:max-w-[1800px] relative z-10 w-full max-w-2xl lg:max-w-3xl
-          xl:max-w-5xl 2xl:max-w-6xl"
+        className="item-animate relative z-10 w-full max-w-2xl lg:max-w-3xl
+          xl:max-w-5xl 2xl:max-w-6xl 3xl:max-w-[1800px]"
       >
         <div
-          className="3xl:max-h-[90vh] flex h-full max-h-[85vh] flex-col overflow-hidden rounded-2xl
-            border border-slate-700/50 bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl
-            lg:overflow-y-auto 2xl:max-h-[90vh]"
+          className="flex flex-col rounded-2xl border border-slate-700/50 
+            bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl 
+            // Mobile: no height constraint, visible overflow
+            h-auto max-h-none overflow-visible
+            // lg+: exactly original - no inner scroll
+            lg:h-full lg:max-h-[85vh] lg:overflow-y-hidden 2xl:max-h-[90vh] 3xl:max-h-[90vh]"
         >
           <TopPageDecoration filename="accueil.jsx" />
 
           <div
-            className="3xl:p-12 flex flex-1 flex-col justify-between overflow-y-auto p-4
-              md:overflow-y-auto lg:flex-col lg:justify-center lg:px-6 lg:py-3 lg:lg:px-8 lg:lg:py-4
-              xl:overflow-hidden xl:p-6 2xl:p-8"
+            className="3xl:p-12 p-4 flex flex-col justify-start overflow-visible
+              // Mobile padding (from refactored)
+              sm:p-6 md:p-8
+              // lg+: exactly original - no inner scroll
+              lg:flex-1 lg:flex-col lg:justify-between lg:overflow-y-hidden lg:px-6 lg:py-3 
+              lg:lg:px-8 lg:lg:py-4 xl:p-6 2xl:p-8"
           >
             {/* Main Content Grid */}
             <div
-              className="3xl:gap-16 lg:grid lg:grid-cols-2 lg:items-center lg:gap-2 lg:lg:gap-3
-                xl:gap-8 2xl:gap-12"
+              className="3xl:gap-16 flex flex-col gap-8 lg:gap-2 lg:lg:gap-3 
+                xl:gap-8 2xl:gap-12 lg:grid lg:grid-cols-2 lg:items-center"
             >
               {/* Header Section */}
               <div className="flex items-center justify-center px-2 sm:px-4 lg:px-0">
