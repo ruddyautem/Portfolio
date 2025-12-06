@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
 
 const ContactAPI = async (req, res) => {
   const { name, email, objet, message } = req.body;
@@ -83,7 +83,7 @@ const ContactAPI = async (req, res) => {
             <!-- Footer -->
             <div style="background: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #edf2f7;">
               <p style="margin: 0; color: #718096; font-size: 14px;">
-                Message reçu via votre portfolio - ${new Date().toLocaleString("fr-FR")}
+                Message reçu via votre portfolio - ${new Date().toLocaleString('fr-FR')}
               </p>
             </div>
           </div>
@@ -93,7 +93,7 @@ const ContactAPI = async (req, res) => {
     });
 
     return res.status(200).json({
-      message: "Message envoyé! Je reviens vers vous sous 24h :)",
+      message: 'Message envoyé! Je reviens vers vous sous 24h :)',
     });
   } catch (error) {
     console.error(error);

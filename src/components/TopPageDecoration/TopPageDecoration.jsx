@@ -6,7 +6,7 @@ const TopPageDecoration = ({ filename }) => {
         <span className="h-3 w-3 rounded-full bg-yellow-500/80"></span>
         <span className="h-3 w-3 rounded-full bg-green-500/80"></span>
         <span className="ml-4 text-slate-500">
-          {"//"} {filename}
+          {'//'} {filename}
         </span>
       </div>
     </div>
