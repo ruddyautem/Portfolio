@@ -2,87 +2,44 @@ name: Deploy to VPS
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
-    env:
-      WORKING_DIR: /home/autem/htdocs/autem.dev
-      SSH_USER: ${{ secrets.SSH_USER }}
-      SSH_HOST: ${{ secrets.SSH_HOST }}
 
     steps:
-      # 1️⃣ Checkout code
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # 2️⃣ Setup SSH
-      - name: Setup SSH
-        run: |
-          echo "Setting up SSH..."
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_rsa
-          ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
-          echo "SSH setup complete."
-
-      # 3️⃣ Test SSH connection
-      - name: Test SSH connection
-        run: |
-          echo "Testing SSH connection to $SSH_USER@$SSH_HOST..."
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "whoami && pwd"
-
-      # 4️⃣ Clean old build
-      - name: Clean previous build
-        run: |
-          echo "Cleaning old build..."
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd $WORKING_DIR && rm -rf .next"
-          echo "Old build cleaned."
-
-      # 5️⃣ Reset git state
-      - name: Reset git state
-        run: |
-          echo "Resetting git state..."
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd $WORKING_DIR && git reset --hard HEAD"
-          echo "Git state reset."
-
-      # 6️⃣ Pull latest code
-      - name: Pull latest code
-        run: |
-          echo "Pulling latest code..."
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd $WORKING_DIR && git pull origin main"
-          echo "Code pulled."
-
-      # 7️⃣ Install dependencies
-      - name: Install dependencies
-        run: |
-          echo "Installing dependencies..."
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd $WORKING_DIR && /home/ruddya/.bun/bin/bun install"
-          echo "Dependencies installed."
-
-      # 8️⃣ Build project
-      - name: Build project
-        run: |
-          echo "Building project..."
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd $WORKING_DIR && /home/ruddya/.bun/bin/bun run build"
-          echo "Build complete."
-
-      # 9️⃣ Reload PM2
-      - name: Reload PM2
-        run: |
-          echo "Reloading PM2..."
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd $WORKING_DIR && pm2 reload pm2.config.cjs --update-env && pm2 save"
-          echo "PM2 reloaded."
-
-      # 🔟 Cleanup SSH key
-      - name: Cleanup SSH key
-        run: |
-          echo "Removing private SSH key..."
-          rm -f ~/.ssh/id_rsa
-          echo "Private key removed."
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            export PATH=/home/ruddya/.bun/bin:/usr/bin:\$PATH
+            
+            cd /home/autem/htdocs/autem.dev
+            
+            echo "🧹 Cleaning previous build..."
+            rm -rf .next
+            
+            echo "🔄 Resetting git state..."
+            git reset --hard HEAD
+            
+            echo "📥 Pulling latest code..."
+            git pull origin main
+            
+            echo "📦 Installing dependencies..."
+            bun install
+            
+            echo "🔨 Building..."
+            bun run build
+            
+            echo "🔄 Reloading PM2..."
+            pm2 reload pm2.config.cjs --update-env || pm2 start pm2.config.cjs
+            pm2 save
+            
+            echo "✅ DEPLOY SUCCESS"
