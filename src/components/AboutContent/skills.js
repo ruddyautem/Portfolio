@@ -13,6 +13,7 @@ export const skills = {
     { skill: "Redux", icon: "/redux.svg" },
     { skill: "Bootstrap", icon: "/bootstrap.svg" },
     { skill: "Shadcn", icon: "/shadcn.svg" },
+    { skill: "Vue.JS", icon: "/vuejs.svg" },
   ],
   backend: [
     { skill: "MongoDB", icon: "/mongodb.svg" },

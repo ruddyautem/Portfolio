@@ -26,7 +26,7 @@ const InputField = ({
       ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
       : isValid && isTouched
       ? "border-green-500 focus:border-green-500 focus:ring-green-500/20"
-      : "border-slate-600 hover:border-accent focus:border-accent focus:ring-accent/20"
+      : "border-slate-600/50 hover:border-accent focus:border-accent focus:ring-accent/20"
   }`;
 
   return (

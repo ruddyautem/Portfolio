@@ -13,7 +13,7 @@ const Projects = () => {
   return (
     <PageWrapper skipChildWrapping={true}>
       <div className="3xl:p-20 flex w-full items-center justify-center overflow-x-hidden p-4 sm:p-6 md:p-8 xl:p-12 2xl:p-16">
-        <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-[100rem]">
+        <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400">
           <div className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl">
             {/* Decorative header bar */}
             <TopPageDecoration filename="projets.js" />
