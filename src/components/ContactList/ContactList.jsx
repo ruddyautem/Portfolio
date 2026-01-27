@@ -40,7 +40,7 @@ const ContactList = () => {
   return (
     <PageWrapper skipChildWrapping={true}>
       <div className="3xl:p-20 flex w-full items-center justify-center overflow-x-hidden p-4 sm:p-6 md:p-8 xl:p-12 2xl:p-16">
-        <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-[100rem]">
+        <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400">
           <div className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl">
             {/* Decorative header bar */}
             <TopPageDecoration filename="contact.css" />
@@ -76,7 +76,8 @@ const ContactList = () => {
                         href={contact.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/contact hover:shadow-glow flex flex-col items-center justify-center gap-4 rounded-xl border border-slate-700/50 bg-slate-800/30 p-5 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-600 hover:bg-slate-700/30 sm:min-w-[0] sm:flex-1 lg:flex-row lg:items-start lg:justify-start lg:text-left"
+                        className="group/contact hover:shadow-glow flex flex-col items-center justify-center gap-4 rounded-xl border border-slate-600/30 bg-slate-800/30 p-5 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-s
+                        late-600 hover:bg-slate-700/30 sm:min-w-0 sm:flex-1 lg:flex-row lg:items-start lg:justify-start lg:text-left"
                       >
                         <div
                           className={`${contact.color} ${contact.hoverColor} flex h-12 w-12 items-center justify-center rounded-xl border border-slate-600/30 transition-all duration-300 group-hover/contact:scale-110`}

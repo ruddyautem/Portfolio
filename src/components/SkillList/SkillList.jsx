@@ -35,10 +35,10 @@ const SkillList = ({ skill, icon, altText, category }) => {
 
   return (
     <div
-      className={`item-animate group relative overflow-hidden rounded-2xl border bg-gradient-to-br
+      className={`item-animate group relative overflow-hidden rounded-2xl border bg-linear-to-br
         backdrop-blur-sm ${style.gradient} ${style.hoverGradient} ${style.border} ${style.glow} h-24
         sm:h-28 md:h-32 lg:h-32 xl:h-36 2xl:h-40 3xl:h-48 cursor-pointer transition-all duration-500
-        ease-out before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br
+        ease-out before:absolute before:inset-0 before:rounded-2xl before:bg-linear-to-br
         before:from-white/5 before:to-transparent before:opacity-0 before:transition-opacity
         before:duration-300 hover:-translate-y-2 hover:scale-[1.03] hover:before:opacity-100`}
     >
@@ -74,7 +74,7 @@ const SkillList = ({ skill, icon, altText, category }) => {
         >
           <div
             className="absolute inset-0 rounded-lg sm:rounded-xl 2xl:rounded-2xl 3xl:rounded-3xl
-              bg-gradient-to-br from-white/10 to-transparent opacity-0 transition-opacity
+              bg-linear-to-br from-white/10 to-transparent opacity-0 transition-opacity
               duration-300 group-hover:opacity-100"
           ></div>
           <Image
@@ -99,7 +99,7 @@ const SkillList = ({ skill, icon, altText, category }) => {
 
         {/* Bottom glow line */}
         <div
-          className="absolute bottom-0 left-1/2 h-0.5 w-0 bg-gradient-to-r from-transparent
+          className="absolute bottom-0 left-1/2 h-0.5 w-0 bg-linear-to-r from-transparent
             via-white/50 to-transparent transition-all duration-500 group-hover:w-4/5
             group-hover:-translate-x-1/2"
         ></div>
@@ -108,13 +108,13 @@ const SkillList = ({ skill, icon, altText, category }) => {
       {/* Top right corner glow */}
       <div
         className="absolute top-0 right-0 h-8 w-8 xl:h-9 xl:w-9 2xl:h-10 2xl:w-10 3xl:h-12 3xl:w-12
-          bg-gradient-to-bl from-white/8 to-transparent opacity-0 transition-opacity duration-300
+          bg-linear-to-bl from-white/8 to-transparent opacity-0 transition-opacity duration-300
           group-hover:opacity-100"
       ></div>
 
       {/* Additional glassmorphism overlay */}
       <div
-        className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 via-transparent
+        className="absolute inset-0 rounded-2xl bg-linear-to-br from-white/5 via-transparent
           to-white/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       ></div>
     </div>

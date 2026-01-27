@@ -16,7 +16,7 @@ const AboutContent = () => {
   const renderSkillsSection = (skillsArray, title) => (
     <div className="item-animate relative mt-8 flex-1 overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl">
       {/* Decorative header bar */}
-      <div className="from-accent/30 h-1.5 bg-gradient-to-r via-blue-500/30 to-purple-500/30"></div>
+      <div className="from-accent/30 h-1.5 bg-linear-to-r via-blue-500/30 to-purple-500/30"></div>
 
       <div className="p-6 sm:p-8">
         {/* Section Title with Custom Color Underline */}
@@ -47,8 +47,8 @@ const AboutContent = () => {
 
   return (
     <PageWrapper skipChildWrapping={true}>
-      <div className="3xl:p-20 flex min-h-screen w-full items-center justify-center overflow-x-hidden bg-[var(--theme-bg)] p-4 sm:p-6 md:p-8 xl:p-12 2xl:p-16">
-        <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-[100rem]">
+      <div className="3xl:p-20 flex min-h-screen w-full items-center justify-center overflow-x-hidden bg-(--theme-bg) p-4 sm:p-6 md:p-8 xl:p-12 2xl:p-16">
+        <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400">
           <div className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl">
             {/* Decorative header bar */}
             <TopPageDecoration filename="profil.html" />

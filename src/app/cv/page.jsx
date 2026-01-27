@@ -124,14 +124,14 @@ const CV = () => (
       className="3xl:p-20 flex w-full items-center justify-center overflow-x-hidden p-4 sm:p-6
         md:p-8 xl:p-12 2xl:p-16"
     >
-      <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-[100rem]">
+      <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400">
         <div
           className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50
             bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl"
         >
           {/* Decorative header bar */}
           <div
-            className="item-animate flex h-12 items-center bg-gradient-to-r from-slate-800/50
+            className="item-animate flex h-12 items-center bg-linear-to-r from-slate-800/50
               to-slate-900/15 px-6"
           >
             <div className="flex items-center gap-2 font-mono text-xs text-slate-400">
@@ -204,7 +204,7 @@ const CV = () => (
                         ${index >= 3 && 'sm:col-span-2 lg:col-span-1'} `}
                       >
                         <div
-                          className="flex h-8 w-8 flex-shrink-0 items-center justify-center
+                          className="flex h-8 w-8 shrink-0 items-center justify-center
                             rounded-full bg-[#192a56]/10 sm:h-10 sm:w-10 lg:h-12 lg:w-12"
                         >
                           <Image src={item.icon} height={16} width={16} alt="" unoptimized />
@@ -329,7 +329,7 @@ const CV = () => (
                             </span>
                           )}
                           <span
-                            className="flex-shrink-0 rounded bg-[#192a56] px-2 py-0.5 text-xs
+                            className="shrink-0 rounded bg-[#192a56] px-2 py-0.5 text-xs
                               text-white sm:px-3 sm:py-1 sm:text-sm md:text-base"
                           >
                             {project.year}
@@ -341,7 +341,7 @@ const CV = () => (
                         >
                           {project.points.map((point, i) => (
                             <li key={i} className="flex">
-                              <span className="mr-1 flex-shrink-0 sm:mr-2">•</span>
+                              <span className="mr-1 shrink-0 sm:mr-2">•</span>
                               <span>{point}</span>
                             </li>
                           ))}
