@@ -2,39 +2,34 @@ import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
 import Image from 'next/image';
 import React from 'react';
 
-// Data constants
-const SKILLS = [
-  'React.js',
-  'Next.js',
-  'Typescript',
-  'AGILE',
-  'TailwindCSS',
-  'Zustand',
-  'Git',
-  'Clerk',
-  'SCSS',
-  'Styled-Components',
-  'Firebase',
-  'MongoDB',
-  'Prisma',
-  'MySQL',
-  'Node',
-  'Express',
+const SKILL_GROUPS = [
+  {
+    label: 'Front-end',
+    skills: [
+      'React.js',
+      'Next.js',
+      'Vue.js',
+      'Typescript',
+      'TailwindCSS',
+      'SCSS',
+      'Styled-Components',
+    ],
+  },
+  {
+    label: 'Back-end',
+    skills: ['Node', 'Express', 'Firebase', 'MongoDB', 'Prisma', 'MySQL'],
+  },
+  {
+    label: 'Outils',
+    skills: ['Git', 'Zustand', 'Clerk', 'AGILE'],
+  },
 ];
 
 const CONTACT_DETAILS = [
-  {
-    icon: 'mailIcon.svg',
-    text: 'ruddy.autem@gmail.com',
-    link: 'mailto:ruddy.autem@gmail.com',
-  },
+  { icon: 'mailIcon.svg', text: 'ruddy.autem@gmail.com', link: 'mailto:ruddy.autem@gmail.com' },
   { icon: 'locationIcon.svg', text: 'Leers, HDF' },
   { icon: 'linkIcon.svg', text: 'www.autem.dev', link: 'https://autem.dev/' },
-  {
-    icon: 'githubIcon2.svg',
-    text: '/ruddyautem',
-    link: 'https://github.com/ruddyautem',
-  },
+  { icon: 'githubIcon2.svg', text: '/ruddyautem', link: 'https://github.com/ruddyautem' },
   {
     icon: 'linkedinIcon.svg',
     text: '/ruddyautem',
@@ -70,7 +65,7 @@ const PROJECTS = [
     points: [
       "Développement d'une plateforme de E-Commerce entièrement responsive au design vibrant, offrant une expérience d'achat fluide et rapide en quelques clics.",
       "Mise en place d'une authentification Google pour simplifier et accélérer l'inscription et la connexion des utilisateurs.",
-      'Intégration des paiements sécurisés via Stripe et création automatisée des factures sur Firebase',
+      'Intégration des paiements sécurisés via Stripe et création automatisée des factures sur Firebase.',
     ],
   },
 ];
@@ -81,13 +76,9 @@ const FORMATIONS = [
     institution: 'Zero To Mastery Academy',
     year: '2022',
   },
+  { title: 'The Web Developer Bootcamp', institution: 'Colt Steele', year: '2021' },
   {
-    title: 'The Web Developer Bootcamp',
-    institution: 'Colt Steele',
-    year: '2021',
-  },
-  {
-    title: 'Licence LLCER - Langues, littératures et civilisations étrangères et régionales',
+    title: 'Licence LLCER — Langues, littératures et civilisations étrangères et régionales',
     institution: 'Sorbonne Nouvelle',
     year: '2014',
   },
@@ -98,55 +89,88 @@ const LANGUAGES = [
   { language: 'Allemand', level: 'B1' },
 ];
 
-const CvDownloadButton = () => (
+/* ─── MICRO-COMPONENTS ─── */
+
+const SectionTitle = ({ children }) => (
+  <div className="mb-6 flex flex-col items-center gap-2 sm:items-start md:mb-8">
+    <h3
+      className="text-base font-extrabold uppercase tracking-widest text-[#192a56] sm:text-lg
+        md:text-xl lg:text-2xl"
+    >
+      {children}
+    </h3>
+    <div className="h-1 w-12 rounded-full bg-[#192a56] opacity-80 sm:w-16" />
+  </div>
+);
+
+const Card = ({ children, className = '' }) => (
+  <div
+    className={`item-animate rounded-2xl border border-gray-100 bg-white shadow-sm ${className}`}
+  >
+    {children}
+  </div>
+);
+
+const CvDownloadButton = ({ className = '' }) => (
   <a
     href="/CV.pdf"
     download="Ruddy_Autem_CV.pdf"
-    className="inline-flex items-center gap-2 rounded-lg bg-[#192a56] px-4 py-4 text-base sm:text-sm
-      xl:text-base font-semibold text-white shadow-lg transition-all duration-300
-      hover:bg-[#243a6b]"
+    className={`inline-flex items-center rounded-xl bg-[#192a56] px-6 py-3 text-sm font-semibold
+      text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#243a6b]
+      hover:shadow-lg md:text-base ${className}`}
   >
-    Télécharger
-    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-      />
-    </svg>
+    Télécharger CV
   </a>
 );
+
+const ContactBadge = ({ item }) => {
+  const cls =
+    'flex items-center gap-2 rounded-full border border-[#192a56]/15 bg-[#192a56]/5 px-3 py-1.5 text-xs text-[#192a56] sm:text-sm md:px-4 md:py-2 md:text-base';
+  const content = (
+    <>
+      <Image src={item.icon} height={14} width={14} alt="" unoptimized className="shrink-0" />
+      <span className="break-all">{item.text}</span>
+    </>
+  );
+  return item.link ? (
+    <a href={item.link} className={`${cls} transition-colors hover:bg-[#192a56]/10`}>
+      {content}
+    </a>
+  ) : (
+    <span className={cls}>{content}</span>
+  );
+};
+
+/* ─── PROJECT TITLE — shared between <a> and <span> ─── */
+const projectTitleCls = 'text-xl font-extrabold text-[#192a56] sm:text-lg sm:font-bold md:text-xl';
+
+/* ─── MAIN COMPONENT ─── */
 
 const CV = () => (
   <PageWrapper skipChildWrapping>
     <div
-      className="3xl:p-20 flex w-full items-center justify-center overflow-x-hidden p-4 sm:p-6
-        md:p-8 xl:p-12 2xl:p-16"
+      className="3xl:p-20 flex w-full items-start justify-center overflow-x-hidden p-4 sm:p-6 md:p-8
+        xl:p-12 2xl:p-16"
     >
-      <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400">
+      <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-350">
         <div
           className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50
             bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl"
         >
-          {/* Decorative header bar */}
+          {/* Traffic-light bar */}
           <div
-            className="item-animate flex h-12 items-center bg-linear-to-r from-slate-800/50
-              to-slate-900/15 px-6"
+            className="flex h-12 items-center bg-linear-to-r from-slate-800/50 to-slate-900/15 px-6"
           >
             <div className="flex items-center gap-2 font-mono text-xs text-slate-400">
-              <span className="h-3 w-3 rounded-full bg-red-500/80"></span>
-              <span className="h-3 w-3 rounded-full bg-yellow-500/80"></span>
-              <span className="h-3 w-3 rounded-full bg-green-500/80"></span>
+              <span className="h-3 w-3 rounded-full bg-red-500/80" />
+              <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
+              <span className="h-3 w-3 rounded-full bg-green-500/80" />
               <span className="ml-4 text-slate-500">{'// cv.json'}</span>
             </div>
           </div>
 
-          {/* Header Section */}
-          <div className="item-animate border-b border-slate-700/30 p-6 text-center sm:p-8 md:p-10">
-            {/* <div className="text-accent item-animate mb-4 inline-block rounded-full bg-slate-700/50 px-4 py-1.5 font-mono text-sm 2xl:px-5 2xl:py-2 2xl:text-base">
-              CURRICULUM VITAE
-            </div> */}
+          {/* Page title */}
+          <div className="border-b border-slate-700/30 p-6 text-center sm:p-8 md:p-10">
             <h1
               className="item-animate mb-4 text-3xl font-bold text-white sm:text-4xl md:text-5xl
                 2xl:text-6xl"
@@ -161,277 +185,216 @@ const CV = () => (
             </p>
           </div>
 
-          {/* CV Content */}
+          {/* Content */}
           <div className="item-animate p-3 sm:p-8 md:p-10">
             <div className="mx-auto max-w-6xl space-y-4 sm:space-y-6 md:space-y-8">
-              {/* Personal Info + About */}
-              <div
-                className="item-animate relative rounded-xl border border-gray-200 bg-white p-4
-                  shadow-md sm:p-8 md:p-10"
-              >
-                {/* Download Button - Responsive Positioning */}
-                <div className="z-10 mb-4 text-center sm:absolute sm:top-2 sm:right-2 sm:mb-0">
-                  <CvDownloadButton />
-                </div>
-
-                {/* Personal Info Section */}
-                <div className="item-animate text-center">
+              {/* ════════════ HERO ════════════ */}
+              <Card className="overflow-hidden">
+                <div
+                  className="relative flex flex-col items-center px-6 py-8 text-center sm:px-8
+                    sm:py-10 md:px-12 md:py-12"
+                >
                   <h1
-                    className="mb-2 text-4xl font-bold text-[#192a56] sm:mb-3 md:mb-4 md:text-5xl
-                      lg:text-7xl"
+                    className="text-4xl font-extrabold leading-tight text-[#192a56] sm:text-5xl
+                      md:text-6xl lg:text-7xl"
                   >
                     Ruddy Autem
                   </h1>
-                  <h2
-                    className="mb-6 text-xl text-[#192a56]/80 italic sm:mb-8 md:text-2xl
-                      lg:text-3xl"
+                  <p
+                    className="mt-3 text-lg font-medium italic text-[#192a56]/60 sm:text-xl
+                      md:text-2xl lg:text-3xl"
                   >
                     Développeur Web Full-Stack
-                  </h2>
-                </div>
-
-                {/* Contact Details - Unified Layout: Responsive via grid */}
-                <div className="item-animate mx-auto max-w-5xl">
+                  </p>
                   <div
-                    className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3
-                      lg:gap-6"
+                    className="mt-6 flex max-w-4xl flex-wrap justify-center gap-2 sm:gap-3 md:mt-8"
                   >
-                    {CONTACT_DETAILS.map((item, index) => (
-                      <div
-                        key={index}
-                        className={`flex cursor-pointer items-center gap-3 rounded-lg p-3
-                        transition-colors hover:bg-gray-50 sm:p-4 lg:p-5
-                        ${index >= 3 && 'sm:col-span-2 lg:col-span-1'} `}
-                      >
-                        <div
-                          className="flex h-8 w-8 shrink-0 items-center justify-center
-                            rounded-full bg-[#192a56]/10 sm:h-10 sm:w-10 lg:h-12 lg:w-12"
-                        >
-                          <Image src={item.icon} height={16} width={16} alt="" unoptimized />
-                        </div>
-                        {item.link ? (
-                          <a
-                            href={item.link}
-                            className="truncate text-sm text-gray-800 hover:text-[#192a56]
-                              sm:text-base lg:text-lg"
-                          >
-                            {item.text}
-                          </a>
-                        ) : (
-                          <span className="truncate text-sm text-gray-800 sm:text-base lg:text-lg">
-                            {item.text}
-                          </span>
-                        )}
-                      </div>
+                    {CONTACT_DETAILS.map((item, i) => (
+                      <ContactBadge key={i} item={item} />
                     ))}
                   </div>
+                  <CvDownloadButton className="mt-8 xl:absolute xl:right-10 xl:top-10 xl:mt-0" />
                 </div>
 
-                {/* Separator */}
-                <div className="item-animate my-8 h-px w-full bg-gray-200 sm:my-10 md:my-12"></div>
+                <div className="mx-6 h-px bg-gray-100 sm:mx-8 md:mx-12" />
 
-                {/* About Section */}
-                <div className="item-animate mx-auto max-w-5xl">
-                  <div className="mb-4 flex items-center gap-3 sm:mb-6 sm:gap-4 md:mb-8">
-                    <div className="h-5 w-1.5 rounded bg-[#192a56] sm:h-7"></div>
-                    <h3
-                      className="text-lg font-bold text-[#192a56] sm:text-xl md:text-2xl
-                        lg:text-3xl"
-                    >
-                      À propos
-                    </h3>
-                  </div>
+                <div className="px-6 py-6 sm:px-8 sm:py-8 md:px-12 md:py-10">
+                  <SectionTitle>À propos</SectionTitle>
                   <p
-                    className="text-sm leading-relaxed text-gray-700 sm:text-base md:text-lg
-                      lg:text-xl"
+                    className="text-center text-sm leading-relaxed text-gray-600 sm:text-left
+                      sm:text-base md:text-lg lg:text-xl"
                   >
                     Développeur Web Full-Stack passionné, je conçois des applications fluides,
                     performantes et optimisées pour offrir la meilleure expérience utilisateur.
                     Attentif aux détails et exigeant sur la qualité du code, je m&apos;efforce de
                     proposer des solutions solides et adaptatives.
-                    <span className="hidden md:inline">
-                      <br />
-                      <br />
-                      Ma maîtrise du front-end et du back-end garantit une harmonie entre design et
-                      efficacité technique. Avide d&apos;innover, j&apos;aborde chaque projet comme
-                      une chance d&apos;évoluer et de dépasser les objectifs fixés.
-                    </span>
+                  </p>
+                  <p
+                    className="mt-4 hidden text-left text-sm leading-relaxed text-gray-600
+                      sm:text-base md:block md:text-lg lg:text-xl"
+                  >
+                    Ma maîtrise du front-end et du back-end garantit une harmonie entre design et
+                    efficacité technique. Avide d&apos;innover, j&apos;aborde chaque projet comme
+                    une chance d&apos;évoluer et de dépasser les objectifs fixés.
                   </p>
                 </div>
-              </div>
+              </Card>
 
-              {/* Skills Card */}
-              <div
-                className="item-animate rounded-xl border border-gray-200 bg-white p-4 shadow-md
-                  sm:p-6 md:p-8"
-              >
-                <div className="mx-auto max-w-5xl">
-                  <div className="mb-3 flex items-center gap-2 sm:mb-4 sm:gap-3">
-                    <div className="h-4 w-1 rounded bg-[#192a56] sm:h-6"></div>
-                    <h3
-                      className="text-base font-bold text-[#192a56] sm:text-lg md:text-xl
-                        lg:text-2xl"
+              {/* ════════════ SKILLS ════════════ */}
+              <Card className="px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8">
+                <SectionTitle>Compétences</SectionTitle>
+                <div className="space-y-3 sm:space-y-4">
+                  {SKILL_GROUPS.map((group) => (
+                    <div
+                      key={group.label}
+                      className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
                     >
-                      Compétences
-                    </h3>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3">
-                    {SKILLS.map((skill) => (
                       <span
-                        key={skill}
-                        className="item-animate rounded-md bg-[#192a56] px-2 py-1 text-xs
-                          font-semibold text-white transition-transform duration-200 hover:scale-105
-                          sm:px-3 sm:py-1.5 sm:text-sm md:px-4 md:py-2 md:text-base"
+                        className="w-full shrink-0 text-center text-[10px] font-bold uppercase
+                          tracking-widest text-[#192a56]/40 sm:w-20 sm:text-left sm:text-xs md:w-24"
                       >
-                        {skill}
+                        {group.label}
                       </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Projects Card */}
-              <div
-                className="item-animate rounded-xl border border-gray-200 bg-white p-4 shadow-md
-                  sm:p-6 md:p-8"
-              >
-                <div className="mx-auto max-w-5xl">
-                  <div className="mb-3 flex items-center gap-2 sm:mb-4 sm:gap-3">
-                    <div className="h-4 w-1 rounded bg-[#192a56] sm:h-6"></div>
-                    <h3
-                      className="text-base font-bold text-[#192a56] sm:text-lg md:text-xl
-                        lg:text-2xl"
-                    >
-                      Projets
-                    </h3>
-                  </div>
-                  <div className="space-y-4 sm:space-y-6 md:space-y-8">
-                    {PROJECTS.map((project, index) => (
+                      <div className="hidden w-px self-stretch bg-[#192a56]/10 sm:block" />
                       <div
-                        key={index}
-                        className="item-animate border-l-2 border-[#192a56]/30 pl-3 sm:pl-4 md:pl-6"
+                        className="flex flex-wrap justify-center gap-1.5 sm:justify-start sm:gap-2
+                          md:gap-2.5"
                       >
-                        <div className="mb-1 flex items-center justify-between sm:mb-2">
+                        {group.skills.map((skill) => (
+                          <span
+                            key={skill}
+                            className="item-animate cursor-pointer rounded-lg bg-[#192a56] px-3 py-1
+                              text-xs font-semibold text-white transition-all duration-200
+                              hover:scale-105 hover:bg-[#243a6b] sm:py-1.5 md:px-4 md:py-2
+                              md:text-sm"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+
+              {/* ════════════ PROJECTS ════════════ */}
+              <Card className="px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8">
+                <SectionTitle>Projets</SectionTitle>
+                <div className="space-y-6 sm:space-y-8">
+                  {PROJECTS.map((project, i) => (
+                    <div key={i} className="item-animate">
+                      <div
+                        className="mb-3 flex flex-col items-center gap-1.5 text-center sm:flex-row
+                          sm:items-center sm:justify-between sm:gap-3 sm:text-left"
+                      >
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <span
+                            className="hidden h-2 w-2 shrink-0 rounded-full bg-[#192a56] sm:block
+                              md:h-2.5 md:w-2.5"
+                          />
                           {project.link ? (
                             <a
                               href={project.link}
-                              className="text-xs font-bold text-[#192a56] hover:underline sm:text-sm
-                                md:text-base lg:text-lg"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`${projectTitleCls} hover:underline`}
                             >
                               {project.title}
                             </a>
                           ) : (
-                            <span
-                              className="text-xs font-bold text-[#192a56] sm:text-sm md:text-base
-                                lg:text-lg"
-                            >
-                              {project.title}
-                            </span>
+                            <span className={projectTitleCls}>{project.title}</span>
                           )}
-                          <span
-                            className="shrink-0 rounded bg-[#192a56] px-2 py-0.5 text-xs
-                              text-white sm:px-3 sm:py-1 sm:text-sm md:text-base"
-                          >
-                            {project.year}
-                          </span>
                         </div>
-                        <ul
-                          className="mr-12 space-y-1 text-xs text-gray-700 sm:mr-16 sm:space-y-2
-                            sm:text-sm md:mr-20 md:text-base"
+                        <span
+                          className="shrink-0 rounded-full bg-[#192a56] px-3 py-0.5 text-xs
+                            font-semibold text-white sm:text-sm md:px-4 md:py-1 md:text-base"
                         >
-                          {project.points.map((point, i) => (
-                            <li key={i} className="flex">
-                              <span className="mr-1 shrink-0 sm:mr-2">•</span>
-                              <span>{point}</span>
-                            </li>
-                          ))}
-                        </ul>
+                          {project.year}
+                        </span>
                       </div>
-                    ))}
-                  </div>
+                      <ul className="space-y-2 sm:pl-4 md:pl-5">
+                        {project.points.map((point, j) => (
+                          <li
+                            key={j}
+                            className="text-center text-xs text-gray-600 sm:flex sm:items-start
+                              sm:gap-2 sm:text-left sm:text-sm md:text-base"
+                          >
+                            <span
+                              className="mr-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full
+                                bg-[#192a56]/30 align-middle sm:mr-0 sm:mt-1.5 sm:block
+                                sm:align-top"
+                            />
+                            <span className="inline sm:block">{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      {i < PROJECTS.length - 1 && (
+                        <div className="mt-6 h-px w-full bg-gray-100 sm:mt-8" />
+                      )}
+                    </div>
+                  ))}
                 </div>
-              </div>
+              </Card>
 
-              {/* Education + Languages */}
-              <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
-                {/* Education Card */}
-                <div
-                  className="item-animate rounded-xl border border-gray-200 bg-white p-4 shadow-md
-                    sm:p-6 md:p-8"
-                >
-                  <div className="mb-3 flex items-center gap-2 sm:mb-4 sm:gap-3">
-                    <div className="h-4 w-1 rounded bg-[#192a56] sm:h-6"></div>
-                    <h3
-                      className="text-base font-bold text-[#192a56] sm:text-lg md:text-xl
-                        lg:text-2xl"
-                    >
-                      Formations
-                    </h3>
-                  </div>
-                  <div className="space-y-3 sm:space-y-4">
-                    {FORMATIONS.map((formation, index) => (
+              {/* ════════════ FORMATIONS & LANGUAGES ════════════ */}
+              <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-5">
+                <Card className="px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8 lg:col-span-3">
+                  <SectionTitle>Formations</SectionTitle>
+                  <div className="space-y-4 sm:space-y-5">
+                    {FORMATIONS.map((f, i) => (
                       <div
-                        key={index}
-                        className="item-animate border-b border-gray-100 pb-2 last:border-b-0
-                          sm:pb-3"
+                        key={i}
+                        className="item-animate flex flex-col items-center gap-2 border-b
+                          border-gray-100 pb-4 text-center last:border-0 last:pb-0 sm:flex-row
+                          sm:items-start sm:gap-5 sm:text-left"
                       >
-                        <p
-                          className="mb-1 text-xs font-semibold text-[#192a56] sm:text-sm
-                            md:text-base"
-                        >
-                          {formation.title}
-                        </p>
-                        <p
-                          className="mb-1 text-xs text-gray-600 italic sm:mb-2 sm:text-sm
-                            md:text-base"
-                        >
-                          {formation.institution}
-                        </p>
                         <span
-                          className="rounded bg-[#192a56] px-2 py-0.5 text-xs text-white sm:px-3
-                            sm:py-1 sm:text-sm"
+                          className="shrink-0 rounded-lg bg-[#192a56] px-2.5 py-1 text-xs font-bold
+                            text-white sm:mt-0.5 sm:text-sm md:px-3 md:py-1.5 md:text-base"
                         >
-                          {formation.year}
+                          {f.year}
+                        </span>
+                        <div className="flex flex-col items-center gap-0.5 sm:items-start">
+                          <p
+                            className="text-sm font-extrabold text-[#192a56] sm:font-semibold
+                              md:text-base lg:text-lg"
+                          >
+                            {f.title}
+                          </p>
+                          <p className="text-xs italic text-gray-500 sm:text-sm md:text-base">
+                            {f.institution}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+
+                <Card className="px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8 lg:col-span-2">
+                  <SectionTitle>Langues</SectionTitle>
+                  <div className="flex flex-col gap-3 sm:gap-4">
+                    {LANGUAGES.map((l, i) => (
+                      <div
+                        key={i}
+                        className="item-animate flex items-center justify-between rounded-xl
+                          bg-[#192a56]/5 px-4 py-3 md:px-5 md:py-4"
+                      >
+                        <span
+                          className="text-sm font-semibold text-[#192a56] sm:text-base md:text-lg"
+                        >
+                          {l.language}
+                        </span>
+                        <span
+                          className="rounded-full bg-[#192a56] px-3 py-0.5 text-xs font-medium
+                            text-white sm:text-sm md:px-4 md:py-1 md:text-base"
+                        >
+                          {l.level}
                         </span>
                       </div>
                     ))}
                   </div>
-                </div>
-                {/* Languages Card */}
-                <div
-                  className="item-animate rounded-xl border border-gray-200 bg-white p-4 shadow-md
-                    sm:p-6 md:p-8"
-                >
-                  <div className="mb-3 flex items-center gap-2 sm:mb-4 sm:gap-3">
-                    <div className="h-4 w-1 rounded bg-[#192a56] sm:h-6"></div>
-                    <h3
-                      className="text-base font-bold text-[#192a56] sm:text-lg md:text-xl
-                        lg:text-2xl"
-                    >
-                      Langues
-                    </h3>
-                  </div>
-                  <div className="grid grid-cols-1 gap-2 sm:gap-3">
-                    {LANGUAGES.map((language, index) => (
-                      <div
-                        key={index}
-                        className="item-animate rounded-lg bg-gray-50 p-2 text-center sm:p-3 md:p-4"
-                      >
-                        <span
-                          className="block text-xs font-semibold text-[#192a56] sm:text-sm
-                            md:text-base lg:text-lg"
-                        >
-                          {language.language}
-                        </span>
-                        <span className="text-xs text-gray-600 sm:text-sm md:text-base">
-                          {language.level}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                </Card>
               </div>
-              {/* END bottom grid */}
             </div>
           </div>
         </div>
