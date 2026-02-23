@@ -35,3 +35,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 pm2.config.cjs
+
+# Local-only CV editor
+src/app/cv/edit/
