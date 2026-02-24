@@ -6,76 +6,136 @@ import { PageWrapper } from "@/components/PageWrapper/PageWrapper";
 import TopPageDecoration from "../TopPageDecoration/TopPageDecoration";
 
 const AboutContent = () => {
-  // Define section-specific colors using homepage accent colors
-  const sectionColors = {
-    Frontend: "bg-accent", // Using homepage accent color
-    Backend: "bg-purple-500",
-    Outils: "bg-emerald-500",
-  };
+  const sections = [
+    {
+      title: "Frontend",
+      data: skills.frontend,
+      color: "bg-accent",
+      glowClass: "shadow-[0_0_15px_rgba(59,130,246,0.6)]",
+      desc: "Conception d'interfaces réactives, architecture moderne et expériences web performantes.",
+      counterLabel: "technologies",
+    },
+    {
+      title: "Backend",
+      data: skills.backend,
+      color: "bg-purple-500",
+      glowClass: "shadow-[0_0_15px_rgba(168,85,247,0.6)]",
+      desc: "Solutions serveur robustes, bases de données SQL/NoSQL et APIs sécurisées.",
+      counterLabel: "technologies",
+    },
+    {
+      title: "Outils",
+      data: skills.tools,
+      color: "bg-emerald-500",
+      glowClass: "shadow-[0_0_15px_rgba(16,185,129,0.6)]",
+      desc: "Déploiement continu (CI/CD), gestion de contenu (CMS) et workflow DevOps.",
+      counterLabel: "outils",
+    },
+  ];
 
-  const renderSkillsSection = (skillsArray, title) => (
-    <div className="item-animate relative mt-8 flex-1 overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl">
-      {/* Decorative header bar */}
-      <div className="from-accent/30 h-1.5 bg-linear-to-r via-blue-500/30 to-purple-500/30"></div>
+  const renderSkillsSection = (section, index) => {
+    const isLast = index === sections.length - 1;
 
-      <div className="p-6 sm:p-8">
-        {/* Section Title with Custom Color Underline */}
-        <div className="mb-8">
-          <div className="inline-block">
-            <h2 className="mb-3 text-2xl font-bold tracking-tight text-white sm:text-3xl 2xl:text-4xl">
-              {title}
-            </h2>
-            <div className={`h-1 w-full rounded-sm ${sectionColors[title]}`} />
+    return (
+      <div
+        key={section.title}
+        className={`item-animate relative flex flex-col items-center gap-8 py-10 sm:py-14
+          ${!isLast ? "border-b border-slate-700/30" : ""}`}
+      >
+        {/* Header Column: Title (Underlined) & Desc */}
+        <div className="z-10 flex w-full max-w-3xl flex-col items-center text-center">
+          {/* Unified Title with Colored Underline */}
+          <div className="mb-5 flex flex-col items-center">
+            <div className="relative">
+              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                {section.title}
+              </h2>
+              {/* The Underline: Uses the section color and glow */}
+              <div
+                className={`absolute -bottom-2 left-0 h-1 w-full rounded-full ${section.color}
+                  ${section.glowClass} opacity-90`}
+              />
+            </div>
+          </div>
+
+          {/* Description */}
+          <p className="mb-6 text-sm text-slate-300 sm:text-base">
+            {section.desc}
+          </p>
+
+          {/* Counter Badge */}
+          <div className="flex justify-center">
+            <div
+              className="inline-flex items-center rounded-full border border-slate-700/40
+                bg-slate-800/30 px-4 py-1.5 font-mono text-xs font-medium text-slate-300
+                backdrop-blur-md"
+            >
+              <span
+                className={`mr-2 h-1.5 w-1.5 rounded-full ${section.color}`}
+              />
+              {section.data.length} {section.counterLabel}
+            </div>
           </div>
         </div>
 
         {/* Skills Grid */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-7">
-          {skillsArray.map((item, index) => (
-            <SkillItem
-              key={index}
-              skill={item.skill}
-              icon={item.icon}
-              altText={item.skill}
-              category={title}
-            />
-          ))}
-        </div>
+<div className="z-10 w-full">
+<div
+  className="grid gap-2 items-stretch"
+  style={{ gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))" }}
+>
+    {section.data.map((item, idx) => (
+      <SkillItem
+        key={idx}
+        skill={item.skill}
+        icon={item.icon}
+        altText={item.skill}
+        category={section.title}
+      />
+    ))}
+  </div>
+</div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <PageWrapper skipChildWrapping={true}>
-      <div className="3xl:p-20 flex min-h-screen w-full items-center justify-center overflow-x-hidden bg-(--theme-bg) p-4 sm:p-6 md:p-8 xl:p-12 2xl:p-16">
-        <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400">
-          <div className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl">
-            {/* Decorative header bar */}
+      <div
+        className="flex min-h-screen w-full items-center justify-center overflow-x-hidden
+          bg-(--theme-bg) p-4 sm:p-6 md:p-8 xl:p-12 2xl:p-16 3xl:p-20"
+      >
+        <div className="relative z-10 flex w-full max-w-7xl flex-col 2xl:max-w-400">
+          <div
+            className="item-animate flex flex-col overflow-hidden rounded-2xl border
+              border-slate-700/50 bg-slate-800/10 shadow-2xl backdrop-blur-xl sm:rounded-3xl"
+          >
             <TopPageDecoration filename="profil.html" />
 
-            <div className="p-6 sm:p-8 md:p-10">
-              {/* Main Title */}
-              <div className="item-animate mb-12 text-center">
-                <h1 className="item-animate mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl 2xl:text-6xl">
+            <div className="flex flex-col items-center p-6 sm:p-8 md:p-10 lg:p-14">
+              {/* Main Page Title */}
+              <div className="item-animate mb-8 text-center sm:mb-12 max-w-3xl">
+                <h1
+                  className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl
+                    md:text-5xl 2xl:text-6xl"
+                >
                   Stack <span className="text-accent">Technologique</span>
                 </h1>
-                <p className="item-animate mx-auto max-w-2xl text-lg text-slate-300 sm:text-xl 2xl:text-2xl">
-                  Mon environnement de développement pour créer des applications
-                  modernes et performantes.
+                <p className="text-lg text-slate-300 sm:text-xl 2xl:text-2xl">
+                  Un aperçu détaillé de mon environnement de développement, des
+                  langages aux outils de déploiement, pour créer des
+                  applications modernes.
                 </p>
               </div>
 
-              {/* Frontend Section */}
-              <div className="w-full">
-                {renderSkillsSection(skills.frontend, "Frontend")}
-              </div>
-              {/* Backend Section */}
-              <div className="w-full">
-                {renderSkillsSection(skills.backend, "Backend")}
-              </div>
-              {/* Tools Section */}
-              <div className="w-full">
-                {renderSkillsSection(skills.tools, "Outils")}
+              {/* Sections Container */}
+              <div
+                className="w-full rounded-2xl border border-slate-700/20 bg-slate-800/5 px-4
+                  sm:px-10"
+              >
+                {sections.map((section, index) =>
+                  renderSkillsSection(section, index)
+                )}
               </div>
             </div>
           </div>
