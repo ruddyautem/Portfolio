@@ -31,7 +31,7 @@ const Card = ({ project }) => (
         group-hover:border-slate-600/60 group-hover:bg-slate-700/20 sm:rounded-3xl"
     >
       {/* Decorative header bar */}
-      <div className="from-accent/30 h-1.5 bg-gradient-to-r via-blue-500/30 to-purple-500/30"></div>
+      <div className="from-accent/30 h-1.5 bg-linear-to-r via-blue-500/30 to-purple-500/30"></div>
 
       <Link href={project.demo} target="_blank" rel="noopener noreferrer">
         {/* Image Container */}
@@ -60,11 +60,11 @@ const Card = ({ project }) => (
         </h2>
 
         {/* Description */}
-        <p className="mb-6 flex-grow leading-relaxed text-slate-300">{project.desc}</p>
+        <p className="mb-6 grow leading-relaxed text-slate-300">{project.desc}</p>
 
         {/* Tags */}
         <div
-          className="z-10 mb-6 flex min-h-[60px] flex-wrap items-start justify-center gap-2
+          className="z-10 mb-6 flex min-h-15 flex-wrap items-start justify-center gap-2
             select-none md:justify-start"
         >
           {project.tags?.map((tag) => (
