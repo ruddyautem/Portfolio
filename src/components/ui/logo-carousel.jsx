@@ -197,7 +197,8 @@ const LogoColumn = memo(({ logos, columnIndex, currentTime }) => {
 
   return (
     <motion.div
-      className="relative h-14 w-24 overflow-hidden md:h-24 md:w-48"
+      // Adjusted width sizing limits to safely prevent overflow on very small 320-400px viewports
+      className="relative h-14 w-20 shrink min-w-0 overflow-hidden sm:w-24 md:h-24 md:w-48"
       variants={ANIMATION_VARIANTS.container}
       initial="initial"
       animate="animate"
@@ -241,7 +242,8 @@ export function LogoCarousel() {
   const logoColumns = useLogoDistribution(LOGOS, columns);
 
   return (
-    <div className="flex justify-center gap-4 py-8">
+    // Hard bounded the X container to ensure logos never stretch their grid
+    <div className="flex w-full max-w-full justify-center gap-2 overflow-hidden py-8 px-2 sm:gap-4">
       {logoColumns.map((columnLogos, index) => (
         <LogoColumn
           key={`column-${index}`}
