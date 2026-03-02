@@ -118,9 +118,7 @@ const useCarousel = (itemCount) => {
       }
     }, CAROUSEL_CONFIG.autoScrollInterval);
 
-    return () => {
-      clearInterval(iv);
-    };
+    return () => clearInterval(iv);
   }, [activeIndex, itemCount, transition]);
 
   useEffect(() => {
@@ -134,12 +132,8 @@ const useCarousel = (itemCount) => {
     goToSlide,
     handleTouchStart,
     handleTouchEnd,
-    pause: () => {
-      isPausedRef.current = true;
-    },
-    resume: () => {
-      isPausedRef.current = false;
-    },
+    pause: () => { isPausedRef.current = true; },
+    resume: () => { isPausedRef.current = false; },
   };
 };
 
@@ -266,7 +260,6 @@ const ProjectOverlay = ({ project, onExternalLink }) => {
   );
 };
 
-// C'est le SEUL composant qui mérite un `memo` car ses props `isActive` varient au rythme du carrousel !
 const ProjectCard = memo(({ project, onExternalLink, isFeatured, isActive }) => (
   <div className="h-full w-full shrink-0">
     <Link href="/projects" className="block h-full w-full">
@@ -365,7 +358,8 @@ const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
   };
 
   return (
-    <div className="flex w-full min-w-0 flex-col items-center lg:items-end 2xl:items-center">
+    // ✅ item-animate sur le bloc carousel entier
+    <div className="item-animate flex w-full min-w-0 flex-col items-center lg:items-end 2xl:items-center">
       <div
         className="mb-3 flex w-full justify-center sm:mb-4 lg:w-3/4 xl:mb-3 2xl:mb-4 2xl:w-4/5
           3xl:mb-6"
@@ -443,7 +437,7 @@ const NavCard = ({ href, label, icon: Icon }) => (
 );
 
 const CvButton = () => (
-  <div className="mt-4 flex w-full items-center justify-center gap-3 lg:mt-4 2xl:mt-6">
+  <div className="item-animate mt-4 flex w-full items-center justify-center gap-3 lg:mt-4 2xl:mt-6">
     <span className="h-px flex-1 bg-linear-to-r from-transparent to-slate-600/60" />
     <a
       href="/CV.pdf"
@@ -472,40 +466,41 @@ const CvButton = () => (
 
 const HeroSection = () => (
   <div className="w-full pt-3 text-center lg:pt-0">
+    {/* Badge + Nom + Titre : 3 éléments qui s'enchaînent */}
     <div className="mb-2 flex w-full flex-col items-center lg:mb-2 xl:mb-4 2xl:mb-6">
       <div
-        className="mb-2 inline-block max-w-full truncate rounded-full bg-slate-700/50 px-2 py-1
-          font-mono text-[10px] text-accent lg:px-3 lg:text-xs xl:text-sm 2xl:px-4 2xl:py-2
-          2xl:text-base 3xl:px-6 3xl:py-3 3xl:text-xl"
+        className="item-animate mb-2 inline-block max-w-full truncate rounded-full
+          bg-slate-700/50 px-2 py-1 font-mono text-[10px] text-accent lg:px-3 lg:text-xs
+          xl:text-sm 2xl:px-4 2xl:py-2 2xl:text-base 3xl:px-6 3xl:py-3 3xl:text-xl"
       >
         AUTEM.DEV
       </div>
       <h1
-        className="mb-2 w-full truncate text-2xl font-bold tracking-tight lg:mb-1 2xl:mb-2
-          sm:text-3xl lg:text-lg xl:text-2xl 2xl:text-4xl 3xl:text-6xl"
+        className="item-animate mb-2 w-full truncate text-2xl font-bold tracking-tight
+          lg:mb-1 2xl:mb-2 sm:text-3xl lg:text-lg xl:text-2xl 2xl:text-4xl 3xl:text-6xl"
       >
         Ruddy <span className="text-accent">Autem</span>
       </h1>
       <p
-        className="mb-3 w-full truncate text-base text-slate-300 lg:mb-2 2xl:mb-3 sm:text-lg
-          lg:text-sm xl:text-lg 2xl:text-2xl 3xl:text-4xl"
+        className="item-animate mb-3 w-full truncate text-base text-slate-300 lg:mb-2 2xl:mb-3
+          sm:text-lg lg:text-sm xl:text-lg 2xl:text-2xl 3xl:text-4xl"
       >
         Développeur Web Full Stack
       </p>
     </div>
 
     <p
-      className="mx-auto mb-4 w-full max-w-md wrap-break-word text-xs text-slate-300 lg:mb-3
-        lg:max-w-xs xl:max-w-md 2xl:mb-5 2xl:max-w-2xl 2xl:leading-relaxed sm:text-sm lg:text-xs
-        xl:text-base 2xl:text-lg 3xl:max-w-3xl 3xl:text-2xl"
+      className="item-animate mx-auto mb-4 w-full max-w-md wrap-break-word text-xs text-slate-300
+        lg:mb-3 lg:max-w-xs xl:max-w-md 2xl:mb-5 2xl:max-w-2xl 2xl:leading-relaxed sm:text-sm
+        lg:text-xs xl:text-base 2xl:text-lg 3xl:max-w-3xl 3xl:text-2xl"
     >
       Je conçois et développe des applications web modernes, en alliant performance, simplicité et
       expérience utilisateur
     </p>
 
     <div
-      className="mb-4 flex flex-wrap justify-center gap-2 lg:mb-3 lg:gap-1.5 xl:gap-2 2xl:mb-5
-        2xl:gap-2.5"
+      className="item-animate mb-4 flex flex-wrap justify-center gap-2 lg:mb-3 lg:gap-1.5
+        xl:gap-2 2xl:mb-5 2xl:gap-2.5"
     >
       {SKILL_PILLS.map(({ icon: Icon, label }) => (
         <span
@@ -525,20 +520,20 @@ const HeroSection = () => (
       ))}
     </div>
 
-    <div className="mb-4 flex justify-center lg:mb-3 2xl:mb-5">
+    <div className="item-animate mb-4 flex justify-center lg:mb-3 2xl:mb-5">
       <span
-        className="inline-flex items-center gap-1.5 text-xs text-slate-400 lg:text-[10px] xl:text-xs
-          2xl:text-sm 3xl:text-base"
+        className="inline-flex items-center gap-1.5 text-xs text-slate-400 lg:text-[10px]
+          xl:text-xs 2xl:text-sm 3xl:text-base"
       >
         <MapPin
-          className="h-3.5 w-3.5 shrink-0 text-slate-400 lg:h-3 lg:w-3 xl:h-3.5 xl:w-3.5 2xl:h-4
-            2xl:w-4"
+          className="h-3.5 w-3.5 shrink-0 text-slate-400 lg:h-3 lg:w-3 xl:h-3.5 xl:w-3.5
+            2xl:h-4 2xl:w-4"
         />
         France · Remote
       </span>
     </div>
 
-    <div className="grid w-full grid-cols-3 gap-2 xl:gap-2.5 2xl:gap-3 3xl:gap-4">
+    <div className="item-animate grid w-full grid-cols-3 gap-2 xl:gap-2.5 2xl:gap-3 3xl:gap-4">
       {NAV_LINKS.map((link) => (
         <NavCard key={link.href} {...link} />
       ))}
@@ -549,9 +544,10 @@ const HeroSection = () => (
 );
 
 const TechSection = () => (
+  // ✅ item-animate sur la section technologies
   <div
-    className="mt-3 flex w-full max-w-full flex-col items-center overflow-hidden border-t
-      border-slate-700/50 pt-2 lg:mt-2 lg:pt-1.5 xl:mt-3 xl:pt-2 2xl:mt-4 2xl:pt-2.5"
+    className="item-animate mt-3 flex w-full max-w-full flex-col items-center overflow-hidden
+      border-t border-slate-700/50 pt-2 lg:mt-2 lg:pt-1.5 xl:mt-3 xl:pt-2 2xl:mt-4 2xl:pt-2.5"
   >
     <h3
       className="mb-1 w-full truncate text-center font-mono text-[10px] tracking-widest
@@ -591,11 +587,12 @@ const HomepageContent = () => {
         className="relative z-10 w-full max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl
           3xl:max-w-450"
       >
-        {/* Main Glass Panel */}
+        {/* ✅ item-animate sur le panneau principal — premier élément animé */}
         <div
-          className="flex h-auto w-full max-w-full flex-col overflow-hidden shadow-2xl rounded-2xl
-            border border-slate-700/50 bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl lg:h-full
-            lg:max-h-[85vh] lg:overflow-y-hidden 2xl:max-h-[90vh] 3xl:max-h-[90vh]"
+          className="item-animate flex h-auto w-full max-w-full flex-col overflow-hidden
+            shadow-2xl rounded-2xl border border-slate-700/50 bg-slate-800/20 backdrop-blur-xl
+            sm:rounded-3xl lg:h-full lg:max-h-[85vh] lg:overflow-y-hidden 2xl:max-h-[90vh]
+            3xl:max-h-[90vh]"
         >
           <TopPageDecoration filename="accueil.jsx" />
 
