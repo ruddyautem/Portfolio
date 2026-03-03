@@ -589,7 +589,7 @@ const HomepageContent = () => {
       >
         {/* ✅ item-animate sur le panneau principal — premier élément animé */}
         <div
-          className="item-animate flex h-auto w-full max-w-full flex-col overflow-hidden
+          className="flex h-auto w-full max-w-full flex-col overflow-hidden
             shadow-2xl rounded-2xl border border-slate-700/50 bg-slate-800/20 backdrop-blur-xl
             sm:rounded-3xl lg:h-full lg:max-h-[85vh] lg:overflow-y-hidden 2xl:max-h-[90vh]
             3xl:max-h-[90vh]"

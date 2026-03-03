@@ -14,7 +14,8 @@ const { name, title, about, contacts, skillGroups, projects, formations, languag
 /* ─── MICRO-COMPONENTS ─── */
 
 const SectionTitle = ({ children }) => (
-  <div className="mb-6 flex flex-col items-center gap-2 sm:items-start md:mb-8">
+  // Ajout de l'animation sur les titres de section
+  <div className="item-animate mb-6 flex flex-col items-center gap-2 sm:items-start md:mb-8">
     <h3
       className="text-base font-extrabold uppercase tracking-widest text-[#192a56] sm:text-lg
         md:text-xl lg:text-2xl"
@@ -26,8 +27,9 @@ const SectionTitle = ({ children }) => (
 );
 
 const Card = ({ children, className = '' }) => (
+  // Retrait de l'animation globale de la carte pour éviter le double-glissement
   <div
-    className={`item-animate rounded-2xl border border-gray-100 bg-white shadow-sm ${className}`}
+    className={`rounded-2xl border border-gray-100 bg-white shadow-sm ${className}`}
   >
     {children}
   </div>
@@ -37,7 +39,8 @@ const CvDownloadButton = ({ className = '' }) => (
   <a
     href="/CV.pdf"
     download={`${name.replace(/\s+/g, '_')}_CV.pdf`}
-    className={`inline-flex items-center rounded-xl bg-[#192a56] px-6 py-3 text-sm font-semibold
+    // Ajout de item-animate
+    className={`item-animate inline-flex items-center rounded-xl bg-[#192a56] px-6 py-3 text-sm font-semibold
       text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#243a6b]
       hover:shadow-lg md:text-base ${className}`}
   >
@@ -61,12 +64,13 @@ const ContactBadge = ({ item }) => {
       <span className="break-all">{item.text}</span>
     </>
   );
+  // Ajout de item-animate
   return item.link ? (
-    <a href={item.link} className={`${cls} transition-colors hover:bg-[#192a56]/10`}>
+    <a href={item.link} className={`item-animate ${cls} transition-colors hover:bg-[#192a56]/10`}>
       {content}
     </a>
   ) : (
-    <span className={cls}>{content}</span>
+    <span className={`item-animate ${cls}`}>{content}</span>
   );
 };
 
@@ -82,7 +86,7 @@ const CV = () => (
         2xl:px-16 2xl:pb-16 2xl:pt-[5vh] 3xl:px-20 3xl:pb-20 3xl:pt-[5vh]"
     >
       <div
-        className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-350 shadow-2xl"
+        className="relative z-10 flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-360 3xl:max-w-440 flex-col shadow-2xl"
       >
         <div
           className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50
@@ -107,8 +111,8 @@ const CV = () => (
           </div>
 
           {/* Content */}
-          <div className="item-animate p-3 sm:p-8 md:p-10">
-            <div className="mx-auto max-w-6xl space-y-4 sm:space-y-6 md:space-y-8">
+          <div className="p-3 sm:p-8 md:p-10">
+            <div className="mx-auto w-full space-y-4 sm:space-y-6 md:space-y-8">
               {/* ── HERO ── */}
               <Card className="overflow-hidden">
                 <div
@@ -116,13 +120,13 @@ const CV = () => (
                     sm:py-10 md:px-12 md:py-12"
                 >
                   <h1
-                    className="text-4xl font-extrabold leading-tight text-[#192a56] sm:text-5xl
+                    className="item-animate text-4xl font-extrabold leading-tight text-[#192a56] sm:text-5xl
                       md:text-6xl lg:text-7xl"
                   >
                     {name}
                   </h1>
                   <p
-                    className="mt-3 text-lg font-medium italic text-[#192a56]/60 sm:text-xl
+                    className="item-animate mt-3 text-lg font-medium italic text-[#192a56]/60 sm:text-xl
                       md:text-2xl lg:text-3xl"
                   >
                     {title}
@@ -137,12 +141,12 @@ const CV = () => (
                   <CvDownloadButton className="mt-8 xl:absolute xl:right-10 xl:top-10 xl:mt-0" />
                 </div>
 
-                <div className="mx-6 h-px bg-gray-100 sm:mx-8 md:mx-12" />
+                <div className="item-animate mx-6 h-px bg-gray-100 sm:mx-8 md:mx-12" />
 
                 <div className="px-6 py-6 sm:px-8 sm:py-8 md:px-12 md:py-10">
                   <SectionTitle>À propos</SectionTitle>
                   <p
-                    className="text-center text-sm leading-relaxed text-gray-600 sm:text-left
+                    className="item-animate text-center text-sm leading-relaxed text-gray-600 sm:text-left
                       sm:text-base md:text-lg lg:text-xl"
                   >
                     {about}
@@ -155,9 +159,10 @@ const CV = () => (
                 <SectionTitle>Compétences</SectionTitle>
                 <div className="space-y-3 sm:space-y-4">
                   {skillGroups.map((group) => (
+                    // L'animation est sur la "ligne" complète de compétences, c'est plus propre !
                     <div
                       key={group.label}
-                      className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                      className="item-animate flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
                     >
                       <span
                         className="w-full shrink-0 text-center text-[10px] font-bold uppercase
@@ -173,7 +178,7 @@ const CV = () => (
                         {group.skills.map((skill) => (
                           <span
                             key={skill}
-                            className="item-animate cursor-pointer rounded-lg bg-[#192a56] px-3 py-1
+                            className="cursor-pointer rounded-lg bg-[#192a56] px-3 py-1
                               text-xs font-semibold text-white transition-all duration-200
                               hover:scale-105 hover:bg-[#243a6b] sm:py-1.5 md:px-4 md:py-2
                               md:text-sm"
@@ -192,6 +197,7 @@ const CV = () => (
                 <SectionTitle>Projets</SectionTitle>
                 <div className="space-y-6 sm:space-y-8">
                   {projects.map((project, i) => (
+                    // Chaque projet arrive un par un
                     <div key={i} className="item-animate">
                       <div
                         className="mb-3 flex flex-col items-center gap-1.5 text-center sm:flex-row

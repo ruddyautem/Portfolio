@@ -84,7 +84,7 @@ export default function RootLayout({ children }) {
             {/* Main content area with flex-1 to take available space */}
             <div className="flex flex-1">
               {/* Left sidebar area */}
-              <aside className="flex h-[calc(100vh-60px)] flex-shrink-0">
+              <aside className="flex h-[calc(100vh-60px)] shrink-0">
                 <Sidebar />
                 <Explorer />
               </aside>

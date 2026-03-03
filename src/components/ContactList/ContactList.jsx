@@ -50,7 +50,8 @@ const SocialCard = memo(({ contact }) => (
     href={contact.href}
     target="_blank"
     rel="noopener noreferrer"
-    className="group/contact flex flex-col items-center justify-center gap-4 rounded-xl border
+    // Ajout de item-animate sur chaque carte de réseau social
+    className="item-animate group/contact flex flex-col items-center justify-center gap-4 rounded-xl border
       border-slate-600/30 bg-slate-800/30 p-5 text-center backdrop-blur-sm transition-all
       duration-300 hover:-translate-y-1 hover:border-slate-600 hover:bg-slate-700/30
       hover:shadow-glow sm:min-w-0 sm:flex-1 lg:flex-row lg:items-center lg:justify-start
@@ -112,7 +113,8 @@ const ContactList = () => {
         overflow-x-hidden overflow-y-auto p-4 sm:p-6 lg:h-full lg:min-h-0 lg:justify-center
         lg:overflow-hidden lg:p-6 2xl:p-10 3xl:p-16"
     >
-      <div className="item-animate relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400">
+      {/* J'ai retiré item-animate d'ici pour que la frame de base ne bouge pas, mais que le contenu oui */}
+      <div className="relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400">
         <div
           className="flex h-auto w-full max-w-full flex-col overflow-hidden rounded-2xl border
             border-slate-700/50 bg-slate-800/20 shadow-2xl backdrop-blur-xl sm:rounded-3xl lg:h-full
@@ -122,26 +124,29 @@ const ContactList = () => {
 
           <div className="flex w-full flex-col overflow-y-auto lg:h-full">
             <div
-              className="item-animate border-b border-slate-700/30 p-6 text-center sm:p-8 md:p-10
+              className="border-b border-slate-700/30 p-6 text-center sm:p-8 md:p-10
                 lg:shrink-0"
             >
+              {/* Le titre arrive en premier */}
               <h1
-                className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-5xl 2xl:mb-4
+                className="item-animate mb-3 text-3xl font-bold text-white sm:text-4xl md:text-5xl 2xl:mb-4
                   2xl:text-6xl"
               >
                 Me <span className="text-accent">Contacter</span>
               </h1>
-              <p className="mx-auto max-w-2xl text-base text-slate-300 sm:text-lg 2xl:text-2xl">
+              {/* Le sous-titre arrive en second */}
+              <p className="item-animate mx-auto max-w-2xl text-base text-slate-300 sm:text-lg 2xl:text-2xl">
                 Vous pouvez me contacter via le formulaire ci-dessous ou via mes réseaux.
               </p>
             </div>
 
-            <div className="item-animate grid flex-1 grid-cols-1 lg:grid-cols-5">
+            <div className="grid flex-1 grid-cols-1 lg:grid-cols-5">
               <div
                 className="flex flex-col border-b border-slate-700/30 p-6 sm:p-8 lg:col-span-2
                   lg:border-r lg:border-b-0"
               >
-                <div className="mb-6 text-center lg:mb-8 lg:text-left">
+                {/* L'en-tête "Réseaux" arrive */}
+                <div className="item-animate mb-6 text-center lg:mb-8 lg:text-left">
                   <h2 className="mb-2 text-xl font-bold text-white 2xl:mb-3 2xl:text-2xl">
                     Réseaux
                   </h2>
@@ -156,8 +161,9 @@ const ContactList = () => {
                   ))}
                 </div>
 
+                {/* Le bloc stats en bas à gauche */}
                 <div
-                  className="mt-8 border-t border-slate-700/30 pt-6 text-center lg:mt-auto lg:pt-8
+                  className="item-animate mt-8 border-t border-slate-700/30 pt-6 text-center lg:mt-auto lg:pt-8
                     lg:text-left"
                 >
                   <div className="mb-3 flex items-center justify-center lg:justify-start">
@@ -169,7 +175,8 @@ const ContactList = () => {
               </div>
 
               <div className="flex flex-col p-6 sm:p-8 lg:col-span-3">
-                <div className="mb-6 text-center lg:mb-8 lg:text-left">
+                {/* L'en-tête "Envoyer un message" arrive */}
+                <div className="item-animate mb-6 text-center lg:mb-8 lg:text-left">
                   <h2 className="mb-2 text-xl font-bold text-white 2xl:mb-3 2xl:text-2xl">
                     Envoyer un message
                   </h2>
@@ -178,7 +185,8 @@ const ContactList = () => {
                   </p>
                 </div>
 
-                <div className="flex-1">
+                {/* Le formulaire arrive en dernier */}
+                <div className="item-animate flex-1">
                   <ContactForm />
                 </div>
               </div>
