@@ -1,13 +1,13 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useEffect, useState, memo } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 // ============================================================================
-// CONSTANTS - Séparées clairement pour éviter les .slice() à chaque rendu
+// CONSTANTS
 // ============================================================================
 
 const TOP_LINKS = [
@@ -24,10 +24,10 @@ const BOTTOM_LINKS = [
 ];
 
 // ============================================================================
-// NAVIGATION LINK COMPONENT (Simplifié)
+// NAV ITEM COMPONENT
 // ============================================================================
 
-const NavItem = memo(({ item, isActive, onRef, priority }) => {
+const NavItem = ({ item, isActive, onRef, priority }) => {
   const content = (
     <div className="group flex h-11 w-full items-center justify-center">
       <Image
@@ -45,8 +45,8 @@ const NavItem = memo(({ item, isActive, onRef, priority }) => {
     <div
       ref={onRef}
       className={cn(
-        "relative flex items-center justify-center transition-opacity duration-200",
-        isActive ? "opacity-100" : "opacity-30 hover:opacity-100"
+        'relative flex items-center justify-center transition-opacity duration-200',
+        isActive ? 'opacity-100' : 'opacity-30 hover:opacity-100',
       )}
     >
       <Tooltip tooltipText={item.name}>
@@ -62,18 +62,15 @@ const NavItem = memo(({ item, isActive, onRef, priority }) => {
       </Tooltip>
     </div>
   );
-});
-
-NavItem.displayName = 'NavItem';
+};
 
 // ============================================================================
-// MAIN SIDEBAR COMPONENT
+// MAIN SIDEBAR
 // ============================================================================
 
 const Sidebar = () => {
   const currentRoute = usePathname();
   const itemsRef = useRef([]);
-  // Ajout de l'opacité à 0 comme sur la Tabsbar pour éviter le saut (jump) initial
   const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, height: 0, opacity: 0 });
 
   useEffect(() => {
@@ -82,7 +79,6 @@ const Sidebar = () => {
       const activeElement = itemsRef.current[activeIndex];
 
       if (activeElement) {
-        // LOGIQUE TABSBAR : offsetTop est parfait ici car le conteneur est en flex-col
         setIndicatorStyle({
           top: activeElement.offsetTop,
           height: activeElement.offsetHeight,
@@ -93,7 +89,7 @@ const Sidebar = () => {
 
     const timeoutId = setTimeout(updateIndicator, 10);
     window.addEventListener('resize', updateIndicator);
-    
+
     return () => {
       clearTimeout(timeoutId);
       window.removeEventListener('resize', updateIndicator);
@@ -102,7 +98,7 @@ const Sidebar = () => {
 
   return (
     <aside
-      className="bg-sidebar-bg hidden w-12 flex-col justify-between lg:flex"
+      className="bg-sidebar-bg hidden h-full w-12 flex-col justify-between lg:flex"
       aria-label="Sidebar navigation"
     >
       {/* SECTION HAUTE */}
@@ -113,7 +109,9 @@ const Sidebar = () => {
             item={link}
             isActive={currentRoute === link.link}
             priority={index < 3}
-            onRef={(el) => { itemsRef.current[index] = el; }}
+            onRef={(el) => {
+              itemsRef.current[index] = el;
+            }}
           />
         ))}
 
@@ -131,16 +129,11 @@ const Sidebar = () => {
       {/* SECTION BASSE */}
       <nav className="flex flex-col" aria-label="Secondary navigation">
         {BOTTOM_LINKS.map((link) => (
-          <NavItem
-            key={link.name}
-            item={link}
-            isActive={false}
-            priority={false}
-          />
+          <NavItem key={link.name} item={link} isActive={false} priority={false} />
         ))}
       </nav>
     </aside>
   );
 };
 
-export default memo(Sidebar);
+export default Sidebar;

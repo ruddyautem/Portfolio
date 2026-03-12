@@ -75,24 +75,30 @@ export default function RootLayout({ children }) {
       className={fontVariables}
       style={{ fontFamily: "var(--font-system-ui)" }}
     >
-      <body className="flex h-screen flex-col overflow-hidden">
+      {/* Remplacement de h-screen (vh) par h-[100dvh] */}
+      <body className="flex h-dvh flex-col overflow-hidden">
         <ThemeContextProvider>
           <ThemeProvider>
             {/* Header */}
             <Menu />
 
-            {/* Main content area with flex-1 to take available space */}
-            <div className="flex flex-1">
-              {/* Left sidebar area */}
-              <aside className="flex h-[calc(100vh-60px)] shrink-0">
+            {/* Main content area */}
+            <div className="flex flex-1 overflow-hidden">
+              
+              {/* Left sidebar area : Remplacement de vh par dvh */}
+              <aside className="flex h-[calc(100dvh-60px)] shrink-0">
                 <Sidebar />
                 <Explorer />
               </aside>
 
               {/* Main content with tabsbar */}
-              <main className="flex flex-1 flex-col">
+              <main className="flex flex-1 flex-col min-w-0">
                 <Tabsbar />
-                <div className="font-inconsolata text-light h-[calc(100vh-80px)] overflow-y-auto p-4">
+                {/* 
+                  Remplacement de vh par dvh : Le scroll se fait nativement et parfaitement.
+                  Aucun changement sur vos classes de couleurs ou de font. 
+                */}
+                <div className="font-inconsolata text-light h-[calc(100dvh-80px)] overflow-y-auto overflow-x-hidden p-4">
                   {children}
                 </div>
               </main>

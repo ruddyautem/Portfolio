@@ -39,7 +39,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <span className="absolute left-1/2 ml-[-5px] -translate-x-1/2 lg:ml-5 xl:ml-[115px]">
+      <span className="absolute left-1/2 -ml-1.25 -translate-x-1/2 lg:ml-5 xl:ml-28.75">
         © 2026 Ruddy Autem
       </span>
 
