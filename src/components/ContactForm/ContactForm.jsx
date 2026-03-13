@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslations, useLocale } from "next-intl";
 import InputField from "./InputField";
 
 const INITIAL_FORM_STATE = {
@@ -12,14 +13,18 @@ const INITIAL_FORM_STATE = {
   message: "",
 };
 
+// Kept perfectly outside to prevent re-render loops!
 const FIELDS_CONFIG = [
-  { name: "name", label: "Nom", type: "text", required: true, minLength: 4 },
-  { name: "email", label: "Email", type: "email", required: true },
-  { name: "objet", label: "Objet", type: "text", required: true, minLength: 2 },
-  { name: "message", label: "Message", type: "textarea", required: true, minLength: 10 },
+  { name: "name", type: "text", required: true, minLength: 4 },
+  { name: "email", type: "email", required: true },
+  { name: "objet", type: "text", required: true, minLength: 2 },
+  { name: "message", type: "textarea", required: true, minLength: 10 },
 ];
 
 const ContactForm = () => {
+  const t = useTranslations("contactForm");
+  const locale = useLocale();
+
   const [formData, setFormData] = useState(INITIAL_FORM_STATE);
   const [status, setStatus] = useState({ loading: false });
   const [validationErrors, setValidationErrors] = useState({});
@@ -51,13 +56,16 @@ const ContactForm = () => {
   const getFieldValidationMessage = (fieldName, value) => {
     const field = FIELDS_CONFIG.find(f => f.name === fieldName);
     const trimmedValue = value.trim();
+    const translatedLabel = t(`fields.${field.name}`);
     
-    if (field.required && !trimmedValue) return `${field.label} est requis`;
+    if (field.required && !trimmedValue) {
+      return t("validation.required", { label: translatedLabel });
+    }
     if (field.minLength && trimmedValue.length < field.minLength) {
-      return `Votre ${field.label.toLowerCase()} doit contenir au moins ${field.minLength} caractères`;
+      return t("validation.minLength", { label: translatedLabel.toLowerCase(), min: field.minLength });
     }
     if (field.type === "email" && trimmedValue && !/\S+@\S+\.\S+/.test(trimmedValue)) {
-      return "Veuillez entrer une adresse e-mail valide";
+      return t("validation.emailInvalid");
     }
     return "";
   };
@@ -66,25 +74,27 @@ const ContactForm = () => {
     const errors = {};
     FIELDS_CONFIG.forEach(field => {
       const value = formData[field.name];
+      const translatedLabel = t(`fields.${field.name}`);
+
       if (field.required && !value.trim()) {
-        errors[field.name] = `${field.label} est requis`;
+        errors[field.name] = t("validation.required", { label: translatedLabel });
       } else if (field.minLength && value.trim().length < field.minLength) {
-        errors[field.name] = `Votre ${field.label.toLowerCase()} doit contenir au moins ${field.minLength} caractères`;
+        errors[field.name] = t("validation.minLength", { label: translatedLabel.toLowerCase(), min: field.minLength });
       } else if (field.type === "email" && value && !/\S+@\S+\.\S+/.test(value)) {
-        errors[field.name] = "Veuillez entrer une adresse e-mail valide";
+        errors[field.name] = t("validation.emailInvalid");
       }
     });
     return errors;
   };
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validateForm();
     
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
       setTouchedFields(Object.fromEntries(FIELDS_CONFIG.map(field => [field.name, true])));
-      toast.error("Veuillez corriger les erreurs avant d'envoyer le formulaire.");
+      toast.error(t("validation.formError"));
       return;
     }
     
@@ -92,22 +102,29 @@ const ContactForm = () => {
     setValidationErrors({});
     
     try {
-      const response = await fetch("/api/contact", {
+      // 🔥 FIX: We dynamically use the locale variable in the URL so it perfectly matches the App Router!
+      const response = await fetch(`/${locale}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, locale }),
       });
       
+      // Handle the case where the server returns an HTML error page
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error(t("validation.genericError"));
+      }
+
       const data = await response.json();
       if (response.ok) {
-        toast.success(data.message || "Message envoyé avec succès!");
+        toast.success(data.message);
         setFormData(INITIAL_FORM_STATE);
         setTouchedFields({});
       } else {
-        throw new Error(data.message || "L'envoi du message a échoué.");
+        throw new Error(data.message || t("validation.genericError"));
       }
     } catch (error) {
-      toast.error(error.message || "Une erreur s'est produite.");
+      toast.error(error.message || t("validation.genericError"));
     } finally {
       setStatus({ loading: false });
     }
@@ -125,7 +142,7 @@ const ContactForm = () => {
       <div className="mb-7">
         <div className="mb-2 flex items-center justify-between">
           <span className="text-sm font-medium text-slate-300 mx-auto lg:mx-0">
-            {isComplete ? "Formulaire complet!" : "Progression du formulaire"}
+            {isComplete ? t("ui.progressComplete") : t("ui.progressIncomplete")}
           </span>
           <span className="text-accent text-sm font-medium">
             {Math.round(progressPercentage)}%
@@ -150,6 +167,7 @@ const ContactForm = () => {
             <InputField
               key={field.name}
               {...field}
+              label={t(`fields.${field.name}`)}
               value={formData[field.name]}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -168,6 +186,7 @@ const ContactForm = () => {
           <InputField
             key={field.name}
             {...field}
+            label={t(`fields.${field.name}`)}
             value={formData[field.name]}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -194,11 +213,11 @@ const ContactForm = () => {
             {status.loading ? (
               <>
                 <div className="mr-3 h-5 w-5 animate-spin rounded-full border-2 border-slate-900 border-t-transparent"></div>
-                <span>Envoi en cours...</span>
+                <span>{t("ui.sending")}</span>
               </>
             ) : (
               <>
-                <span>Envoyer le message</span>
+                <span>{t("ui.sendBtn")}</span>
                 {progressPercentage === 100 && (
                   <span className="ml-2 text-lg">🚀</span>
                 )}
@@ -208,7 +227,7 @@ const ContactForm = () => {
 
           {progressPercentage < 100 && (
             <p className="mt-2 text-center text-xs text-slate-400">
-              Remplissez tous les champs pour activer le bouton d&apos;envoi.
+              {t("ui.fillAllFields")}
             </p>
           )}
         </div>

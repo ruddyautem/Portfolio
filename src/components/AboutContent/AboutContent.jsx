@@ -2,34 +2,38 @@
 import SkillItem from '@/components/SkillList/SkillList';
 import React from 'react';
 import { skills } from './skills';
+import { useTranslations } from 'next-intl';
 import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
 import TopPageDecoration from '../TopPageDecoration/TopPageDecoration';
 
 const AboutContent = () => {
+  const t = useTranslations('about');
+  const tTabs = useTranslations('tabsbar');
+
   const sections = [
     {
-      title: 'Frontend',
+      title: t('frontend.title'),
       data: skills.frontend,
       color: 'bg-accent',
       glowClass: 'shadow-[0_0_15px_rgba(59,130,246,0.6)]',
-      desc: "Conception d'interfaces réactives, architecture moderne et expériences web performantes.",
-      counterLabel: 'technologies',
+      desc: t('frontend.desc'),
+      counterLabel: t('frontend.counterLabel'),
     },
     {
-      title: 'Backend',
+      title: t('backend.title'),
       data: skills.backend,
       color: 'bg-purple-500',
       glowClass: 'shadow-[0_0_15px_rgba(168,85,247,0.6)]',
-      desc: 'Solutions serveur robustes, bases de données SQL/NoSQL et APIs sécurisées.',
-      counterLabel: 'technologies',
+      desc: t('backend.desc'),
+      counterLabel: t('backend.counterLabel'),
     },
     {
-      title: 'Outils',
+      title: t('tools.title'),
       data: skills.tools,
       color: 'bg-emerald-500',
       glowClass: 'shadow-[0_0_15px_rgba(16,185,129,0.6)]',
-      desc: 'Déploiement continu (CI/CD), gestion de contenu (CMS) et workflow DevOps.',
-      counterLabel: 'outils',
+      desc: t('tools.desc'),
+      counterLabel: t('tools.counterLabel'),
     },
   ];
 
@@ -101,7 +105,7 @@ const AboutContent = () => {
             className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50
               bg-slate-800/10 shadow-2xl backdrop-blur-xl sm:rounded-3xl"
           >
-            <TopPageDecoration filename="profil.html" />
+            <TopPageDecoration filename={tTabs('about')} />
 
             <div className="flex flex-col items-center p-6 sm:p-8 md:p-10 lg:p-14">
               <div className="item-animate mb-8 max-w-3xl text-center sm:mb-12">
@@ -109,11 +113,10 @@ const AboutContent = () => {
                   className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl
                     md:text-5xl 2xl:text-6xl"
                 >
-                  Stack <span className="text-accent">Technologique</span>
+                  {t('title')} <span className="text-accent">{t('titleAccent')}</span>
                 </h1>
                 <p className="text-lg text-slate-300 sm:text-xl 2xl:text-2xl">
-                  Un aperçu détaillé de mon environnement de développement, des langages aux outils
-                  de déploiement, pour créer des applications modernes.
+                  {t('subtitle')}
                 </p>
               </div>
 

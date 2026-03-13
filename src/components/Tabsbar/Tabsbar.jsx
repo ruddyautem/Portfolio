@@ -1,24 +1,26 @@
 'use client';
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing'; // Fix: Localized Link
 import { ThemeContext } from '@/context/ThemeContext';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
-const NAV_LINKS = [
-  { name: 'accueil.jsx', link: '/', icon: 'jsx.svg' },
-  { name: 'profil.html', link: '/about', icon: 'html5.svg' },
-  { name: 'projets.js', link: '/projects', icon: 'js.svg' },
-  { name: 'contact.css', link: '/contact', icon: 'css.svg' },
-  { name: 'cv.json', link: '/cv', icon: 'cv.svg' },
-];
-
 const Tabsbar = () => {
+  const t = useTranslations('tabsbar');
   const currentRoute = usePathname();
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const tabsRef = useRef([]);
   const { theme } = useContext(ThemeContext);
+
+  const NAV_LINKS = [
+    { name: t('home'), link: '/', icon: '/jsx.svg' },
+    { name: t('about'), link: '/about', icon: '/html5.svg' },
+    { name: t('projects'), link: '/projects', icon: '/js.svg' },
+    { name: t('contact'), link: '/contact', icon: '/css.svg' },
+    { name: t('cv'), link: '/cv', icon: '/cv.svg' },
+  ];
 
   const activeStyles = {
     bg: theme === 'dracula' || theme === 'oneDarkPro' ? 'bg-active-tab-bg' : '',
@@ -27,7 +29,9 @@ const Tabsbar = () => {
 
   useEffect(() => {
     const updateUnderlineStyle = () => {
-      const activeIndex = NAV_LINKS.findIndex((link) => link.link === currentRoute);
+      // Strip locale prefix from currentRoute to match link
+      const isMatch = (link) => currentRoute === link || currentRoute.endsWith(link);
+      const activeIndex = NAV_LINKS.findIndex((link) => isMatch(link.link));
       const activeTab = tabsRef.current[activeIndex];
 
       if (activeTab) {
@@ -50,13 +54,12 @@ const Tabsbar = () => {
 
   return (
     <div className="bg-menu text-darker h-7 w-full relative">
-      {/* RESTAURATION DU CENTRAGE : justify-center par défaut, puis lg:justify-start */}
       <div
         className="relative flex flex-row items-center justify-center lg:justify-start 
           overflow-x-auto h-full scrollbar-hide"
       >
         {NAV_LINKS.map(({ name, link, icon }, index) => {
-          const isActive = currentRoute === link;
+          const isActive = currentRoute === link || currentRoute.endsWith(link);
           const baseName = name.replace(/\..+$/, '');
 
           return (

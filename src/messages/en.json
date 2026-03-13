@@ -1,0 +1,280 @@
+{
+  "homepage": {
+    "filename": "home.jsx",
+    "badge": "AUTEM.DEV",
+    "name": "Ruddy",
+    "surname": "Autem",
+    "title": "Full Stack Web Developer",
+    "description": "I design and build modern web applications, combining performance, simplicity and user experience",
+    "location": "France · Remote",
+    "featured": "Featured",
+    "recentProjects": "Recent projects",
+    "technologies": "TECHNOLOGIES",
+    "downloadCv": "Download Resume",
+    "cvFile": "/Ruddy_Autem_Resume.pdf",
+    "cvFileName": "Ruddy_Autem_Resume.pdf",
+    "nav": {
+      "projects": "Projects",
+      "about": "Profile",
+      "contact": "Contact"
+    },
+    "skills": {
+      "fullstack": "Full Stack",
+      "webMobile": "Web & Mobile",
+      "uiux": "UI / UX",
+      "stack": "React · Next.js · Vue.js"
+    },
+    "carousel": {
+      "see": "View"
+    }
+  },
+  "tabsbar": {
+    "home": "home.jsx",
+    "about": "profile.html",
+    "projects": "projects.js",
+    "contact": "contact.css",
+    "cv": "resume.json"
+  },
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "selection": "Selection",
+    "view": "View",
+    "go": "Go",
+    "run": "Run",
+    "terminal": "Terminal",
+    "help": "Help",
+    "search": "Ruddy Autem Portfolio"
+  },
+  "projectsData": {
+    "portfolio": {
+      "desc": "My VsCode-themed portfolio. Smile, you're here :)"
+    },
+    "stokki": {
+      "desc": "Simple and efficient stock manager. Authentication with StackAuth, and real-time stock management with Prisma and Neon."
+    },
+    "styled": {
+      "desc": "E-Commerce platform. Add items to your cart and pay with Stripe!"
+    },
+    "mytasky": {
+      "desc": "Vue.js ToDo list to organize your daily tasks."
+    },
+    "dresscode": {
+      "desc": "E-commerce platform using Sanity Studio, a flexible headless CMS for easy product and content management."
+    },
+    "ohmyblog": {
+      "desc": "Modern, responsive, and secure blog creation."
+    },
+    "laxxy": {
+      "desc": "Slack-inspired messaging. Log in, join or create a channel, and share real-time messages."
+    },
+    "coolmail": {
+      "desc": "Mailbox optimized for local messaging. Google login and Firebase message storage."
+    },
+    "gpt3": {
+      "desc": "Visual interface for an artificial intelligence platform."
+    }
+  },
+  "projectsPage": {
+    "filename": "projects.js",
+    "title": "My",
+    "titleAccent": "Projects",
+    "subtitle": "My portfolio in action: turning ideas into concrete web experiences."
+  },
+  "about": {
+    "title": "Tech",
+    "titleAccent": "Stack",
+    "subtitle": "A detailed overview of my development environment, from languages to deployment tools, for building modern applications.",
+    "frontend": {
+      "title": "Frontend",
+      "desc": "Building responsive interfaces, modern architecture, and high-performance web experiences.",
+      "counterLabel": "technologies"
+    },
+    "backend": {
+      "title": "Backend",
+      "desc": "Robust server solutions, SQL/NoSQL databases, and secure APIs.",
+      "counterLabel": "technologies"
+    },
+    "tools": {
+      "title": "Tools",
+      "desc": "Continuous Deployment (CI/CD), Content Management (CMS), and DevOps workflow.",
+      "counterLabel": "tools"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "titleAccent": "Me",
+    "subtitle": "You can reach out via the form below or my social networks.",
+    "networksTitle": "Networks",
+    "responseTime": "Response time",
+    "hours24": "24 hours",
+    "sendMessageTitle": "Send a message",
+    "sendMessageSubtitle": "Please fill out the form below.",
+    "socials": {
+      "email": "To contact me",
+      "linkedin": "Professional network",
+      "github": "Code and Projects"
+    }
+  },
+  "cv": {
+    "metaTitle": "Ruddy Autem Resume",
+    "metaDesc": "Ruddy Autem Resume — Full-Stack Web Developer",
+    "downloadBtn": "Download Resume",
+    "cvFile": "/Ruddy_Autem_Resume.pdf",
+    "cvFileName": "Ruddy_Autem_Resume.pdf",
+    "aboutTitle": "About me",
+    "skillsTitle": "Skills",
+    "projectsTitle": "Projects",
+    "educationTitle": "Education",
+    "languagesTitle": "Languages",
+    "title": "My",
+    "titleAccent": "Resume",
+    "subtitle": "Discover my journey, skills, and web development achievements."
+  },
+  "cvData": {
+    "title": "Full-Stack Web Developer",
+    "about": "Passionate Full-Stack Web Developer, I design smooth, high-performance, and optimized applications to provide the best user experience. Detail-oriented and demanding on code quality, I strive to offer solid and adaptive solutions. My mastery of front-end and back-end ensures a harmony between design and technical efficiency. Eager to innovate, I approach each project as an opportunity to evolve and exceed the set goals.",
+    "skills": {
+      "frontend": "Front-end",
+      "backend": "Back-end",
+      "tools": "Tools"
+    },
+    "projects": {
+      "portfolio": {
+        "title": "VsCode Portfolio",
+        "points": [
+          "Design and creation of a fully responsive Next.js portfolio inspired by the VSCode interface.",
+          "Integration of dynamic color themes improving visual appeal and usability.",
+          "Addition of a high-performance messaging service ensuring smooth and efficient contact."
+        ]
+      },
+      "ohmyblog": {
+        "title": "OhMyBlog!",
+        "points": [
+          "Creation of a modern and fully responsive blog platform with React 19 and Tailwind CSS 4.1.",
+          "Fast and secure authentication with Clerk, and API managed via Express.",
+          "Integration of ImageKit.io for image upload and optimization."
+        ]
+      },
+      "styled": {
+        "title": "Style-D",
+        "points": [
+          "Development of a fully responsive E-Commerce platform with a vibrant design, offering a smooth and fast shopping experience in a few clicks.",
+          "Implementation of Google authentication to simplify and speed up user registration and login.",
+          "Integration of secure payments via Stripe and automated invoice creation on Firebase."
+        ]
+      }
+    },
+    "formations": {
+      "react": "Complete React Developer, Redux, Hooks",
+      "bootcamp": "The Web Developer Bootcamp",
+      "llcer": "Bachelor's Degree LLCER — Foreign and Regional Languages, Literatures and Civilizations"
+    },
+    "languages": {
+      "en": "English",
+      "enLevel": "Fluent",
+      "de": "German",
+      "deLevel": "B1"
+    },
+    "contactApi": {
+      "emailSubject": "📬 New message from {name} - {objet}",
+      "emailHeader": "New message",
+      "emailSubheader": "Via your portfolio",
+      "emailSubjectLabel": "Subject",
+      "emailMessageLabel": "Message",
+      "emailFooter": "Message received via your portfolio -",
+      "successMessage": "Message sent! I'll get back to you within 24 hours :)",
+      "errorMessage": "Your message could not be sent"
+    }
+  },
+  "contactForm": {
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "objet": "Subject",
+      "message": "Message"
+    },
+    "validation": {
+      "required": "{label} is required",
+      "minLength": "Your {label} must contain at least {min} characters",
+      "emailInvalid": "Please enter a valid email address",
+      "formError": "Please fix the errors before submitting the form.",
+      "genericError": "An error occurred."
+    },
+    "ui": {
+      "placeholder": "Your {label}...",
+      "progressComplete": "Form complete!",
+      "progressIncomplete": "Form progress",
+      "sending": "Sending...",
+      "sendBtn": "Send message",
+      "fillAllFields": "Fill out all fields to enable the send button."
+    }
+  },
+  "sidebar": {
+    "home": "Home",
+    "about": "Profile",
+    "projects": "Projects",
+    "contact": "Contact",
+    "cv": "Resume",
+    "accounts": "Accounts",
+    "settings": "Settings"
+  },
+  "explorer": {
+    "title": "Explorer",
+    "portfolio": "Ruddy Autem Portfolio",
+    "outline": "Outline",
+    "timeline": "Timeline"
+  },
+  "cvBuilder": {
+    "preview": {
+      "about": "About Me",
+      "skills": "Skills",
+      "projects": "Projects",
+      "education": "Education",
+      "languages": "Languages"
+    },
+    "editor": {
+      "identity": "Identity",
+      "fullName": "Full name",
+      "jobTitle": "Job title",
+      "about": "About",
+      "contacts": "Contacts",
+      "addContact": "+ Contact",
+      "icon": "Icon (e.g. mailIcon.svg)",
+      "text": "Text",
+      "textPlaceholder": "email@example.com / +1 23... / linkedin.com/in/...",
+      "link": "Link",
+      "linkPlaceholder": "Left empty = auto-detected from text",
+      "skills": "Skills",
+      "addGroup": "+ Group",
+      "category": "Category",
+      "skillsList": "Skills (comma separated)",
+      "projects": "Projects",
+      "addProject": "+ Project",
+      "project": "Project",
+      "projectTitle": "Title",
+      "year": "Year",
+      "pointsList": "Points (one per line)",
+      "education": "Education",
+      "addEducation": "+ Education",
+      "educationItem": "Education",
+      "institution": "Institution",
+      "languages": "Languages",
+      "addLanguage": "+ Language",
+      "language": "Language",
+      "level": "Level",
+      "newProject": "New project",
+      "newDescription": "Description...",
+      "newCategory": "New category",
+      "newEducation": "New education",
+      "newInstitution": "Institution",
+      "newLanguage": "Language"
+    },
+    "toolbar": {
+      "print": "Download / Print",
+      "copyCode": "Copy lib/cvData.js",
+      "copied": "Copied!",
+      "reset": "Reset"
+    }
+  }
+}
