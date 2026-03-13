@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 
 const InputField = ({
   label,
@@ -16,10 +17,14 @@ const InputField = ({
   isTouched = false,
   validationMessage = "",
 }) => {
+  const t = useTranslations("contactForm.ui");
+
   const isTextarea = type === "textarea";
   const hasError = !!error;
   const hasValue = !!value;
   const showValidation = isTouched && hasValue && !isValid && validationMessage;
+
+  const placeholderText = t("placeholder", { label: label.toLowerCase() });
 
   const inputClasses = `w-full rounded-lg border bg-slate-800/30 backdrop-blur-sm px-4 py-3.5 text-base text-white placeholder-slate-400 placeholder:text-center lg:placeholder:text-left transition-all duration-300 focus:outline-none focus:ring-2 ${
     hasError
@@ -50,7 +55,7 @@ const InputField = ({
             className={`${inputClasses} h-36 resize-none`}
             minLength={minLength}
             required={required}
-            placeholder={`Votre ${label.toLowerCase()}...`}
+            placeholder={placeholderText}
           />
         ) : (
           <input
@@ -64,7 +69,7 @@ const InputField = ({
             className={inputClasses}
             minLength={minLength}
             required={required}
-            placeholder={`Votre ${label.toLowerCase()}...`}
+            placeholder={placeholderText}
           />
         )}
 

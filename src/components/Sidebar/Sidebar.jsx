@@ -1,26 +1,29 @@
 'use client';
 import Image from 'next/image';
-import Link from 'next/link';
+
+// 🔥 localized Link & Pathname
+import { Link, usePathname } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
+
 import { useRef, useEffect, useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
-import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 // ============================================================================
-// CONSTANTS
+// CONSTANTS (Using translation IDs instead of hardcoded strings!)
 // ============================================================================
 
-const TOP_LINKS = [
-  { name: 'Accueil', link: '/', icon: '/files.svg' },
-  { name: 'Profil', link: '/about', icon: '/code.svg' },
-  { name: 'Projets', link: '/projects', icon: '/source-control.svg' },
-  { name: 'Contact', link: '/contact', icon: '/email.svg' },
-  { name: 'CV', link: '/cv', icon: '/cv-sidebar.svg' },
+const TOP_CONFIG = [
+  { id: 'home', link: '/', icon: '/files.svg' },
+  { id: 'about', link: '/about', icon: '/code.svg' },
+  { id: 'projects', link: '/projects', icon: '/source-control.svg' },
+  { id: 'contact', link: '/contact', icon: '/email.svg' },
+  { id: 'cv', link: '/cv', icon: '/cv-sidebar.svg' },
 ];
 
-const BOTTOM_LINKS = [
-  { name: 'Comptes', icon: '/account.svg' },
-  { name: 'Settings', icon: '/settings-gear.svg' },
+const BOTTOM_CONFIG = [
+  { id: 'accounts', icon: '/account.svg' },
+  { id: 'settings', icon: '/settings-gear.svg' },
 ];
 
 // ============================================================================
@@ -70,12 +73,15 @@ const NavItem = ({ item, isActive, onRef, priority }) => {
 
 const Sidebar = () => {
   const currentRoute = usePathname();
+  const t = useTranslations('sidebar');
+
   const itemsRef = useRef([]);
   const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, height: 0, opacity: 0 });
 
   useEffect(() => {
     const updateIndicator = () => {
-      const activeIndex = TOP_LINKS.findIndex((link) => link.link === currentRoute);
+      // Find the index using the CONFIG directly to avoid any React re-render loops
+      const activeIndex = TOP_CONFIG.findIndex((item) => item.link === currentRoute);
       const activeElement = itemsRef.current[activeIndex];
 
       if (activeElement) {
@@ -103,11 +109,11 @@ const Sidebar = () => {
     >
       {/* SECTION HAUTE */}
       <nav className="relative flex flex-col" aria-label="Primary navigation">
-        {TOP_LINKS.map((link, index) => (
+        {TOP_CONFIG.map((item, index) => (
           <NavItem
-            key={link.name}
-            item={link}
-            isActive={currentRoute === link.link}
+            key={item.id}
+            item={{ ...item, name: t(item.id) }} // 🔥 Inject the translated name here!
+            isActive={currentRoute === item.link}
             priority={index < 3}
             onRef={(el) => {
               itemsRef.current[index] = el;
@@ -128,8 +134,13 @@ const Sidebar = () => {
 
       {/* SECTION BASSE */}
       <nav className="flex flex-col" aria-label="Secondary navigation">
-        {BOTTOM_LINKS.map((link) => (
-          <NavItem key={link.name} item={link} isActive={false} priority={false} />
+        {BOTTOM_CONFIG.map((item) => (
+          <NavItem
+            key={item.id}
+            item={{ ...item, name: t(item.id) }} // 🔥 Inject the translated name here!
+            isActive={false}
+            priority={false}
+          />
         ))}
       </nav>
     </aside>

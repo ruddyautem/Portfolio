@@ -1,4 +1,4 @@
-import { PageWrapper } from '../components/PageWrapper/PageWrapper';
+import { PageWrapper } from '../../components/PageWrapper/PageWrapper';
 import Homepage from '@/components/HomepageContent/HomepageContent';
 
 export default function Home() {

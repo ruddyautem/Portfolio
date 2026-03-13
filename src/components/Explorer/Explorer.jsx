@@ -2,29 +2,38 @@
 
 import React, { useContext, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+
+// 🔥 FIX 1: MUST use localized routing imports to prevent redirects/broken active states!
+import { Link, usePathname } from '@/i18n/routing'; 
 import { ThemeContext } from '@/context/ThemeContext';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const Explorer = () => {
   const currentRoute = usePathname();
   const [isOpen, setIsOpen] = useState(true);
   const { theme } = useContext(ThemeContext);
 
+  // 🔥 Fetch translations
+  const tTabs = useTranslations('tabsbar');
+  const tExp = useTranslations('explorer');
+
+  // 🔥 Defined INSIDE the component so they update instantly on language change
   const navLinks = [
-    { name: 'accueil.jsx', link: '/', icon: 'jsx.svg' },
-    { name: 'profil.html', link: '/about', icon: 'html5.svg' },
-    { name: 'projets.js', link: '/projects', icon: 'js.svg' },
-    { name: 'contact.css', link: '/contact', icon: 'css.svg' },
-    { name: 'cv.json', link: '/cv', icon: 'cv.svg' },
+    { name: tTabs('home'), link: '/', icon: '/jsx.svg' },
+    { name: tTabs('about'), link: '/about', icon: '/html5.svg' },
+    { name: tTabs('projects'), link: '/projects', icon: '/js.svg' },
+    { name: tTabs('contact'), link: '/contact', icon: '/css.svg' },
+    { name: tTabs('cv'), link: '/cv', icon: '/cv.svg' },
   ];
 
   return (
     <div className="bg-explorer-bg text-light hidden w-48 flex-col xl:flex">
       <div className="flex items-center justify-between">
-        <p className="my-1 ml-4 flex h-5 items-center text-[12px] uppercase opacity-60">Explorer</p>
+        <p className="my-1 ml-4 flex h-5 items-center text-[12px] uppercase opacity-60">
+          {tExp('title')}
+        </p>
         <div className="mr-2 cursor-pointer rounded-sm p-0.5 hover:bg-white/5">
-          <Image src="ellipsis.svg" width={16} height={16} alt="" />
+          <Image src="/ellipsis.svg" width={16} height={16} alt="" />
         </div>
       </div>
       <div className="text-darker">
@@ -34,12 +43,12 @@ const Explorer = () => {
         >
           <Image
             className={`transform transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`}
-            src="chevron-right.svg"
+            src="/chevron-right.svg"
             width={16}
             height={16}
             alt=""
           />
-          <p>Ruddy Autem Portfolio</p>
+          <p>{tExp('portfolio')}</p>
         </div>
 
         <div
@@ -49,13 +58,13 @@ const Explorer = () => {
           {navLinks.map(({ name, link, icon }) => (
             <Link
               href={link}
-              key={name}
+              key={link} // 🔥 Use stable link as key instead of name!
               className={`${currentRoute === link ? 'bg-active-explorer-tab' : ''}
               text-explorerColor flex cursor-pointer items-center gap-1 pl-3 text-sm
               hover:bg-white/5`}
             >
               <div className="flex items-center">
-                <Image src={icon} width={16} height={16} alt="" className="flex-shrink-0" />
+                <Image src={icon} width={16} height={16} alt="" className="shrink-0" />
                 <p
                   className={`ml-2 flex items-center ${
                     currentRoute === link ? 'text-active-tab-text' : ''
@@ -74,7 +83,8 @@ const Explorer = () => {
         } text-darker mt-auto flex flex-col
           opacity-100`}
       >
-        {['Outline', 'Timeline'].map((title, index) => (
+        {/* 🔥 Dynamically load localized bottom titles */}
+        {[tExp('outline'), tExp('timeline')].map((title, index) => (
           <div
             key={index}
             className={`${theme === 'dracula' && index === 0 ? 'border-y border-black' : ''} ${
@@ -83,11 +93,11 @@ const Explorer = () => {
             cursor-pointer items-center text-[9px] font-bold uppercase`}
           >
             <Image
-              src="chevron-right.svg"
+              src="/chevron-right.svg"
               width={16}
               height={16}
               alt=""
-              className="flex-shrink-0"
+              className="shrink-0"
             />
             <p className="ml-2 flex items-center">{title}</p>
           </div>
