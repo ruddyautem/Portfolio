@@ -132,50 +132,6 @@
     "subtitle": "Discover my journey, skills, and web development achievements."
   },
   "cvData": {
-    "title": "Full-Stack Web Developer",
-    "about": "Passionate Full-Stack Web Developer, I design smooth, high-performance, and optimized applications to provide the best user experience. Detail-oriented and demanding on code quality, I strive to offer solid and adaptive solutions. My mastery of front-end and back-end ensures a harmony between design and technical efficiency. Eager to innovate, I approach each project as an opportunity to evolve and exceed the set goals.",
-    "skills": {
-      "frontend": "Front-end",
-      "backend": "Back-end",
-      "tools": "Tools"
-    },
-    "projects": {
-      "portfolio": {
-        "title": "VsCode Portfolio",
-        "points": [
-          "Design and creation of a fully responsive Next.js portfolio inspired by the VSCode interface.",
-          "Integration of dynamic color themes improving visual appeal and usability.",
-          "Addition of a high-performance messaging service ensuring smooth and efficient contact."
-        ]
-      },
-      "ohmyblog": {
-        "title": "OhMyBlog!",
-        "points": [
-          "Creation of a modern and fully responsive blog platform with React 19 and Tailwind CSS 4.1.",
-          "Fast and secure authentication with Clerk, and API managed via Express.",
-          "Integration of ImageKit.io for image upload and optimization."
-        ]
-      },
-      "styled": {
-        "title": "Style-D",
-        "points": [
-          "Development of a fully responsive E-Commerce platform with a vibrant design, offering a smooth and fast shopping experience in a few clicks.",
-          "Implementation of Google authentication to simplify and speed up user registration and login.",
-          "Integration of secure payments via Stripe and automated invoice creation on Firebase."
-        ]
-      }
-    },
-    "formations": {
-      "react": "Complete React Developer, Redux, Hooks",
-      "bootcamp": "The Web Developer Bootcamp",
-      "llcer": "Bachelor's Degree LLCER — Foreign and Regional Languages, Literatures and Civilizations"
-    },
-    "languages": {
-      "en": "English",
-      "enLevel": "Fluent",
-      "de": "German",
-      "deLevel": "B1"
-    },
     "contactApi": {
       "emailSubject": "📬 New message from {name} - {objet}",
       "emailHeader": "New message",
