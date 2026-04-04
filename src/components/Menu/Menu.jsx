@@ -8,12 +8,19 @@ import { Minimize, Restore, Close } from '../Icons/Icons';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import { cn } from '@/lib/utils';
 
+// Constants
 const ICON_SIZE = 15;
 const LOGO_CONFIG = {
   src: '/vsclogo.svg',
   alt: 'VSC Logo',
 };
 
+const LANGUAGES = [
+  { code: 'en', label: '🇬🇧 EN', title: 'Switch to English' },
+  { code: 'fr', label: 'FR 🇫🇷', title: 'Passer en Français' },
+];
+
+// Components
 const MenuItem = memo(({ item }) => (
   <li className="cursor-pointer rounded-md px-2 py-0.5 transition-colors hover:bg-white/10">
     {item}
@@ -54,13 +61,6 @@ const NavButton = memo(({ icon, alt, disabled = false }) => (
 ));
 NavButton.displayName = 'NavButton';
 
-// 🔥 UPDATED: Added className prop for responsive visibility
-// 1. Define the config outside the component so it isn't recreated on every render
-const LANGUAGES = [
-  { code: 'en', label: '🇬🇧 EN', title: 'Switch to English' },
-  { code: 'fr', label: 'FR 🇫🇷', title: 'Passer en Français' },
-];
-
 const LanguageSwitcher = memo(({ className }) => {
   const locale = useLocale();
   const router = useRouter();
@@ -77,7 +77,6 @@ const LanguageSwitcher = memo(({ className }) => {
   return (
     <div className={cn('items-center text-[11px] font-medium tracking-wide mr-2', className)}>
       {LANGUAGES.map((lang, index) => [
-        // The button itself
         <button
           key={lang.code}
           disabled={isPending}
@@ -91,8 +90,6 @@ const LanguageSwitcher = memo(({ className }) => {
         >
           {lang.label}
         </button>,
-
-        // The separator (renders for all items EXCEPT the last one)
         index < LANGUAGES.length - 1 && (
           <span key={`separator-${lang.code}`} className="mx-0.5 opacity-30">
             |
@@ -151,9 +148,7 @@ const Menu = () => {
 
       <div className="ml-auto flex flex-0 items-center text-white lg:flex-1">
         <div className="absolute right-0 top-0 ml-auto flex items-center h-8">
-          {/* 🔥 HIDDEN ON MOBILE, VISIBLE ON DESKTOP */}
           <LanguageSwitcher className="hidden lg:flex" />
-
           <ThemeToggle />
           <div className="hidden items-center lg:flex">
             <IconButton icon={Minimize} variant="default" />

@@ -132,60 +132,16 @@
     "subtitle": "Découvrez mon parcours, mes compétences et mes réalisations en développement web."
   },
   "cvData": {
-    "title": "Développeur Web Full-Stack",
-    "about": "Développeur Web Full-Stack passionné, je conçois des applications fluides, performantes et optimisées pour offrir la meilleure expérience utilisateur. Attentif aux détails et exigeant sur la qualité du code, je m'efforce de proposer des solutions solides et adaptatives. Ma maîtrise du front-end et du back-end garantit une harmonie entre design et efficacité technique. Avide d'innover, j'aborde chaque projet comme une chance d'évoluer et de dépasser les objectifs fixés.",
-    "skills": {
-      "frontend": "Front-end",
-      "backend": "Back-end",
-      "tools": "Outils"
-    },
-    "projects": {
-      "portfolio": {
-        "title": "Portfolio VsCode",
-        "points": [
-          "Conception et réalisation d'un portfolio en Next.js entièrement responsive inspiré de l'interface de VSCode.",
-          "Intégration de thèmes de couleurs dynamiques améliorant l'attrait visuel et la convivialité.",
-          "Ajout d'un service de messagerie performant assurant une prise de contact fluide et efficace."
-        ]
-      },
-      "ohmyblog": {
-        "title": "OhMyBlog!",
-        "points": [
-          "Création d'une plateforme de création de blogs moderne et entièrement responsive avec React 19 et Tailwind CSS 4.1.",
-          "Authentification rapide et sécurisée avec Clerk, et API gérées via Express.",
-          "Intégration d'ImageKit.io pour l'upload et l'optimisation des images."
-        ]
-      },
-      "styled": {
-        "title": "Style-D",
-        "points": [
-          "Développement d'une plateforme de E-Commerce entièrement responsive au design vibrant, offrant une expérience d'achat fluide et rapide en quelques clics.",
-          "Mise en place d'une authentification Google pour simplifier et accélérer l'inscription et la connexion des utilisateurs.",
-          "Intégration des paiements sécurisés via Stripe et création automatisée des factures sur Firebase."
-        ]
-      }
-    },
-    "formations": {
-      "react": "Complete React Developer, Redux, Hooks",
-      "bootcamp": "The Web Developer Bootcamp",
-      "llcer": "Licence LLCER — Langues, littératures et civilisations étrangères et régionales"
-    },
-    "languages": {
-      "en": "Anglais",
-      "enLevel": "Courant",
-      "de": "Allemand",
-      "deLevel": "B1"
+    "contactApi": {
+      "emailSubject": "📬 Nouveau message de {name} - {objet}",
+      "emailHeader": "Nouveau message",
+      "emailSubheader": "Via votre portfolio",
+      "emailSubjectLabel": "Objet",
+      "emailMessageLabel": "Message",
+      "emailFooter": "Message reçu via votre portfolio -",
+      "successMessage": "Message envoyé! Je reviens vers vous sous 24h :)",
+      "errorMessage": "Votre message n'a pas pu être envoyé"
     }
-  },
-  "contactApi": {
-    "emailSubject": "📬 Nouveau message de {name} - {objet}",
-    "emailHeader": "Nouveau message",
-    "emailSubheader": "Via votre portfolio",
-    "emailSubjectLabel": "Objet",
-    "emailMessageLabel": "Message",
-    "emailFooter": "Message reçu via votre portfolio -",
-    "successMessage": "Message envoyé! Je reviens vers vous sous 24h :)",
-    "errorMessage": "Votre message n'a pas pu être envoyé"
   },
   "contactForm": {
     "fields": {

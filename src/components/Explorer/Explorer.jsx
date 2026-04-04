@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 
 // 🔥 FIX 1: MUST use localized routing imports to prevent redirects/broken active states!
-import { Link, usePathname } from '@/i18n/routing'; 
+import { Link, usePathname } from '@/i18n/routing';
 import { ThemeContext } from '@/context/ThemeContext';
 import { useTranslations } from 'next-intl';
 
@@ -43,7 +43,7 @@ const Explorer = () => {
         >
           <Image
             className={`transform transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`}
-            src="/chevron-right.svg"
+            src="/chevron.svg"
             width={16}
             height={16}
             alt=""
@@ -92,13 +92,7 @@ const Explorer = () => {
             } flex h-6
             cursor-pointer items-center text-[9px] font-bold uppercase`}
           >
-            <Image
-              src="/chevron-right.svg"
-              width={16}
-              height={16}
-              alt=""
-              className="shrink-0"
-            />
+            <Image src="/chevron.svg" width={16} height={16} alt="" className="shrink-0" />
             <p className="ml-2 flex items-center">{title}</p>
           </div>
         ))}

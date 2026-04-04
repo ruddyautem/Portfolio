@@ -2,7 +2,7 @@ import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
 import TopPageDecoration from '@/components/TopPageDecoration/TopPageDecoration';
 import Image from 'next/image';
 import React from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { getCvData } from '@/lib/cvData';
 
@@ -33,14 +33,13 @@ const Card = ({ children, className = '' }) => (
   </div>
 );
 
-// 🔥 The download link is now dynamic!
 const CvDownloadButton = ({ label, href, downloadName, className = '' }) => (
   <a
     href={href}
     download={downloadName}
-    className={`item-animate inline-flex items-center rounded-xl bg-[#192a56] px-6 py-3 text-sm font-semibold
-      text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#243a6b]
-      hover:shadow-lg md:text-base ${className}`}
+    className={`item-animate inline-flex items-center rounded-xl bg-[#192a56] px-6 py-3 text-sm
+      font-semibold text-white shadow-md transition-all duration-300 hover:scale-105
+      hover:bg-[#243a6b] hover:shadow-lg md:text-base ${className}`}
   >
     {label}
   </a>
@@ -51,14 +50,7 @@ const ContactBadge = ({ item }) => {
     'flex items-center gap-2 rounded-full border border-[#192a56]/15 bg-[#192a56]/5 px-3 py-1.5 text-xs text-[#192a56] sm:text-sm md:px-4 md:py-2 md:text-base';
   const content = (
     <>
-      <Image
-        src={item.icon}
-        height={14}
-        width={14}
-        alt=""
-        unoptimized
-        className="shrink-0"
-      />
+      <Image src={item.icon} height={14} width={14} alt="" unoptimized className="shrink-0" />
       <span className="break-all">{item.text}</span>
     </>
   );
@@ -76,20 +68,21 @@ const projectTitleCls = 'text-xl font-extrabold text-[#192a56] sm:text-lg sm:fon
 const CV = () => {
   const t = useTranslations('cv');
   const tTabs = useTranslations('tabsbar');
-  const tData = useTranslations('cvData');
-  
-  // Fetch translated CV Data
-  const { name, title, about, contacts, skillGroups, projects, formations, languages } = getCvData(tData);
+  const locale = useLocale();
+
+  const { name, title, about, contacts, skillGroups, projects, formations, languages } =
+    getCvData(locale);
 
   return (
     <PageWrapper skipChildWrapping>
       <div
-        className="flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden 
-          px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 lg:pt-[7.5vh] xl:px-12 xl:pb-12 xl:pt-[7.5vh] 
+        className="flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden
+          px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 lg:pt-[7.5vh] xl:px-12 xl:pb-12 xl:pt-[7.5vh]
           2xl:px-16 2xl:pb-16 2xl:pt-[5vh] 3xl:px-20 3xl:pb-20 3xl:pt-[5vh]"
       >
         <div
-          className="relative z-10 flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-360 3xl:max-w-440 flex-col shadow-2xl"
+          className="relative z-10 flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-360 3xl:max-w-440
+            flex-col shadow-2xl"
         >
           <div
             className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50
@@ -120,30 +113,30 @@ const CV = () => {
                       sm:py-10 md:px-12 md:py-12"
                   >
                     <h1
-                      className="item-animate text-4xl font-extrabold leading-tight text-[#192a56] sm:text-5xl
-                        md:text-6xl lg:text-7xl"
+                      className="item-animate text-4xl font-extrabold leading-tight text-[#192a56]
+                        sm:text-5xl md:text-6xl lg:text-7xl"
                     >
                       {name}
                     </h1>
                     <p
-                      className="item-animate mt-3 text-lg font-medium italic text-[#192a56]/60 sm:text-xl
-                        md:text-2xl lg:text-3xl"
+                      className="item-animate mt-3 text-lg font-medium italic text-[#192a56]/60
+                        sm:text-xl md:text-2xl lg:text-3xl"
                     >
                       {title}
                     </p>
                     <div
-                      className="mt-6 flex max-w-4xl flex-wrap justify-center gap-2 sm:gap-3 md:mt-8"
+                      className="mt-6 flex max-w-4xl flex-wrap justify-center gap-2 sm:gap-3
+                        md:mt-8"
                     >
                       {contacts.map((item, i) => (
                         <ContactBadge key={i} item={item} />
                       ))}
                     </div>
-                    {/* Pass Dynamic Download Info */}
-                    <CvDownloadButton 
-                      label={t('downloadBtn')} 
+                    <CvDownloadButton
+                      label={t('downloadBtn')}
                       href={t('cvFile')}
                       downloadName={t('cvFileName')}
-                      className="mt-8 xl:absolute xl:right-10 xl:top-10 xl:mt-0" 
+                      className="mt-8 xl:absolute xl:right-10 xl:top-10 xl:mt-0"
                     />
                   </div>
 
@@ -152,8 +145,8 @@ const CV = () => {
                   <div className="px-6 py-6 sm:px-8 sm:py-8 md:px-12 md:py-10">
                     <SectionTitle>{t('aboutTitle')}</SectionTitle>
                     <p
-                      className="item-animate text-center text-sm leading-relaxed text-gray-600 sm:text-left
-                        sm:text-base md:text-lg lg:text-xl"
+                      className="item-animate text-center text-sm leading-relaxed text-gray-600
+                        sm:text-left sm:text-base md:text-lg lg:text-xl"
                     >
                       {about}
                     </p>
@@ -166,11 +159,13 @@ const CV = () => {
                     {skillGroups.map((group) => (
                       <div
                         key={group.label}
-                        className="item-animate flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                        className="item-animate flex flex-col gap-2 sm:flex-row sm:items-center
+                          sm:gap-4"
                       >
                         <span
                           className="w-full shrink-0 text-center text-[10px] font-bold uppercase
-                            tracking-widest text-[#192a56]/40 sm:w-20 sm:text-left sm:text-xs md:w-24"
+                            tracking-widest text-[#192a56]/40 sm:w-20 sm:text-left sm:text-xs
+                            md:w-24"
                         >
                           {group.label}
                         </span>
@@ -182,10 +177,9 @@ const CV = () => {
                           {group.skills.map((skill) => (
                             <span
                               key={skill}
-                              className="cursor-pointer rounded-lg bg-[#192a56] px-3 py-1
-                                text-xs font-semibold text-white transition-all duration-200
-                                hover:scale-105 hover:bg-[#243a6b] sm:py-1.5 md:px-4 md:py-2
-                                md:text-sm"
+                              className="cursor-pointer rounded-lg bg-[#192a56] px-3 py-1 text-xs
+                                font-semibold text-white transition-all duration-200 hover:scale-105
+                                hover:bg-[#243a6b] sm:py-1.5 md:px-4 md:py-2 md:text-sm"
                             >
                               {skill}
                             </span>
@@ -223,8 +217,9 @@ const CV = () => {
                               <span className={projectTitleCls}>{project.title}</span>
                             )}
                           </div>
+                          {/* ✅ Changed from rounded-full to rounded-lg */}
                           <span
-                            className="shrink-0 rounded-full bg-[#192a56] px-3 py-0.5 text-xs
+                            className="shrink-0 rounded-lg bg-[#192a56] px-3 py-0.5 text-xs
                               font-semibold text-white sm:text-sm md:px-4 md:py-1 md:text-base"
                           >
                             {project.year}
@@ -265,9 +260,11 @@ const CV = () => {
                             border-gray-100 pb-4 text-center last:border-0 last:pb-0 sm:flex-row
                             sm:items-center sm:gap-5 sm:text-left"
                         >
+                          {/* ✅ Changed from rounded-lg to rounded-lg (it was already correct but adding consistency comment) */}
                           <span
-                            className="shrink-0 rounded-lg bg-[#192a56] px-2.5 py-1 text-xs font-bold
-                              text-white sm:mt-0.5 sm:text-sm md:px-3 md:py-1.5 md:text-base"
+                            className="shrink-0 rounded-lg bg-[#192a56] px-2.5 py-1 text-xs
+                              font-bold text-white sm:mt-0.5 sm:text-sm md:px-3 md:py-1.5
+                              md:text-base"
                           >
                             {f.year}
                           </span>
@@ -301,8 +298,9 @@ const CV = () => {
                           >
                             {l.language}
                           </span>
+                          {/* ✅ Changed from rounded-full to rounded-lg */}
                           <span
-                            className="rounded-full bg-[#192a56] px-3 py-0.5 text-xs font-medium
+                            className="rounded-lg bg-[#192a56] px-3 py-0.5 text-xs font-medium
                               text-white sm:text-sm md:px-4 md:py-1 md:text-base"
                           >
                             {l.level}

@@ -248,43 +248,6 @@ export const Ellipsis = (props) => {
     </svg>
   );
 };
-export const ChevronRight = (props) => {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M10.0722 8.02397L5.71484 3.66666L6.33356 3.04794L11.0002 7.71461V8.33333L6.33356 13L5.71484 12.3813L10.0722 8.02397Z"
-      />
-    </svg>
-  );
-};
-
-export const ChevronBottom = (props) => {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M7.97637 10.0719L12.3337 5.7146L12.9524 6.33332L8.28573 11L7.66701 11L3.00034 6.33332L3.61906 5.7146L7.97637 10.0719Z"
-      />
-    </svg>
-  );
-};
 
 export const homeIcon = (props) => {
   return (

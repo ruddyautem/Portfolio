@@ -1,14 +1,15 @@
 'use client';
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
-import { Link } from '@/i18n/routing'; // Fix: Localized Link
+import { Link } from '@/i18n/routing';
 import { ThemeContext } from '@/context/ThemeContext';
 import { usePathname } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl'; // Added useLocale
 import { cn } from '@/lib/utils';
 
 const Tabsbar = () => {
   const t = useTranslations('tabsbar');
+  const locale = useLocale(); // Fetch current active locale
   const currentRoute = usePathname();
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const tabsRef = useRef([]);
@@ -27,11 +28,19 @@ const Tabsbar = () => {
     pos: ['ayu', 'oneDarkPro', 'poimandres'].includes(theme) ? 'bottom-0' : 'top-0',
   };
 
+  // Helper to reliably check if a link is active based on locale
+  const checkIsActive = (link) => {
+    if (link === '/') {
+      // Handles default "/", as well as localized roots like "/en", "/fr", etc.
+      return currentRoute === '/' || currentRoute === `/${locale}`;
+    }
+    return currentRoute === link || currentRoute.endsWith(link);
+  };
+
   useEffect(() => {
     const updateUnderlineStyle = () => {
-      // Strip locale prefix from currentRoute to match link
-      const isMatch = (link) => currentRoute === link || currentRoute.endsWith(link);
-      const activeIndex = NAV_LINKS.findIndex((link) => isMatch(link.link));
+      // Use the helper to find the active index
+      const activeIndex = NAV_LINKS.findIndex((item) => checkIsActive(item.link));
       const activeTab = tabsRef.current[activeIndex];
 
       if (activeTab) {
@@ -50,7 +59,7 @@ const Tabsbar = () => {
       clearTimeout(timeoutId);
       window.removeEventListener('resize', updateUnderlineStyle);
     };
-  }, [currentRoute, theme]);
+  }, [currentRoute, theme, locale]); // Added locale to dependency array
 
   return (
     <div className="bg-menu text-darker h-7 w-full relative">
@@ -59,7 +68,8 @@ const Tabsbar = () => {
           overflow-x-auto h-full scrollbar-hide"
       >
         {NAV_LINKS.map(({ name, link, icon }, index) => {
-          const isActive = currentRoute === link || currentRoute.endsWith(link);
+          // Use the helper function here as well
+          const isActive = checkIsActive(link);
           const baseName = name.replace(/\..+$/, '');
 
           return (
