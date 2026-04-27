@@ -115,9 +115,7 @@ const AboutContent = () => {
                 >
                   {t('title')} <span className="text-accent">{t('titleAccent')}</span>
                 </h1>
-                <p className="text-lg text-slate-300 sm:text-xl 2xl:text-2xl">
-                  {t('subtitle')}
-                </p>
+                <p className="text-lg text-slate-300 sm:text-xl 2xl:text-2xl">{t('subtitle')}</p>
               </div>
 
               <div

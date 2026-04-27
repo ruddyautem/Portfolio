@@ -43,6 +43,7 @@ const trimText = (text, max = 100) =>
 
 const useCarousel = (itemCount) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(0);
   const isPausedRef = useRef(false);
   const isTransitioning = useRef(false);
   const timeoutRef = useRef(null);
@@ -52,6 +53,7 @@ const useCarousel = (itemCount) => {
     if (isTransitioning.current) return;
     isTransitioning.current = true;
     setActiveIndex(nextIndex);
+    activeIndexRef.current = nextIndex;
 
     clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
@@ -60,20 +62,20 @@ const useCarousel = (itemCount) => {
   }, []);
 
   const goToPrevious = useCallback(
-    () => transition((activeIndex - 1 + itemCount) % itemCount),
-    [activeIndex, itemCount, transition],
+    () => transition((activeIndexRef.current - 1 + itemCount) % itemCount),
+    [itemCount, transition],
   );
 
   const goToNext = useCallback(
-    () => transition((activeIndex + 1) % itemCount),
-    [activeIndex, itemCount, transition],
+    () => transition((activeIndexRef.current + 1) % itemCount),
+    [itemCount, transition],
   );
 
   const goToSlide = useCallback(
     (i) => {
-      if (i !== activeIndex) transition(i);
+      if (i !== activeIndexRef.current) transition(i);
     },
-    [activeIndex, transition],
+    [transition],
   );
 
   const handleTouchStart = useCallback((e) => {
@@ -104,12 +106,12 @@ const useCarousel = (itemCount) => {
     if (itemCount <= 1) return;
     const iv = setInterval(() => {
       if (!isPausedRef.current && !isTransitioning.current) {
-        transition((activeIndex + 1) % itemCount);
+        transition((activeIndexRef.current + 1) % itemCount);
       }
     }, CAROUSEL_CONFIG.autoScrollInterval);
 
     return () => clearInterval(iv);
-  }, [activeIndex, itemCount, transition]);
+  }, [itemCount, transition]);
 
   useEffect(() => {
     return () => clearTimeout(timeoutRef.current);
@@ -147,6 +149,7 @@ ProjectTag.displayName = 'ProjectTag';
 
 const OverlayActionBtn = memo(({ onClick, label, isAccent }) => (
   <button
+    type="button"
     onClick={onClick}
     className={`flex h-7 min-w-0 flex-1 cursor-pointer items-center justify-center rounded
       text-[10px] font-medium transition-all duration-200 hover:scale-[1.03] active:scale-95 sm:h-8
@@ -165,7 +168,7 @@ OverlayActionBtn.displayName = 'OverlayActionBtn';
 const ProjectOverlay = memo(({ project, onExternalLink }) => {
   const displayedTags = project.tags?.slice(0, 4) || [];
   const remainingCount = Math.max(0, (project.tags?.length ?? 0) - 4);
-  const demoUrl = project.demo?.slice('https://'.length) || 'PROJET';
+  const demoUrl = project.demo?.replace(/^https?:\/\//, '') || 'PROJET';
 
   const handleSourceClick = useCallback(
     (e) => onExternalLink(e, project.source),
@@ -185,7 +188,7 @@ const ProjectOverlay = memo(({ project, onExternalLink }) => {
       <div
         className="w-full translate-y-full rounded-lg bg-slate-900/95 opacity-0 transition-all
           duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100
-          will-change-transform antialiased"
+          pointer-events-none group-hover:pointer-events-auto will-change-transform antialiased"
       >
         <div className="flex w-full flex-col p-2.5 sm:p-3 md:p-4 lg:p-2 xl:p-3 2xl:p-4 3xl:p-6">
           <span
@@ -239,22 +242,24 @@ ProjectOverlay.displayName = 'ProjectOverlay';
 
 const ProjectCard = memo(({ project, onExternalLink, isFeatured, isActive, featuredLabel }) => (
   <div className="h-full w-full shrink-0">
-    <Link href="/projects" className="block h-full w-full">
+    <div className="block h-full w-full">
       <div
         className="group flex h-full w-full flex-col overflow-hidden rounded-xl bg-slate-800/30 p-3
           transition-all duration-300 sm:p-4 lg:rounded-lg lg:p-3"
       >
         <div className="flex w-full min-w-0 flex-1 flex-col">
           <div className="relative mb-2 w-full flex-1 overflow-hidden rounded-lg">
-            <Image
-              src={project.img || '/placeholder.jpg'}
-              alt={project.title}
-              fill
-              loading={isFeatured ? 'eager' : 'lazy'}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="rounded-lg object-cover transition-transform duration-300
-                group-hover:scale-105"
-            />
+            <Link href="/projects" className="block h-full w-full">
+              <Image
+                src={project.img || '/placeholder.jpg'}
+                alt={project.title}
+                fill
+                loading={isFeatured ? 'eager' : 'lazy'}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="rounded-lg object-cover transition-transform duration-300
+                  group-hover:scale-105"
+              />
+            </Link>
             {isFeatured && (
               <span
                 className={`absolute right-2 top-2 z-10 rounded-full bg-accent px-2 py-1 text-xs
@@ -271,11 +276,13 @@ const ProjectCard = memo(({ project, onExternalLink, isFeatured, isActive, featu
             className="w-full truncate pt-3 text-center text-sm font-bold sm:text-base lg:pt-2
               lg:text-sm xl:text-base 2xl:text-xl 3xl:text-2xl 3xl:font-extrabold"
           >
-            {project.title}
+            <Link href="/projects" className="block w-full truncate">
+              {project.title}
+            </Link>
           </h3>
         </div>
       </div>
-    </Link>
+    </div>
   </div>
 ));
 ProjectCard.displayName = 'ProjectCard';
@@ -356,6 +363,12 @@ const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
     <div
       className="item-animate flex w-full min-w-0 flex-col items-center lg:items-end
         2xl:items-center"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={t('recentProjects')}
+      tabIndex={0}
+      onFocus={c.pause}
+      onBlur={c.resume}
     >
       <div
         className="mb-3 flex w-full justify-center sm:mb-4 lg:w-3/4 xl:mb-3 2xl:mb-4 2xl:w-4/5
