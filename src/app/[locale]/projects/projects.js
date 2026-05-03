@@ -20,7 +20,7 @@ export const getProjects = (t) => [
   {
     id: 3,
     title: 'Style-D',
-    img: '/styled.jpg',
+    img: '/styled.png',
     desc: t('styled.desc'),
     tags: ['react', 'firebase', 'styled-components', 'zustand', 'material-ui', 'axios'],
     source: 'https://github.com/ruddyautem/style-D/',
@@ -60,7 +60,7 @@ export const getProjects = (t) => [
     desc: t('laxxy.desc'),
     tags: ['react', 'redux', 'styled-components', 'firebase'],
     source: 'https://github.com/ruddyautem/laxxy',
-    demo: 'https://laxxy.vercel.app',
+    demo: 'https://laxxy.autem.dev',
   },
   {
     id: 8,
@@ -69,7 +69,7 @@ export const getProjects = (t) => [
     desc: t('coolmail.desc'),
     tags: ['react', 'styled-components', 'firebase'],
     source: 'https://github.com/ruddyautem/CoolMail',
-    demo: 'https://coolmail.vercel.app',
+    demo: 'https://coolmail.autem.dev',
   },
   {
     id: 9,
@@ -78,6 +78,6 @@ export const getProjects = (t) => [
     desc: t('gpt3.desc'),
     tags: ['react'],
     source: 'https://github.com/ruddyautem/gpt3',
-    demo: 'https://gpt3-v2.vercel.app',
+    demo: 'https://gpt3.autem.dev',
   },
 ];
