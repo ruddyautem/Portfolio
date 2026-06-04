@@ -50,6 +50,9 @@
     "portfolio": {
       "desc": "My VsCode-themed portfolio. Smile, you're here :)"
     },
+    "temporis": {
+      "desc": "Self-destructing end-to-end encrypted chat rooms. Maximum privacy - Zero footprint."
+    },
     "stokki": {
       "desc": "Simple and efficient stock manager. Authentication with StackAuth, and real-time stock management with Prisma and Neon."
     },

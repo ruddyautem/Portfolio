@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useMemo, useState, memo } from 'react';
+import { useEffect, useMemo, useState, memo, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -69,9 +69,6 @@ const ANIMATION_VARIANTS = {
 // UTILITY FUNCTIONS
 // ============================================================================
 
-/**
- * Fisher-Yates shuffle algorithm for proper randomization
- */
 function shuffleArray(array) {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -81,38 +78,27 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-/**
- * Get number of columns based on window width
- */
 function getColumnsFromWidth(width) {
   const breakpoint = BREAKPOINTS.find((bp) => width >= bp.minWidth);
   return breakpoint ? breakpoint.columns : 2;
 }
 
-/**
- * Distribute logos across columns ensuring no duplicates in the same row
- */
 function distributeLogosAcrossColumns(logos, columnCount) {
   const shuffled = shuffleArray([...logos]);
   const framesNeeded = Math.ceil(logos.length / columnCount);
   const columns = Array.from({ length: columnCount }, () => []);
-
   let logoIndex = 0;
 
   for (let frameIdx = 0; frameIdx < framesNeeded; frameIdx++) {
     const usedInFrame = new Set();
-
     for (let colIdx = 0; colIdx < columnCount; colIdx++) {
       let attempts = 0;
       let logo = shuffled[logoIndex % shuffled.length];
-
-      // Find a logo not yet used in this frame
       while (usedInFrame.has(logo.id) && attempts < shuffled.length) {
         logoIndex++;
         logo = shuffled[logoIndex % shuffled.length];
         attempts++;
       }
-
       columns[colIdx].push(logo);
       usedInFrame.add(logo.id);
       logoIndex++;
@@ -126,131 +112,123 @@ function distributeLogosAcrossColumns(logos, columnCount) {
 // HOOKS
 // ============================================================================
 
-/**
- * Hook to manage responsive column count with SSR safety
- */
 function useResponsiveColumns() {
-  const [columns, setColumns] = useState(() => {
-    // SSR-safe initialization
-    if (typeof window === 'undefined') return 2;
-    return getColumnsFromWidth(window.innerWidth);
-  });
+  const [columns, setColumns] = useState(() =>
+    typeof window === 'undefined' ? 2 : getColumnsFromWidth(window.innerWidth),
+  );
 
   useEffect(() => {
-    const handleResize = () => {
-      setColumns(getColumnsFromWidth(window.innerWidth));
-    };
-
-    // Set initial value on mount
+    const handleResize = () => setColumns(getColumnsFromWidth(window.innerWidth));
     handleResize();
-
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return columns;
 }
 
-/**
- * Hook to manage time-based animation with optimized updates
- */
 function useAnimationTimer(interval = TIME_INTERVAL) {
+  // maxTime must be a multiple of CYCLE_DURATION so the index formula
+  // (time % (CYCLE_DURATION * n)) wraps seamlessly.
+  // CYCLE_DURATION * LOGOS.length covers every column's full rotation cycle.
+  const maxTime = CYCLE_DURATION * LOGOS.length;
+
   const [time, setTime] = useState(0);
+  const isPausedRef = useRef(false);
+
+  useEffect(() => {
+    const handleVisibility = () => {
+      isPausedRef.current = document.hidden;
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTime((prev) => prev + interval);
+      if (!isPausedRef.current) {
+        setTime((prev) => (prev + interval) % maxTime);
+      }
     }, interval);
-
     return () => clearInterval(timer);
-  }, [interval]);
+  }, [interval, maxTime]);
 
   return time;
 }
 
-/**
- * Hook to manage logo distribution with memoization
- */
-function useLogoDistribution(logos, columnCount) {
-  return useMemo(() => {
-    return distributeLogosAcrossColumns(logos, columnCount);
-  }, [logos, columnCount]);
+function useLogoDistribution(columnCount) {
+  return useMemo(() => distributeLogosAcrossColumns(LOGOS, columnCount), [columnCount]);
 }
 
-// ============================================================================
-// COMPONENTS
-// ============================================================================
+const LogoColumn = memo(
+  ({ logos, columnIndex, currentIndex }) => {
+    const currentLogo = logos[currentIndex % logos.length];
+    if (!currentLogo) return null;
 
-/**
- * Individual logo column with optimized rendering
- */
-const LogoColumn = memo(({ logos, columnIndex, currentTime }) => {
-  // Calculate current logo index based on time and column delay
-  const currentIndex = useMemo(() => {
-    const columnDelay = columnIndex * COLUMN_STAGGER_DELAY;
-    const adjustedTime = (currentTime + columnDelay) % (CYCLE_DURATION * logos.length);
-    return Math.floor(adjustedTime / CYCLE_DURATION);
-  }, [columnIndex, currentTime, logos.length]);
-
-  const currentLogo = logos[currentIndex];
-
-  if (!currentLogo) return null;
-
-  return (
-    <motion.div
-      // Adjusted width sizing limits to safely prevent overflow on very small 320-400px viewports
-      className="relative h-14 w-20 shrink min-w-0 overflow-hidden sm:w-24 md:h-24 md:w-48"
-      variants={ANIMATION_VARIANTS.container}
-      initial="initial"
-      animate="animate"
-      transition={{
-        delay: columnIndex * 0.1,
-        duration: 0.5,
-        ease: 'easeOut',
-      }}
-    >
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={`${currentLogo.id}-${currentIndex}`}
-          className="absolute inset-0 flex items-center justify-center"
-          variants={ANIMATION_VARIANTS.logo}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >
-          <Image
-            src={currentLogo.src}
-            alt={currentLogo.name}
-            width={120}
-            height={40}
-            className="h-auto max-h-[80%] w-auto max-w-[80%] object-contain"
-            loading="lazy"
-          />
-        </motion.div>
-      </AnimatePresence>
-    </motion.div>
-  );
-});
+    return (
+      <motion.div
+        className="relative h-14 w-20 shrink min-w-0 overflow-hidden sm:w-24 md:h-24 md:w-48"
+        variants={ANIMATION_VARIANTS.container}
+        initial="initial"
+        animate="animate"
+        transition={{
+          delay: columnIndex * 0.1,
+          duration: 0.5,
+          ease: 'easeOut',
+        }}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`${currentLogo.id}-${currentIndex}`}
+            className="absolute inset-0 flex items-center justify-center"
+            variants={ANIMATION_VARIANTS.logo}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            <Image
+              src={currentLogo.src}
+              alt={currentLogo.name}
+              width={120}
+              height={40}
+              className="h-auto max-h-[80%] w-auto max-w-[80%] md:max-w-[60%] md:max-h-[60%]
+                2xl:max-h-[80%] 2xl:max-w-[80%] object-contain"
+              loading="lazy"
+            />
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
+    );
+  },
+  // Custom comparator: only re-render when the displayed logo actually changes.
+  (prev, next) => prev.currentIndex === next.currentIndex && prev.logos === next.logos,
+);
 
 LogoColumn.displayName = 'LogoColumn';
 
-/**
- * Main carousel component
- */
 export function LogoCarousel() {
-  const columns = useResponsiveColumns();
+  const columnCount = useResponsiveColumns();
+  const logoColumns = useLogoDistribution(columnCount);
   const time = useAnimationTimer();
-  const logoColumns = useLogoDistribution(LOGOS, columns);
+
+  const columnIndices = useMemo(
+    () =>
+      logoColumns.map((logos, columnIndex) => {
+        const columnDelay = columnIndex * COLUMN_STAGGER_DELAY;
+        const adjustedTime = (time + columnDelay) % (CYCLE_DURATION * logos.length);
+        return Math.floor(adjustedTime / CYCLE_DURATION);
+      }),
+    [logoColumns, time],
+  );
 
   return (
-    // Hard bounded the X container to ensure logos never stretch their grid
     <div className="flex w-full max-w-full justify-center gap-2 overflow-hidden py-8 px-2 sm:gap-4">
       {logoColumns.map((columnLogos, index) => (
         <LogoColumn
           key={`column-${index}`}
           logos={columnLogos}
           columnIndex={index}
-          currentTime={time}
+          currentIndex={columnIndices[index]}
         />
       ))}
     </div>
