@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --breakpoint-3xl: 125rem; /* 2560px */
+  --breakpoint-3xl: 125rem;
   --font-inter: Inter, sans-serif;
   --font-inconsolata: Inconsolata, monospace;
   --font-oswald: Oswald, sans-serif;
@@ -14,8 +14,7 @@
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
     Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
-  /* Colors with fallback values for utility generation (from .ayu) */
-  --color-accent: #ffcc66; /* Default accent, will be overridden by theme classes */
+  --color-accent: #ffcc66;
   --color-light: rgb(209, 213, 219);
   --color-lighter: rgb(229, 231, 235);
   --color-darker: rgb(107, 114, 128);
@@ -53,7 +52,6 @@
   --color-typescript-hover: rgba(49, 120, 198, 0.8);
 }
 
-/* Border compatibility for v4 */
 @layer base {
   *,
   ::after,
@@ -64,23 +62,73 @@
   }
 }
 
-/* Animations */
+/* ── Global animations ── */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── CV page animations ── */
+@keyframes cv-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes cv-float-up {
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cv-pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(36,41,54,0.35); }
+  50%       { box-shadow: 0 0 0 8px rgba(36,41,54,0);    }
+}
+
+/* ── CV utility classes ── */
+@layer utilities {
+  /* page-entry floats */
+  .cv-float   { animation: cv-float-up 0.55s 0.00s ease both; }
+  .cv-float-1 { animation: cv-float-up 0.55s 0.08s ease both; }
+  .cv-float-2 { animation: cv-float-up 0.55s 0.16s ease both; }
+  .cv-float-3 { animation: cv-float-up 0.55s 0.24s ease both; }
+  .cv-float-4 { animation: cv-float-up 0.55s 0.32s ease both; }
+  .cv-float-5 { animation: cv-float-up 0.55s 0.40s ease both; }
+  .cv-float-6 { animation: cv-float-up 0.55s 0.48s ease both; }
+
+  /* animated name gradient */
+  .cv-name-gradient {
+    background: linear-gradient(135deg, #242936 0%, #4a5270 45%, #242936 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: cv-shimmer 5s linear infinite;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  /* download button — pulse at rest, clean scale on hover */
+  .cv-download-btn {
+    animation: cv-pulse-ring 2.5s ease-in-out infinite;
+    transition: transform 0.2s ease;
+  }
+  .cv-download-btn:hover {
+    animation: none;
+    transform: scale(1.06);
+  }
+
+  /* project number badge flips dark on card hover */
+  .cv-project-card:hover .cv-project-number {
+    background: #242936;
+    color: #fff;
+    border-color: #242936;
+  }
+
+  /* generic fade-in used elsewhere */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
   }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out;
-}
-
-/* Theme variables in :root (default values) - KEEP THIS IF YOU STILL WANT GLOBAL DEFAULTS */
+/* ── :root design tokens ── */
 :root {
   --color-light: rgb(209, 213, 219);
   --color-lighter: rgb(229, 231, 235);
@@ -141,10 +189,10 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --theme-bg: #242936; /* Default theme background */
+  --theme-bg: #242936;
 }
 
-/* Theme-specific overrides directly setting --color-* variables */
+/* ── Theme overrides ── */
 .ayu {
   background-color: #242936;
   --theme-bg: #242936;
@@ -205,49 +253,23 @@
   --color-tabs-bg: var(--color-active-tab-bg);
 }
 
-/* Scrollbar styles */
-::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
+/* ── Scrollbar ── */
+::-webkit-scrollbar { display: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Cursor color */
 body {
   --ti-cursor-color: var(--color-accent);
 }
 
-/* Custom utility for accent-color - NO CHANGES NEEDED HERE */
 @layer utilities {
-  .accent-color {
-    accent-color: var(--color-accent);
-  }
+  .accent-color { accent-color: var(--color-accent); }
 
-  /* Specific hover utility classes for theme options */
-  .hover-ayu-accent:hover {
-    background-color: #ffcc66;
-    color: white;
-  }
-
-  .hover-dracula-accent:hover {
-    background-color: #ff79c6;
-    color: white;
-  }
-
-  .hover-oneDarkPro-accent:hover {
-    background-color: #98c379;
-    color: white;
-  }
-
-  .hover-poimandres-accent:hover {
-    background-color: #5de4c7;
-    color: white;
-  }
+  .hover-ayu-accent:hover      { background-color: #ffcc66; color: white; }
+  .hover-dracula-accent:hover  { background-color: #ff79c6; color: white; }
+  .hover-oneDarkPro-accent:hover { background-color: #98c379; color: white; }
+  .hover-poimandres-accent:hover { background-color: #5de4c7; color: white; }
 }

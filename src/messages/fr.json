@@ -50,6 +50,9 @@
     "portfolio": {
       "desc": "Mon portfolio aux couleurs de VsCode. Souriez, vous-êtes ici :)"
     },
+    "temporis": {
+      "desc": "Chats éphémères avec chiffrage de bout en bout. Confidentialité totale — aucune trace."
+    },
     "stokki": {
       "desc": "Gestionnaire de stock simple et efficace. Authentification avec StackAuth, et gestion des stocks en temps réel avec Prisma et Neon."
     },
@@ -122,7 +125,7 @@
     "downloadBtn": "Télécharger CV",
     "cvFile": "/Autem_Ruddy_CV.pdf",
     "cvFileName": "Autem_Ruddy_CV.pdf",
-    "aboutTitle": "À propos",
+    "aboutTitle": "À propos de moi",
     "skillsTitle": "Compétences",
     "projectsTitle": "Projets",
     "educationTitle": "Formations",
@@ -183,7 +186,7 @@
   },
   "cvBuilder": {
     "preview": {
-      "about": "À propos",
+      "about": "À propos de moi",
       "skills": "Compétences",
       "projects": "Projets",
       "education": "Formations",
@@ -193,7 +196,7 @@
       "identity": "Identité",
       "fullName": "Nom complet",
       "jobTitle": "Titre",
-      "about": "À propos",
+      "about": "À propos de moi",
       "contacts": "Contacts",
       "addContact": "+ Contact",
       "icon": "Icône (ex: mailIcon.svg)",

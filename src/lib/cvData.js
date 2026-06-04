@@ -3,7 +3,7 @@ export const cvData = {
     name: 'Ruddy Autem',
     title: 'Full-Stack Web Developer',
     about:
-      'Passionate Full-Stack Web Developer, I design smooth, high-performance, and optimized applications to provide the best user experience. Detail-oriented and demanding on code quality, I strive to offer solid and adaptive solutions. My mastery of front-end and back-end ensures a harmony between design and technical efficiency. Eager to innovate, I approach each project as an opportunity to evolve and exceed the set goals.',
+      'Full-Stack developer focused on React, Next.js, and TypeScript, with a comprehensive grasp of backend logic and database architecture. I build complete, functional web applications with genuine attention to structure and consistency - interfaces that behave exactly the way users expect. I learn fast, I ship carefully, and every project I finish makes me sharper than the last',
     contacts: [
       {
         icon: '/mailIcon.svg',
@@ -11,7 +11,7 @@ export const cvData = {
         link: 'mailto:ruddy.autem@gmail.com',
       },
       { icon: '/locationIcon.svg', text: 'Leers, HDF' },
-      { icon: '/linkIcon.svg', text: 'www.autem.dev', link: 'https://autem.dev/' },
+      { icon: '/homepage.svg', text: 'www.autem.dev', link: 'https://autem.dev/' },
       { icon: '/githubIcon2.svg', text: '/ruddyautem', link: 'https://github.com/ruddyautem' },
       {
         icon: '/linkedinIcon.svg',
@@ -21,27 +21,34 @@ export const cvData = {
     ],
     skillGroups: [
       {
-        label: 'Front-end',
+        label: 'Front-End',
         skills: [
           'React.js',
           'Next.js',
           'Vue.js',
-          'Typescript',
+          'TypeScript',
           'TailwindCSS',
           'SCSS',
           'Styled-Components',
         ],
       },
       {
-        label: 'Back-end',
-        skills: ['Node', 'Express', 'Firebase', 'MongoDB', 'Prisma', 'MySQL'],
+        label: 'Back-End',
+        skills: ['Node.js', 'Express', 'MongoDB', 'MySQL', 'Prisma', 'Firebase', 'Zod'],
       },
-      {
-        label: 'Tools',
-        skills: ['Git', 'Zustand', 'Clerk', 'AGILE'],
-      },
+      { label: 'Tools', skills: ['Git', 'Vercel', 'Redux', 'Zustand', 'Clerk', 'Cursor', 'Scrum'] },
     ],
     projects: [
+      {
+        title: 'Temporis',
+        year: '2026',
+        link: 'https://temporis.autem.dev',
+        points: [
+          'Development of self-destructing chat rooms using a serverless Next.js 16 and Upstash Redis architecture.',
+          'Implementation of client-side, end-to-end encryption to guarantee maximum data privacy.',
+          'Integration of a type-safe API layer with Eden Treaty and TanStack Query for optimized server state management.',
+        ],
+      },
       {
         title: 'Stokki',
         year: '2026',
@@ -67,9 +74,9 @@ export const cvData = {
         year: '2025',
         link: 'https://style-d.autem.dev',
         points: [
-          'Development of a responsive e-commerce platform with vibrant design and fast, seamless shopping experience.',
-          'Implementation of Google authentication to simplify and speed up user registration and login.',
-          'Integration of secure payments via Stripe and automated invoice creation on Firebase.',
+          'Built a responsive online store with React and Vite, delivering a fast and seamless shopping experience.',
+          'Implemented Google authentication via Firebase Auth to streamline user sign-up and login.',
+          'Integrated secure Stripe payments with real-time data storage on Firestore.',
         ],
       },
     ],
@@ -82,7 +89,7 @@ export const cvData = {
       { title: 'The Web Developer Bootcamp', institution: 'Colt Steele', year: '2021' },
       {
         title:
-          "Bachelor's Degree LLCER — Foreign and Regional Languages, Literatures and Civilizations",
+          "Bachelor's Degree LLCER - Foreign and Regional Languages, Literatures and Civilizations",
         institution: 'Sorbonne Nouvelle - Paris 3',
         year: '2014',
       },
@@ -97,7 +104,7 @@ export const cvData = {
     name: 'Ruddy Autem',
     title: 'Développeur Web Full-Stack',
     about:
-      "Développeur Web Full-Stack passionné, je conçois des applications fluides, performantes et optimisées pour offrir la meilleure expérience utilisateur. Attentif aux détails et exigeant sur la qualité du code, je m'efforce de proposer des solutions solides et adaptatives. Ma maîtrise du front-end et du back-end garantit une harmonie entre design et efficacité technique. Avide d'innover, j'aborde chaque projet comme une chance d'évoluer et de dépasser les objectifs fixés.",
+      "Développeur Full-Stack orienté frontend React, Next.js et TypeScript, avec une solide maîtrise du backend et des bases de données. Je construis des applications web complètes et fonctionnelles, en veillant à soigner le moindre détail - structure claire, logique cohérente, interfaces qui se comportent exactement comme l'utilisateur s'y attend. J'apprends vite, je livre avec soin, et chaque projet que je termine me rend meilleur que le précédent.",
     contacts: [
       {
         icon: '/mailIcon.svg',
@@ -105,7 +112,7 @@ export const cvData = {
         link: 'mailto:ruddy.autem@gmail.com',
       },
       { icon: '/locationIcon.svg', text: 'Leers, HDF' },
-      { icon: '/linkIcon.svg', text: 'www.autem.dev', link: 'https://autem.dev/' },
+      { icon: '/homepage.svg', text: 'www.autem.dev', link: 'https://autem.dev/' },
       { icon: '/githubIcon2.svg', text: '/ruddyautem', link: 'https://github.com/ruddyautem' },
       {
         icon: '/linkedinIcon.svg',
@@ -115,35 +122,45 @@ export const cvData = {
     ],
     skillGroups: [
       {
-        label: 'Front-end',
+        label: 'Front-End',
         skills: [
           'React.js',
           'Next.js',
           'Vue.js',
-          'Typescript',
+          'TypeScript',
           'TailwindCSS',
           'SCSS',
           'Styled-Components',
         ],
       },
       {
-        label: 'Back-end',
-        skills: ['Node', 'Express', 'Firebase', 'MongoDB', 'Prisma', 'MySQL'],
+        label: 'Back-End',
+        skills: ['Node.js', 'Express', 'MongoDB', 'MySQL', 'Prisma', 'Firebase', 'Zod'],
       },
       {
         label: 'Outils',
-        skills: ['Git', 'Zustand', 'Clerk', 'AGILE'],
+        skills: ['Git', 'Vercel', 'Redux', 'Zustand', 'Clerk', 'Cursor', 'Scrum'],
       },
     ],
     projects: [
+      {
+        title: 'Temporis',
+        year: '2026',
+        link: 'https://temporis.autem.dev',
+        points: [
+          'Développement de salons de discussion éphémères avec une architecture serverless Next.js et Upstash Redis.',
+          "Implémentation d'un chiffrement de bout en bout côté client pour garantir une confidentialité maximale des données.",
+          'Mise en place d’une API typée via Eden Treaty et TanStack Query pour une gestion optimisée de l’état serveur.',
+        ],
+      },
       {
         title: 'Stokki',
         year: '2026',
         link: 'https://stokki.autem.dev',
         points: [
-          'Développement d’un dashboard d’inventaire en temps réel avec Next.js 16 pour la gestion des stocks et produits',
-          'Visualisations de données avec Recharts pour le suivi des performances, profits et croissance',
-          'Gestion typée des données avec Prisma et validation des entrées via Zod pour assurer la fiabilité',
+          'Développement d’un dashboard d’inventaire en temps réel avec Next.js 16 pour la gestion des stocks et produits.',
+          'Visualisations de données avec Recharts pour le suivi des performances, profits et croissance.',
+          'Gestion typée des données avec Prisma et validation des entrées via Zod pour assurer la fiabilité.',
         ],
       },
       {
@@ -151,9 +168,9 @@ export const cvData = {
         year: '2026',
         link: 'https://autem.dev',
         points: [
-          "Conception et réalisation d\'un portfolio en Next.js entièrement responsive inspiré de l\'interface de VSCode.",
-          "Intégration de thèmes de couleurs dynamiques améliorant l\'attrait visuel et la convivialité.",
-          "Ajout d\'un service de messagerie performant assurant une prise de contact fluide et efficace.",
+          'Conception et réalisation d’un portfolio responsive avec Next.js, inspiré de l’interface de VSCode.',
+          'Intégration de thèmes de couleurs dynamiques pour améliorer l’attrait visuel et l’expérience utilisateur.',
+          'Ajout d’un service de messagerie performant facilitant une prise de contact fluide et efficace.',
         ],
       },
       {
@@ -161,9 +178,9 @@ export const cvData = {
         year: '2025',
         link: 'https://style-d.autem.dev',
         points: [
-          "Développement d\'une plateforme de E-Commerce entièrement responsive au design vibrant, offrant une expérience d\'achat fluide et rapide en quelques clics.",
-          "Mise en place d\'une authentification Google pour simplifier et accélérer l\'inscription et la connexion des utilisateurs.",
-          'Intégration des paiements sécurisés via Stripe et création automatisée des factures sur Firebase.',
+          "Développement d'une boutique en ligne responsive avec React et Vite, offrant une expérience d'achat fluide et rapide.",
+          "Mise en place de l'authentification Google via Firebase Auth pour simplifier l'inscription et la connexion des utilisateurs.",
+          'Intégration des paiements sécurisés via Stripe et stockage des données en temps réel sur Firestore.',
         ],
       },
     ],
@@ -175,7 +192,7 @@ export const cvData = {
       },
       { title: 'The Web Developer Bootcamp', institution: 'Colt Steele', year: '2021' },
       {
-        title: 'Licence LLCER — Langues, littératures et civilisations étrangères et régionales',
+        title: 'Licence LLCER - Langues, littératures et civilisations étrangères et régionales',
         institution: 'Sorbonne Nouvelle - Paris 3',
         year: '2014',
       },

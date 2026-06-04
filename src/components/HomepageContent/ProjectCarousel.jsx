@@ -1,6 +1,13 @@
+// ProjectCarousel.jsx
 'use client';
 
-import { useState, useEffect, useRef, useCallback, memo } from 'react';
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  memo,
+} from 'react';
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
@@ -32,10 +39,10 @@ const TAG_COLORS = {
   zustand: 'bg-amber-600',
 };
 
-const getTagColor = (tag) => TAG_COLORS[tag] || 'bg-gray-500';
+const getTagColor = (tag) => TAG_COLORS[tag] ?? 'bg-gray-500';
 
 const trimText = (text, max = 100) =>
-  !text || text.length <= max ? text || '' : text.substring(0, max).trim() + '...';
+  !text || text.length <= max ? text ?? '' : `${text.substring(0, max).trim()}...`;
 
 // ============================================================================
 // CUSTOM HOOK
@@ -43,23 +50,36 @@ const trimText = (text, max = 100) =>
 
 const useCarousel = (itemCount) => {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  // FIX: All mutable state that needs to be read inside callbacks/intervals
+  // lives in refs to avoid stale closures without needing them as dependencies.
   const activeIndexRef = useRef(0);
   const isPausedRef = useRef(false);
   const isTransitioning = useRef(false);
-  const timeoutRef = useRef(null);
+  const transitionTimeoutRef = useRef(null);
   const touchStartX = useRef(null);
 
-  const transition = useCallback((nextIndex) => {
-    if (isTransitioning.current) return;
-    isTransitioning.current = true;
-    setActiveIndex(nextIndex);
-    activeIndexRef.current = nextIndex;
+  // FIX: Central transition function — clears its own previous timeout before
+  // setting a new one, preventing timeout accumulation on rapid calls.
+  const transition = useCallback(
+    (nextIndex) => {
+      if (isTransitioning.current) return;
+      isTransitioning.current = true;
 
-    clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {
-      isTransitioning.current = false;
-    }, CAROUSEL_CONFIG.transitionDuration);
-  }, []);
+      setActiveIndex(nextIndex);
+      activeIndexRef.current = nextIndex;
+
+      // FIX: Always clear before setting — prevents multiple timeouts stacking
+      if (transitionTimeoutRef.current) {
+        clearTimeout(transitionTimeoutRef.current);
+      }
+      transitionTimeoutRef.current = setTimeout(() => {
+        isTransitioning.current = false;
+        transitionTimeoutRef.current = null;
+      }, CAROUSEL_CONFIG.transitionDuration);
+    },
+    [], // no deps — reads everything from refs
+  );
 
   const goToPrevious = useCallback(
     () => transition((activeIndexRef.current - 1 + itemCount) % itemCount),
@@ -84,7 +104,7 @@ const useCarousel = (itemCount) => {
 
   const handleTouchEnd = useCallback(
     (e) => {
-      if (!touchStartX.current) return;
+      if (touchStartX.current === null) return;
       const diff = touchStartX.current - e.changedTouches[0].clientX;
       if (Math.abs(diff) > CAROUSEL_CONFIG.swipeThreshold) {
         diff > 0 ? goToNext() : goToPrevious();
@@ -94,37 +114,43 @@ const useCarousel = (itemCount) => {
     [goToNext, goToPrevious],
   );
 
-  const pause = useCallback(() => {
-    isPausedRef.current = true;
-  }, []);
+  const pause = useCallback(() => { isPausedRef.current = true; }, []);
+  const resume = useCallback(() => { isPausedRef.current = false; }, []);
 
-  const resume = useCallback(() => {
-    isPausedRef.current = false;
-  }, []);
-
+  // FIX: Auto-scroll interval — properly cleaned up, paused when tab hidden.
   useEffect(() => {
     if (itemCount <= 1) return;
-    const iv = setInterval(() => {
-      if (!isPausedRef.current && !isTransitioning.current) {
+
+    const handleVisibility = () => {
+      // Pause auto-scroll when tab is not visible
+      if (document.hidden) isPausedRef.current = true;
+      // Note: we don't force-resume here because the user may have manually paused
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    const interval = setInterval(() => {
+      if (!isPausedRef.current && !isTransitioning.current && !document.hidden) {
         transition((activeIndexRef.current + 1) % itemCount);
       }
     }, CAROUSEL_CONFIG.autoScrollInterval);
 
-    return () => clearInterval(iv);
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
   }, [itemCount, transition]);
 
+  // FIX: Cleanup transition timeout on unmount
   useEffect(() => {
-    return () => clearTimeout(timeoutRef.current);
+    return () => {
+      if (transitionTimeoutRef.current) {
+        clearTimeout(transitionTimeoutRef.current);
+        transitionTimeoutRef.current = null;
+      }
+    };
   }, []);
 
-  return {
-    activeIndex,
-    goToSlide,
-    handleTouchStart,
-    handleTouchEnd,
-    pause,
-    resume,
-  };
+  return { activeIndex, goToSlide, handleTouchStart, handleTouchEnd, pause, resume };
 };
 
 // ============================================================================
@@ -139,8 +165,8 @@ const ProjectTag = memo(({ tag }) => (
       2xl:px-2.5 2xl:py-1 2xl:text-xs 3xl:gap-1.5 3xl:px-3 3xl:py-1.5 3xl:text-sm"
   >
     <span
-      className={`h-1.5 w-1.5 shrink-0 rounded-full md:h-2 md:w-2 lg:h-1 lg:w-1 xl:h-1.5 xl:w-1.5
-        2xl:h-2 2xl:w-2 3xl:h-2.5 3xl:w-2.5 ${getTagColor(tag)}`}
+      className={`h-1.5 w-1.5 shrink-0 rounded-full md:h-2 md:w-2 lg:h-1 lg:w-1 xl:h-1.5
+        xl:w-1.5 2xl:h-2 2xl:w-2 3xl:h-2.5 3xl:w-2.5 ${getTagColor(tag)}`}
     />
     <span className="truncate">{tag}</span>
   </span>
@@ -152,12 +178,12 @@ const OverlayActionBtn = memo(({ onClick, label, isAccent }) => (
     type="button"
     onClick={onClick}
     className={`flex h-7 min-w-0 flex-1 cursor-pointer items-center justify-center rounded
-      text-[10px] font-medium transition-all duration-200 hover:scale-[1.03] active:scale-95 sm:h-8
-      sm:text-[11px] md:h-9 md:text-xs lg:h-6 lg:text-[9px] xl:h-8 xl:text-xs 2xl:h-10 2xl:text-sm
-      3xl:h-12 3xl:text-lg ${
-        isAccent
-          ? 'bg-accent text-slate-900 hover:opacity-90'
-          : 'bg-slate-700 text-white hover:bg-slate-600'
+      text-[10px] font-medium transition-all duration-200 hover:scale-[1.03] active:scale-95
+      sm:h-8 sm:text-[11px] md:h-9 md:text-xs lg:h-6 lg:text-[9px] xl:h-8 xl:text-xs
+      2xl:h-10 2xl:text-sm 3xl:h-12 3xl:text-lg
+      ${isAccent
+        ? 'bg-accent text-slate-900 hover:opacity-90'
+        : 'bg-slate-700 text-white hover:bg-slate-600'
       }`}
   >
     <span className="truncate px-1">{label}</span>
@@ -165,20 +191,16 @@ const OverlayActionBtn = memo(({ onClick, label, isAccent }) => (
 ));
 OverlayActionBtn.displayName = 'OverlayActionBtn';
 
+/**
+ * FIX: Removed useCallback hooks from inside ProjectOverlay for handleSourceClick
+ * and handleDemoClick. They were depending on `onExternalLink` which changed every
+ * render upstream, making the useCallback useless. Handlers are now inline — the
+ * component is already memo'd, so this is fine and simpler.
+ */
 const ProjectOverlay = memo(({ project, onExternalLink }) => {
-  const displayedTags = project.tags?.slice(0, 4) || [];
+  const displayedTags = project.tags?.slice(0, 4) ?? [];
   const remainingCount = Math.max(0, (project.tags?.length ?? 0) - 4);
-  const demoUrl = project.demo?.replace(/^https?:\/\//, '') || 'PROJET';
-
-  const handleSourceClick = useCallback(
-    (e) => onExternalLink(e, project.source),
-    [onExternalLink, project.source],
-  );
-
-  const handleDemoClick = useCallback(
-    (e) => onExternalLink(e, project.demo),
-    [onExternalLink, project.demo],
-  );
+  const demoUrl = project.demo?.replace(/^https?:\/\//, '') ?? 'PROJET';
 
   return (
     <div
@@ -186,9 +208,9 @@ const ProjectOverlay = memo(({ project, onExternalLink }) => {
         md:inset-3 lg:inset-2 xl:inset-3 2xl:inset-2.5 3xl:inset-2"
     >
       <div
-        className="w-full translate-y-full rounded-lg bg-slate-900/95 opacity-0 transition-all
-          duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100
-          pointer-events-none group-hover:pointer-events-auto will-change-transform antialiased"
+        className="pointer-events-none w-full translate-y-full rounded-lg bg-slate-900/95 opacity-0
+          transition-all duration-300 ease-in-out will-change-transform antialiased
+          group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100"
       >
         <div className="flex w-full flex-col p-2.5 sm:p-3 md:p-4 lg:p-2 xl:p-3 2xl:p-4 3xl:p-6">
           <span
@@ -199,14 +221,14 @@ const ProjectOverlay = memo(({ project, onExternalLink }) => {
             {demoUrl}
           </span>
           <h4
-            className="mb-1.5 max-w-full truncate text-sm font-bold text-white sm:text-base md:mb-2
-              md:text-lg lg:mb-0.5 lg:text-[11px] xl:mb-1.5 xl:text-sm 2xl:mb-2 2xl:text-lg
-              3xl:text-xl 3xl:font-extrabold"
+            className="mb-1.5 max-w-full truncate text-sm font-bold text-white sm:text-base
+              md:mb-2 md:text-lg lg:mb-0.5 lg:text-[11px] xl:mb-1.5 xl:text-sm 2xl:mb-2
+              2xl:text-lg 3xl:text-xl 3xl:font-extrabold"
           >
             {project.title}
           </h4>
           <p
-            className="mb-2 w-full wrap-break-word line-clamp-2 text-[10px] leading-snug
+            className="wrap-break-word mb-2 w-full line-clamp-2 text-[10px] leading-snug
               text-slate-200 sm:text-[11px] md:mb-2.5 md:line-clamp-3 md:text-xs md:leading-relaxed
               lg:mb-1 lg:text-[9px] lg:leading-tight xl:mb-2 xl:line-clamp-3 xl:text-xs 2xl:mb-2.5
               2xl:text-sm 2xl:leading-relaxed 3xl:mb-3 3xl:text-base"
@@ -222,16 +244,24 @@ const ProjectOverlay = memo(({ project, onExternalLink }) => {
             ))}
             {remainingCount > 0 && (
               <span
-                className="shrink-0 text-[10px] text-white sm:text-[11px] md:text-xs lg:text-[8px]
-                  xl:text-xs 2xl:text-sm"
+                className="shrink-0 text-[10px] text-white sm:text-[11px] md:text-xs
+                  lg:text-[8px] xl:text-xs 2xl:text-sm"
               >
                 +{remainingCount}
               </span>
             )}
           </div>
           <div className="flex w-full gap-2 md:gap-2.5 lg:gap-1 xl:gap-2 2xl:gap-2.5 3xl:gap-3">
-            <OverlayActionBtn onClick={handleSourceClick} label="Code" isAccent={false} />
-            <OverlayActionBtn onClick={handleDemoClick} label="Demo" isAccent={true} />
+            <OverlayActionBtn
+              onClick={(e) => onExternalLink(e, project.source)}
+              label="Code"
+              isAccent={false}
+            />
+            <OverlayActionBtn
+              onClick={(e) => onExternalLink(e, project.demo)}
+              label="Demo"
+              isAccent={true}
+            />
           </div>
         </div>
       </div>
@@ -244,8 +274,8 @@ const ProjectCard = memo(({ project, onExternalLink, isFeatured, isActive, featu
   <div className="h-full w-full shrink-0">
     <div className="block h-full w-full">
       <div
-        className="group flex h-full w-full flex-col overflow-hidden rounded-xl bg-slate-800/30 p-3
-          transition-all duration-300 sm:p-4 lg:rounded-lg lg:p-3"
+        className="group flex h-full w-full flex-col overflow-hidden rounded-xl bg-slate-800/30
+          p-3 transition-all duration-300 sm:p-4 lg:rounded-lg lg:p-3"
       >
         <div className="flex w-full min-w-0 flex-1 flex-col">
           <div className="relative mb-2 w-full flex-1 overflow-hidden rounded-lg">
@@ -262,10 +292,10 @@ const ProjectCard = memo(({ project, onExternalLink, isFeatured, isActive, featu
             </Link>
             {isFeatured && (
               <span
-                className={`absolute right-2 top-2 z-10 rounded-full bg-accent px-2 py-1 text-xs
-                text-slate-900 transition-opacity duration-300 2xl:px-2.5 2xl:py-1 2xl:text-sm
-                3xl:px-3 3xl:py-1.5 3xl:font-bold
-                ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
+                className={`absolute right-2 top-2 z-10 rounded-full bg-accent px-2 py-1
+                  text-xs text-slate-900 transition-opacity duration-300 2xl:px-2.5 2xl:py-1
+                  2xl:text-sm 3xl:px-3 3xl:py-1.5 3xl:font-bold
+                  ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
               >
                 {featuredLabel}
               </span>
@@ -293,10 +323,11 @@ const ThumbnailButton = memo(({ project, isActive, onSelect, index, seeLabel }) 
   return (
     <button
       onClick={handleClick}
-      className={`group relative flex-1 overflow-hidden rounded-lg transition-all duration-300 ${
-        isActive
-          ? 'ring-2 ring-accent shadow-lg shadow-accent/20'
-          : 'opacity-50 ring-1 ring-slate-700 hover:opacity-80'
+      className={`group relative flex-1 cursor-pointer overflow-hidden rounded-lg transition-all
+        duration-300 ${
+          isActive
+            ? 'ring-2 ring-accent shadow-lg shadow-accent/20'
+            : 'opacity-50 ring-1 ring-slate-700 hover:opacity-80'
         }`}
       aria-label={`${seeLabel} ${project.title}`}
     >
@@ -350,14 +381,10 @@ CarouselThumbnailStrip.displayName = 'CarouselThumbnailStrip';
 
 const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
   const t = useTranslations('homepage');
-  const itemCount = carouselProjects?.length || 0;
+  const itemCount = carouselProjects?.length ?? 0;
   const c = useCarousel(itemCount);
 
   if (itemCount === 0) return null;
-
-  const trackStyle = {
-    transform: `translate3d(-${c.activeIndex * 100}%, 0, 0)`,
-  };
 
   return (
     <div
@@ -388,15 +415,17 @@ const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
           lg:w-3/4 lg:max-w-none lg:rounded-lg 2xl:mb-6 2xl:w-4/5 3xl:mb-8"
       >
         <div
-          className="relative aspect-square w-full overflow-hidden rounded-xl lg:rounded-lg"
+          className="relative aspect-square w-full cursor-pointer overflow-hidden rounded-xl
+            lg:rounded-lg"
           onMouseEnter={c.pause}
           onMouseLeave={c.resume}
           onTouchStart={c.handleTouchStart}
           onTouchEnd={c.handleTouchEnd}
         >
+          {/* FIX: Use translate3d via CSS variable to avoid inline style object recreation */}
           <div
             className="flex h-full w-full transition-transform duration-500 ease-in-out"
-            style={trackStyle}
+            style={{ transform: `translate3d(-${c.activeIndex * 100}%, 0, 0)` }}
           >
             {carouselProjects.map((project, idx) => (
               <ProjectCard

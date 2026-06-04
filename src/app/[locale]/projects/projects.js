@@ -10,6 +10,15 @@ export const getProjects = (t) => [
   },
   {
     id: 2,
+    title: 'Temporis',
+    img: '/temporis.png',
+    desc: t('temporis.desc'),
+    tags: ['nextjs', 'Elysia', 'tailwindcss'],
+    source: 'https://github.com/ruddyautem/temporis',
+    demo: 'https://temporis.autem.dev',
+  },
+  {
+    id: 3,
     title: 'Stokki',
     img: '/stokki.png',
     desc: t('stokki.desc'),
@@ -18,7 +27,7 @@ export const getProjects = (t) => [
     demo: 'https://stokki.autem.dev',
   },
   {
-    id: 3,
+    id: 4,
     title: 'Style-D',
     img: '/styled.png',
     desc: t('styled.desc'),
@@ -27,7 +36,7 @@ export const getProjects = (t) => [
     demo: 'https://style-d.autem.dev',
   },
   {
-    id: 4,
+    id: 5,
     title: 'Mytasky',
     img: '/mytasky.png',
     desc: t('mytasky.desc'),
@@ -36,7 +45,7 @@ export const getProjects = (t) => [
     demo: 'https://mytasky.autem.dev',
   },
   {
-    id: 5,
+    id: 6,
     title: 'DressCode',
     img: '/dresscode.png',
     desc: t('dresscode.desc'),
@@ -45,7 +54,7 @@ export const getProjects = (t) => [
     demo: 'https://dresscode.autem.dev',
   },
   {
-    id: 6,
+    id: 7,
     title: 'OhMyBlog!',
     img: '/ohmyblog.png',
     desc: t('ohmyblog.desc'),
@@ -54,7 +63,7 @@ export const getProjects = (t) => [
     demo: 'https://ohmyblog.autem.dev',
   },
   {
-    id: 7,
+    id: 8,
     title: 'Laxxy',
     img: '/laxxy.png',
     desc: t('laxxy.desc'),
@@ -63,7 +72,7 @@ export const getProjects = (t) => [
     demo: 'https://laxxy.autem.dev',
   },
   {
-    id: 8,
+    id: 9,
     title: 'CoolMail',
     img: '/coolmail.png',
     desc: t('coolmail.desc'),
@@ -72,7 +81,7 @@ export const getProjects = (t) => [
     demo: 'https://coolmail.autem.dev',
   },
   {
-    id: 9,
+    id: 10,
     title: 'GPT-3',
     img: '/gpt3.jpg',
     desc: t('gpt3.desc'),

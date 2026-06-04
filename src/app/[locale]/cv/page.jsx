@@ -5,6 +5,7 @@ import React from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { getCvData } from '@/lib/cvData';
+import Link from 'next/link';
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -15,55 +16,25 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const SectionTitle = ({ children }) => (
-  <div className="item-animate mb-6 flex flex-col items-center gap-2 sm:items-start md:mb-8">
-    <h3
-      className="text-base font-extrabold uppercase tracking-widest text-[#192a56] sm:text-lg
-        md:text-xl lg:text-2xl"
-    >
-      {children}
-    </h3>
-    <div className="h-1 w-12 rounded-full bg-[#192a56] opacity-80 sm:w-16" />
+const cleanUrl = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+const SectionHeading = ({ label }) => (
+  <div className="flex flex-col items-center gap-1.5 sm:items-start">
+    <div className="flex items-center gap-2">
+      <span className="text-base font-black text-slate-700">•</span>
+      <h2
+        className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-700 sm:text-[11px]
+          md:text-[12px]"
+      >
+        {label}
+      </h2>
+    </div>
+    <div
+      className="h-0.5 w-full rounded-full bg-linear-to-r from-transparent via-slate-700/60
+        to-transparent sm:from-slate-700/60 sm:via-transparent sm:to-transparent"
+    />
   </div>
 );
-
-const Card = ({ children, className = '' }) => (
-  <div className={`rounded-2xl border border-gray-100 bg-white shadow-sm ${className}`}>
-    {children}
-  </div>
-);
-
-const CvDownloadButton = ({ label, href, downloadName, className = '' }) => (
-  <a
-    href={href}
-    download={downloadName}
-    className={`item-animate inline-flex items-center rounded-xl bg-[#192a56] px-6 py-3 text-sm
-      font-semibold text-white shadow-md transition-all duration-300 hover:scale-105
-      hover:bg-[#243a6b] hover:shadow-lg md:text-base ${className}`}
-  >
-    {label}
-  </a>
-);
-
-const ContactBadge = ({ item }) => {
-  const cls =
-    'flex items-center gap-2 rounded-full border border-[#192a56]/15 bg-[#192a56]/5 px-3 py-1.5 text-xs text-[#192a56] sm:text-sm md:px-4 md:py-2 md:text-base';
-  const content = (
-    <>
-      <Image src={item.icon} height={14} width={14} alt="" unoptimized className="shrink-0" />
-      <span className="break-all">{item.text}</span>
-    </>
-  );
-  return item.link ? (
-    <a href={item.link} className={`item-animate ${cls} transition-colors hover:bg-[#192a56]/10`}>
-      {content}
-    </a>
-  ) : (
-    <span className={`item-animate ${cls}`}>{content}</span>
-  );
-};
-
-const projectTitleCls = 'text-xl font-extrabold text-[#192a56] sm:text-lg sm:font-bold md:text-xl';
 
 const CV = () => {
   const t = useTranslations('cv');
@@ -76,239 +47,396 @@ const CV = () => {
   return (
     <PageWrapper skipChildWrapping>
       <div
-        className="flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden
-          px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 lg:pt-[7.5vh] xl:px-12 xl:pb-12 xl:pt-[7.5vh]
-          2xl:px-16 2xl:pb-16 2xl:pt-[5vh] 3xl:px-20 3xl:pb-20 3xl:pt-[5vh]"
+        className="flex min-h-screen w-full flex-col items-center justify-start
+          font-['Inter','Segoe_UI',system-ui,sans-serif]"
       >
-        <div
-          className="relative z-10 flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-360 3xl:max-w-440
-            flex-col shadow-2xl"
-        >
+        <div className="relative z-10 w-full max-w-400">
           <div
-            className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50
-              bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl"
+            className="rounded-xl border border-slate-700/50 bg-slate-800/20 shadow-2xl
+              backdrop-blur-xl sm:rounded-2xl"
           >
             <TopPageDecoration filename={tTabs('cv')} />
 
-            <div className="border-b border-slate-700/30 p-6 text-center sm:p-8 md:p-10">
-              <h1
-                className="item-animate mb-4 text-3xl font-bold text-white sm:text-4xl md:text-5xl
-                  2xl:text-6xl"
-              >
+            {/* ── PAGE HEADER ── */}
+            <div
+              className="border-b border-slate-700/30 px-4 py-5 text-center sm:px-6 sm:py-7
+                md:py-8"
+            >
+              <h1 className="cv-float mb-2 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
                 {t('title')} <span className="text-accent">{t('titleAccent')}</span>
               </h1>
-              <p
-                className="item-animate mx-auto max-w-2xl text-lg text-slate-300 sm:text-xl
-                  2xl:text-2xl"
-              >
+              <p className="cv-float-1 mx-auto max-w-xl text-sm text-slate-400 sm:text-base">
                 {t('subtitle')}
               </p>
             </div>
 
-            <div className="p-3 sm:p-8 md:p-10">
-              <div className="mx-auto w-full space-y-4 sm:space-y-6 md:space-y-8">
-                <Card className="overflow-hidden">
-                  <div
-                    className="relative flex flex-col items-center px-6 py-8 text-center sm:px-8
-                      sm:py-10 md:px-12 md:py-12"
+            {/* ── CV BODY ── */}
+            <div
+              className="mx-4 my-6 min-h-[80vh] rounded-2xl border border-slate-300 bg-[#f1f3f7]
+                p-3 sm:p-4 md:p-5"
+            >
+              {/* ── IDENTITY BLOCK ── */}
+              <div
+                className="cv-float relative mb-4 rounded-2xl border border-slate-200
+                  bg-linear-to-br from-white via-slate-50 to-slate-100 p-5 shadow-sm sm:p-7 md:p-9"
+              >
+                <div
+                  className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full
+                    bg-slate-700/5 blur-3xl"
+                />
+                <div
+                  className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full
+                    bg-slate-700/5 blur-3xl"
+                />
+
+                {/* Download button — absolute top-right on sm+ */}
+                <a
+                  href={t('cvFile')}
+                  download={t('cvFileName')}
+                  title={t('downloadBtn')}
+                  className="cv-download-btn hidden sm:absolute sm:right-6 sm:top-6 sm:z-10
+                    sm:flex sm:cursor-pointer sm:items-center sm:gap-2 sm:rounded-xl sm:bg-slate-700
+                    sm:px-4 sm:py-2.5 sm:transition-all sm:duration-300
+                    sm:hover:-translate-y-0.5 sm:hover:bg-slate-600 sm:hover:shadow-lg"
+                >
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="shrink-0"
                   >
-                    <h1
-                      className="item-animate text-4xl font-extrabold leading-tight text-[#192a56]
-                        sm:text-5xl md:text-6xl lg:text-7xl"
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span className="hidden text-xs font-semibold text-white sm:inline">
+                    {t('downloadBtn')}
+                  </span>
+                </a>
+
+                {/* Name & role */}
+                <div className="relative text-center">
+                  <p
+                    className="mb-2 select-none text-[10px] font-semibold uppercase
+                      tracking-[0.25em] text-slate-700/55 sm:text-xs"
+                  >
+                    ✦ {title} ✦
+                  </p>
+
+                  <h1
+                    className="cv-name-gradient mb-6 pb-2 text-4xl font-black leading-none
+                      tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+                  >
+                    {name}
+                  </h1>
+
+                  {/* Contact chips */}
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    {contacts.map((c, i) => {
+                      const chip = (
+                        <span
+                          className="inline-flex cursor-pointer select-none items-center gap-2
+                            rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-[9pt]
+                            font-medium text-slate-700 transition-all duration-300
+                            hover:-translate-y-0.5 hover:border-slate-400 hover:bg-slate-50
+                            hover:shadow-md sm:px-4 sm:py-2 sm:text-[10pt]"
+                        >
+                          <Image
+                            src={c.icon}
+                            alt=""
+                            width={24}
+                            height={24}
+                            unoptimized
+                            className="shrink-0 opacity-70"
+                          />
+                          {c.text}
+                        </span>
+                      );
+                      return c.link ? (
+                        <Link key={i} href={c.link} target="_blank" rel="noopener noreferrer">
+                          {chip}
+                        </Link>
+                      ) : (
+                        <span key={i}>{chip}</span>
+                      );
+                    })}
+                  </div>
+
+                  {/* Download button — inline below contacts on mobile only */}
+                  <a
+                    href={t('cvFile')}
+                    download={t('cvFileName')}
+                    title={t('downloadBtn')}
+                    className="cv-download-btn mx-auto mt-4 flex w-full cursor-pointer items-center
+                      justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 transition-all
+                      duration-300 hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg
+                      sm:hidden"
+                  >
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="shrink-0"
                     >
-                      {name}
-                    </h1>
-                    <p
-                      className="item-animate mt-3 text-lg font-medium italic text-[#192a56]/60
-                        sm:text-xl md:text-2xl lg:text-3xl"
-                    >
-                      {title}
-                    </p>
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span className="text-xs font-semibold text-white">
+                      {t('downloadBtn')}
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              {/* ── GRID ── */}
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+                {/* ── LEFT 2/3 ── */}
+                <div className="flex flex-col gap-5 lg:col-span-2 lg:gap-6">
+                  {/* ABOUT */}
+                  {about && (
                     <div
-                      className="mt-6 flex max-w-4xl flex-wrap justify-center gap-2 sm:gap-3
-                        md:mt-8"
+                      className="cv-float-1 rounded-2xl border border-slate-200 bg-white p-5
+                        shadow-sm sm:p-6"
                     >
-                      {contacts.map((item, i) => (
-                        <ContactBadge key={i} item={item} />
+                      <SectionHeading label={t('aboutTitle')} />
+                      <p
+                        className="mt-4 whitespace-pre-wrap text-center text-sm leading-relaxed
+                          text-slate-700/80 sm:text-left sm:text-[13px] md:text-[14px]"
+                      >
+                        {about}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* PROJECTS */}
+                  <div
+                    className="cv-float-2 flex-1 rounded-2xl border border-slate-200 bg-white p-5
+                      shadow-sm sm:p-6"
+                  >
+                    <SectionHeading label={t('projectsTitle')} />
+                    <div className="mt-5 flex flex-col gap-4 lg:gap-5">
+                      {projects.map((proj, idx) => {
+                        const cardClass =
+                          'cv-project-card group relative block rounded-xl border border-slate-200' +
+                          ' bg-slate-50 p-4 transition-all duration-300 hover:-translate-y-1' +
+                          ' hover:border-slate-300 hover:bg-slate-100/50 hover:shadow-lg sm:p-5';
+
+                        const cardContent = (
+                          <>
+                            <span
+                              className="cv-project-number absolute -left-3 -top-3 flex h-7 w-7
+                                select-none items-center justify-center rounded-full border
+                                border-slate-200 bg-white text-[10px] font-black text-slate-700
+                                transition-all duration-300 sm:h-8 sm:w-8 sm:text-xs"
+                            >
+                              {String(idx + 1).padStart(2, '0')}
+                            </span>
+
+                            <div
+                              className="flex flex-col items-center gap-2 pl-3 sm:flex-row
+                                sm:items-start sm:justify-between sm:gap-3"
+                            >
+                              <div className="min-w-0 flex-1 text-center sm:text-left">
+                                <div
+                                  className="flex flex-wrap items-center justify-center gap-2
+                                    sm:justify-start"
+                                >
+                                  <span
+                                    className="text-[13px] font-bold text-slate-700 sm:text-[14px]
+                                      md:text-[15px]"
+                                  >
+                                    {proj.title}
+                                  </span>
+                                  {proj.link && (
+                                    <>
+                                      <span className="select-none text-[10px] text-slate-300">
+                                        •
+                                      </span>
+                                      <span
+                                        className="select-none rounded-lg border border-blue-200
+                                          bg-blue-50/50 px-3 py-1.5 font-mono text-[11px]
+                                          font-medium text-blue-600 sm:text-[11.5px]"
+                                      >
+                                        {cleanUrl(proj.link)}
+                                      </span>
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+                              <span
+                                className="shrink-0 select-none rounded-xl border
+                                  border-slate-700/20 bg-slate-700 px-3 py-1.5 text-[10px] font-bold
+                                  text-white sm:text-[11px]"
+                              >
+                                {proj.year}
+                              </span>
+                            </div>
+
+                            {proj.points.length > 0 && (
+                              <ul className="mt-3 space-y-1.5 pl-3">
+                                {proj.points.map((pt, pti) => (
+                                  <li
+                                    key={pti}
+                                    className="flex items-start justify-center gap-2 text-center
+                                      text-[11px] leading-relaxed text-slate-700/70 sm:justify-start
+                                      sm:text-left sm:text-[12px]"
+                                  >
+                                    <span
+                                      className="mt-1.5 h-1 w-1 shrink-0 rounded-full
+                                        bg-slate-700"
+                                    />
+                                    <span className="whitespace-pre-wrap">{pt}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </>
+                        );
+
+                        return proj.link ? (
+                          <Link
+                            key={idx}
+                            href={proj.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={cardClass}
+                          >
+                            {cardContent}
+                          </Link>
+                        ) : (
+                          <div key={idx} className={cardClass}>
+                            {cardContent}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── RIGHT 1/3 ── */}
+                <div className="flex flex-col gap-4">
+                  {/* SKILLS */}
+                  <div
+                    className="cv-float-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm
+                      sm:p-5"
+                  >
+                    <SectionHeading label={t('skillsTitle')} />
+                    <div className="mt-4 space-y-4">
+                      {skillGroups.map((group) => (
+                        <div key={group.label} className="text-center sm:text-left">
+                          <p
+                            className="mb-2 select-none text-[9px] font-black uppercase
+                              tracking-[0.2em] text-slate-700/50 sm:text-[10px]"
+                          >
+                            {group.label}
+                          </p>
+                          <div
+                            className="flex flex-wrap justify-center gap-1.5 sm:justify-start"
+                          >
+                            {group.skills.map((skill) => (
+                              <span
+                                key={skill}
+                                className="cursor-pointer select-none rounded-xl border
+                                  border-slate-700/20 bg-slate-700 px-3 py-1.5 font-mono text-[10px]
+                                  font-semibold text-white transition-all duration-200
+                                  hover:-translate-y-1 hover:scale-105 hover:shadow-lg
+                                  sm:text-[11px]"
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       ))}
                     </div>
-                    <CvDownloadButton
-                      label={t('downloadBtn')}
-                      href={t('cvFile')}
-                      downloadName={t('cvFileName')}
-                      className="mt-8 xl:absolute xl:right-10 xl:top-10 xl:mt-0"
-                    />
                   </div>
 
-                  <div className="item-animate mx-6 h-px bg-gray-100 sm:mx-8 md:mx-12" />
-
-                  <div className="px-6 py-6 sm:px-8 sm:py-8 md:px-12 md:py-10">
-                    <SectionTitle>{t('aboutTitle')}</SectionTitle>
-                    <p
-                      className="item-animate text-center text-sm leading-relaxed text-gray-600
-                        sm:text-left sm:text-base md:text-lg lg:text-xl"
-                    >
-                      {about}
-                    </p>
-                  </div>
-                </Card>
-
-                <Card className="px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8">
-                  <SectionTitle>{t('skillsTitle')}</SectionTitle>
-                  <div className="space-y-3 sm:space-y-4">
-                    {skillGroups.map((group) => (
-                      <div
-                        key={group.label}
-                        className="item-animate flex flex-col gap-2 sm:flex-row sm:items-center
-                          sm:gap-4"
-                      >
-                        <span
-                          className="w-full shrink-0 text-center text-[10px] font-bold uppercase
-                            tracking-widest text-[#192a56]/40 sm:w-20 sm:text-left sm:text-xs
-                            md:w-24"
-                        >
-                          {group.label}
-                        </span>
-                        <div className="hidden w-px self-stretch bg-[#192a56]/10 sm:block" />
+                  {/* EDUCATION */}
+                  <div
+                    className="cv-float-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm
+                      sm:p-5"
+                  >
+                    <SectionHeading label={t('educationTitle')} />
+                    <div className="mt-4 flex flex-col gap-2">
+                      {formations.map((f, idx) => (
                         <div
-                          className="flex flex-wrap justify-center gap-1.5 sm:justify-start sm:gap-2
-                            md:gap-2.5"
+                          key={idx}
+                          className="flex cursor-pointer flex-col items-center gap-2 rounded-xl
+                            border border-slate-200 bg-slate-50 p-3 text-center transition-all
+                            duration-300 hover:-translate-y-1 hover:border-slate-300
+                            hover:bg-slate-100/50 hover:shadow-md sm:flex-row sm:items-start
+                            sm:justify-between sm:text-left"
                         >
-                          {group.skills.map((skill) => (
-                            <span
-                              key={skill}
-                              className="cursor-pointer rounded-lg bg-[#192a56] px-3 py-1 text-xs
-                                font-semibold text-white transition-all duration-200 hover:scale-105
-                                hover:bg-[#243a6b] sm:py-1.5 md:px-4 md:py-2 md:text-sm"
-                            >
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </Card>
-
-                <Card className="px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8">
-                  <SectionTitle>{t('projectsTitle')}</SectionTitle>
-                  <div className="space-y-6 sm:space-y-8">
-                    {projects.map((project, i) => (
-                      <div key={i} className="item-animate">
-                        <div
-                          className="mb-3 flex flex-col items-center gap-1.5 text-center sm:flex-row
-                            sm:items-center sm:justify-between sm:gap-3 sm:text-left"
-                        >
-                          <div className="flex items-center gap-2 sm:gap-3">
-                            <span
-                              className="hidden h-2 w-2 shrink-0 rounded-full bg-[#192a56] sm:block
-                                md:h-2.5 md:w-2.5"
-                            />
-                            {project.link ? (
-                              <a
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`${projectTitleCls} hover:underline`}
-                              >
-                                {project.title}
-                              </a>
-                            ) : (
-                              <span className={projectTitleCls}>{project.title}</span>
-                            )}
-                          </div>
-                          {/* ✅ Changed from rounded-full to rounded-lg */}
-                          <span
-                            className="shrink-0 rounded-lg bg-[#192a56] px-3 py-0.5 text-xs
-                              font-semibold text-white sm:text-sm md:px-4 md:py-1 md:text-base"
-                          >
-                            {project.year}
-                          </span>
-                        </div>
-                        <ul className="space-y-2 sm:pl-4 md:pl-5">
-                          {project.points.map((point, j) => (
-                            <li
-                              key={j}
-                              className="text-center text-xs text-gray-600 sm:flex sm:items-start
-                                sm:gap-2 sm:text-left sm:text-sm md:text-base"
-                            >
-                              <span
-                                className="mr-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full
-                                  bg-[#192a56]/30 align-middle sm:mr-0 sm:mt-1.5 sm:block
-                                  sm:align-top"
-                              />
-                              <span className="inline sm:block">{point}</span>
-                            </li>
-                          ))}
-                        </ul>
-                        {i < projects.length - 1 && (
-                          <div className="mt-6 h-px w-full bg-gray-100 sm:mt-8" />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </Card>
-
-                <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-5">
-                  <Card className="px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8 lg:col-span-3">
-                    <SectionTitle>{t('educationTitle')}</SectionTitle>
-                    <div className="space-y-4 sm:space-y-5">
-                      {formations.map((f, i) => (
-                        <div
-                          key={i}
-                          className="item-animate flex flex-col items-center gap-2 border-b
-                            border-gray-100 pb-4 text-center last:border-0 last:pb-0 sm:flex-row
-                            sm:items-center sm:gap-5 sm:text-left"
-                        >
-                          {/* ✅ Changed from rounded-lg to rounded-lg (it was already correct but adding consistency comment) */}
-                          <span
-                            className="shrink-0 rounded-lg bg-[#192a56] px-2.5 py-1 text-xs
-                              font-bold text-white sm:mt-0.5 sm:text-sm md:px-3 md:py-1.5
-                              md:text-base"
-                          >
-                            {f.year}
-                          </span>
-                          <div className="flex flex-col items-center gap-0.5 sm:items-start">
+                          <div className="min-w-0 flex-1">
                             <p
-                              className="text-sm font-extrabold text-[#192a56] sm:font-semibold
-                                md:text-base lg:text-lg"
+                              className="text-[12px] font-bold leading-snug text-slate-700
+                                sm:text-[13px]"
                             >
                               {f.title}
                             </p>
-                            <p className="text-xs italic text-gray-500 sm:text-sm md:text-base">
-                              {f.institution}
-                            </p>
+                            {f.institution && (
+                              <p
+                                className="mt-0.5 text-[10px] italic text-slate-700/55
+                                  sm:text-[11px]"
+                              >
+                                {f.institution}
+                              </p>
+                            )}
                           </div>
+                          <span
+                            className="shrink-0 select-none rounded-xl border border-slate-700/20
+                              bg-slate-700 px-3 py-1.5 text-[10px] font-black text-white
+                              sm:text-[11px]"
+                          >
+                            {f.year}
+                          </span>
                         </div>
                       ))}
                     </div>
-                  </Card>
+                  </div>
 
-                  <Card className="px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8 lg:col-span-2">
-                    <SectionTitle>{t('languagesTitle')}</SectionTitle>
-                    <div className="flex flex-col gap-3 sm:gap-4">
+                  {/* LANGUAGES */}
+                  <div
+                    className="cv-float-6 flex-1 rounded-2xl border border-slate-200 bg-white p-4
+                      shadow-sm sm:p-5"
+                  >
+                    <SectionHeading label={t('languagesTitle')} />
+                    <div className="mt-4 space-y-2">
                       {languages.map((l, i) => (
                         <div
                           key={i}
-                          className="item-animate flex items-center justify-between rounded-xl
-                            bg-[#192a56]/5 px-4 py-3 md:px-5 md:py-4"
+                          className="flex cursor-pointer items-center justify-center gap-3
+                            rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5
+                            transition-all duration-300 hover:-translate-y-1 hover:border-slate-300
+                            hover:bg-slate-100/50 hover:shadow-md sm:justify-between"
                         >
                           <span
-                            className="text-sm font-semibold text-[#192a56] sm:text-base md:text-lg"
+                            className="text-[12px] font-bold text-slate-700 sm:text-[13px]"
                           >
                             {l.language}
                           </span>
-                          {/* ✅ Changed from rounded-full to rounded-lg */}
                           <span
-                            className="rounded-lg bg-[#192a56] px-3 py-0.5 text-xs font-medium
-                              text-white sm:text-sm md:px-4 md:py-1 md:text-base"
+                            className="select-none rounded-xl border border-slate-700/20
+                              bg-slate-700 px-3 py-1.5 text-[10px] font-bold text-white
+                              sm:text-[11px]"
                           >
                             {l.level}
                           </span>
                         </div>
                       ))}
                     </div>
-                  </Card>
+                  </div>
                 </div>
               </div>
             </div>
