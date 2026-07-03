@@ -13,7 +13,6 @@ const INITIAL_FORM_STATE = {
   message: "",
 };
 
-// Kept perfectly outside to prevent re-render loops!
 const FIELDS_CONFIG = [
   { name: "name", type: "text", required: true, minLength: 4 },
   { name: "email", type: "email", required: true },
@@ -102,7 +101,6 @@ const ContactForm = () => {
     setValidationErrors({});
     
     try {
-      // 🔥 FIX: We dynamically use the locale variable in the URL so it perfectly matches the App Router!
       const response = await fetch(`/${locale}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

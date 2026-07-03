@@ -9,9 +9,6 @@ import { useRef, useEffect, useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
 import { cn } from '@/lib/utils';
 
-// ============================================================================
-// CONSTANTS (Using translation IDs instead of hardcoded strings!)
-// ============================================================================
 
 const TOP_CONFIG = [
   { id: 'home', link: '/', icon: '/files.svg' },
@@ -26,9 +23,6 @@ const BOTTOM_CONFIG = [
   { id: 'settings', icon: '/settings-gear.svg' },
 ];
 
-// ============================================================================
-// NAV ITEM COMPONENT
-// ============================================================================
 
 const NavItem = ({ item, isActive, onRef, priority }) => {
   const content = (
@@ -121,7 +115,7 @@ const Sidebar = () => {
           />
         ))}
 
-        {/* L'INDICATEUR ACTIF */}
+        {/* INDICATEUR ACTIF */}
         <div
           className="bg-accent absolute left-0 w-0.5 transition-all duration-300 ease-out"
           style={{

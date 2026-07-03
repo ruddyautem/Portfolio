@@ -9,10 +9,6 @@ import TechSection from './TechSection';
 import ProjectCarousel from './ProjectCarousel';
 import TopPageDecoration from '../TopPageDecoration/TopPageDecoration';
 
-// ============================================================================
-// MAIN LAYOUT
-// ============================================================================
-
 const HomepageContent = () => {
   const t = useTranslations('homepage');
   const tProjects = useTranslations('projectsData');

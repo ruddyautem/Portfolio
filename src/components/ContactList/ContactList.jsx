@@ -62,7 +62,6 @@ const SocialCard = memo(({ contact }) => (
     </div>
   </a>
 ));
-SocialCard.displayName = 'SocialCard';
 
 const ContactList = () => {
   const t = useTranslations('contact');

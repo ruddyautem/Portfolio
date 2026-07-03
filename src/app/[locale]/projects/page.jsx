@@ -19,7 +19,6 @@ const Projects = () => {
   const t = useTranslations('projectsPage');
   const tProjects = useTranslations('projectsData');
   
-  // Call the function from projects.js passing the translation function
   const projects = getProjects(tProjects);
 
   return (

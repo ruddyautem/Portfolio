@@ -111,8 +111,8 @@ export const cvData = {
         text: 'ruddy.autem@gmail.com',
         link: 'mailto:ruddy.autem@gmail.com',
       },
-      { icon: 'linkIcon.svg', text: 'Leers, France' },
-      { icon: 'homepage.svg', text: 'www.autem.dev', link: 'https://autem.dev/' },
+      { icon: '/locationIcon.svg', text: 'Leers, France' },
+      { icon: '/homepage.svg', text: 'www.autem.dev', link: 'https://autem.dev/' },
       { icon: '/githubIcon2.svg', text: '/ruddyautem', link: 'https://github.com/ruddyautem' },
       {
         icon: '/linkedinIcon.svg',
