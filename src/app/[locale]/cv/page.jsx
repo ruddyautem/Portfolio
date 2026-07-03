@@ -57,11 +57,8 @@ const CV = () => {
           >
             <TopPageDecoration filename={tTabs('cv')} />
 
-            {/* ── PAGE HEADER ── */}
-            <div
-              className="border-b border-slate-700/30 px-4 py-5 text-center sm:px-6 sm:py-7
-                md:py-8"
-            >
+            <div className="border-b border-slate-700/30 px-4 py-5 text-center sm:px-6 sm:py-7
+              md:py-8">
               <h1 className="cv-float mb-2 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
                 {t('title')} <span className="text-accent">{t('titleAccent')}</span>
               </h1>
@@ -70,12 +67,10 @@ const CV = () => {
               </p>
             </div>
 
-            {/* ── CV BODY ── */}
             <div
-              className="mx-4 my-6 min-h-[80vh] rounded-2xl border border-slate-300 bg-[#f1f3f7]
-                p-3 sm:p-4 md:p-5"
+              className="mx-4 my-6 min-h-[80vh] rounded-2xl border border-slate-300 bg-[#f1f3f7] p-3
+                sm:p-4 md:p-5"
             >
-              {/* ── IDENTITY BLOCK ── */}
               <div
                 className="cv-float relative mb-4 rounded-2xl border border-slate-200
                   bg-linear-to-br from-white via-slate-50 to-slate-100 p-5 shadow-sm sm:p-7 md:p-9"
@@ -89,15 +84,14 @@ const CV = () => {
                     bg-slate-700/5 blur-3xl"
                 />
 
-                {/* Download button — absolute top-right on sm+ */}
                 <a
                   href={t('cvFile')}
                   download={t('cvFileName')}
                   title={t('downloadBtn')}
-                  className="cv-download-btn hidden sm:absolute sm:right-6 sm:top-6 sm:z-10
-                    sm:flex sm:cursor-pointer sm:items-center sm:gap-2 sm:rounded-xl sm:bg-slate-700
-                    sm:px-4 sm:py-2.5 sm:transition-all sm:duration-300
-                    sm:hover:-translate-y-0.5 sm:hover:bg-slate-600 sm:hover:shadow-lg"
+                  className="cv-download-btn hidden sm:absolute sm:right-6 sm:top-6 sm:z-10 sm:flex
+                    sm:cursor-pointer sm:items-center sm:gap-2 sm:rounded-xl sm:bg-slate-700 sm:px-4
+                    sm:py-2.5 sm:transition-all sm:duration-300 sm:hover:-translate-y-0.5
+                    sm:hover:bg-slate-600 sm:hover:shadow-lg"
                 >
                   <svg
                     width="15"
@@ -119,7 +113,6 @@ const CV = () => {
                   </span>
                 </a>
 
-                {/* Name & role */}
                 <div className="relative text-center">
                   <p
                     className="mb-2 select-none text-[10px] font-semibold uppercase
@@ -135,7 +128,6 @@ const CV = () => {
                     {name}
                   </h1>
 
-                  {/* Contact chips */}
                   <div className="flex flex-wrap items-center justify-center gap-2">
                     {contacts.map((c, i) => {
                       const chip = (
@@ -167,7 +159,6 @@ const CV = () => {
                     })}
                   </div>
 
-                  {/* Download button — inline below contacts on mobile only */}
                   <a
                     href={t('cvFile')}
                     download={t('cvFileName')}
@@ -192,16 +183,12 @@ const CV = () => {
                       <polyline points="7 10 12 15 17 10" />
                       <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
-                    <span className="text-xs font-semibold text-white">
-                      {t('downloadBtn')}
-                    </span>
+                    <span className="text-xs font-semibold text-white">{t('downloadBtn')}</span>
                   </a>
                 </div>
               </div>
 
-              {/* ── GRID ── */}
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-                {/* ── LEFT 2/3 ── */}
                 <div className="flex flex-col gap-5 lg:col-span-2 lg:gap-6">
                   {/* ABOUT */}
                   {about && (
@@ -292,10 +279,8 @@ const CV = () => {
                                       text-[11px] leading-relaxed text-slate-700/70 sm:justify-start
                                       sm:text-left sm:text-[12px]"
                                   >
-                                    <span
-                                      className="mt-1.5 h-1 w-1 shrink-0 rounded-full
-                                        bg-slate-700"
-                                    />
+                                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full
+                                      bg-slate-700" />
                                     <span className="whitespace-pre-wrap">{pt}</span>
                                   </li>
                                 ))}
@@ -324,7 +309,6 @@ const CV = () => {
                   </div>
                 </div>
 
-                {/* ── RIGHT 1/3 ── */}
                 <div className="flex flex-col gap-4">
                   {/* SKILLS */}
                   <div
@@ -341,9 +325,7 @@ const CV = () => {
                           >
                             {group.label}
                           </p>
-                          <div
-                            className="flex flex-wrap justify-center gap-1.5 sm:justify-start"
-                          >
+                          <div className="flex flex-wrap justify-center gap-1.5 sm:justify-start">
                             {group.skills.map((skill) => (
                               <span
                                 key={skill}
@@ -421,9 +403,7 @@ const CV = () => {
                             transition-all duration-300 hover:-translate-y-1 hover:border-slate-300
                             hover:bg-slate-100/50 hover:shadow-md sm:justify-between"
                         >
-                          <span
-                            className="text-[12px] font-bold text-slate-700 sm:text-[13px]"
-                          >
+                          <span className="text-[12px] font-bold text-slate-700 sm:text-[13px]">
                             {l.language}
                           </span>
                           <span

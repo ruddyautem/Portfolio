@@ -10,7 +10,6 @@ export default function LanguageSwitcher() {
 
   const toggleLanguage = () => {
     const nextLocale = locale === 'fr' ? 'en' : 'fr';
-    // router.replace smoothly swaps the URL (e.g., /en/about -> /fr/about)
     router.replace(pathname, { locale: nextLocale });
   };
 

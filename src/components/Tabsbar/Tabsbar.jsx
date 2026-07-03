@@ -4,12 +4,12 @@ import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { ThemeContext } from '@/context/ThemeContext';
 import { usePathname } from 'next/navigation';
-import { useTranslations, useLocale } from 'next-intl'; // Added useLocale
+import { useTranslations, useLocale } from 'next-intl'; 
 import { cn } from '@/lib/utils';
 
 const Tabsbar = () => {
   const t = useTranslations('tabsbar');
-  const locale = useLocale(); // Fetch current active locale
+  const locale = useLocale(); 
   const currentRoute = usePathname();
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const tabsRef = useRef([]);
@@ -28,10 +28,10 @@ const Tabsbar = () => {
     pos: ['ayu', 'oneDarkPro', 'poimandres'].includes(theme) ? 'bottom-0' : 'top-0',
   };
 
-  // Helper to reliably check if a link is active based on locale
+
   const checkIsActive = (link) => {
     if (link === '/') {
-      // Handles default "/", as well as localized roots like "/en", "/fr", etc.
+
       return currentRoute === '/' || currentRoute === `/${locale}`;
     }
     return currentRoute === link || currentRoute.endsWith(link);
@@ -39,7 +39,6 @@ const Tabsbar = () => {
 
   useEffect(() => {
     const updateUnderlineStyle = () => {
-      // Use the helper to find the active index
       const activeIndex = NAV_LINKS.findIndex((item) => checkIsActive(item.link));
       const activeTab = tabsRef.current[activeIndex];
 
@@ -59,7 +58,7 @@ const Tabsbar = () => {
       clearTimeout(timeoutId);
       window.removeEventListener('resize', updateUnderlineStyle);
     };
-  }, [currentRoute, theme, locale]); // Added locale to dependency array
+  }, [currentRoute, theme, locale]);
 
   return (
     <div className="bg-menu text-darker h-7 w-full relative">
@@ -68,7 +67,6 @@ const Tabsbar = () => {
           overflow-x-auto h-full scrollbar-hide"
       >
         {NAV_LINKS.map(({ name, link, icon }, index) => {
-          // Use the helper function here as well
           const isActive = checkIsActive(link);
           const baseName = name.replace(/\..+$/, '');
 

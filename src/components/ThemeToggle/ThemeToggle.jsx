@@ -3,7 +3,6 @@ import { useContext, useRef, useState, useEffect } from 'react';
 import { ThemeContext } from '@/context/ThemeContext';
 import { cn } from '@/lib/utils';
 
-// Static data outside component - no recreations
 const THEME_OPTIONS = ['ayu', 'oneDarkPro', 'dracula', 'poimandres'];
 
 const THEME_STYLES = {
@@ -18,7 +17,7 @@ const ThemeToggle = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleRef = useRef(null);
 
-  // Close dropdown on outside click
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -30,9 +29,8 @@ const ThemeToggle = () => {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen]); // Only add listener when open
+  }, [isOpen]);
 
-  // Close on Escape key
   useEffect(() => {
     if (!isOpen) return;
 
@@ -69,7 +67,6 @@ const ThemeToggle = () => {
         </button>
       </div>
 
-      {/* Dropdown Menu */}
       <div
         role="menu"
         className={cn(

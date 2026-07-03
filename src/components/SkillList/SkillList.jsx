@@ -40,7 +40,6 @@ const SkillList = ({ skill, icon, altText, category }) => {
         backdrop-blur-md transition-all duration-300 ease-out cursor-pointer hover:-translate-y-1
         active:scale-[0.98] ${style.hoverBorder} ${style.hoverBg} ${style.shadowGlow}`}
     >
-      {/* Shimmer sweep */}
       <div
         className={`pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r
           from-transparent ${style.shimmerColor} to-transparent opacity-0 transition-none
@@ -48,21 +47,18 @@ const SkillList = ({ skill, icon, altText, category }) => {
           group-hover:duration-600 group-hover:ease-in-out`}
       />
 
-      {/* Top glass highlight */}
       <div
         className="pointer-events-none absolute top-0 left-0 h-px w-full bg-linear-to-r
           from-transparent via-white/12 to-transparent opacity-0 transition-opacity duration-300
           group-hover:opacity-100"
       />
 
-      {/* Bottom glow line */}
       <div
         className={`pointer-events-none absolute bottom-0 left-1/2 h-px w-0 -translate-x-1/2
           bg-linear-to-r from-transparent ${style.glowLine} to-transparent transition-all
           duration-500 group-hover:w-3/4`}
       />
 
-      {/* Icon Container */}
       <div
         className={`relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg
           border backdrop-blur-sm transition-all duration-300 group-hover:scale-110
@@ -82,7 +78,6 @@ const SkillList = ({ skill, icon, altText, category }) => {
         />
       </div>
 
-      {/* Text */}
       <h3
         className="relative z-10 w-full truncate text-sm font-medium text-slate-300
           transition-colors duration-300 group-hover:text-white leading-tight"

@@ -375,10 +375,6 @@ const CarouselThumbnailStrip = memo(({ projects, activeIndex, onSelect, seeLabel
 ));
 CarouselThumbnailStrip.displayName = 'CarouselThumbnailStrip';
 
-// ============================================================================
-// MAIN COMPONENT
-// ============================================================================
-
 const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
   const t = useTranslations('homepage');
   const itemCount = carouselProjects?.length ?? 0;
@@ -422,7 +418,6 @@ const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
           onTouchStart={c.handleTouchStart}
           onTouchEnd={c.handleTouchEnd}
         >
-          {/* FIX: Use translate3d via CSS variable to avoid inline style object recreation */}
           <div
             className="flex h-full w-full transition-transform duration-500 ease-in-out"
             style={{ transform: `translate3d(-${c.activeIndex * 100}%, 0, 0)` }}

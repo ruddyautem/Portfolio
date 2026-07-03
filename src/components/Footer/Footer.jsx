@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { memo, useTransition } from 'react';
 
-// 🔥 Import next-intl routing & hooks
 import { useLocale } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
@@ -16,13 +15,12 @@ const FooterItem = ({ icon, label, alt = '' }) => (
   </>
 );
 
-// 1. Define the config outside the component
 const LANGUAGES = [
   { code: 'en', label: '🇬🇧 EN', title: 'Switch to English' },
   { code: 'fr', label: 'FR 🇫🇷', title: 'Passer en Français' },
 ];
 
-// 🔥 FOOTER LANGUAGE SWITCHER (Matches Menu exactly, but uses h-5 for Footer height)
+// FOOTER LANGUAGE SWITCHER
 const FooterLanguageSwitcher = memo(({ className }) => {
   const locale = useLocale();
   const router = useRouter();
@@ -39,13 +37,11 @@ const FooterLanguageSwitcher = memo(({ className }) => {
   return (
     <div className={cn("items-center font-medium tracking-wide", className)}>
       {LANGUAGES.map((lang, index) => [
-        // The button itself
         <button
           key={lang.code}
           disabled={isPending}
           onClick={() => switchLanguage(lang.code)}
           className={cn(
-            // 🔥 Increased padding (px-2.5) and text size (text-xs) for mobile layout
             'flex h-5 cursor-pointer items-center rounded-xs px-2.5 text-xs transition-all hover:bg-white/10',
             locale === lang.code ? 'opacity-100 text-white' : 'opacity-40 hover:opacity-80'
           )}
@@ -54,7 +50,7 @@ const FooterLanguageSwitcher = memo(({ className }) => {
           {lang.label}
         </button>,
         
-        // The separator
+        // Separator
         index < LANGUAGES.length - 1 && (
           <span key={`separator-${lang.code}`} className="mx-1 text-xs opacity-30">
             |
@@ -84,7 +80,6 @@ const Footer = () => {
 
   return (
     <div className={footerClasses}>
-      {/* 🔥 "main" branch hidden on mobile (<sm) */}
       <Link href="https://github.com/ruddyautem" className={cn(containerClasses, "ml-1 hidden sm:flex")}>
         <FooterItem icon="/source-control.svg" label="main" alt="Source control" />
       </Link>
@@ -103,10 +98,8 @@ const Footer = () => {
 
       <div className="ml-auto flex gap-1 px-1">
         
-        {/* 🔥 VISIBLE ON MOBILE (<lg), HIDDEN ON DESKTOP */}
         <FooterLanguageSwitcher className="flex lg:hidden" />
 
-        {/* 🔥 PRETTIER & BELL hidden on mobile (<sm) */}
         {rightSideItems.map((item, index) => (
           <div key={index} className={cn(containerClasses, "hidden sm:flex")}>
             <FooterItem {...item} />

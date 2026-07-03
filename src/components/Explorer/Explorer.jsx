@@ -3,7 +3,6 @@
 import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 
-// 🔥 FIX 1: MUST use localized routing imports to prevent redirects/broken active states!
 import { Link, usePathname } from '@/i18n/routing';
 import { ThemeContext } from '@/context/ThemeContext';
 import { useTranslations } from 'next-intl';
@@ -13,11 +12,9 @@ const Explorer = () => {
   const [isOpen, setIsOpen] = useState(true);
   const { theme } = useContext(ThemeContext);
 
-  // 🔥 Fetch translations
   const tTabs = useTranslations('tabsbar');
   const tExp = useTranslations('explorer');
 
-  // 🔥 Defined INSIDE the component so they update instantly on language change
   const navLinks = [
     { name: tTabs('home'), link: '/', icon: '/jsx.svg' },
     { name: tTabs('about'), link: '/about', icon: '/html5.svg' },
@@ -58,7 +55,7 @@ const Explorer = () => {
           {navLinks.map(({ name, link, icon }) => (
             <Link
               href={link}
-              key={link} // 🔥 Use stable link as key instead of name!
+              key={link}
               className={`${currentRoute === link ? 'bg-active-explorer-tab' : ''}
               text-explorerColor flex cursor-pointer items-center gap-1 pl-3 text-sm
               hover:bg-white/5`}
@@ -83,7 +80,6 @@ const Explorer = () => {
         } text-darker mt-auto flex flex-col
           opacity-100`}
       >
-        {/* 🔥 Dynamically load localized bottom titles */}
         {[tExp('outline'), tExp('timeline')].map((title, index) => (
           <div
             key={index}
