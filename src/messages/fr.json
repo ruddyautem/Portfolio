@@ -84,26 +84,26 @@
     "titleAccent": "Projets",
     "subtitle": "Mon portfolio en action : des idées transformées en expériences web concrètes."
   },
-  "about": {
-    "title": "Stack",
-    "titleAccent": "Technologique",
-    "subtitle": "Un aperçu détaillé de mon environnement de développement, des langages aux outils de déploiement, pour créer des applications modernes.",
-    "frontend": {
-      "title": "Frontend",
-      "desc": "Conception d'interfaces réactives, architecture moderne et expériences web performantes.",
-      "counterLabel": "technologies"
-    },
-    "backend": {
-      "title": "Backend",
-      "desc": "Solutions serveur robustes, bases de données SQL/NoSQL et APIs sécurisées.",
-      "counterLabel": "technologies"
-    },
-    "tools": {
-      "title": "Outils",
-      "desc": "Déploiement continu (CI/CD), gestion de contenu (CMS) et workflow DevOps.",
-      "counterLabel": "outils"
-    }
+"about": {
+  "title": "Stack",
+  "titleAccent": "Technologique",
+  "subtitle": "Un aperçu détaillé de mon environnement de développement, des langages aux outils de déploiement, pour créer des applications modernes.",
+  "frontend": {
+    "title": "Frontend",
+    "desc": "Interfaces utilisateur modernes, gestion d'état et expériences web performantes.",
+    "counterLabel": "technologies"
   },
+  "backend": {
+    "title": "Backend",
+    "desc": "Architecture serveur, bases de données et gestion de l'authentification.",
+    "counterLabel": "technologies"
+  },
+  "tools": {
+    "title": "Outils",
+    "desc": "Développement, déploiement, versioning et gestion de contenu.",
+    "counterLabel": "outils"
+  }
+},
   "contact": {
     "title": "Me",
     "titleAccent": "Contacter",

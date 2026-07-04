@@ -90,17 +90,17 @@
     "subtitle": "A detailed overview of my development environment, from languages to deployment tools, for building modern applications.",
     "frontend": {
       "title": "Frontend",
-      "desc": "Building responsive interfaces, modern architecture, and high-performance web experiences.",
+      "desc": "Modern user interfaces, state management, and high-performance web experiences.",
       "counterLabel": "technologies"
     },
     "backend": {
       "title": "Backend",
-      "desc": "Robust server solutions, SQL/NoSQL databases, and secure APIs.",
+      "desc": "Server architecture, databases, and authentication management.",
       "counterLabel": "technologies"
     },
     "tools": {
       "title": "Tools",
-      "desc": "Continuous Deployment (CI/CD), Content Management (CMS), and DevOps workflow.",
+      "desc": "Development, deployment, versioning, and content management.",
       "counterLabel": "tools"
     }
   },
