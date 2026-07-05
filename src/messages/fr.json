@@ -51,7 +51,7 @@
       "desc": "Mon portfolio aux couleurs de VsCode. Souriez, vous-êtes ici :)"
     },
     "temporis": {
-      "desc": "Chats éphémères avec chiffrage de bout en bout. Confidentialité totale — aucune trace."
+      "desc": "Chats éphémères avec chiffrage coté client. Confidentialité totale — aucune trace."
     },
     "stokki": {
       "desc": "Gestionnaire de stock simple et efficace. Authentification avec StackAuth, et gestion des stocks en temps réel avec Prisma et Neon."
@@ -84,26 +84,26 @@
     "titleAccent": "Projets",
     "subtitle": "Mon portfolio en action : des idées transformées en expériences web concrètes."
   },
-"about": {
-  "title": "Stack",
-  "titleAccent": "Technologique",
-  "subtitle": "Un aperçu détaillé de mon environnement de développement, des langages aux outils de déploiement, pour créer des applications modernes.",
-  "frontend": {
-    "title": "Frontend",
-    "desc": "Interfaces utilisateur modernes, gestion d'état et expériences web performantes.",
-    "counterLabel": "technologies"
+  "about": {
+    "title": "Stack",
+    "titleAccent": "Technologique",
+    "subtitle": "Un aperçu détaillé de mon environnement de développement, des langages aux outils de déploiement, pour créer des applications modernes.",
+    "frontend": {
+      "title": "Frontend",
+      "desc": "Interfaces utilisateur modernes, gestion d'état et expériences web performantes.",
+      "counterLabel": "technologies"
+    },
+    "backend": {
+      "title": "Backend",
+      "desc": "Architecture serveur, bases de données et gestion de l'authentification.",
+      "counterLabel": "technologies"
+    },
+    "tools": {
+      "title": "Outils",
+      "desc": "Développement, déploiement, versioning et gestion de contenu.",
+      "counterLabel": "outils"
+    }
   },
-  "backend": {
-    "title": "Backend",
-    "desc": "Architecture serveur, bases de données et gestion de l'authentification.",
-    "counterLabel": "technologies"
-  },
-  "tools": {
-    "title": "Outils",
-    "desc": "Développement, déploiement, versioning et gestion de contenu.",
-    "counterLabel": "outils"
-  }
-},
   "contact": {
     "title": "Me",
     "titleAccent": "Contacter",
