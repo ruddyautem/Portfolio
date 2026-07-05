@@ -45,7 +45,7 @@ export const cvData = {
         link: 'https://temporis.autem.dev',
         points: [
           'Development of self-destructing chat rooms using a serverless Next.js 16 and Upstash Redis architecture.',
-          'Implementation of client-side, end-to-end encryption to guarantee maximum data privacy.',
+          'Implementation of client-side encryption to guarantee maximum data privacy.',
           'Integration of a type-safe API layer with Eden Treaty and TanStack Query for optimized server state management.',
         ],
       },
@@ -149,7 +149,7 @@ export const cvData = {
         link: 'https://temporis.autem.dev',
         points: [
           'Développement de salons de discussion éphémères avec une architecture serverless Next.js et Upstash Redis.',
-          "Implémentation d'un chiffrement de bout en bout côté client pour garantir une confidentialité maximale des données.",
+          "Implémentation d'un chiffrement côté client pour garantir une confidentialité maximale des données.",
           'Mise en place d’une API typée via Eden Treaty et TanStack Query pour une gestion optimisée de l’état serveur.',
         ],
       },
