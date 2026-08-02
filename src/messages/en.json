@@ -22,7 +22,7 @@
       "fullstack": "Full Stack",
       "webMobile": "Web & Mobile",
       "uiux": "UI / UX",
-      "stack": "React · Next.js · Vue.js"
+      "stack": "React · Next.js"
     },
     "carousel": {
       "see": "View"
@@ -44,7 +44,8 @@
     "run": "Run",
     "terminal": "Terminal",
     "help": "Help",
-    "search": "Ruddy Autem Portfolio"
+    "search": "Ruddy Autem Portfolio",
+    "language": "Change Language"
   },
   "projectsData": {
     "portfolio": {

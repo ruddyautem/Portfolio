@@ -1,11 +1,8 @@
+// logo-carousel.jsx
 'use client';
 import { useEffect, useMemo, useState, memo, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-
-// ============================================================================
-// CONSTANTS
-// ============================================================================
 
 const CYCLE_DURATION = 3000;
 const TIME_INTERVAL = 100;
@@ -65,10 +62,6 @@ const ANIMATION_VARIANTS = {
   },
 };
 
-// ============================================================================
-// UTILITY FUNCTIONS
-// ============================================================================
-
 function shuffleArray(array) {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -108,10 +101,6 @@ function distributeLogosAcrossColumns(logos, columnCount) {
   return columns;
 }
 
-// ============================================================================
-// HOOKS
-// ============================================================================
-
 function useResponsiveColumns() {
   const [columns, setColumns] = useState(() =>
     typeof window === 'undefined' ? 2 : getColumnsFromWidth(window.innerWidth),
@@ -128,11 +117,7 @@ function useResponsiveColumns() {
 }
 
 function useAnimationTimer(interval = TIME_INTERVAL) {
-  // maxTime must be a multiple of CYCLE_DURATION so the index formula
-  // (time % (CYCLE_DURATION * n)) wraps seamlessly.
-  // CYCLE_DURATION * LOGOS.length covers every column's full rotation cycle.
   const maxTime = CYCLE_DURATION * LOGOS.length;
-
   const [time, setTime] = useState(0);
   const isPausedRef = useRef(false);
 
@@ -167,7 +152,7 @@ const LogoColumn = memo(
 
     return (
       <motion.div
-        className="relative h-14 w-20 shrink min-w-0 overflow-hidden sm:w-24 md:h-24 md:w-48"
+        className="relative h-14 w-20 shrink min-w-0 overflow-hidden sm:w-24 md:h-20 md:w-40"
         variants={ANIMATION_VARIANTS.container}
         initial="initial"
         animate="animate"
@@ -191,8 +176,8 @@ const LogoColumn = memo(
               alt={currentLogo.name}
               width={120}
               height={40}
-              className="h-auto max-h-[80%] w-auto max-w-[80%] md:max-w-[60%] md:max-h-[60%]
-                2xl:max-h-[80%] 2xl:max-w-[80%] object-contain"
+              className="h-auto max-h-[75%] w-auto max-w-[75%] md:max-w-[65%] md:max-h-[65%]
+                2xl:max-h-[75%] 2xl:max-w-[75%] object-contain"
               loading="lazy"
             />
           </motion.div>
@@ -200,7 +185,6 @@ const LogoColumn = memo(
       </motion.div>
     );
   },
-  // Custom comparator: only re-render when the displayed logo actually changes.
   (prev, next) => prev.currentIndex === next.currentIndex && prev.logos === next.logos,
 );
 
@@ -222,7 +206,7 @@ export function LogoCarousel() {
   );
 
   return (
-    <div className="flex w-full max-w-full justify-center gap-2 overflow-hidden py-8 px-2 sm:gap-4">
+    <div className="flex w-full max-w-full justify-center gap-2 overflow-hidden py-6 px-2 sm:gap-4">
       {logoColumns.map((columnLogos, index) => (
         <LogoColumn
           key={`column-${index}`}

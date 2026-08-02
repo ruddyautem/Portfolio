@@ -13,6 +13,7 @@ const Tabsbar = () => {
   const currentRoute = usePathname();
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const tabsRef = useRef([]);
+  const containerRef = useRef(null);
   const { theme } = useContext(ThemeContext);
 
   const NAV_LINKS = [
@@ -53,9 +54,18 @@ const Tabsbar = () => {
 
     const timeoutId = setTimeout(updateUnderlineStyle, 10);
 
+    // ResizeObserver catches every width change of the tabs container
+    // (breakpoint switches, font loading, etc.), not just window resizes.
+    const resizeObserver = new ResizeObserver(updateUnderlineStyle);
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+
     window.addEventListener('resize', updateUnderlineStyle);
+
     return () => {
       clearTimeout(timeoutId);
+      resizeObserver.disconnect();
       window.removeEventListener('resize', updateUnderlineStyle);
     };
   }, [currentRoute, theme, locale]);
@@ -63,8 +73,9 @@ const Tabsbar = () => {
   return (
     <div className="bg-menu text-darker h-7 w-full relative">
       <div
+        ref={containerRef}
         className="relative flex flex-row items-center justify-center lg:justify-start 
-          overflow-x-auto h-full scrollbar-hide"
+          overflow-x-hidden h-full"
       >
         {NAV_LINKS.map(({ name, link, icon }, index) => {
           const isActive = checkIsActive(link);
@@ -78,15 +89,15 @@ const Tabsbar = () => {
                 tabsRef.current[index] = el;
               }}
               className={cn(
-                `relative flex cursor-pointer items-center justify-center px-0.5 sm:px-3 h-full
-                shrink-0 transition-colors`,
+                `relative flex min-w-0 flex-1 cursor-pointer items-center justify-center px-1
+                sm:flex-none sm:px-3 h-full transition-colors`,
                 isActive ? activeStyles.bg : '',
               )}
             >
-              <div className="my-1.5 flex w-full items-center gap-1 px-2 text-xs sm:my-1 sm:text-sm">
-                <Image src={icon} width={16} height={16} alt="" className="shrink-0" />
-                <span className="sm:hidden">{baseName}</span>
-                <span className="hidden sm:inline">{name}</span>
+              <div className="my-1.5 flex w-full min-w-0 items-center justify-center gap-1 px-1 text-[10px] sm:my-1 sm:gap-1.5 sm:px-2 sm:text-sm">
+                <Image src={icon} width={16} height={16} alt="" className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
+                <span className="truncate sm:hidden">{baseName}</span>
+                <span className="hidden truncate sm:inline">{name}</span>
               </div>
             </Link>
           );

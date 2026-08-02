@@ -1,3 +1,4 @@
+// HeroSection.jsx
 'use client';
 
 import { Link } from '@/i18n/routing';
@@ -17,20 +18,21 @@ import { useTranslations } from 'next-intl';
 const NavCard = ({ href, label, icon: Icon }) => (
   <Link
     href={href}
-    className="group relative flex flex-1 flex-col items-center justify-center overflow-hidden
-      rounded-lg bg-slate-800/30 opacity-50 ring-1 ring-slate-700 transition-all duration-300
-      aspect-4/3 hover:opacity-100 hover:shadow-lg hover:shadow-accent/20 hover:ring-2
-      hover:ring-accent active:scale-95"
+    className="group relative flex flex-1 flex-col items-center justify-center gap-2.5 rounded-xl
+      border border-slate-700/80 bg-slate-800/40 px-3 py-6 shadow-md transition-all duration-300
+      hover:border-accent hover:bg-slate-800/80 hover:shadow-accent/10 active:scale-[0.98] xl:py-7
+      2xl:py-8"
   >
-    <Icon
-      className="mb-1.5 h-7 w-7 text-slate-400 transition-all duration-500 group-hover:scale-110
-        group-hover:text-accent sm:h-8 sm:w-8 lg:h-7 lg:w-7 xl:mb-2 xl:h-9 xl:w-9 2xl:mb-2.5
-        2xl:h-11 2xl:w-11 3xl:h-14 3xl:w-14"
-    />
+    <div
+      className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-700/50 text-accent
+        transition-colors duration-300 group-hover:bg-accent group-hover:text-slate-950 xl:h-10
+        xl:w-10"
+    >
+      <Icon className="h-4.5 w-4.5 xl:h-5 xl:w-5" />
+    </div>
     <span
-      className="w-full truncate px-1 text-center text-[10px] font-medium leading-tight
-        text-slate-400 transition-colors duration-300 group-hover:text-white sm:text-xs
-        lg:text-[10px] xl:text-xs 2xl:text-sm 3xl:text-base"
+      className="text-xs font-semibold text-slate-200 transition-colors duration-300
+        group-hover:text-white xl:text-sm 2xl:text-base"
     >
       {label}
     </span>
@@ -38,14 +40,14 @@ const NavCard = ({ href, label, icon: Icon }) => (
 );
 
 const CvButton = ({ label, href, downloadName }) => (
-  <div className="item-animate mt-4 flex w-full items-center justify-center gap-3 lg:mt-4 2xl:mt-6">
+  <div className="item-animate mt-7 flex w-full items-center justify-center gap-3 2xl:mt-9">
     <span className="h-px flex-1 bg-linear-to-r from-transparent to-slate-600/60" />
     <a
       href={href}
       download={downloadName}
       rel="noopener noreferrer"
       className="group relative flex items-center gap-2 text-xs text-accent transition-colors
-        duration-300 xl:text-sm 2xl:text-base 3xl:text-lg"
+        duration-300 sm:text-base xl:text-sm 2xl:text-base 3xl:text-lg"
     >
       <span
         className="absolute -bottom-0.5 left-1/2 h-px w-0 bg-accent transition-all duration-300
@@ -83,37 +85,37 @@ const HeroSection = () => {
 
   return (
     <div className="w-full pt-3 text-center lg:pt-0">
-      <div className="mb-2 flex w-full flex-col items-center lg:mb-2 xl:mb-4 2xl:mb-6">
+      <div className="mb-4 flex w-full flex-col items-center lg:mb-4 xl:mb-5 2xl:mb-7">
         <div
-          className="item-animate mb-2 inline-block max-w-full truncate rounded-full bg-slate-700/50
+          className="item-animate mb-4 inline-block max-w-full truncate rounded-full bg-slate-700/50
             px-2 py-1 font-mono text-[10px] text-accent lg:px-3 lg:text-xs xl:text-sm 2xl:px-4
             2xl:py-2 2xl:text-base 3xl:px-6 3xl:py-3 3xl:text-xl"
         >
           {t('badge')}
         </div>
         <h1
-          className="item-animate mb-2 w-full truncate text-2xl font-bold tracking-tight lg:mb-1
-            2xl:mb-2 sm:text-3xl lg:text-lg xl:text-2xl 2xl:text-4xl 3xl:text-6xl"
+          className="item-animate mb-4 w-full truncate text-2xl font-bold tracking-tight
+            sm:text-3xl lg:mb-3 lg:text-lg xl:text-2xl 2xl:mb-4 2xl:text-4xl 3xl:text-6xl"
         >
           {t('name')} <span className="text-accent">{t('surname')}</span>
         </h1>
         <p
-          className="item-animate mb-3 w-full truncate text-base text-slate-300 lg:mb-2 2xl:mb-3
-            sm:text-lg lg:text-sm xl:text-lg 2xl:text-2xl 3xl:text-4xl"
+          className="item-animate mb-5 w-full truncate text-base text-slate-300 sm:text-lg
+            lg:mb-4 lg:text-sm xl:text-lg 2xl:mb-5 2xl:text-2xl 3xl:text-4xl"
         >
           {t('title')}
         </p>
       </div>
       <p
-        className="item-animate mx-auto mb-4 w-full max-w-md wrap-break-word text-xs text-slate-300
-          lg:mb-3 lg:max-w-xs xl:max-w-md 2xl:mb-5 2xl:max-w-2xl 2xl:leading-relaxed sm:text-sm
-          lg:text-xs xl:text-base 2xl:text-lg 3xl:max-w-3xl 3xl:text-2xl"
+        className="item-animate mx-auto mb-6 w-full max-w-md text-xs text-slate-300 sm:text-sm
+          lg:mb-4 lg:max-w-xs lg:text-xs xl:max-w-md xl:text-base 2xl:mb-6 2xl:max-w-2xl
+          2xl:leading-relaxed 2xl:text-lg 3xl:max-w-3xl 3xl:text-2xl"
       >
         {t('description')}
       </p>
       <div
-        className="item-animate mb-4 flex flex-wrap justify-center gap-2 lg:mb-3 lg:gap-1.5 xl:gap-2
-          2xl:mb-5 2xl:gap-2.5"
+        className="item-animate mb-6 flex flex-wrap justify-center gap-2 lg:mb-4 lg:gap-1.5
+          xl:gap-2 2xl:mb-6 2xl:gap-2.5"
       >
         {SKILL_PILLS.map(({ icon: Icon, label }) => (
           <span
@@ -133,19 +135,19 @@ const HeroSection = () => {
           </span>
         ))}
       </div>
-      <div className="item-animate mb-4 flex justify-center lg:mb-3 2xl:mb-5">
+      <div className="item-animate mb-6 flex justify-center lg:mb-4 2xl:mb-6">
         <span
           className="inline-flex items-center gap-1.5 text-xs text-slate-400 lg:text-[10px]
             xl:text-xs 2xl:text-sm 3xl:text-base"
         >
           <MapPin
-            className="h-3.5 w-3.5 shrink-0 text-slate-400 lg:h-3 lg:w-3 xl:h-3.5 xl:w-3.5 2xl:h-4
-              2xl:w-4"
+            className="h-3.5 w-3.5 shrink-0 text-slate-400 lg:h-3 lg:w-3 xl:h-3.5 xl:w-3.5
+              2xl:h-4 2xl:w-4"
           />
           {t('location')}
         </span>
       </div>
-      <div className="item-animate grid w-full grid-cols-3 gap-2 xl:gap-2.5 2xl:gap-3 3xl:gap-4">
+      <div className="item-animate grid w-full grid-cols-3 gap-2.5 xl:gap-3 2xl:gap-3.5">
         {NAV_LINKS.map((link) => (
           <NavCard key={link.href} {...link} />
         ))}

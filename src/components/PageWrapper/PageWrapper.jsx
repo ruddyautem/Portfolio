@@ -37,8 +37,8 @@ const ANIMATION_STYLES = `
 `;
 
 const STYLE_ID = "page-wrapper-styles";
-const ANIMATION_DELAY = 50; // ms between each element animation
-const INITIAL_DELAY = 50; // ms before starting animations
+const ANIMATION_DELAY = 15; // ms between each element animation
+const INITIAL_DELAY = 30; // ms before starting animations
 
 export const PageWrapper = ({ 
   children, 
