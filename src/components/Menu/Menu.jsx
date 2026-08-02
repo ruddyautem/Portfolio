@@ -43,23 +43,22 @@ const THEME_DOT_COLORS = {
   poimandres: 'bg-[#5de4c7]',
 };
 
-// Fluid, single-formula width for the center search bar.
-// ~85% of the viewport on small screens, tapering smoothly (no breakpoint jumps)
-// down to a ~640px ceiling on large screens.
 const SEARCH_BAR_WIDTH = 'clamp(220px, 85vw, 640px)';
 
-// Extra px subtracted from the measured nav width before comparing against
-// item widths. Kept intentionally tiny — just enough to stop the last visible
-// item and the "…" button from ever visually touching — so items only start
-// collapsing the moment the menu genuinely runs into the center column,
-// not a moment before.
 const OVERFLOW_SAFETY_BUFFER = 6;
 
 // ----------------------------------------------------------------------------------
 // Inline icons
 // ----------------------------------------------------------------------------------
 const ChevronDown = ({ className }) => (
-  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className={className} aria-hidden="true">
+  <svg
+    width="10"
+    height="10"
+    viewBox="0 0 10 10"
+    fill="none"
+    className={className}
+    aria-hidden="true"
+  >
     <path
       d="M2 3.5L5 6.5L8 3.5"
       stroke="currentColor"
@@ -71,7 +70,14 @@ const ChevronDown = ({ className }) => (
 );
 
 const CheckIcon = ({ className }) => (
-  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={className} aria-hidden="true">
+  <svg
+    width="12"
+    height="12"
+    viewBox="0 0 12 12"
+    fill="none"
+    className={className}
+    aria-hidden="true"
+  >
     <path
       d="M2.5 6.2L4.8 8.5L9.5 3.5"
       stroke="currentColor"
@@ -86,7 +92,10 @@ const CheckIcon = ({ className }) => (
 // Small pieces
 // ----------------------------------------------------------------------------------
 const MenuItem = memo(({ item }) => (
-  <li className="shrink-0 cursor-pointer whitespace-nowrap rounded-md px-2 py-0.5 transition-colors hover:bg-white/10">
+  <li
+    className="shrink-0 cursor-pointer whitespace-nowrap rounded-md px-2 py-0.5 transition-colors
+      hover:bg-white/10"
+  >
     {item}
   </li>
 ));
@@ -144,11 +153,6 @@ const MoreButton = forwardRef(({ onClick, isOpen, ...props }, ref) => (
 ));
 MoreButton.displayName = 'MoreButton';
 
-// ----------------------------------------------------------------------------------
-// Generic dropdown open/close behaviour (click outside + escape). Aware that
-// its content may be portaled outside the trigger's own DOM subtree, so both
-// the anchor AND the (portaled) overlay are checked before closing.
-// ----------------------------------------------------------------------------------
 const useOverlay = () => {
   const [isOpen, setIsOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -181,13 +185,6 @@ const useOverlay = () => {
   return { isOpen, setIsOpen, close, toggle, anchorRef, overlayRef };
 };
 
-// ----------------------------------------------------------------------------------
-// AnchoredPortal — renders its children into document.body, positioned via
-// getBoundingClientRect() from the anchor. Since the content is no longer a
-// DOM descendant of any `overflow-hidden` grid column, it can never be
-// clipped by the nav/right-chrome columns the way a locally-`absolute`
-// dropdown would be.
-// ----------------------------------------------------------------------------------
 const AnchoredPortal = ({ anchorRef, overlayRef, isOpen, align = 'left', className, children }) => {
   const [coords, setCoords] = useState(null);
 
@@ -287,12 +284,27 @@ const MenuNav = memo(() => {
   const t = useTranslations('menu');
 
   const MENU_ITEMS = useMemo(
-    () => [t('file'), t('edit'), t('selection'), t('view'), t('go'), t('run'), t('terminal'), t('help')],
+    () => [
+      t('file'),
+      t('edit'),
+      t('selection'),
+      t('view'),
+      t('go'),
+      t('run'),
+      t('terminal'),
+      t('help'),
+    ],
     [t],
   );
 
   const { containerRef, measureRef, visibleCount } = useOverflowMenu(MENU_ITEMS);
-  const { isOpen: isMoreOpen, toggle: toggleMore, close: closeMore, anchorRef, overlayRef } = useOverlay();
+  const {
+    isOpen: isMoreOpen,
+    toggle: toggleMore,
+    close: closeMore,
+    anchorRef,
+    overlayRef,
+  } = useOverlay();
 
   const visibleItems = MENU_ITEMS.slice(0, visibleCount);
   const hiddenItems = MENU_ITEMS.slice(visibleCount);
@@ -302,7 +314,10 @@ const MenuNav = memo(() => {
   }, [hiddenItems.length, closeMore]);
 
   return (
-    <nav className="text-light col-start-1 hidden h-8 min-w-0 overflow-hidden text-xs font-semibold text-opacity-80 lg:flex">
+    <nav
+      className="text-light col-start-1 hidden h-8 min-w-0 overflow-hidden text-xs font-semibold
+        text-opacity-80 lg:flex"
+    >
       <ul ref={containerRef} className="flex min-w-0 w-full items-center overflow-hidden">
         <li className="mx-2 shrink-0">
           <NavIcon src={LOGO_CONFIG.src} alt={LOGO_CONFIG.alt} />
@@ -319,7 +334,12 @@ const MenuNav = memo(() => {
         )}
       </ul>
 
-      <AnchoredPortal anchorRef={anchorRef} overlayRef={overlayRef} isOpen={isMoreOpen} align="left">
+      <AnchoredPortal
+        anchorRef={anchorRef}
+        overlayRef={overlayRef}
+        isOpen={isMoreOpen}
+        align="left"
+      >
         <ul
           role="menu"
           className="bg-menu w-40 overflow-hidden rounded-md border border-white/10 py-1 shadow-lg"
@@ -330,7 +350,8 @@ const MenuNav = memo(() => {
                 role="menuitem"
                 type="button"
                 onClick={closeMore}
-                className="w-full cursor-pointer px-3 py-1.5 text-left text-xs transition-colors hover:bg-white/10"
+                className="w-full cursor-pointer px-3 py-1.5 text-left text-xs transition-colors
+                  hover:bg-white/10"
               >
                 {item}
               </button>
@@ -343,7 +364,13 @@ const MenuNav = memo(() => {
         ref={measureRef}
         aria-hidden="true"
         className="pointer-events-none flex items-center"
-        style={{ position: 'absolute', top: 0, left: -9999, visibility: 'hidden', whiteSpace: 'nowrap' }}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: -9999,
+          visibility: 'hidden',
+          whiteSpace: 'nowrap',
+        }}
       >
         <li className="mx-2 shrink-0">
           <NavIcon src={LOGO_CONFIG.src} alt="" />
@@ -427,12 +454,19 @@ const LanguageMenu = memo(({ className }) => {
                   onClick={() => switchLanguage(lang.code)}
                   disabled={isPending}
                   className={cn(
-                    'flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left text-[11px] font-medium',
+                    `flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left text-[11px]
+                    font-medium`,
                     'transition-colors hover:bg-white/10',
                     isActive ? 'text-white' : 'text-white/60',
                   )}
                 >
-                  <Image src={lang.flag} alt="" width={15} height={11} className="rounded-sm object-contain" />
+                  <Image
+                    src={lang.flag}
+                    alt=""
+                    width={15}
+                    height={11}
+                    className="rounded-sm object-contain"
+                  />
                   <span>{lang.title}</span>
                   {isActive && <CheckIcon className="ml-auto text-white" />}
                 </button>
@@ -476,7 +510,12 @@ const ThemeMenu = memo(({ className }) => {
           isOpen && 'bg-white/10',
         )}
       >
-        <span className={cn('h-2.5 w-2.5 shrink-0 rounded-full ring-1 ring-white/30', THEME_DOT_COLORS[theme])} />
+        <span
+          className={cn(
+            'h-2.5 w-2.5 shrink-0 rounded-full ring-1 ring-white/30',
+            THEME_DOT_COLORS[theme],
+          )}
+        />
         <ChevronDown className={cn('transition-transform duration-150', isOpen && 'rotate-180')} />
       </button>
 
@@ -495,7 +534,8 @@ const ThemeMenu = memo(({ className }) => {
                   type="button"
                   onClick={() => handleThemeSelect(option)}
                   className={cn(
-                    'flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left text-[11px] font-medium capitalize',
+                    `flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left text-[11px]
+                    font-medium capitalize`,
                     'transition-colors hover:bg-white/10',
                     isActive ? 'text-white' : 'text-white/60',
                   )}
@@ -538,8 +578,10 @@ const Menu = () => {
         <button
           style={{ width: SEARCH_BAR_WIDTH }}
           className={cn(
-            'hover:border-accent flex h-7 shrink-0 cursor-pointer items-center justify-center overflow-hidden',
-            'rounded border border-gray-100/5 bg-gray-300/5 text-xs font-semibold text-light transition-colors',
+            `hover:border-accent flex h-7 shrink-0 cursor-pointer items-center justify-center
+            overflow-hidden`,
+            `rounded border border-gray-100/5 bg-gray-300/5 text-xs font-semibold text-light
+            transition-colors`,
           )}
           aria-label="Search portfolio"
         >
@@ -548,7 +590,9 @@ const Menu = () => {
         </button>
       </div>
 
-      <div className="col-start-3 flex min-w-0 items-center justify-end gap-0.5 overflow-hidden pr-1">
+      <div
+        className="col-start-3 flex min-w-0 items-center justify-end gap-0.5 overflow-hidden pr-1"
+      >
         <LanguageMenu className="hidden lg:flex" />
         <ThemeMenu className="hidden lg:flex" />
 
