@@ -134,7 +134,6 @@ const NavButton = memo(({ icon, alt, disabled = false }) => (
 ));
 NavButton.displayName = 'NavButton';
 
-// Shared "more" (…) button markup, used both for real rendering and for measuring.
 const MoreButton = forwardRef(({ onClick, isOpen, ...props }, ref) => (
   <button
     ref={ref}
