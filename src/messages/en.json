@@ -16,7 +16,8 @@
     "nav": {
       "projects": "Projects",
       "about": "Profile",
-      "contact": "Contact"
+      "contact": "Contact",
+      "cv": "Resume"
     },
     "skills": {
       "fullstack": "Full Stack",

@@ -9,6 +9,7 @@ import {
   Sparkles,
   MapPin,
   FolderOpen,
+  FileUser,
   User,
   Mail,
   Download,
@@ -18,21 +19,21 @@ import { useTranslations } from 'next-intl';
 const NavCard = ({ href, label, icon: Icon }) => (
   <Link
     href={href}
-    className="group relative flex flex-1 flex-col items-center justify-center gap-2.5 rounded-xl
-      border border-slate-700/80 bg-slate-800/40 px-3 py-6 shadow-md transition-all duration-300
-      hover:border-accent hover:bg-slate-800/80 hover:shadow-accent/10 active:scale-[0.98] xl:py-7
-      2xl:py-8"
+    className="group relative flex flex-1 flex-col items-center justify-center gap-2 rounded-xl
+      border border-slate-700/80 bg-slate-800/40 px-2 py-4 shadow-md transition-all duration-300
+      hover:border-accent hover:bg-slate-800/80 hover:shadow-accent/10 active:scale-[0.98] xl:py-5
+      2xl:py-6"
   >
     <div
-      className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-700/50 text-accent
-        transition-colors duration-300 group-hover:bg-accent group-hover:text-slate-950 xl:h-10
-        xl:w-10"
+      className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-700/50 text-accent
+        transition-colors duration-300 group-hover:bg-accent group-hover:text-slate-950 xl:h-9
+        xl:w-9"
     >
-      <Icon className="h-4.5 w-4.5 xl:h-5 xl:w-5" />
+      <Icon className="h-4 w-4 xl:h-4.5 xl:w-4.5" />
     </div>
     <span
-      className="text-xs font-semibold text-slate-200 transition-colors duration-300
-        group-hover:text-white xl:text-sm 2xl:text-base"
+      className="text-[10px] font-semibold text-slate-200 transition-colors duration-300
+        group-hover:text-white sm:text-xs xl:text-xs 2xl:text-sm"
     >
       {label}
     </span>
@@ -71,9 +72,10 @@ const HeroSection = () => {
   const t = useTranslations('homepage');
 
   const NAV_LINKS = [
-    { href: '/projects', label: t('nav.projects'), icon: FolderOpen },
     { href: '/about', label: t('nav.about'), icon: User },
+    { href: '/projects', label: t('nav.projects'), icon: FolderOpen },
     { href: '/contact', label: t('nav.contact'), icon: Mail },
+    { href: '/cv', label: t('nav.cv'), icon: FileUser },
   ];
 
   const SKILL_PILLS = [
@@ -94,14 +96,14 @@ const HeroSection = () => {
           {t('badge')}
         </div>
         <h1
-          className="item-animate mb-4 w-full truncate text-2xl font-bold tracking-tight
-            sm:text-3xl lg:mb-3 lg:text-lg xl:text-2xl 2xl:mb-4 2xl:text-4xl 3xl:text-6xl"
+          className="item-animate mb-4 w-full truncate text-2xl font-bold tracking-tight sm:text-3xl
+            lg:mb-3 lg:text-lg xl:text-2xl 2xl:mb-4 2xl:text-4xl 3xl:text-6xl"
         >
           {t('name')} <span className="text-accent">{t('surname')}</span>
         </h1>
         <p
-          className="item-animate mb-5 w-full truncate text-base text-slate-300 sm:text-lg
-            lg:mb-4 lg:text-sm xl:text-lg 2xl:mb-5 2xl:text-2xl 3xl:text-4xl"
+          className="item-animate mb-5 w-full truncate text-base text-slate-300 sm:text-lg lg:mb-4
+            lg:text-sm xl:text-lg 2xl:mb-5 2xl:text-2xl 3xl:text-4xl"
         >
           {t('title')}
         </p>
@@ -114,8 +116,8 @@ const HeroSection = () => {
         {t('description')}
       </p>
       <div
-        className="item-animate mb-6 flex flex-wrap justify-center gap-2 lg:mb-4 lg:gap-1.5
-          xl:gap-2 2xl:mb-6 2xl:gap-2.5"
+        className="item-animate mb-6 flex flex-wrap justify-center gap-2 lg:mb-4 lg:gap-1.5 xl:gap-2
+          2xl:mb-6 2xl:gap-2.5"
       >
         {SKILL_PILLS.map(({ icon: Icon, label }) => (
           <span
@@ -141,13 +143,13 @@ const HeroSection = () => {
             xl:text-xs 2xl:text-sm 3xl:text-base"
         >
           <MapPin
-            className="h-3.5 w-3.5 shrink-0 text-slate-400 lg:h-3 lg:w-3 xl:h-3.5 xl:w-3.5
-              2xl:h-4 2xl:w-4"
+            className="h-3.5 w-3.5 shrink-0 text-slate-400 lg:h-3 lg:w-3 xl:h-3.5 xl:w-3.5 2xl:h-4
+              2xl:w-4"
           />
           {t('location')}
         </span>
       </div>
-      <div className="item-animate grid w-full grid-cols-3 gap-2.5 xl:gap-3 2xl:gap-3.5">
+      <div className="item-animate grid w-full grid-cols-2 sm:grid-cols-4 gap-2 xl:gap-2.5 2xl:gap-3">
         {NAV_LINKS.map((link) => (
           <NavCard key={link.href} {...link} />
         ))}
