@@ -18,23 +18,77 @@ export async function generateMetadata({ params }) {
 
 const cleanUrl = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
-const SectionHeading = ({ label }) => (
-  <div className="flex flex-col items-center gap-1.5 sm:items-start">
-    <div className="flex items-center gap-2">
-      <span className="text-base font-black text-slate-700">•</span>
-      <h2
-        className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-700 sm:text-[11px]
-          md:text-[12px]"
-      >
-        {label}
-      </h2>
+function SectionHeading({ label }) {
+  return (
+    <div className="flex flex-col items-center gap-1.5 sm:items-start">
+      <div className="flex items-center gap-2">
+        <span className="text-base font-black text-slate-700">•</span>
+        <h2
+          className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-700
+            sm:text-[11px] md:text-[12px]"
+        >
+          {label}
+        </h2>
+      </div>
+      <div
+        className="h-0.5 w-full rounded-full bg-linear-to-r from-transparent via-slate-700/60
+          to-transparent sm:from-slate-700/60 sm:via-transparent sm:to-transparent"
+      ></div>
     </div>
-    <div
-      className="h-0.5 w-full rounded-full bg-linear-to-r from-transparent via-slate-700/60
-        to-transparent sm:from-slate-700/60 sm:via-transparent sm:to-transparent"
-    />
-  </div>
-);
+  );
+}
+
+function DownloadIcon({ className }) {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className ? `shrink-0 ${className}` : 'shrink-0'}
+    >
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+  );
+}
+
+function ContactChip({ contact }) {
+  const chip = (
+    <span
+      className="inline-flex cursor-pointer select-none items-center gap-1.5 rounded-md border
+        border-slate-200 bg-white px-2.5 py-1 text-[10px] font-medium text-slate-700 transition-all
+        duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-sm 
+        min-[375px]:px-3 min-[375px]:py-1.5 min-[375px]:text-[11px] 
+        sm:gap-2 sm:rounded-lg sm:px-3.5 sm:py-2 sm:text-[13px]"
+    >
+      <Image
+        src={contact.icon}
+        alt=""
+        width={18}
+        height={18}
+        unoptimized
+        className="h-3.5 w-3.5 shrink-0 opacity-70 min-[375px]:h-4 min-[375px]:w-4 sm:h-4.5 sm:w-4.5"
+      />
+      {contact.text}
+    </span>
+  );
+
+  if (contact.link) {
+    return (
+      <Link href={contact.link} target="_blank" rel="noopener noreferrer" className="block">
+        {chip}
+      </Link>
+    );
+  }
+
+  return chip;
+}
 
 const CV = () => {
   const t = useTranslations('cv');
@@ -57,8 +111,9 @@ const CV = () => {
           >
             <TopPageDecoration filename={tTabs('cv')} />
 
-            <div className="border-b border-slate-700/30 px-4 py-5 text-center sm:px-6 sm:py-7
-              md:py-8">
+            <div
+              className="border-b border-slate-700/30 px-4 py-5 text-center sm:px-6 sm:py-7 md:py-8"
+            >
               <h1 className="cv-float mb-2 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
                 {t('title')} <span className="text-accent">{t('titleAccent')}</span>
               </h1>
@@ -72,93 +127,85 @@ const CV = () => {
                 sm:p-4 md:p-5"
             >
               <div
-                className="cv-float relative mb-4 rounded-2xl border border-slate-200
-                  bg-linear-to-br from-white via-slate-50 to-slate-100 p-5 shadow-sm sm:p-7 md:p-9"
+                className="cv-float relative mb-4 overflow-hidden rounded-2xl border
+                  border-slate-200 bg-white shadow-sm"
               >
+                {/* --- HEADER BACKGROUND --- */}
                 <div
-                  className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full
-                    bg-slate-700/5 blur-3xl"
-                />
-                <div
-                  className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full
-                    bg-slate-700/5 blur-3xl"
-                />
-
-                <a
-                  href={t('cvFile')}
-                  download={t('cvFileName')}
-                  title={t('downloadBtn')}
-                  className="cv-download-btn hidden sm:absolute sm:right-6 sm:top-6 sm:z-10 sm:flex
-                    sm:cursor-pointer sm:items-center sm:gap-2 sm:rounded-xl sm:bg-slate-700 sm:px-4
-                    sm:py-2.5 sm:transition-all sm:duration-300 sm:hover:-translate-y-0.5
-                    sm:hover:bg-slate-600 sm:hover:shadow-lg"
+                  className="relative h-40 w-full bg-linear-to-r from-slate-800 via-slate-700
+                    to-slate-800 sm:h-40 md:h-48 lg:h-56 xl:h-64"
                 >
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="shrink-0"
-                  >
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span className="hidden text-xs font-semibold text-white sm:inline">
-                    {t('downloadBtn')}
-                  </span>
-                </a>
+                  <div
+                    className="absolute inset-0 opacity-[0.06]"
+                    style={{
+                      backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
+                      backgroundSize: '16px 16px',
+                    }}
+                  ></div>
 
-                <div className="relative text-center">
-                  <p
-                    className="mb-2 select-none text-[10px] font-semibold uppercase
-                      tracking-[0.25em] text-slate-700/55 sm:text-xs"
+                  {/* --- DESKTOP DOWNLOAD BUTTON --- */}
+                  <a
+                    href={t('cvFile')}
+                    download={t('cvFileName')}
+                    title={t('downloadBtn')}
+                    className="absolute right-5 top-5 z-20 hidden sm:inline-flex cursor-pointer
+                      items-center justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 text-xs
+                      font-bold text-white shadow-md transition-all duration-300
+                      hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg md:right-6 md:top-6
+                      md:px-5 md:text-sm"
                   >
-                    ✦ {title} ✦
-                  </p>
+                    <DownloadIcon className="block" />
+                    <span>{t('downloadBtn')}</span>
+                  </a>
+
+                  <div className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2">
+                    {/* --- PROFILE PICTURE  --- */}
+                    <div
+                      className="h-40 w-40 overflow-hidden rounded-3xl border-[6px] border-white
+                        bg-white shadow-lg sm:h-44 sm:w-44 md:h-48 md:w-48 lg:h-64 lg:w-64 xl:h-72
+                        xl:w-72"
+                    >
+                      <Image
+                        src="/profile.jpg"
+                        alt={name}
+                        width={300}
+                        height={300}
+                        unoptimized
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* --- TEXT CONTENT --- */}
+                <div
+                  className="flex flex-col items-center px-4 pb-6 pt-24 text-center 
+                    min-[375px]:px-5 min-[375px]:pb-8 min-[375px]:pt-28 
+                    sm:pt-32 md:pt-32 lg:pt-40 xl:pt-44"
+                >
+                  <span
+                    className="mb-2.5 inline-block rounded-md bg-slate-100 px-2.5 py-1 text-[9px]
+                      font-black uppercase tracking-[0.2em] text-slate-600 
+                      min-[375px]:mb-3 min-[375px]:px-3 min-[375px]:py-1.5 min-[375px]:text-[10px] 
+                      sm:text-xs md:text-sm"
+                  >
+                    {title}
+                  </span>
 
                   <h1
-                    className="cv-name-gradient mb-6 pb-2 text-4xl font-black leading-none
-                      tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+                    className="cv-name-gradient mb-4 text-3xl font-black leading-tight
+                      tracking-tight min-[375px]:mb-5 min-[375px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
                   >
                     {name}
                   </h1>
 
-                  <div className="flex flex-wrap items-center justify-center gap-2">
-                    {contacts.map((c, i) => {
-                      const chip = (
-                        <span
-                          className="inline-flex cursor-pointer select-none items-center gap-2
-                            rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-[9pt]
-                            font-medium text-slate-700 transition-all duration-300
-                            hover:-translate-y-0.5 hover:border-slate-400 hover:bg-slate-50
-                            hover:shadow-md sm:px-4 sm:py-2 sm:text-[10pt]"
-                        >
-                          <Image
-                            src={c.icon}
-                            alt=""
-                            width={24}
-                            height={24}
-                            unoptimized
-                            className="shrink-0 opacity-70"
-                          />
-                          {c.text}
-                        </span>
-                      );
-                      return c.link ? (
-                        <Link key={i} href={c.link} target="_blank" rel="noopener noreferrer">
-                          {chip}
-                        </Link>
-                      ) : (
-                        <span key={i}>{chip}</span>
-                      );
-                    })}
+                  <div className="flex flex-wrap items-center justify-center gap-1.5 min-[375px]:gap-2">
+                    {contacts.map((c, i) => (
+                      <ContactChip key={i} contact={c} />
+                    ))}
                   </div>
 
+                  {/* --- MOBILE DOWNLOAD BUTTON --- */}
                   <a
                     href={t('cvFile')}
                     download={t('cvFileName')}
@@ -168,29 +215,14 @@ const CV = () => {
                       duration-300 hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg
                       sm:hidden"
                   >
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="white"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="shrink-0"
-                    >
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
+                    <DownloadIcon className="text-white" />
                     <span className="text-xs font-semibold text-white">{t('downloadBtn')}</span>
                   </a>
                 </div>
               </div>
-
+              
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
                 <div className="flex flex-col gap-5 lg:col-span-2 lg:gap-6">
-                  {/* ABOUT */}
                   {about && (
                     <div
                       className="cv-float-1 rounded-2xl border border-slate-200 bg-white p-5
@@ -206,7 +238,6 @@ const CV = () => {
                     </div>
                   )}
 
-                  {/* PROJECTS */}
                   <div
                     className="cv-float-2 flex-1 rounded-2xl border border-slate-200 bg-white p-5
                       shadow-sm sm:p-6"
@@ -215,9 +246,7 @@ const CV = () => {
                     <div className="mt-5 flex flex-col gap-4 lg:gap-5">
                       {projects.map((proj, idx) => {
                         const cardClass =
-                          'cv-project-card group relative block rounded-xl border border-slate-200' +
-                          ' bg-slate-50 p-4 transition-all duration-300 hover:-translate-y-1' +
-                          ' hover:border-slate-300 hover:bg-slate-100/50 hover:shadow-lg sm:p-5';
+                          'cv-project-card group relative block rounded-xl border border-slate-200 bg-slate-50 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:bg-slate-100/50 hover:shadow-lg sm:p-5';
 
                         const cardContent = (
                           <>
@@ -279,8 +308,9 @@ const CV = () => {
                                       text-[11px] leading-relaxed text-slate-700/70 sm:justify-start
                                       sm:text-left sm:text-[12px]"
                                   >
-                                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full
-                                      bg-slate-700" />
+                                    <span
+                                      className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-slate-700"
+                                    ></span>
                                     <span className="whitespace-pre-wrap">{pt}</span>
                                   </li>
                                 ))}
@@ -289,17 +319,21 @@ const CV = () => {
                           </>
                         );
 
-                        return proj.link ? (
-                          <Link
-                            key={idx}
-                            href={proj.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={cardClass}
-                          >
-                            {cardContent}
-                          </Link>
-                        ) : (
+                        if (proj.link) {
+                          return (
+                            <Link
+                              key={idx}
+                              href={proj.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={cardClass}
+                            >
+                              {cardContent}
+                            </Link>
+                          );
+                        }
+
+                        return (
                           <div key={idx} className={cardClass}>
                             {cardContent}
                           </div>
@@ -310,7 +344,6 @@ const CV = () => {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  {/* SKILLS */}
                   <div
                     className="cv-float-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm
                       sm:p-5"
@@ -344,7 +377,6 @@ const CV = () => {
                     </div>
                   </div>
 
-                  {/* EDUCATION */}
                   <div
                     className="cv-float-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm
                       sm:p-5"
@@ -388,7 +420,6 @@ const CV = () => {
                     </div>
                   </div>
 
-                  {/* LANGUAGES */}
                   <div
                     className="cv-float-6 flex-1 rounded-2xl border border-slate-200 bg-white p-4
                       shadow-sm sm:p-5"

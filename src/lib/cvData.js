@@ -50,16 +50,6 @@ export const cvData = {
         ],
       },
       {
-        title: 'Stokki',
-        year: '2026',
-        link: 'https://stokki.autem.dev',
-        points: [
-          'Development of a real-time inventory dashboard with Next.js 16 for stock and product management',
-          'Integration of data visualizations with Recharts for profit tracking and growth analysis',
-          'Implementation of type-safe data management and validation using Prisma and Zod',
-        ],
-      },
-      {
         title: 'VsCode Portfolio',
         year: '2026',
         link: 'https://autem.dev',
@@ -70,8 +60,18 @@ export const cvData = {
         ],
       },
       {
-        title: 'Style-D',
+        title: 'Stokki',
         year: '2025',
+        link: 'https://stokki.autem.dev',
+        points: [
+          'Development of a real-time inventory dashboard with Next.js 16 for stock and product management',
+          'Integration of data visualizations with Recharts for profit tracking and growth analysis',
+          'Implementation of type-safe data management and validation using Prisma and Zod',
+        ],
+      },
+      {
+        title: 'Style-D',
+        year: '2024',
         link: 'https://style-d.autem.dev',
         points: [
           'Built a responsive online store with React and Vite, delivering a fast and seamless shopping experience.',
@@ -111,8 +111,8 @@ export const cvData = {
         text: 'ruddy.autem@gmail.com',
         link: 'mailto:ruddy.autem@gmail.com',
       },
-      { icon: '/locationIcon.svg', text: 'Leers, France' },
-      { icon: '/homepage.svg', text: 'www.autem.dev', link: 'https://autem.dev/' },
+      { icon: 'linkIcon.svg', text: 'Leers, France' },
+      { icon: 'homepage.svg', text: 'www.autem.dev', link: 'https://autem.dev/' },
       { icon: '/githubIcon2.svg', text: '/ruddyautem', link: 'https://github.com/ruddyautem' },
       {
         icon: '/linkedinIcon.svg',
@@ -154,16 +154,6 @@ export const cvData = {
         ],
       },
       {
-        title: 'Stokki',
-        year: '2026',
-        link: 'https://stokki.autem.dev',
-        points: [
-          'Développement d’un dashboard d’inventaire en temps réel avec Next.js 16 pour la gestion des stocks et produits.',
-          'Visualisations de données avec Recharts pour le suivi des performances, profits et croissance.',
-          'Gestion typée des données avec Prisma et validation des entrées via Zod pour assurer la fiabilité.',
-        ],
-      },
-      {
         title: 'Portfolio VsCode',
         year: '2026',
         link: 'https://autem.dev',
@@ -174,8 +164,18 @@ export const cvData = {
         ],
       },
       {
-        title: 'Style-D',
+        title: 'Stokki',
         year: '2025',
+        link: 'https://stokki.autem.dev',
+        points: [
+          'Développement d’un dashboard d’inventaire en temps réel avec Next.js 16 pour la gestion des stocks et produits.',
+          'Visualisations de données avec Recharts pour le suivi des performances, profits et croissance.',
+          'Gestion typée des données avec Prisma et validation des entrées via Zod pour assurer la fiabilité.',
+        ],
+      },
+      {
+        title: 'Style-D',
+        year: '2024',
         link: 'https://style-d.autem.dev',
         points: [
           "Développement d'une boutique en ligne responsive avec React et Vite, offrant une expérience d'achat fluide et rapide.",
