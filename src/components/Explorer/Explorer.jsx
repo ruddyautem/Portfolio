@@ -1,28 +1,21 @@
 'use client';
-
-import React, { useContext, useState } from 'react';
+ 
+import { useContext, useState } from 'react';
 import Image from 'next/image';
-
+ 
 import { Link, usePathname } from '@/i18n/routing';
 import { ThemeContext } from '@/context/ThemeContext';
 import { useTranslations } from 'next-intl';
-
+import { NAV_ITEMS, TABS_NAV_ICONS } from '@/lib/constants';
+ 
 const Explorer = () => {
   const currentRoute = usePathname();
   const [isOpen, setIsOpen] = useState(true);
   const { theme } = useContext(ThemeContext);
-
+ 
   const tTabs = useTranslations('tabsbar');
   const tExp = useTranslations('explorer');
-
-  const navLinks = [
-    { name: tTabs('home'), link: '/', icon: '/jsx.svg' },
-    { name: tTabs('about'), link: '/about', icon: '/html5.svg' },
-    { name: tTabs('projects'), link: '/projects', icon: '/js.svg' },
-    { name: tTabs('contact'), link: '/contact', icon: '/css.svg' },
-    { name: tTabs('cv'), link: '/cv', icon: '/cv.svg' },
-  ];
-
+ 
   return (
     <div className="bg-explorer-bg text-light hidden w-48 flex-col xl:flex">
       <div className="flex items-center justify-between">
@@ -47,31 +40,35 @@ const Explorer = () => {
           />
           <p>{tExp('portfolio')}</p>
         </div>
-
+ 
         <div
           className={`flex flex-col overflow-y-auto ${isOpen ? 'max-h-48' : ''} no-scrollbar max-h-0
             transition-all duration-200 ease-in-out`}
         >
-          {navLinks.map(({ name, link, icon }) => (
-            <Link
-              href={link}
-              key={link}
-              className={`${currentRoute === link ? 'bg-active-explorer-tab' : ''}
-              text-explorerColor flex cursor-pointer items-center gap-1 pl-3 text-sm
-              hover:bg-white/5`}
-            >
-              <div className="flex items-center">
-                <Image src={icon} width={16} height={16} alt="" className="shrink-0" />
-                <p
-                  className={`ml-2 flex items-center ${
-                    currentRoute === link ? 'text-active-tab-text' : ''
-                  }`}
-                >
-                  {name}
-                </p>
-              </div>
-            </Link>
-          ))}
+          {NAV_ITEMS.map(({ id, link }) => {
+            const name = tTabs(id);
+            const icon = TABS_NAV_ICONS[id];
+            return (
+              <Link
+                href={link}
+                key={link}
+                className={`${currentRoute === link ? 'bg-active-explorer-tab' : ''}
+                text-explorerColor flex cursor-pointer items-center gap-1 pl-3 text-sm
+                hover:bg-white/5`}
+              >
+                <div className="flex items-center">
+                  <Image src={icon} width={16} height={16} alt="" className="shrink-0" />
+                  <p
+                    className={`ml-2 flex items-center ${
+                      currentRoute === link ? 'text-active-tab-text' : ''
+                    }`}
+                  >
+                    {name}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
       <div
@@ -96,5 +93,6 @@ const Explorer = () => {
     </div>
   );
 };
-
+ 
 export default Explorer;
+ 

@@ -88,7 +88,7 @@
   },
   "about": {
     "title": "Stack",
-    "titleAccent": "Technologique",
+    "titleAccent": "Technique",
     "subtitle": "Un aperçu détaillé de mon environnement de développement, des langages aux outils de déploiement, pour créer des applications modernes.",
     "frontend": {
       "title": "Frontend",
@@ -138,10 +138,10 @@
   },
   "cvData": {
     "contactApi": {
-      "emailSubject": "📬 Nouveau message de {name} - {objet}",
+      "emailSubject": "📬 Nouveau message de {name} - {sujet}",
       "emailHeader": "Nouveau message",
       "emailSubheader": "Via votre portfolio",
-      "emailSubjectLabel": "Objet",
+      "emailSubjectLabel": "Sujet",
       "emailMessageLabel": "Message",
       "emailFooter": "Message reçu via votre portfolio -",
       "successMessage": "Message envoyé! Je reviens vers vous sous 24h :)",
@@ -152,7 +152,7 @@
     "fields": {
       "name": "Nom",
       "email": "Email",
-      "objet": "Objet",
+      "sujet": "Sujet",
       "message": "Message"
     },
     "validation": {
@@ -179,6 +179,10 @@
     "cv": "CV",
     "accounts": "Comptes",
     "settings": "Paramètres"
+  },
+  "card": {
+    "source": "Code source",
+    "demo": "Voir la démo"
   },
   "explorer": {
     "title": "Explorateur",

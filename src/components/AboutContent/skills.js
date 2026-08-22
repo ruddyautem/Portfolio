@@ -30,6 +30,7 @@ export const skills = {
     { skill: 'Git', icon: '/git.svg' },
     { skill: 'GitHub', icon: '/github.svg' },
     { skill: 'VSCode', icon: '/vsclogo.svg' },
+    { skill: 'Codex', icon: '/codex.svg' },
     { skill: 'Cursor', icon: '/cursor.svg' },
     { skill: 'Postman', icon: '/postman.svg' },
     { skill: 'SSH', icon: '/ssh.svg' },

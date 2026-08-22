@@ -18,76 +18,23 @@ import { usePathname, useRouter } from '@/i18n/routing';
 import { Minimize, Restore, Close } from '../Icons/Icons';
 import { ThemeContext } from '@/context/ThemeContext';
 import { cn } from '@/lib/utils';
-
+import { LANGUAGES, THEME_OPTIONS, THEME_DOT_COLORS } from '@/lib/constants';
+import { ChevronDown, CheckIcon } from '@/lib/icons';
+ 
 // ----------------------------------------------------------------------------------
 // Constants
 // ----------------------------------------------------------------------------------
 const ICON_SIZE = 15;
-
+ 
 const LOGO_CONFIG = {
   src: '/vsclogo.svg',
   alt: 'VSC Logo',
 };
-
-const LANGUAGES = [
-  { code: 'en', label: 'EN', title: 'English', flag: '/en.svg' },
-  { code: 'fr', label: 'FR', title: 'Français', flag: '/fr.svg' },
-];
-
-const THEME_OPTIONS = ['ayu', 'oneDarkPro', 'dracula', 'poimandres'];
-
-const THEME_DOT_COLORS = {
-  ayu: 'bg-[#ffcc66]',
-  oneDarkPro: 'bg-[#98c379]',
-  dracula: 'bg-[#ff79c6]',
-  poimandres: 'bg-[#5de4c7]',
-};
-
+ 
 const SEARCH_BAR_WIDTH = 'clamp(220px, 85vw, 640px)';
-
+ 
 const OVERFLOW_SAFETY_BUFFER = 6;
-
-// ----------------------------------------------------------------------------------
-// Inline icons
-// ----------------------------------------------------------------------------------
-const ChevronDown = ({ className }) => (
-  <svg
-    width="10"
-    height="10"
-    viewBox="0 0 10 10"
-    fill="none"
-    className={className}
-    aria-hidden="true"
-  >
-    <path
-      d="M2 3.5L5 6.5L8 3.5"
-      stroke="currentColor"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const CheckIcon = ({ className }) => (
-  <svg
-    width="12"
-    height="12"
-    viewBox="0 0 12 12"
-    fill="none"
-    className={className}
-    aria-hidden="true"
-  >
-    <path
-      d="M2.5 6.2L4.8 8.5L9.5 3.5"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
+ 
 // ----------------------------------------------------------------------------------
 // Small pieces
 // ----------------------------------------------------------------------------------
@@ -100,7 +47,7 @@ const MenuItem = memo(({ item }) => (
   </li>
 ));
 MenuItem.displayName = 'MenuItem';
-
+ 
 const IconButton = memo(({ icon: Icon, onClick, variant = 'default' }) => (
   <button
     onClick={onClick}
@@ -114,12 +61,12 @@ const IconButton = memo(({ icon: Icon, onClick, variant = 'default' }) => (
   </button>
 ));
 IconButton.displayName = 'IconButton';
-
+ 
 const NavIcon = memo(({ src, alt, className = '' }) => (
   <Image src={src} width={ICON_SIZE} height={ICON_SIZE} alt={alt} className={className} />
 ));
 NavIcon.displayName = 'NavIcon';
-
+ 
 const NavButton = memo(({ icon, alt, disabled = false }) => (
   <button
     disabled={disabled}
@@ -133,7 +80,7 @@ const NavButton = memo(({ icon, alt, disabled = false }) => (
   </button>
 ));
 NavButton.displayName = 'NavButton';
-
+ 
 const MoreButton = forwardRef(({ onClick, isOpen, ...props }, ref) => (
   <button
     ref={ref}
@@ -151,18 +98,18 @@ const MoreButton = forwardRef(({ onClick, isOpen, ...props }, ref) => (
   </button>
 ));
 MoreButton.displayName = 'MoreButton';
-
+ 
 const useOverlay = () => {
   const [isOpen, setIsOpen] = useState(false);
   const anchorRef = useRef(null);
   const overlayRef = useRef(null);
-
+ 
   const close = useCallback(() => setIsOpen(false), []);
   const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
-
+ 
   useEffect(() => {
     if (!isOpen) return;
-
+ 
     const handlePointerDown = (event) => {
       const target = event.target;
       const insideAnchor = anchorRef.current?.contains(target);
@@ -172,7 +119,7 @@ const useOverlay = () => {
     const handleEscape = (event) => {
       if (event.key === 'Escape') close();
     };
-
+ 
     document.addEventListener('mousedown', handlePointerDown);
     document.addEventListener('keydown', handleEscape);
     return () => {
@@ -180,13 +127,13 @@ const useOverlay = () => {
       document.removeEventListener('keydown', handleEscape);
     };
   }, [isOpen, close]);
-
+ 
   return { isOpen, setIsOpen, close, toggle, anchorRef, overlayRef };
 };
-
+ 
 const AnchoredPortal = ({ anchorRef, overlayRef, isOpen, align = 'left', className, children }) => {
   const [coords, setCoords] = useState(null);
-
+ 
   const updatePosition = useCallback(() => {
     const anchor = anchorRef.current;
     if (!anchor) return;
@@ -197,11 +144,17 @@ const AnchoredPortal = ({ anchorRef, overlayRef, isOpen, align = 'left', classNa
         : { top: rect.bottom + 4, left: rect.left },
     );
   }, [anchorRef, align]);
-
+ 
   useLayoutEffect(() => {
+    // Measuring the anchor's DOM position before paint and syncing it into
+    // state is React's documented useLayoutEffect pattern (see "Measuring
+    // layout before the browser repaints" in the React docs). The linter's
+    // generic set-state-in-effect rule can't distinguish this from an
+    // accidental setState-in-effect, so it's suppressed here deliberately.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (isOpen) updatePosition();
   }, [isOpen, updatePosition]);
-
+ 
   useEffect(() => {
     if (!isOpen) return;
     window.addEventListener('resize', updatePosition);
@@ -211,9 +164,9 @@ const AnchoredPortal = ({ anchorRef, overlayRef, isOpen, align = 'left', classNa
       window.removeEventListener('scroll', updatePosition, true);
     };
   }, [isOpen, updatePosition]);
-
+ 
   if (!isOpen || !coords || typeof document === 'undefined') return null;
-
+ 
   return createPortal(
     <div
       ref={overlayRef}
@@ -229,27 +182,27 @@ const useOverflowMenu = (items) => {
   const containerRef = useRef(null);
   const measureRef = useRef(null);
   const [visibleCount, setVisibleCount] = useState(items.length);
-
+ 
   const recalc = useCallback(() => {
     const container = containerRef.current;
     const measure = measureRef.current;
     if (!container || !measure) return;
-
+ 
     const containerWidth = container.offsetWidth - OVERFLOW_SAFETY_BUFFER;
     const children = Array.from(measure.children);
     if (children.length < 2) return;
-
+ 
     const logoWidth = children[0].offsetWidth;
     const moreWidth = children[children.length - 1].offsetWidth;
     const itemWidths = children.slice(1, children.length - 1).map((c) => c.offsetWidth);
-
+ 
     const totalWidth = logoWidth + itemWidths.reduce((sum, w) => sum + w, 0);
-
+ 
     if (totalWidth <= containerWidth) {
       setVisibleCount(itemWidths.length);
       return;
     }
-
+ 
     let total = logoWidth;
     let count = 0;
     for (let i = 0; i < itemWidths.length; i++) {
@@ -259,29 +212,30 @@ const useOverflowMenu = (items) => {
     }
     setVisibleCount(count);
   }, []);
-
+ 
   useLayoutEffect(() => {
+    // Same DOM-measurement-before-paint pattern as AnchoredPortal above.
     recalc();
   }, [recalc, items]);
-
+ 
   useEffect(() => {
     const container = containerRef.current;
     if (!container || typeof ResizeObserver === 'undefined') return;
-
+ 
     const observer = new ResizeObserver(() => recalc());
     observer.observe(container);
     return () => observer.disconnect();
   }, [recalc]);
-
+ 
   return { containerRef, measureRef, visibleCount };
 };
-
+ 
 // ----------------------------------------------------------------------------------
 // Left menu bar
 // ----------------------------------------------------------------------------------
 const MenuNav = memo(() => {
   const t = useTranslations('menu');
-
+ 
   const MENU_ITEMS = useMemo(
     () => [
       t('file'),
@@ -295,7 +249,7 @@ const MenuNav = memo(() => {
     ],
     [t],
   );
-
+ 
   const { containerRef, measureRef, visibleCount } = useOverflowMenu(MENU_ITEMS);
   const {
     isOpen: isMoreOpen,
@@ -304,14 +258,14 @@ const MenuNav = memo(() => {
     anchorRef,
     overlayRef,
   } = useOverlay();
-
+ 
   const visibleItems = MENU_ITEMS.slice(0, visibleCount);
   const hiddenItems = MENU_ITEMS.slice(visibleCount);
-
+ 
   useEffect(() => {
     if (hiddenItems.length === 0) closeMore();
   }, [hiddenItems.length, closeMore]);
-
+ 
   return (
     <nav
       className="text-light col-start-1 hidden h-8 min-w-0 overflow-hidden text-xs font-semibold
@@ -321,18 +275,18 @@ const MenuNav = memo(() => {
         <li className="mx-2 shrink-0">
           <NavIcon src={LOGO_CONFIG.src} alt={LOGO_CONFIG.alt} />
         </li>
-
+ 
         {visibleItems.map((item) => (
           <MenuItem key={item} item={item} />
         ))}
-
+ 
         {hiddenItems.length > 0 && (
           <li ref={anchorRef} className="shrink-0">
             <MoreButton onClick={toggleMore} isOpen={isMoreOpen} />
           </li>
         )}
       </ul>
-
+ 
       <AnchoredPortal
         anchorRef={anchorRef}
         overlayRef={overlayRef}
@@ -358,7 +312,7 @@ const MenuNav = memo(() => {
           ))}
         </ul>
       </AnchoredPortal>
-
+ 
       <ul
         ref={measureRef}
         aria-hidden="true"
@@ -385,7 +339,7 @@ const MenuNav = memo(() => {
   );
 });
 MenuNav.displayName = 'MenuNav';
-
+ 
 // ----------------------------------------------------------------------------------
 // Language switcher
 // ----------------------------------------------------------------------------------
@@ -396,9 +350,9 @@ const LanguageMenu = memo(({ className }) => {
   const t = useTranslations('menu');
   const [isPending, startTransition] = useTransition();
   const { isOpen, toggle, close, anchorRef, overlayRef } = useOverlay();
-
+ 
   const currentLanguage = LANGUAGES.find((lang) => lang.code === locale) ?? LANGUAGES[0];
-
+ 
   const switchLanguage = useCallback(
     (nextLocale) => {
       close();
@@ -409,7 +363,7 @@ const LanguageMenu = memo(({ className }) => {
     },
     [locale, pathname, router, close],
   );
-
+ 
   return (
     <div ref={anchorRef} className={cn('relative shrink-0', className)}>
       <button
@@ -436,7 +390,7 @@ const LanguageMenu = memo(({ className }) => {
         />
         <ChevronDown className={cn('transition-transform duration-150', isOpen && 'rotate-180')} />
       </button>
-
+ 
       <AnchoredPortal anchorRef={anchorRef} overlayRef={overlayRef} isOpen={isOpen} align="right">
         <ul
           role="menu"
@@ -478,14 +432,14 @@ const LanguageMenu = memo(({ className }) => {
   );
 });
 LanguageMenu.displayName = 'LanguageMenu';
-
+ 
 // ----------------------------------------------------------------------------------
 // Theme switcher
 // ----------------------------------------------------------------------------------
 const ThemeMenu = memo(({ className }) => {
   const { theme, toggle: setTheme } = useContext(ThemeContext);
   const { isOpen, toggle, close, anchorRef, overlayRef } = useOverlay();
-
+ 
   const handleThemeSelect = useCallback(
     (option) => {
       setTheme(option);
@@ -493,7 +447,7 @@ const ThemeMenu = memo(({ className }) => {
     },
     [setTheme, close],
   );
-
+ 
   return (
     <div ref={anchorRef} className={cn('relative shrink-0', className)}>
       <button
@@ -517,7 +471,7 @@ const ThemeMenu = memo(({ className }) => {
         />
         <ChevronDown className={cn('transition-transform duration-150', isOpen && 'rotate-180')} />
       </button>
-
+ 
       <AnchoredPortal anchorRef={anchorRef} overlayRef={overlayRef} isOpen={isOpen} align="right">
         <ul
           role="menu"
@@ -552,13 +506,13 @@ const ThemeMenu = memo(({ className }) => {
   );
 });
 ThemeMenu.displayName = 'ThemeMenu';
-
+ 
 // ----------------------------------------------------------------------------------
 // Main title bar
 // ----------------------------------------------------------------------------------
 const Menu = () => {
   const t = useTranslations('menu');
-
+ 
   return (
     <div
       className={cn(
@@ -567,13 +521,13 @@ const Menu = () => {
       )}
     >
       <MenuNav />
-
+ 
       <div className="col-start-2 flex items-center justify-center gap-1.5 px-2 xl:ml-44">
         <NavButton icon="/arrow-left.svg" alt="Navigate back" />
         <div className="hidden lg:flex">
           <NavIcon src="/arrow-right.svg" alt="Navigate forward" className="mr-1 opacity-30" />
         </div>
-
+ 
         <button
           style={{ width: SEARCH_BAR_WIDTH }}
           className={cn(
@@ -588,13 +542,13 @@ const Menu = () => {
           <span className="truncate">{t('search')}</span>
         </button>
       </div>
-
+ 
       <div
         className="col-start-3 flex min-w-0 items-center justify-end gap-0.5 overflow-hidden pr-1"
       >
         <LanguageMenu className="hidden lg:flex" />
         <ThemeMenu className="hidden lg:flex" />
-
+ 
         <div className="ml-1 hidden items-center border-l border-white/10 pl-1 lg:flex">
           <IconButton icon={Minimize} variant="default" />
           <IconButton icon={Restore} variant="default" />
@@ -604,5 +558,6 @@ const Menu = () => {
     </div>
   );
 };
-
+ 
+export { useOverlay, AnchoredPortal };
 export default memo(Menu);

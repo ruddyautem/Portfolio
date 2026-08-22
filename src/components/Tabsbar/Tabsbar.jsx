@@ -1,46 +1,43 @@
+// src/components/Tabsbar/Tabsbar.jsx
 'use client';
-import React, { useRef, useEffect, useState, useContext } from 'react';
+import { useRef, useEffect, useState, useContext, useCallback } from 'react';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { ThemeContext } from '@/context/ThemeContext';
 import { usePathname } from 'next/navigation';
-import { useTranslations, useLocale } from 'next-intl'; 
+import { useTranslations, useLocale } from 'next-intl';
 import { cn } from '@/lib/utils';
+import { NAV_ITEMS, TABS_NAV_ICONS } from '@/lib/constants';
 
 const Tabsbar = () => {
   const t = useTranslations('tabsbar');
-  const locale = useLocale(); 
+  const locale = useLocale();
   const currentRoute = usePathname();
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const tabsRef = useRef([]);
   const containerRef = useRef(null);
   const { theme } = useContext(ThemeContext);
 
-  const NAV_LINKS = [
-    { name: t('home'), link: '/', icon: '/jsx.svg' },
-    { name: t('about'), link: '/about', icon: '/html5.svg' },
-    { name: t('projects'), link: '/projects', icon: '/js.svg' },
-    { name: t('contact'), link: '/contact', icon: '/css.svg' },
-    { name: t('cv'), link: '/cv', icon: '/cv.svg' },
-  ];
-
   const activeStyles = {
     bg: theme === 'dracula' || theme === 'oneDarkPro' ? 'bg-active-tab-bg' : '',
     pos: ['ayu', 'oneDarkPro', 'poimandres'].includes(theme) ? 'bottom-0' : 'top-0',
   };
 
-
-  const checkIsActive = (link) => {
-    if (link === '/') {
-
-      return currentRoute === '/' || currentRoute === `/${locale}`;
-    }
-    return currentRoute === link || currentRoute.endsWith(link);
-  };
+  // Wrapped in useCallback so it can safely sit in the effect's
+  // dependency array below without retriggering on every render.
+  const checkIsActive = useCallback(
+    (link) => {
+      if (link === '/') {
+        return currentRoute === '/' || currentRoute === `/${locale}`;
+      }
+      return currentRoute === link || currentRoute.endsWith(link);
+    },
+    [currentRoute, locale],
+  );
 
   useEffect(() => {
     const updateUnderlineStyle = () => {
-      const activeIndex = NAV_LINKS.findIndex((item) => checkIsActive(item.link));
+      const activeIndex = NAV_ITEMS.findIndex((item) => checkIsActive(item.link));
       const activeTab = tabsRef.current[activeIndex];
 
       if (activeTab) {
@@ -68,7 +65,7 @@ const Tabsbar = () => {
       resizeObserver.disconnect();
       window.removeEventListener('resize', updateUnderlineStyle);
     };
-  }, [currentRoute, theme, locale]);
+  }, [checkIsActive, theme]); // checkIsActive included: fixes the original exhaustive-deps gap
 
   return (
     <div className="bg-menu text-darker h-7 w-full relative">
@@ -77,14 +74,16 @@ const Tabsbar = () => {
         className="relative flex flex-row items-center justify-center lg:justify-start 
           overflow-x-hidden h-full"
       >
-        {NAV_LINKS.map(({ name, link, icon }, index) => {
+        {NAV_ITEMS.map(({ id, link }, index) => {
+          const name = t(id);
+          const icon = TABS_NAV_ICONS[id];
           const isActive = checkIsActive(link);
           const baseName = name.replace(/\..+$/, '');
 
           return (
             <Link
               href={link}
-              key={name}
+              key={id}
               ref={(el) => {
                 tabsRef.current[index] = el;
               }}
