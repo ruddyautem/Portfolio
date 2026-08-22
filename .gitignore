@@ -35,3 +35,4 @@ pm2.config.cjs
 
 # Local-only CV editor
 src/app/\[locale\]/cv/edit/
+src/app/api/save-cv-data/
