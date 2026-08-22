@@ -1,3 +1,4 @@
+// src/components/HomepageContent/ProjectCarousel.jsx
 'use client';
 
 import { memo, useCallback, useEffect, useRef } from 'react';
@@ -14,6 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { TAG_COLORS_CAROUSEL } from '@/lib/constants';
 
 const AUTO_SCROLL_MS = 5000;
 
@@ -21,30 +23,10 @@ const CAROUSEL_OPTIONS = {
   loop: true,
   align: 'center',
   slidesToScroll: 1,
-  // Désactive le drag de toute la zone du carousel.
-  // Sans ça, Embla capture les pointer events sur les slides inactives
-  // et empêche les onClick des boutons de se déclencher.
   draggable: false,
 };
 
-const TAG_COLORS = {
-  react: 'bg-blue-500',
-  tailwindcss: 'bg-cyan-500',
-  nextjs: 'bg-slate-400',
-  express: 'bg-green-600',
-  redux: 'bg-purple-600',
-  firebase: 'bg-orange-500',
-  'styled-components': 'bg-pink-500',
-  'material-ui': 'bg-blue-600',
-  mysql: 'bg-orange-600',
-  axios: 'bg-blue-400',
-  clerk: 'bg-indigo-600',
-  sanity: 'bg-red-500',
-  typescript: 'bg-blue-700',
-  zustand: 'bg-amber-600',
-};
-
-const getTagColor = (tag) => TAG_COLORS[tag] ?? 'bg-gray-500';
+const getTagColor = (tag) => TAG_COLORS_CAROUSEL[tag] ?? 'bg-gray-500';
 
 const ProjectTag = memo(({ tag }) => (
   <span
@@ -149,7 +131,12 @@ const CarouselProgress = memo(({ api, current, projects, isPaused }) => {
   }, []);
 
   useEffect(() => {
-    resetTimer();
+    // Fix: Execute asynchronously to avoid the synchronous setState linter error
+    const timer = setTimeout(() => {
+      resetTimer();
+    }, 0);
+    
+    return () => clearTimeout(timer);
   }, [api, current, resetTimer]);
 
   useEffect(() => {
@@ -225,7 +212,7 @@ const CarouselProgress = memo(({ api, current, projects, isPaused }) => {
               isActive
                 ? 'w-10 border-accent/60 bg-slate-800 text-accent font-bold'
                 : `w-7 border-slate-700/60 bg-slate-800/40 text-slate-500 hover:bg-slate-800
-                  hover:text-slate-300`,
+                hover:text-slate-300`,
             )}
           >
             {isActive && (
@@ -261,7 +248,6 @@ const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
       setCurrent(api.selectedScrollSnap());
     };
 
-    updateCurrent();
     api.on('select', updateCurrent);
     api.on('reInit', updateCurrent);
 

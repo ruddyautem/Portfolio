@@ -1,7 +1,6 @@
 import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
 import TopPageDecoration from '@/components/TopPageDecoration/TopPageDecoration';
 import Image from 'next/image';
-import React from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { getCvData } from '@/lib/cvData';
@@ -59,32 +58,7 @@ const DownloadIcon = ({ className }) => {
 };
 
 const ContactChip = ({ contact }) => {
-  // Inlined directly to avoid Next.js compiler assignment bugs
-  if (contact.link) {
-    return (
-      <Link href={contact.link} target="_blank" rel="noopener noreferrer" className="block">
-        <span
-          className="inline-flex cursor-pointer select-none items-center gap-1.5 rounded-md border
-            border-slate-200 bg-white px-2.5 py-1 text-[10px] font-medium text-slate-700 transition-all
-            duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-sm 
-            min-[375px]:px-3 min-[375px]:py-1.5 min-[375px]:text-[11px] 
-            sm:gap-2 sm:rounded-lg sm:px-3.5 sm:py-2 sm:text-[13px]"
-        >
-          <Image
-            src={contact.icon}
-            alt=""
-            width={18}
-            height={18}
-            unoptimized
-            className="h-3.5 w-3.5 shrink-0 opacity-70 min-[375px]:h-4 min-[375px]:w-4 sm:h-4.5 sm:w-4.5"
-          />
-          {contact.text}
-        </span>
-      </Link>
-    );
-  }
-
-  return (
+  const chipContent = (
     <span
       className="inline-flex cursor-pointer select-none items-center gap-1.5 rounded-md border
         border-slate-200 bg-white px-2.5 py-1 text-[10px] font-medium text-slate-700 transition-all
@@ -103,6 +77,16 @@ const ContactChip = ({ contact }) => {
       {contact.text}
     </span>
   );
+
+  if (contact.link) {
+    return (
+      <Link href={contact.link} target="_blank" rel="noopener noreferrer" className="block">
+        {chipContent}
+      </Link>
+    );
+  }
+
+  return chipContent;
 };
 
 // Extracted the inner content of the card to guarantee safe React rendering

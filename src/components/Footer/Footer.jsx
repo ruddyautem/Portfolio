@@ -6,9 +6,6 @@ import {
   memo,
   useCallback,
   useContext,
-  useEffect,
-  useRef,
-  useState,
   useTransition,
 } from 'react';
 
@@ -16,51 +13,15 @@ import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { ThemeContext } from '@/context/ThemeContext';
 import { cn } from '@/lib/utils';
+import { useOverlay } from '@/components/Menu/Menu';
+import { LANGUAGES, THEME_DOT_COLORS, THEME_OPTIONS } from '@/lib/constants';
+import { CheckIcon, ChevronUp } from '@/lib/icons';
 
 const FooterItem = ({ icon, label, alt = '' }) => (
   <>
     <Image className="h-3 opacity-60" src={icon} width={15} height={15} alt={alt} />
     {label && <p className="ml-1">{label}</p>}
   </>
-);
-
-const LANGUAGES = [
-  { code: 'en', label: 'EN', title: 'English', flag: '/en.svg' },
-  { code: 'fr', label: 'FR', title: 'Français', flag: '/fr.svg' },
-];
-
-const THEME_OPTIONS = ['ayu', 'oneDarkPro', 'dracula', 'poimandres'];
-
-const THEME_DOT_COLORS = {
-  ayu: 'bg-[#ffcc66]',
-  oneDarkPro: 'bg-[#98c379]',
-  dracula: 'bg-[#ff79c6]',
-  poimandres: 'bg-[#5de4c7]',
-};
-
-// --- Icônes inline ---
-const ChevronUp = ({ className }) => (
-  <svg width="8" height="8" viewBox="0 0 10 10" fill="none" className={className} aria-hidden="true">
-    <path
-      d="M2 6.5L5 3.5L8 6.5"
-      stroke="currentColor"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const CheckIcon = ({ className }) => (
-  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" className={className} aria-hidden="true">
-    <path
-      d="M2.5 6.2L4.8 8.5L9.5 3.5"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
 );
 
 const FooterSettingsSwitcher = memo(({ className }) => {
@@ -71,13 +32,9 @@ const FooterSettingsSwitcher = memo(({ className }) => {
   const { theme, toggle } = useContext(ThemeContext);
   const [isPending, startTransition] = useTransition();
 
-  const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef(null);
-  const buttonRef = useRef(null);
+  const { isOpen, toggle: toggleMenu, close, anchorRef } = useOverlay();
 
   const currentLanguage = LANGUAGES.find((lang) => lang.code === locale) ?? LANGUAGES[0];
-
-  const closeMenu = useCallback(() => setIsOpen(false), []);
 
   const switchLanguage = useCallback(
     (nextLocale) => {
@@ -93,42 +50,14 @@ const FooterSettingsSwitcher = memo(({ className }) => {
   const handleThemeSelect = useCallback(
     (option) => {
       toggle(option);
-      closeMenu();
+      close();
     },
-    [toggle, closeMenu],
+    [toggle, close],
   );
 
-  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleClickOutside = (event) => {
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
-        closeMenu();
-      }
-    };
-    const handleEscape = (event) => {
-      if (event.key === 'Escape') {
-        closeMenu();
-        buttonRef.current?.focus();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
-    document.addEventListener('keydown', handleEscape);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, [isOpen, closeMenu]);
-
   return (
-    <div ref={containerRef} className={cn('relative', className)}>
+    <div ref={anchorRef} className={cn('relative', className)}>
       <button
-        ref={buttonRef}
         type="button"
         onClick={toggleMenu}
         disabled={isPending}

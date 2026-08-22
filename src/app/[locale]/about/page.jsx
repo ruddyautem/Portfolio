@@ -1,10 +1,14 @@
 import AboutContent from '@/components/AboutContent/AboutContent';
-import React from 'react';
+import { getTranslations } from 'next-intl/server';
 
-export const metadata = {
-  title: 'Profil Ruddy Autem',
-  description: 'Profil Ruddy Autem',
-};
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'about' });
+  return {
+    title: `${t('title')} ${t('titleAccent')}`,
+    description: t('subtitle'),
+  };
+}
 
 const About = () => {
   return <AboutContent />;

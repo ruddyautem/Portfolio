@@ -2,29 +2,17 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { TAG_COLORS_CARD } from '@/lib/constants';
 
-const tagColors = {
-  react: 'bg-blue-500/20 border-blue-500/30 text-blue-300',
-  tailwindcss: 'bg-cyan-500/20 border-cyan-500/30 text-cyan-300',
-  nextjs: 'bg-gray-500/20 border-gray-500/30 text-gray-300',
-  express: 'bg-green-600/20 border-green-600/30 text-green-300',
-  redux: 'bg-purple-600/20 border-purple-600/30 text-purple-300',
-  firebase: 'bg-orange-500/20 border-orange-500/30 text-orange-300',
-  'styled-components': 'bg-pink-500/20 border-pink-500/30 text-pink-300',
-  'material-ui': 'bg-blue-600/20 border-blue-600/30 text-blue-300',
-  mysql: 'bg-orange-600/20 border-orange-600/30 text-orange-300',
-  axios: 'bg-blue-400/20 border-blue-400/30 text-blue-300',
-  clerk: 'bg-indigo-600/20 border-indigo-600/30 text-indigo-300',
-  sanity: 'bg-red-500/20 border-red-500/30 text-red-300',
-  typescript: 'bg-blue-700/20 border-blue-700/30 text-blue-300',
-  zustand: 'bg-amber-600/20 border-amber-600/30 text-amber-300',
-};
+const Card = ({ project }) => {
+  const t = useTranslations('card');
 
-const Card = ({ project }) => (
-  <div
-    className="item-animate group relative h-full w-full transform transition-all duration-500
-      hover:-translate-y-2 hover:scale-[1.02]"
-  >
+  return (
+    <div
+      className="item-animate group relative h-full w-full transform transition-all duration-500
+        hover:-translate-y-2 hover:scale-[1.02]"
+    >
     <div
       className="hover:shadow-glow relative flex h-full flex-col overflow-hidden rounded-2xl border
         border-slate-700/50 bg-slate-800/30 transition-all duration-500
@@ -71,7 +59,7 @@ const Card = ({ project }) => (
             <span
               key={tag}
               className={`border border-white/10 px-3 py-1.5 text-xs font-medium rounded-lg
-              transition-all duration-300 ${tagColors[tag]?.split(' ')[2] || 'text-slate-300'}
+              transition-all duration-300 ${TAG_COLORS_CARD[tag]?.split(' ')[2] || 'text-slate-300'}
               bg-white/5`}
             >
               {tag}
@@ -89,7 +77,7 @@ const Card = ({ project }) => (
               border-white/10 font-medium text-white transition-all duration-300 hover:bg-white/10
               hover:border-white/20 hover:scale-105 md:flex-1"
           >
-            Code Source
+            {t('source')}
           </Link>
           <Link
             href={project.demo}
@@ -99,12 +87,13 @@ const Card = ({ project }) => (
               font-medium text-slate-900 transition-all duration-300 hover:bg-accent hover:shadow-lg
               hover:scale-105 md:flex-1"
           >
-            Voir Demo
+            {t('demo')}
           </Link>
         </div>
       </div>
     </div>
   </div>
-);
+  );
+};
 
 export default Card;

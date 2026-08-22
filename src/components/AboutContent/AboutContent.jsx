@@ -1,10 +1,10 @@
 'use client';
 import SkillItem from '@/components/SkillList/SkillList';
-import React from 'react';
 import { skills } from './skills';
 import { useTranslations } from 'next-intl';
 import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
 import TopPageDecoration from '../TopPageDecoration/TopPageDecoration';
+import { PAGE_OUTER_CLASSES } from '@/lib/constants';
 
 const AboutContent = () => {
   const t = useTranslations('about');
@@ -95,11 +95,7 @@ const AboutContent = () => {
 
   return (
     <PageWrapper skipChildWrapping={true}>
-      <div
-        className="flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden
-          px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 lg:pt-[7.5vh] xl:px-12 xl:pb-12 xl:pt-[7.5vh]
-          2xl:px-16 2xl:pb-16 2xl:pt-[5vh] 3xl:px-20 3xl:pb-20 3xl:pt-[5vh]"
-      >
+      <div className={PAGE_OUTER_CLASSES}>
         <div className="relative z-10 flex w-full max-w-7xl flex-col 2xl:max-w-400">
           <div
             className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50
@@ -109,13 +105,11 @@ const AboutContent = () => {
 
             <div className="flex flex-col items-center p-6 sm:p-8 md:p-10 lg:p-14">
               <div className="item-animate mb-8 max-w-3xl text-center sm:mb-12">
-                <h1
-                  className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl
-                    md:text-5xl 2xl:text-6xl"
-                >
+                <h1 className={`item-animate mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl
+                    md:text-5xl 2xl:text-6xl`}>
                   {t('title')} <span className="text-accent">{t('titleAccent')}</span>
                 </h1>
-                <p className="text-lg text-slate-300 sm:text-xl 2xl:text-2xl">{t('subtitle')}</p>
+                <p className="item-animate mx-auto max-w-3xl text-lg text-slate-300 sm:text-xl 2xl:text-2xl">{t('subtitle')}</p>
               </div>
 
               <div

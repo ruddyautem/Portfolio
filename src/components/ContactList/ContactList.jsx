@@ -2,7 +2,6 @@
 
 import { memo } from 'react';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import ContactForm from '../ContactForm/ContactForm';

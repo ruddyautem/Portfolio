@@ -1,27 +1,27 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useTranslations, useLocale } from "next-intl";
-import InputField from "./InputField";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useTranslations, useLocale } from 'next-intl';
+import InputField from './InputField';
 
 const INITIAL_FORM_STATE = {
-  name: "",
-  email: "",
-  objet: "",
-  message: "",
+  name: '',
+  email: '',
+  sujet: '',
+  message: '',
 };
 
 const FIELDS_CONFIG = [
-  { name: "name", type: "text", required: true, minLength: 4 },
-  { name: "email", type: "email", required: true },
-  { name: "objet", type: "text", required: true, minLength: 2 },
-  { name: "message", type: "textarea", required: true, minLength: 10 },
+  { name: 'name', type: 'text', required: true, minLength: 4 },
+  { name: 'email', type: 'email', required: true },
+  { name: 'sujet', type: 'text', required: true, minLength: 2 },
+  { name: 'message', type: 'textarea', required: true, minLength: 10 },
 ];
 
 const ContactForm = () => {
-  const t = useTranslations("contactForm");
+  const t = useTranslations('contactForm');
   const locale = useLocale();
 
   const [formData, setFormData] = useState(INITIAL_FORM_STATE);
@@ -31,86 +31,92 @@ const ContactForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value.trimStart() }));
+    setFormData((prev) => ({ ...prev, [name]: value.trimStart() }));
     if (validationErrors[name]) {
-      setValidationErrors(prev => ({ ...prev, [name]: null }));
+      setValidationErrors((prev) => ({ ...prev, [name]: null }));
     }
   };
 
   const handleBlur = (e) => {
-    setTouchedFields(prev => ({ ...prev, [e.target.name]: true }));
+    setTouchedFields((prev) => ({ ...prev, [e.target.name]: true }));
   };
 
   const isFieldValid = (fieldName, value) => {
-    const field = FIELDS_CONFIG.find(f => f.name === fieldName);
+    const field = FIELDS_CONFIG.find((f) => f.name === fieldName);
     const trimmedValue = value.trim();
-    
+
     if (field.required && !trimmedValue) return false;
     if (field.minLength && trimmedValue.length < field.minLength) return false;
-    if (field.type === "email" && trimmedValue && !/\S+@\S+\.\S+/.test(trimmedValue)) return false;
-    
+    if (field.type === 'email' && trimmedValue && !/\S+@\S+\.\S+/.test(trimmedValue)) return false;
+
     return true;
   };
 
   const getFieldValidationMessage = (fieldName, value) => {
-    const field = FIELDS_CONFIG.find(f => f.name === fieldName);
+    const field = FIELDS_CONFIG.find((f) => f.name === fieldName);
     const trimmedValue = value.trim();
     const translatedLabel = t(`fields.${field.name}`);
-    
+
     if (field.required && !trimmedValue) {
-      return t("validation.required", { label: translatedLabel });
+      return t('validation.required', { label: translatedLabel });
     }
     if (field.minLength && trimmedValue.length < field.minLength) {
-      return t("validation.minLength", { label: translatedLabel.toLowerCase(), min: field.minLength });
+      return t('validation.minLength', {
+        label: translatedLabel.toLowerCase(),
+        min: field.minLength,
+      });
     }
-    if (field.type === "email" && trimmedValue && !/\S+@\S+\.\S+/.test(trimmedValue)) {
-      return t("validation.emailInvalid");
+    if (field.type === 'email' && trimmedValue && !/\S+@\S+\.\S+/.test(trimmedValue)) {
+      return t('validation.emailInvalid');
     }
-    return "";
+    return '';
   };
 
   const validateForm = () => {
     const errors = {};
-    FIELDS_CONFIG.forEach(field => {
+    FIELDS_CONFIG.forEach((field) => {
       const value = formData[field.name];
       const translatedLabel = t(`fields.${field.name}`);
 
       if (field.required && !value.trim()) {
-        errors[field.name] = t("validation.required", { label: translatedLabel });
+        errors[field.name] = t('validation.required', { label: translatedLabel });
       } else if (field.minLength && value.trim().length < field.minLength) {
-        errors[field.name] = t("validation.minLength", { label: translatedLabel.toLowerCase(), min: field.minLength });
-      } else if (field.type === "email" && value && !/\S+@\S+\.\S+/.test(value)) {
-        errors[field.name] = t("validation.emailInvalid");
+        errors[field.name] = t('validation.minLength', {
+          label: translatedLabel.toLowerCase(),
+          min: field.minLength,
+        });
+      } else if (field.type === 'email' && value && !/\S+@\S+\.\S+/.test(value)) {
+        errors[field.name] = t('validation.emailInvalid');
       }
     });
     return errors;
   };
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validateForm();
-    
+
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
-      setTouchedFields(Object.fromEntries(FIELDS_CONFIG.map(field => [field.name, true])));
-      toast.error(t("validation.formError"));
+      setTouchedFields(Object.fromEntries(FIELDS_CONFIG.map((field) => [field.name, true])));
+      toast.error(t('validation.formError'));
       return;
     }
-    
+
     setStatus({ loading: true });
     setValidationErrors({});
-    
+
     try {
-      const response = await fetch(`/${locale}/api/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, locale }),
       });
-      
+
       // Handle the case where the server returns an HTML error page
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        throw new Error(t("validation.genericError"));
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error(t('validation.genericError'));
       }
 
       const data = await response.json();
@@ -119,17 +125,17 @@ const ContactForm = () => {
         setFormData(INITIAL_FORM_STATE);
         setTouchedFields({});
       } else {
-        throw new Error(data.message || t("validation.genericError"));
+        throw new Error(data.message || t('validation.genericError'));
       }
     } catch (error) {
-      toast.error(error.message || t("validation.genericError"));
+      toast.error(error.message || t('validation.genericError'));
     } finally {
       setStatus({ loading: false });
     }
   };
 
-  const validFields = FIELDS_CONFIG.filter(field => 
-    isFieldValid(field.name, formData[field.name])
+  const validFields = FIELDS_CONFIG.filter((field) =>
+    isFieldValid(field.name, formData[field.name]),
   ).length;
   const progressPercentage = (validFields / FIELDS_CONFIG.length) * 100;
   const isComplete = progressPercentage === 100;
@@ -140,18 +146,14 @@ const ContactForm = () => {
       <div className="mb-7">
         <div className="mb-2 flex items-center justify-between">
           <span className="text-sm font-medium text-slate-300 mx-auto lg:mx-0">
-            {isComplete ? t("ui.progressComplete") : t("ui.progressIncomplete")}
+            {isComplete ? t('ui.progressComplete') : t('ui.progressIncomplete')}
           </span>
-          <span className="text-accent text-sm font-medium">
-            {Math.round(progressPercentage)}%
-          </span>
+          <span className="text-accent text-sm font-medium">{Math.round(progressPercentage)}%</span>
         </div>
         <div className="h-2.5 w-full rounded-full bg-slate-700/50">
           <div
             className={`h-2.5 rounded-full transition-all duration-300 ease-out ${
-              isComplete 
-                ? "bg-green-500" 
-                : "bg-accent"
+              isComplete ? 'bg-green-500' : 'bg-accent'
             }`}
             style={{ width: `${progressPercentage}%` }}
           />
@@ -202,31 +204,31 @@ const ContactForm = () => {
           <button
             type="submit"
             disabled={status.loading || progressPercentage < 100}
-            className={`bg-accent mt-5 flex h-15 w-full transform-gpu cursor-pointer items-center justify-center rounded-lg font-bold text-slate-900 transition-all duration-300 ${
-              progressPercentage === 100 && !status.loading
-                ? "hover:scale-[1.01] hover:shadow-glow"
-                : "cursor-not-allowed opacity-50"
-            } disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100`}
+            className={`bg-accent mt-5 flex h-15 w-full transform-gpu cursor-pointer items-center
+              justify-center rounded-lg font-bold text-slate-900 transition-all duration-300 ${
+                progressPercentage === 100 && !status.loading
+                  ? 'hover:scale-[1.01] hover:shadow-glow'
+                  : 'cursor-not-allowed opacity-50'
+              } disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100`}
           >
             {status.loading ? (
               <>
-                <div className="mr-3 h-5 w-5 animate-spin rounded-full border-2 border-slate-900 border-t-transparent"></div>
-                <span>{t("ui.sending")}</span>
+                <div
+                  className="mr-3 h-5 w-5 animate-spin rounded-full border-2 border-slate-900
+                    border-t-transparent"
+                ></div>
+                <span>{t('ui.sending')}</span>
               </>
             ) : (
               <>
-                <span>{t("ui.sendBtn")}</span>
-                {progressPercentage === 100 && (
-                  <span className="ml-2 text-lg">🚀</span>
-                )}
+                <span>{t('ui.sendBtn')}</span>
+                {progressPercentage === 100 && <span className="ml-2 text-lg">🚀</span>}
               </>
             )}
           </button>
 
           {progressPercentage < 100 && (
-            <p className="mt-2 text-center text-xs text-slate-400">
-              {t("ui.fillAllFields")}
-            </p>
+            <p className="mt-2 text-center text-xs text-slate-400">{t('ui.fillAllFields')}</p>
           )}
         </div>
       </form>

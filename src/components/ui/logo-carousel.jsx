@@ -1,11 +1,10 @@
-// logo-carousel.jsx
+// src/components/ui/logo-carousel.jsx
 'use client';
 import { useEffect, useMemo, useState, memo, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 
 const CYCLE_DURATION = 3000;
-const TIME_INTERVAL = 100;
 const COLUMN_STAGGER_DELAY = 200;
 
 const BREAKPOINTS = [
@@ -26,12 +25,12 @@ const LOGOS = [
   { id: 6, name: 'Styled Components', src: '/styled.svg' },
   { id: 7, name: 'Shadcn', src: '/shadcn-wordmark.svg' },
   { id: 8, name: 'Git', src: '/git-wordmark.svg' },
-  { id: 9, name: 'MongoDB', src: '/mongodb-wordmark.svg' },
-  { id: 10, name: 'GitHub', src: '/github-wordmark2.svg' },
-  { id: 11, name: 'Zustand', src: '/zustand.svg' },
-  { id: 12, name: 'Clerk', src: '/clerk-wordmark.svg' },
-  { id: 13, name: 'Express', src: '/express-wordmark.svg' },
-  { id: 14, name: 'OpenAI', src: '/openai-wordmark2.svg' },
+  { id: 9, name: 'Codex', src: '/codex-text.svg' },
+  { id: 10, name: 'MongoDB', src: '/mongodb-wordmark.svg' },
+  { id: 11, name: 'GitHub', src: '/github-wordmark2.svg' },
+  { id: 12, name: 'Zustand', src: '/zustand.svg' },
+  { id: 13, name: 'Clerk', src: '/clerk-wordmark.svg' },
+  { id: 14, name: 'Express', src: '/express-wordmark.svg' },
   { id: 15, name: 'Sanity', src: '/sanity-wordmark.svg' },
   { id: 16, name: 'SSH', src: '/ssh-wordmark.svg' },
   { id: 17, name: 'Prisma', src: '/prisma-wordmark.svg' },
@@ -48,17 +47,9 @@ const ANIMATION_VARIANTS = {
     animate: {
       y: '0%',
       opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 300,
-        damping: 20,
-      },
+      transition: { type: 'spring', stiffness: 300, damping: 20 },
     },
-    exit: {
-      y: '-20%',
-      opacity: 0,
-      transition: { duration: 0.3 },
-    },
+    exit: { y: '-20%', opacity: 0, transition: { duration: 0.3 } },
   },
 };
 
@@ -101,22 +92,33 @@ function distributeLogosAcrossColumns(logos, columnCount) {
   return columns;
 }
 
+// --- QUALITY: L1 Debounced Resize Listener ---
 function useResponsiveColumns() {
   const [columns, setColumns] = useState(() =>
     typeof window === 'undefined' ? 2 : getColumnsFromWidth(window.innerWidth),
   );
 
   useEffect(() => {
-    const handleResize = () => setColumns(getColumnsFromWidth(window.innerWidth));
+    let timeoutId;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setColumns(getColumnsFromWidth(window.innerWidth));
+      }, 150); // 150ms debounce
+    };
     handleResize();
     window.addEventListener('resize', handleResize, { passive: true });
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   return columns;
 }
 
-function useAnimationTimer(interval = TIME_INTERVAL) {
+// --- QUALITY: L1 requestAnimationFrame Loop ---
+function useAnimationTimer() {
   const maxTime = CYCLE_DURATION * LOGOS.length;
   const [time, setTime] = useState(0);
   const isPausedRef = useRef(false);
@@ -130,13 +132,21 @@ function useAnimationTimer(interval = TIME_INTERVAL) {
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    let frameId;
+    let lastTimestamp = performance.now();
+
+    const tick = (timestamp) => {
       if (!isPausedRef.current) {
-        setTime((prev) => (prev + interval) % maxTime);
+        const delta = timestamp - lastTimestamp;
+        setTime((prev) => (prev + delta) % maxTime);
       }
-    }, interval);
-    return () => clearInterval(timer);
-  }, [interval, maxTime]);
+      lastTimestamp = timestamp;
+      frameId = requestAnimationFrame(tick);
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, [maxTime]);
 
   return time;
 }
@@ -156,11 +166,7 @@ const LogoColumn = memo(
         variants={ANIMATION_VARIANTS.container}
         initial="initial"
         animate="animate"
-        transition={{
-          delay: columnIndex * 0.1,
-          duration: 0.5,
-          ease: 'easeOut',
-        }}
+        transition={{ delay: columnIndex * 0.1, duration: 0.5, ease: 'easeOut' }}
       >
         <AnimatePresence mode="wait">
           <motion.div

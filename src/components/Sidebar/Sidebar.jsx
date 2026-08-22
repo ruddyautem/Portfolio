@@ -1,28 +1,12 @@
 'use client';
 import Image from 'next/image';
-
-// 🔥 localized Link & Pathname
 import { Link, usePathname } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 
 import { useRef, useEffect, useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
 import { cn } from '@/lib/utils';
-
-
-const TOP_CONFIG = [
-  { id: 'home', link: '/', icon: '/files.svg' },
-  { id: 'about', link: '/about', icon: '/code.svg' },
-  { id: 'projects', link: '/projects', icon: '/source-control.svg' },
-  { id: 'contact', link: '/contact', icon: '/email.svg' },
-  { id: 'cv', link: '/cv', icon: '/cv-sidebar.svg' },
-];
-
-const BOTTOM_CONFIG = [
-  { id: 'accounts', icon: '/account.svg' },
-  { id: 'settings', icon: '/settings-gear.svg' },
-];
-
+import { NAV_ITEMS, SIDEBAR_NAV_ICONS, BOTTOM_SIDEBAR_ITEMS } from '@/lib/constants';
 
 const NavItem = ({ item, isActive, onRef, priority }) => {
   const content = (
@@ -74,8 +58,8 @@ const Sidebar = () => {
 
   useEffect(() => {
     const updateIndicator = () => {
-      // Find the index using the CONFIG directly to avoid any React re-render loops
-      const activeIndex = TOP_CONFIG.findIndex((item) => item.link === currentRoute);
+      // Find the index using NAV_ITEMS directly to avoid any React re-render loops
+      const activeIndex = NAV_ITEMS.findIndex((item) => item.link === currentRoute);
       const activeElement = itemsRef.current[activeIndex];
 
       if (activeElement) {
@@ -103,10 +87,10 @@ const Sidebar = () => {
     >
       {/* SECTION HAUTE */}
       <nav className="relative flex flex-col" aria-label="Primary navigation">
-        {TOP_CONFIG.map((item, index) => (
+        {NAV_ITEMS.map((item, index) => (
           <NavItem
             key={item.id}
-            item={{ ...item, name: t(item.id) }} // 🔥 Inject the translated name here!
+            item={{ ...item, icon: SIDEBAR_NAV_ICONS[item.id], name: t(item.id) }} // 🔥 Inject the translated name + this view's icon
             isActive={currentRoute === item.link}
             priority={index < 3}
             onRef={(el) => {
@@ -128,7 +112,7 @@ const Sidebar = () => {
 
       {/* SECTION BASSE */}
       <nav className="flex flex-col" aria-label="Secondary navigation">
-        {BOTTOM_CONFIG.map((item) => (
+        {BOTTOM_SIDEBAR_ITEMS.map((item) => (
           <NavItem
             key={item.id}
             item={{ ...item, name: t(item.id) }} // 🔥 Inject the translated name here!
