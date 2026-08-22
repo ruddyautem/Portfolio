@@ -36,7 +36,10 @@ export const cvData = {
         label: 'Back-End',
         skills: ['Node.js', 'Express', 'MongoDB', 'MySQL', 'Prisma', 'Firebase', 'Zod'],
       },
-      { label: 'Tools', skills: ['Git', 'Vercel', 'Redux', 'Zustand', 'Clerk', 'Cursor', 'Scrum'] },
+      {
+        label: 'Tools',
+        skills: ['Git', 'Vercel', 'Redux', 'Zustand', 'Clerk', 'Codex', 'Cursor', 'Scrum'],
+      },
     ],
     projects: [
       {
@@ -139,7 +142,7 @@ export const cvData = {
       },
       {
         label: 'Outils',
-        skills: ['Git', 'Vercel', 'Redux', 'Zustand', 'Clerk', 'Cursor', 'Scrum'],
+        skills: ['Git', 'Vercel', 'Redux', 'Zustand', 'Clerk', 'Codex', 'Cursor', 'Scrum'],
       },
     ],
     projects: [
