@@ -62,9 +62,9 @@ const ContactChip = ({ contact }) => {
     <span
       className="inline-flex cursor-pointer select-none items-center gap-1.5 rounded-md border
         border-slate-200 bg-white px-2.5 py-1 text-[10px] font-medium text-slate-700 transition-all
-        duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-sm 
-        min-[375px]:px-3 min-[375px]:py-1.5 min-[375px]:text-[11px] 
-        sm:gap-2 sm:rounded-lg sm:px-3.5 sm:py-2 sm:text-[13px]"
+        duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-sm min-[375px]:px-3
+        min-[375px]:py-1.5 min-[375px]:text-[11px] sm:gap-2 sm:rounded-lg sm:px-3.5 sm:py-2
+        sm:text-[13px]"
     >
       <Image
         src={contact.icon}
@@ -72,7 +72,8 @@ const ContactChip = ({ contact }) => {
         width={18}
         height={18}
         unoptimized
-        className="h-3.5 w-3.5 shrink-0 opacity-70 min-[375px]:h-4 min-[375px]:w-4 sm:h-4.5 sm:w-4.5"
+        className="h-3.5 w-3.5 shrink-0 opacity-70 min-[375px]:h-4 min-[375px]:w-4 sm:h-4.5
+          sm:w-4.5"
       />
       {contact.text}
     </span>
@@ -94,38 +95,28 @@ const ProjectCardContent = ({ proj, idx }) => {
   return (
     <>
       <span
-        className="cv-project-number absolute -left-3 -top-3 flex h-7 w-7
-          select-none items-center justify-center rounded-full border
-          border-slate-200 bg-white text-[10px] font-black text-slate-700
-          transition-all duration-300 sm:h-8 sm:w-8 sm:text-xs"
+        className="cv-project-number absolute -left-3 -top-3 flex h-7 w-7 select-none items-center
+          justify-center rounded-full border border-slate-200 bg-white text-[10px] font-black
+          text-slate-700 transition-all duration-300 sm:h-8 sm:w-8 sm:text-xs"
       >
         {String(idx + 1).padStart(2, '0')}
       </span>
 
       <div
-        className="flex flex-col items-center gap-2 pl-3 sm:flex-row
-          sm:items-start sm:justify-between sm:gap-3"
+        className="flex flex-col items-center gap-2 pl-3 sm:flex-row sm:items-start
+          sm:justify-between sm:gap-3"
       >
         <div className="min-w-0 flex-1 text-center sm:text-left">
-          <div
-            className="flex flex-wrap items-center justify-center gap-2
-              sm:justify-start"
-          >
-            <span
-              className="text-[13px] font-bold text-slate-700 sm:text-[14px]
-                md:text-[15px]"
-            >
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+            <span className="text-[13px] font-bold text-slate-700 sm:text-[14px] md:text-[15px]">
               {proj.title}
             </span>
             {proj.link && (
               <>
-                <span className="select-none text-[10px] text-slate-300">
-                  •
-                </span>
+                <span className="select-none text-[10px] text-slate-300">•</span>
                 <span
-                  className="select-none rounded-lg border border-blue-200
-                    bg-blue-50/50 px-3 py-1.5 font-mono text-[11px]
-                    font-medium text-blue-600 sm:text-[11.5px]"
+                  className="select-none rounded-lg border border-blue-200 bg-blue-50/50 px-3 py-1.5
+                    font-mono text-[11px] font-medium text-blue-600 sm:text-[11.5px]"
                 >
                   {cleanUrl(proj.link)}
                 </span>
@@ -134,9 +125,8 @@ const ProjectCardContent = ({ proj, idx }) => {
           </div>
         </div>
         <span
-          className="shrink-0 select-none rounded-xl border
-            border-slate-700/20 bg-slate-700 px-3 py-1.5 text-[10px] font-bold
-            text-white sm:text-[11px]"
+          className="shrink-0 select-none rounded-xl border border-slate-700/20 bg-slate-700 px-3
+            py-1.5 text-[10px] font-bold text-white sm:text-[11px]"
         >
           {proj.year}
         </span>
@@ -147,13 +137,10 @@ const ProjectCardContent = ({ proj, idx }) => {
           {proj.points.map((pt, pti) => (
             <li
               key={pti}
-              className="flex items-start justify-center gap-2 text-center
-                text-[11px] leading-relaxed text-slate-700/70 sm:justify-start
-                sm:text-left sm:text-[12px]"
+              className="flex items-start justify-center gap-2 text-center text-[11px]
+                leading-relaxed text-slate-700/70 sm:justify-start sm:text-left sm:text-[12px]"
             >
-              <span
-                className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-slate-700"
-              ></span>
+              <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-slate-700"></span>
               <span className="whitespace-pre-wrap">{pt}</span>
             </li>
           ))}
@@ -252,27 +239,29 @@ const CV = () => {
 
                 {/* --- TEXT CONTENT --- */}
                 <div
-                  className="flex flex-col items-center px-4 pb-6 pt-24 text-center 
-                    min-[375px]:px-5 min-[375px]:pb-8 min-[375px]:pt-28 
-                    sm:pt-32 md:pt-32 lg:pt-40 xl:pt-44"
+                  className="flex flex-col items-center px-4 pb-6 pt-24 text-center min-[375px]:px-5
+                    min-[375px]:pb-8 min-[375px]:pt-28 sm:pt-32 md:pt-32 lg:pt-40 xl:pt-44"
                 >
                   <span
                     className="mb-2.5 inline-block rounded-md bg-slate-100 px-2.5 py-1 text-[9px]
-                      font-black uppercase tracking-[0.2em] text-slate-600 
-                      min-[375px]:mb-3 min-[375px]:px-3 min-[375px]:py-1.5 min-[375px]:text-[10px] 
-                      sm:text-xs md:text-sm"
+                      font-black uppercase tracking-[0.2em] text-slate-600 min-[375px]:mb-3
+                      min-[375px]:px-3 min-[375px]:py-1.5 min-[375px]:text-[10px] sm:text-xs
+                      md:text-sm"
                   >
                     {title}
                   </span>
 
                   <h1
                     className="cv-name-gradient mb-4 text-3xl font-black leading-tight
-                      tracking-tight min-[375px]:mb-5 min-[375px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+                      tracking-tight min-[375px]:mb-5 min-[375px]:text-4xl sm:text-5xl md:text-6xl
+                      lg:text-7xl"
                   >
                     {name}
                   </h1>
 
-                  <div className="flex flex-wrap items-center justify-center gap-1.5 min-[375px]:gap-2">
+                  <div
+                    className="flex flex-wrap items-center justify-center gap-1.5 min-[375px]:gap-2"
+                  >
                     {contacts.map((c, i) => (
                       <ContactChip key={i} contact={c} />
                     ))}
@@ -293,7 +282,7 @@ const CV = () => {
                   </a>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
                 <div className="flex flex-col gap-5 lg:col-span-2 lg:gap-6">
                   {about && (
