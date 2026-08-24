@@ -71,7 +71,6 @@ const ContactChip = ({ contact }) => {
         alt=""
         width={18}
         height={18}
-        unoptimized
         className="h-3.5 w-3.5 shrink-0 opacity-70 min-[375px]:h-4 min-[375px]:w-4 sm:h-4.5
           sm:w-4.5"
       />
@@ -230,7 +229,6 @@ const CV = () => {
                         alt={name}
                         width={300}
                         height={300}
-                        unoptimized
                         className="h-full w-full object-cover"
                       />
                     </div>
