@@ -26,7 +26,7 @@ Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais 
 
 ### 📬 Le formulaire de contact
 
-J'ai pris le temps de sécuriser un minimum la route qui envoie les emails (via nodemailer) :
+J'ai pris le temps de sécuriser la route qui envoie les emails (via Resend + Zod) :
 
 - une limitation à 3 envois par IP toutes les 10 minutes, pour éviter le spam ;
 - un nettoyage strict de tout ce qui pourrait finir dans un en-tête d'email, pour éviter l'injection ;
@@ -66,7 +66,7 @@ Rien d'extraordinaire, mais j'y tenais : chaque page passe par un middleware qui
 | UI                   | Radix UI, Lucide React             |
 | Animations           | Framer Motion                      |
 | Carrousel            | Embla Carousel                     |
-| Email                | Nodemailer                         |
+| Email                | Resend API + Zod                   |
 | Qualité de code      | ESLint + Prettier                  |
 
 ### 📁 Structure du projet
@@ -148,7 +148,7 @@ bun run dev
 
 Direction [http://localhost:3000](http://localhost:3000).
 
-> 💡 Le formulaire de contact a besoin d'identifiants SMTP (dans un `.env`) pour envoyer réellement les emails.
+> 💡 Le formulaire de contact a besoin d'une clé `RESEND_API_KEY` et de `MY_EMAIL` (dans un fichier `.env`) pour envoyer les emails.
 
 ### À propos de moi
 
@@ -174,7 +174,7 @@ Welcome to the source code of my portfolio. As a Full Stack developer, I wanted 
 
 ### 📬 The contact form
 
-I took the time to properly secure the route that sends emails (via nodemailer):
+I took the time to properly secure the route that sends emails (via Resend + Zod):
 
 - rate limiting to 3 submissions per IP every 10 minutes, to keep spam away;
 - strict sanitization of anything that could end up in an email header, to prevent injection;
@@ -214,7 +214,7 @@ Nothing fancy, but it mattered to me: every page goes through a middleware that 
 | UI                   | Radix UI, Lucide React             |
 | Animations           | Framer Motion                      |
 | Carousel             | Embla Carousel                     |
-| Email                | Nodemailer                         |
+| Email                | Resend API + Zod                   |
 | Code quality         | ESLint + Prettier                  |
 
 ### 📁 Project structure
@@ -296,7 +296,7 @@ bun run dev
 
 Then head to [http://localhost:3000](http://localhost:3000).
 
-> 💡 The contact form needs SMTP credentials (in a `.env`) to actually send emails.
+> 💡 The contact form needs a `RESEND_API_KEY` and `MY_EMAIL` (in a `.env` file) to send emails.
 
 ### About me
 

@@ -1,37 +1,35 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+import { z } from 'zod';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // --- H1: Rate limiting ---
+// In-memory rate limiting (Note: for serverless like Vercel, consider @upstash/ratelimit)
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const MAX_REQUESTS_PER_IP = 3;
 const rateLimitMap = new Map();
 
-// --- H2: Strip/reject CRLF before anything touches an email header ---
-function sanitizeHeaderValue(str) {
-  if (typeof str !== 'string') return null;
-  // Stripping raw control characters is the point of this function (defense
-  // against header injection), so the literal control-char ranges below are
-  // intentional, not an accident — hence the targeted eslint suppression.
-  // eslint-disable-next-line no-control-regex
-  const stripped = str.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '');
-  if (/[\r\n]/.test(stripped)) return null; // reject outright, don't silently blank it
-  return stripped.trim();
-}
+// --- Zod Schema for validation ---
+const contactSchema = z.object({
+  name: z.string().min(1).max(100),
+  email: z.string().email().max(254),
+  sujet: z.string().min(1).max(150),
+  message: z.string().min(1).max(5000),
+  locale: z.enum(['en', 'fr']).default('fr'),
+});
 
 // Body text isn't used in a header, only escaped for safe HTML rendering.
-function escapeHtml(str = '') {
+const escapeHtml = (str = '') => {
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
-}
+};
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const MAX_LEN = { name: 100, sujet: 150, email: 254, message: 5000 };
-
-export async function POST(request) {
+export const POST = async (request) => {
   // --- Rate limiting ---
   const clientIP = request.headers.get('x-forwarded-for') || 'unknown';
   const now = Date.now();
@@ -54,66 +52,24 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { name, email, sujet, message } = body;
     locale = body.locale === 'en' ? 'en' : 'fr';
 
-    const errMsg =
-      locale === 'en' ? 'Please fill in all fields.' : 'Merci de remplir tous les champs.';
-    const badMsg = locale === 'en' ? 'Invalid input.' : 'Entrée invalide.';
+    // Parse and validate using Zod. This throws a ZodError if invalid.
+    const safeData = contactSchema.parse(body);
 
-    if (!name || !email || !sujet || !message) {
-      return NextResponse.json({ message: errMsg }, { status: 400 });
-    }
-
-    if (
-      name.length > MAX_LEN.name ||
-      sujet.length > MAX_LEN.sujet ||
-      email.length > MAX_LEN.email ||
-      message.length > MAX_LEN.message
-    ) {
-      return NextResponse.json({ message: badMsg }, { status: 400 });
-    }
-
-    // --- Sanitize/validate everything that ends up in a header ---
-    const headerSafeName = sanitizeHeaderValue(name);
-    const headerSafeSujet = sanitizeHeaderValue(sujet);
-    const headerSafeEmail = sanitizeHeaderValue(email);
-
-    if (
-      !headerSafeName ||
-      !headerSafeSujet ||
-      !headerSafeEmail ||
-      !EMAIL_RE.test(headerSafeEmail)
-    ) {
-      // Sanitization stripped something (CRLF attempt) or email isn't a real email.
-      // Reject outright rather than sending a mangled/blank message.
-      return NextResponse.json({ message: badMsg }, { status: 400 });
-    }
-
-    const host = process.env.MAIL_HOST;
-    const user = process.env.MAIL_USER;
-    const password = process.env.MAIL_PASSWORD;
     const myEmail = process.env.MY_EMAIL;
-
-    if (!host || !user || !password || !myEmail) {
-      console.error('Mail Error: missing MAIL_HOST/MAIL_USER/MAIL_PASSWORD/MY_EMAIL env vars');
+    if (!myEmail || !process.env.RESEND_API_KEY) {
+      console.error('Mail Error: missing MY_EMAIL or RESEND_API_KEY env vars');
       const msg =
         locale === 'en' ? 'Your message could not be sent' : "Votre message n'a pas pu être envoyé";
       return NextResponse.json({ message: msg }, { status: 500 });
     }
 
-    const transporter = nodemailer.createTransport({
-      host,
-      port: 465,
-      secure: true,
-      auth: { user, pass: password },
-    });
-
     // HTML-escaped versions, for the body only
-    const safeName = escapeHtml(name);
-    const safeEmail = escapeHtml(headerSafeEmail);
-    const safeSujet = escapeHtml(sujet);
-    const safeMessage = escapeHtml(message);
+    const safeName = escapeHtml(safeData.name);
+    const safeEmail = escapeHtml(safeData.email);
+    const safeSujet = escapeHtml(safeData.sujet);
+    const safeMessage = escapeHtml(safeData.message);
 
     const dateStr = new Date().toLocaleString('fr-FR', {
       weekday: 'long',
@@ -124,11 +80,13 @@ export async function POST(request) {
       minute: '2-digit',
     });
 
-    await transporter.sendMail({
-      from: user,
+    const { error } = await resend.emails.send({
+      // Resend requires a verified domain to send from. 'onboarding@resend.dev' works for testing 
+      // but only to your registered Resend email address.
+      from: 'Portfolio Contact <onboarding@resend.dev>',
       to: myEmail,
-      replyTo: headerSafeEmail, // sanitized + regex-validated, safe for header use
-      subject: `📬 Nouveau message de ${headerSafeName} - ${headerSafeSujet}`,
+      replyTo: safeData.email, 
+      subject: `📬 Nouveau message de ${safeData.name} - ${safeData.sujet}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -186,6 +144,13 @@ export async function POST(request) {
       `,
     });
 
+    if (error) {
+      console.error('Resend API Error:', error);
+      const errorMsg =
+        locale === 'en' ? 'Your message could not be sent' : "Votre message n'a pas pu être envoyé";
+      return NextResponse.json({ message: errorMsg }, { status: 500 });
+    }
+
     const successMsg =
       locale === 'en'
         ? "Message sent! I'll get back to you within 24 hours :)"
@@ -193,9 +158,14 @@ export async function POST(request) {
 
     return NextResponse.json({ message: successMsg }, { status: 200 });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      const badMsg = locale === 'en' ? 'Invalid input.' : 'Entrée invalide.';
+      return NextResponse.json({ message: badMsg }, { status: 400 });
+    }
+    
     console.error('Mail Error:', error);
     const errorMsg =
       locale === 'en' ? 'Your message could not be sent' : "Votre message n'a pas pu être envoyé";
     return NextResponse.json({ message: errorMsg }, { status: 500 });
   }
-}
+};
