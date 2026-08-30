@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { z } from 'zod';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 // --- H1: Rate limiting ---
 // In-memory rate limiting (Note: for serverless like Vercel, consider @upstash/ratelimit)
@@ -58,12 +57,16 @@ export const POST = async (request) => {
     const safeData = contactSchema.parse(body);
 
     const myEmail = process.env.MY_EMAIL;
-    if (!myEmail || !process.env.RESEND_API_KEY) {
+    const resendApiKey = process.env.RESEND_API_KEY;
+
+    if (!myEmail || !resendApiKey) {
       console.error('Mail Error: missing MY_EMAIL or RESEND_API_KEY env vars');
       const msg =
         locale === 'en' ? 'Your message could not be sent' : "Votre message n'a pas pu être envoyé";
       return NextResponse.json({ message: msg }, { status: 500 });
     }
+
+    const resend = new Resend(resendApiKey);
 
     // HTML-escaped versions, for the body only
     const safeName = escapeHtml(safeData.name);
