@@ -146,12 +146,7 @@ const AnchoredPortal = ({ anchorRef, overlayRef, isOpen, align = 'left', classNa
   }, [anchorRef, align]);
  
   useLayoutEffect(() => {
-    // Measuring the anchor's DOM position before paint and syncing it into
-    // state is React's documented useLayoutEffect pattern (see "Measuring
-    // layout before the browser repaints" in the React docs). The linter's
-    // generic set-state-in-effect rule can't distinguish this from an
-    // accidental setState-in-effect, so it's suppressed here deliberately.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     if (isOpen) updatePosition();
   }, [isOpen, updatePosition]);
  
