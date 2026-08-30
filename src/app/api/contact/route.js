@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 
 // --- H1: Rate limiting ---
-// In-memory rate limiting (Note: for serverless like Vercel, consider @upstash/ratelimit)
+// In-memory rate limiting
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const MAX_REQUESTS_PER_IP = 3;
 const rateLimitMap = new Map();
