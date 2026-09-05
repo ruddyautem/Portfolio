@@ -51,7 +51,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = memo(({ project, onExternalLink, t, isFirst }: ProjectCardProps) => {
-  const tags = project.tags?.slice(0, 3) ?? [];
+  const tags = project.tags ?? [];
 
   return (
     <div className="flex h-full flex-col">
@@ -69,7 +69,7 @@ const ProjectCard = memo(({ project, onExternalLink, t, isFirst }: ProjectCardPr
       </div>
 
       <div
-        className="flex min-h-0 flex-1 flex-col gap-2.5 p-3 text-center sm:p-3.5 2xl:gap-3 2xl:p-4"
+        className="flex min-h-0 flex-1 flex-col gap-2 p-2.5 text-center sm:gap-2.5 sm:p-3.5 2xl:gap-3 2xl:p-4"
       >
         <Link
           href="/projects"
@@ -80,10 +80,10 @@ const ProjectCard = memo(({ project, onExternalLink, t, isFirst }: ProjectCardPr
         </Link>
 
         <p
-          className="line-clamp-3 text-xs leading-relaxed text-slate-300 sm:text-sm 2xl:text-base
-            3xl:text-lg"
+          className="line-clamp-2 text-xs leading-relaxed text-slate-300 sm:text-xs 2xl:text-sm
+            3xl:text-base"
         >
-          {project.desc}
+          {project.shortDesc || project.desc}
         </p>
 
         <div className="flex flex-wrap justify-center gap-1.5">

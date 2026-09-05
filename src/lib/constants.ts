@@ -87,6 +87,7 @@ export const TAG_COLORS_CAROUSEL = {
   redis: 'bg-red-600',
   drizzle: 'bg-emerald-500',
   postgresql: 'bg-sky-600',
+  prisma: 'bg-teal-500',
   vite: 'bg-purple-500',
   'aws-s3': 'bg-amber-600',
 };
@@ -115,6 +116,7 @@ export const TAG_COLORS_CARD = {
   redis: 'bg-red-600/20 border-red-600/30 text-red-300',
   drizzle: 'bg-emerald-500/20 border-emerald-500/30 text-emerald-300',
   postgresql: 'bg-sky-600/20 border-sky-600/30 text-sky-300',
+  prisma: 'bg-teal-500/20 border-teal-500/30 text-teal-300',
   vite: 'bg-purple-500/20 border-purple-500/30 text-purple-300',
   'aws-s3': 'bg-amber-600/20 border-amber-600/30 text-amber-300',
 };

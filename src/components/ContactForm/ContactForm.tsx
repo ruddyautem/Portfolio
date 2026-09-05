@@ -6,6 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useTranslations, useLocale } from 'next-intl';
 import InputField from './InputField';
 
+// Strict email regex matching backend
+const EMAIL_STRICT_REGEX =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z]{2,})+$/;
+
 const INITIAL_FORM_STATE = {
   name: '',
   email: '',
@@ -15,7 +19,7 @@ const INITIAL_FORM_STATE = {
 };
 
 const FIELDS_CONFIG = [
-  { name: 'name', type: 'text', required: true, minLength: 4 },
+  { name: 'name', type: 'text', required: true, minLength: 3 },
   { name: 'email', type: 'email', required: true },
   { name: 'sujet', type: 'text', required: true, minLength: 2 },
   { name: 'message', type: 'textarea', required: true, minLength: 10 },
@@ -27,10 +31,10 @@ const ContactForm = () => {
 
   const [formData, setFormData] = useState(INITIAL_FORM_STATE);
   const [status, setStatus] = useState({ loading: false });
-  const [validationErrors, setValidationErrors] = useState({});
-  const [touchedFields, setTouchedFields] = useState({});
+  const [validationErrors, setValidationErrors] = useState<Record<string, string | null>>({});
+  const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value.trimStart() }));
     if (validationErrors[name]) {
@@ -38,23 +42,25 @@ const ContactForm = () => {
     }
   };
 
-  const handleBlur = (e) => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setTouchedFields((prev) => ({ ...prev, [e.target.name]: true }));
   };
 
-  const isFieldValid = (fieldName, value) => {
+  const isFieldValid = (fieldName: string, value: string) => {
     const field = FIELDS_CONFIG.find((f) => f.name === fieldName);
+    if (!field) return false;
     const trimmedValue = value.trim();
 
     if (field.required && !trimmedValue) return false;
     if (field.minLength && trimmedValue.length < field.minLength) return false;
-    if (field.type === 'email' && trimmedValue && !/\S+@\S+\.\S+/.test(trimmedValue)) return false;
+    if (field.type === 'email' && trimmedValue && !EMAIL_STRICT_REGEX.test(trimmedValue)) return false;
 
     return true;
   };
 
-  const getFieldValidationMessage = (fieldName, value) => {
+  const getFieldValidationMessage = (fieldName: string, value: string) => {
     const field = FIELDS_CONFIG.find((f) => f.name === fieldName);
+    if (!field) return '';
     const trimmedValue = value.trim();
     const translatedLabel = t(`fields.${field.name}`);
 
@@ -67,33 +73,34 @@ const ContactForm = () => {
         min: field.minLength,
       });
     }
-    if (field.type === 'email' && trimmedValue && !/\S+@\S+\.\S+/.test(trimmedValue)) {
+    if (field.type === 'email' && trimmedValue && !EMAIL_STRICT_REGEX.test(trimmedValue)) {
       return t('validation.emailInvalid');
     }
     return '';
   };
 
   const validateForm = () => {
-    const errors = {};
+    const errors: Record<string, string> = {};
     FIELDS_CONFIG.forEach((field) => {
-      const value = formData[field.name];
+      const value = formData[field.name as keyof typeof formData];
+      const trimmedValue = value.trim();
       const translatedLabel = t(`fields.${field.name}`);
 
-      if (field.required && !value.trim()) {
+      if (field.required && !trimmedValue) {
         errors[field.name] = t('validation.required', { label: translatedLabel });
-      } else if (field.minLength && value.trim().length < field.minLength) {
+      } else if (field.minLength && trimmedValue.length < field.minLength) {
         errors[field.name] = t('validation.minLength', {
           label: translatedLabel.toLowerCase(),
           min: field.minLength,
         });
-      } else if (field.type === 'email' && value && !/\S+@\S+\.\S+/.test(value)) {
+      } else if (field.type === 'email' && trimmedValue && !EMAIL_STRICT_REGEX.test(trimmedValue)) {
         errors[field.name] = t('validation.emailInvalid');
       }
     });
     return errors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errors = validateForm();
 
@@ -125,10 +132,27 @@ const ContactForm = () => {
         toast.success(data.message);
         setFormData(INITIAL_FORM_STATE);
         setTouchedFields({});
+        setValidationErrors({});
       } else {
+        if (data.field && data.message) {
+          setValidationErrors((prev) => ({ ...prev, [data.field]: data.message }));
+          setTouchedFields((prev) => ({ ...prev, [data.field]: true }));
+        }
+        if (Array.isArray(data.errors)) {
+          const newErrors: Record<string, string> = {};
+          const newTouched: Record<string, boolean> = {};
+          data.errors.forEach((err: { field: string; message: string }) => {
+            if (err.field) {
+              newErrors[err.field] = err.message;
+              newTouched[err.field] = true;
+            }
+          });
+          setValidationErrors((prev) => ({ ...prev, ...newErrors }));
+          setTouchedFields((prev) => ({ ...prev, ...newTouched }));
+        }
         throw new Error(data.message || t('validation.genericError'));
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message || t('validation.genericError'));
     } finally {
       setStatus({ loading: false });

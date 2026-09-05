@@ -4,8 +4,8 @@
     "badge": "AUTEM.DEV",
     "name": "Ruddy",
     "surname": "Autem",
-    "title": "Développeur Web Full Stack",
-    "description": "Je conçois et développe des applications web modernes, en alliant performance, simplicité et expérience utilisateur",
+    "title": "Développeur Full Stack",
+    "description": "Conception d'applications web modernes de bout en bout. Interfaces réactives et soignées, architectures backend robustes et APIs haute performance.",
     "location": "France · Remote",
     "featured": "En Vedette",
     "recentProjects": "Projets récents",
@@ -20,10 +20,10 @@
       "cv": "CV"
     },
     "skills": {
-      "fullstack": "Full Stack",
-      "webMobile": "Web & Mobile",
-      "uiux": "UI / UX",
-      "stack": "React · Next.js"
+      "frontend": "React · Next.js",
+      "typescript": "TypeScript",
+      "backend": "Node · Elysia",
+      "database": "UI / UX"
     },
     "carousel": {
       "see": "Voir"
@@ -54,41 +54,49 @@
   },
   "projectsData": {
     "portfolio": {
-      "desc": "Mon portfolio aux couleurs de VsCode. Souriez, vous-êtes ici :)"
+      "desc": "Portfolio interactif inspiré de VS Code. Thèmes dynamiques, internationalisation (i18n), design responsive et formulaire de contact sécurisé.",
+      "shortDesc": "Portfolio interactif style VS Code avec thèmes dynamiques et contact sécurisé."
     },
     "temporis": {
-      "desc": "Chats éphémères avec chiffrage coté client. Confidentialité totale — aucune trace."
+      "desc": "Salons de chat éphémères et chiffrés de bout en bout (Web Crypto API). Zéro empreinte persistante avec Upstash Redis, API typée de bout en bout via Elysia & Eden Treaty, et synchronisation temps réel TanStack Query.",
+      "shortDesc": "Chat éphémère chiffré de bout en bout avec Upstash Redis et API typée Elysia."
     },
     "stokki": {
-      "desc": "Gestionnaire de stock simple et efficace. Authentification avec StackAuth, et gestion des stocks en temps réel avec Prisma et Neon."
-    },
-    "styled": {
-      "desc": "Plateforme E-Commerce. Ajoutez vos articles dans le panier et payez avec Stripe!"
-    },
-    "mytasky": {
-      "desc": "ToDo list pour organiser vos tâches quotidiennes."
+      "desc": "Dashboard de gestion d'inventaire et d'analyse financière en temps réel. Visualisations interactives de marge/croissance avec Recharts, schéma relationnel typé Prisma, et validation Zod.",
+      "shortDesc": "Dashboard d'inventaire en temps réel avec analyses Recharts et typage Prisma."
     },
     "dresscode": {
-      "desc": "Plateforme E-commerce sous Sanity Studio, un CMS headless flexible qui permet de gérer facilement les produits et le contenu via une interface intuitive."
+      "desc": "Boutique e-commerce headless sous Next.js avec catalogue géré via Sanity Studio, authentification Clerk, panier réactif Zustand et paiements sécurisés Stripe.",
+      "shortDesc": "E-commerce headless Next.js avec catalogue Sanity Studio, Clerk et Stripe."
+    },
+    "styled": {
+      "desc": "Plateforme e-commerce avec authentification Firebase, gestion de panier Zustand et paiements sécurisés Stripe."
     },
     "ohmyblog": {
-      "desc": "Création de blogs moderne, responsive et sécurisée."
+      "desc": "Plateforme de publication de blogs moderne et responsive, avec ORM Drizzle et authentification Clerk."
     },
     "laxxy": {
-      "desc": "Messagerie inspirée de Slack. Connectez-vous, rejoignez ou créez un canal, et partagez des messages consultables en temps réel par les autres utilisateurs."
+      "desc": "Messagerie instantanée inspirée de Slack avec salons en temps réel et synchronisation Firebase."
     },
     "coolmail": {
-      "desc": "Boîte mail optimisée pour l'envoi de messages en local. Connexion via Google et stockage des messages sur Firebase."
+      "desc": "Client de messagerie web local avec authentification Google et stockage Firestore."
+    },
+    "mytasky": {
+      "desc": "Gestionnaire de tâches du quotidien avec interface ergonomique et réactive."
     },
     "gpt3": {
-      "desc": "Interface visuelle d'une plateforme d'intelligence artificielle."
+      "desc": "Intégration d'interface moderne pour plateforme d'intelligence artificielle."
     }
   },
   "projectsPage": {
     "filename": "projets.js",
     "title": "Mes",
     "titleAccent": "Projets",
-    "subtitle": "Mon portfolio en action : des idées transformées en expériences web concrètes."
+    "subtitle": "Mon portfolio en action : des idées transformées en expériences web concrètes.",
+    "featuredTitle": "Projets Récents",
+    "featuredSubtitle": "Applications web complètes, interactives et déployées en production.",
+    "otherTitle": "Autres Réalisations",
+    "otherSubtitle": "Applications front-end, intégrations d'APIs et projets antérieurs."
   },
   "about": {
     "title": "Stack",
@@ -241,7 +249,7 @@
     },
     "toolbar": {
       "print": "Télécharger / Imprimer",
-      "copyCode": "Copier lib/cvData.js",
+      "copyCode": "Copier lib/cvData.ts",
       "copied": "Copié !",
       "reset": "Réinitialiser"
     }

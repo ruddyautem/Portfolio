@@ -7,6 +7,7 @@ import {
   Globe,
   Layers,
   Sparkles,
+  Database,
   MapPin,
   FolderOpen,
   FileUser,
@@ -79,10 +80,10 @@ const HeroSection = () => {
   ];
 
   const SKILL_PILLS = [
-    { icon: Code2, label: t('skills.fullstack') },
-    { icon: Globe, label: t('skills.webMobile') },
-    { icon: Layers, label: t('skills.uiux') },
-    { icon: Sparkles, label: t('skills.stack') },
+    { icon: Sparkles, label: t('skills.frontend') },
+    { icon: Code2, label: t('skills.typescript') },
+    { icon: Layers, label: t('skills.backend') },
+    { icon: Database, label: t('skills.database') },
   ];
 
   return (

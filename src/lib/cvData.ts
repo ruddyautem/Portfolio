@@ -1,8 +1,8 @@
 export const cvData = {
   en: {
     name: 'Ruddy Autem',
-    title: 'Full-Stack Web Developer',
-    about: 'Full-Stack developer focused on React, Next.js, and TypeScript, with a comprehensive grasp of backend logic and database architecture. I build complete, functional web applications with genuine attention to structure and consistency - interfaces that behave exactly the way users expect. I learn fast, I ship carefully, and every project I finish makes me sharper than the last',
+    title: 'Full Stack Web Developer',
+    about: 'Front-End-focused Full-Stack developer specializing in React, Next.js, and TypeScript, comfortable with server-side logic and data handling. I build complete, functional web applications with genuine attention to structure and consistency - interfaces that behave exactly the way users expect. From conception to deployment, I prioritize code maintainability, real-world performance, and architectural robustness in every product I ship.',
     contacts: [
       { icon: '/mailIcon.svg', text: 'ruddy.autem@gmail.com', link: 'mailto:ruddy.autem@gmail.com' },
       { icon: '/locationIcon.svg', text: 'Leers, HDF' },
@@ -12,7 +12,7 @@ export const cvData = {
     ],
     skillGroups: [
       { label: 'Front-End', skills: ['React.js', 'Next.js', 'TypeScript', 'TailwindCSS', 'SCSS', 'Styled-Components'] },
-      { label: 'Back-End', skills: ['Node.js', 'Elysia', 'Zod', 'Firebase', 'Prisma', 'PostgreSQL', 'Drizzle ORM', 'MongoDB', 'MySQL'] },
+      { label: 'Back-End', skills: ['Node.js', 'Elysia', 'Zod', 'Firebase', 'Prisma', 'Drizzle ORM', 'MongoDB'] },
       { label: 'Tools', skills: ['Git', 'Vercel', 'Bun', 'Stripe', 'Clerk', 'Sanity', 'Zustand', 'Redux', 'Codex', 'Cursor'] }
     ],
     projects: [
@@ -50,8 +50,8 @@ export const cvData = {
   },
   fr: {
     name: 'Ruddy Autem',
-    title: 'Développeur Web Full-Stack',
-    about: 'Développeur Full-Stack orienté frontend React, Next.js et TypeScript, avec une solide maîtrise du backend et des bases de données. Je construis des applications web complètes et fonctionnelles, en veillant à soigner le moindre détail - structure claire, logique cohérente, interfaces qui se comportent exactement comme l\'utilisateur s\'y attend. J\'apprends vite, je livre avec soin, et chaque projet que je termine me rend meilleur que le précédent.',
+    title: 'Développeur Web Full Stack',
+    about: 'Développeur Full-Stack orienté Front-End React, Next.js et TypeScript, à l\'aise sur la logique serveur et la gestion des données. Je construis des applications web complètes et fonctionnelles, en veillant à soigner le moindre détail - structure claire, logique cohérente, interfaces qui se comportent exactement comme l\'utilisateur s\'y attend. De la conception au déploiement, j\'accorde une importance primordiale à la maintenabilité du code, à la performance et à la robustesse des architectures que je livre.',
     contacts: [
       { icon: '/mailIcon.svg', text: 'ruddy.autem@gmail.com', link: 'mailto:ruddy.autem@gmail.com' },
       { icon: '/locationIcon.svg', text: 'Leers, France' },
@@ -61,7 +61,7 @@ export const cvData = {
     ],
     skillGroups: [
       { label: 'Front-End', skills: ['React.js', 'Next.js', 'TypeScript', 'TailwindCSS', 'SCSS', 'Styled-Components'] },
-      { label: 'Back-End', skills: ['Node.js', 'Elysia', 'Zod', 'Firebase', 'Prisma', 'PostgreSQL', 'Drizzle ORM', 'MongoDB', 'MySQL'] },
+      { label: 'Back-End', skills: ['Node.js', 'Elysia', 'Zod', 'Firebase', 'Prisma', 'Drizzle ORM', 'MongoDB'] },
       { label: 'Outils', skills: ['Git', 'Vercel', 'Bun', 'Stripe', 'Clerk', 'Sanity', 'Zustand', 'Redux', 'Codex', 'Cursor'] }
     ],
     projects: [

@@ -4,8 +4,8 @@
     "badge": "AUTEM.DEV",
     "name": "Ruddy",
     "surname": "Autem",
-    "title": "Full Stack Web Developer",
-    "description": "I design and build modern web applications, combining performance, simplicity and user experience",
+    "title": "Full Stack Developer",
+    "description": "End-to-end modern web applications. Polished, responsive interfaces, robust backend architectures, and high-performance APIs.",
     "location": "France · Remote",
     "featured": "Featured",
     "recentProjects": "Recent projects",
@@ -20,10 +20,10 @@
       "cv": "Resume"
     },
     "skills": {
-      "fullstack": "Full Stack",
-      "webMobile": "Web & Mobile",
-      "uiux": "UI / UX",
-      "stack": "React · Next.js"
+      "frontend": "React · Next.js",
+      "typescript": "TypeScript",
+      "backend": "Node · Elysia",
+      "database": "UI / UX"
     },
     "carousel": {
       "see": "View"
@@ -54,41 +54,49 @@
   },
   "projectsData": {
     "portfolio": {
-      "desc": "My VsCode-themed portfolio. Smile, you're here :)"
+      "desc": "Interactive VS Code-inspired portfolio. Dynamic color themes, full i18n support, responsive layout, and secure contact API.",
+      "shortDesc": "Interactive VS Code portfolio with dynamic themes, i18n, and secure contact API."
     },
     "temporis": {
-      "desc": "Self-destructing client-side encrypted chat rooms. Maximum privacy - Zero footprint."
+      "desc": "Ephemeral, end-to-end encrypted chat rooms (Web Crypto API). Zero-footprint architecture powered by Upstash Redis, fully typed API via Elysia & Eden Treaty, and real-time state with TanStack Query.",
+      "shortDesc": "End-to-end encrypted ephemeral chat with Upstash Redis and typed Elysia API."
     },
     "stokki": {
-      "desc": "Simple and efficient stock manager. Authentication with StackAuth, and real-time stock management with Prisma and Neon."
-    },
-    "styled": {
-      "desc": "E-Commerce platform. Add items to your cart and pay with Stripe!"
-    },
-    "mytasky": {
-      "desc": "ToDo list to organize your daily tasks."
+      "desc": "Real-time inventory management and financial analytics dashboard. Interactive profit and growth visualisations with Recharts, type-safe relational schema with Prisma, and strict Zod validation.",
+      "shortDesc": "Real-time inventory dashboard with Recharts analytics and Prisma typing."
     },
     "dresscode": {
-      "desc": "E-commerce platform using Sanity Studio, a flexible headless CMS for easy product and content management."
+      "desc": "Headless e-commerce platform built with Next.js, featuring real-time catalog management via Sanity Studio, Clerk auth, Zustand reactive cart, and secure Stripe checkout.",
+      "shortDesc": "Headless Next.js e-commerce with Sanity Studio, Clerk, Zustand, and Stripe."
+    },
+    "styled": {
+      "desc": "E-commerce storefront with Firebase authentication, Zustand reactive state, and Stripe payment integration."
     },
     "ohmyblog": {
-      "desc": "Modern, responsive, and secure blog creation."
+      "desc": "Modern, responsive blogging platform powered by Drizzle ORM and Clerk authentication."
     },
     "laxxy": {
-      "desc": "Slack-inspired messaging. Log in, join or create a channel, and share real-time messages."
+      "desc": "Slack-inspired real-time team messaging app with channels and Firebase synchronization."
     },
     "coolmail": {
-      "desc": "Mailbox optimized for local messaging. Google login and Firebase message storage."
+      "desc": "Local mailbox client with Google authentication and Firebase Firestore storage."
+    },
+    "mytasky": {
+      "desc": "Clean and responsive daily task manager."
     },
     "gpt3": {
-      "desc": "Visual interface for an artificial intelligence platform."
+      "desc": "Modern landing interface for an AI platform."
     }
   },
   "projectsPage": {
     "filename": "projects.js",
     "title": "My",
     "titleAccent": "Projects",
-    "subtitle": "My portfolio in action: turning ideas into concrete web experiences."
+    "subtitle": "My portfolio in action: turning ideas into concrete web experiences.",
+    "featuredTitle": "Recent Projects",
+    "featuredSubtitle": "Full-stack web applications, interactive and live in production.",
+    "otherTitle": "Other Projects",
+    "otherSubtitle": "Front-end applications, API integrations, and earlier web projects."
   },
   "about": {
     "title": "Tech",
@@ -241,7 +249,7 @@
     },
     "toolbar": {
       "print": "Download / Print",
-      "copyCode": "Copy lib/cvData.js",
+      "copyCode": "Copy lib/cvData.ts",
       "copied": "Copied!",
       "reset": "Reset"
     }

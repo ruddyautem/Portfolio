@@ -9,14 +9,41 @@ const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const MAX_REQUESTS_PER_IP = 3;
 const rateLimitMap = new Map();
 
-// --- Zod Schema for validation ---
-const contactSchema = z.object({
-  name: z.string().min(1).max(100),
-  email: z.string().email().max(254),
-  sujet: z.string().min(1).max(150),
-  message: z.string().min(1).max(5000),
-  locale: z.enum(['en', 'fr']).default('fr'),
-});
+// Strict email regex:
+// - Local part: letters, digits, standard dots/hyphens/plus (no special symbols like @, &, ", etc.)
+// - Domain: valid labels with hyphens, followed by a valid TLD of at least 2 alpha characters
+const EMAIL_STRICT_REGEX =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z]{2,})+$/;
+
+const contactSchema = (locale: string) =>
+  z.object({
+    name: z
+      .string()
+      .trim()
+      .min(3, locale === 'en' ? 'Your name must have at least 3 characters.' : 'Votre nom doit comporter au moins 3 caractères.')
+      .max(100, locale === 'en' ? 'Your name cannot exceed 100 characters.' : 'Votre nom ne peut pas dépasser 100 caractères.'),
+    email: z
+      .string()
+      .trim()
+      .max(254, locale === 'en' ? 'Email address is too long.' : "L'adresse email est trop longue.")
+      .regex(
+        EMAIL_STRICT_REGEX,
+        locale === 'en'
+          ? 'Please enter a valid email address (e.g. name@example.com).'
+          : 'Veuillez saisir une adresse email valide (ex: nom@exemple.com).',
+      ),
+    sujet: z
+      .string()
+      .trim()
+      .min(2, locale === 'en' ? 'The subject must have at least 2 characters.' : 'Le sujet doit comporter au moins 2 caractères.')
+      .max(150, locale === 'en' ? 'The subject cannot exceed 150 characters.' : 'Le sujet ne peut pas dépasser 150 caractères.'),
+    message: z
+      .string()
+      .trim()
+      .min(10, locale === 'en' ? 'Your message must have at least 10 characters.' : 'Votre message doit comporter au moins 10 caractères.')
+      .max(5000, locale === 'en' ? 'Your message is too long (5000 characters max).' : 'Votre message est trop long (5000 caractères max).'),
+    locale: z.enum(['en', 'fr']).default('fr'),
+  });
 
 // Body text isn't used in a header, only escaped for safe HTML rendering.
 const escapeHtml = (str = '') => {
@@ -29,6 +56,14 @@ const escapeHtml = (str = '') => {
 };
 
 export const POST = async (request) => {
+  let locale = 'fr';
+  try {
+    const rawBody = await request.clone().json().catch(() => ({}));
+    if (rawBody && rawBody.locale === 'en') locale = 'en';
+  } catch {
+    // default to fr
+  }
+
   // --- Rate limiting ---
   const forwarded = request.headers.get('x-forwarded-for');
   const clientIP = forwarded ? forwarded.split(',')[0].trim() : 'unknown';
@@ -42,17 +77,19 @@ export const POST = async (request) => {
   }
 
   if (requests.length >= MAX_REQUESTS_PER_IP) {
-    return NextResponse.json({ message: 'Too many requests. Try again later.' }, { status: 429 });
+    const rateLimitMsg =
+      locale === 'en'
+        ? 'Too many messages sent. Please wait a few minutes before trying again.'
+        : 'Trop de messages envoyés. Veuillez patienter quelques minutes avant de réessayer.';
+    return NextResponse.json({ message: rateLimitMsg }, { status: 429 });
   }
 
   rateLimitMap.set(clientIP, [...requests, now]);
   // ----------------------------------------
 
-  let locale = 'fr';
-
   try {
     const body = await request.json();
-    locale = body.locale === 'en' ? 'en' : 'fr';
+    if (body.locale === 'en') locale = 'en';
 
     // Honeypot trap: if filled by spam bots, silently pretend success
     if (body.website || body._gotcha) {
@@ -63,8 +100,9 @@ export const POST = async (request) => {
       return NextResponse.json({ message: fakeMsg }, { status: 200 });
     }
 
-    // Parse and validate using Zod. This throws a ZodError if invalid.
-    const safeData = contactSchema.parse(body);
+    // Parse and validate using Zod with localized and strict rules
+    const schema = contactSchema(locale);
+    const safeData = schema.parse(body);
 
     const myEmail = process.env.MY_EMAIL;
     const resendApiKey = process.env.RESEND_API_KEY;
@@ -172,8 +210,19 @@ export const POST = async (request) => {
     return NextResponse.json({ message: successMsg }, { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const badMsg = locale === 'en' ? 'Invalid input.' : 'Entrée invalide.';
-      return NextResponse.json({ message: badMsg }, { status: 400 });
+      // Return the specific message of the first failing field
+      const firstIssue = error.issues[0];
+      const fieldName = firstIssue?.path[0] ? String(firstIssue.path[0]) : null;
+      const specificMessage = firstIssue?.message || (locale === 'en' ? 'Invalid input.' : 'Entrée invalide.');
+
+      return NextResponse.json(
+        {
+          message: specificMessage,
+          field: fieldName,
+          errors: error.issues.map((i) => ({ field: i.path[0], message: i.message })),
+        },
+        { status: 400 },
+      );
     }
     
     console.error('Mail Error:', error);

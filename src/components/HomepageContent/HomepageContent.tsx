@@ -13,7 +13,10 @@ const HomepageContent = () => {
   const t = useTranslations('homepage');
   const tProjects = useTranslations('projectsData');
 
-  const carouselProjects = useMemo(() => getProjects(tProjects).slice(1, 4), [tProjects]);
+  const carouselProjects = useMemo(
+    () => getProjects(tProjects).filter((p) => p.featured),
+    [tProjects],
+  );
 
   const handleExternalLink = useCallback((e, url) => {
     e.stopPropagation();
