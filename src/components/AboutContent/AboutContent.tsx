@@ -78,10 +78,7 @@ const AboutContent = () => {
         </div>
 
         <div className="z-10 w-full">
-          <div
-            className="grid gap-2 items-stretch"
-            style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))' }}
-          >
+          <div className="grid grid-cols-2 gap-2.5 items-stretch sm:gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
             {section.data.map((item, idx) => (
               <SkillItem
                 key={idx}

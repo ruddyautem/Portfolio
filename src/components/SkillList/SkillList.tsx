@@ -44,10 +44,10 @@ const SkillList = ({ skill, icon, altText, category }) => {
 
   return (
     <div
-      className={`item-animate group relative flex w-full flex-col items-center justify-center gap-3
-        overflow-hidden rounded-xl border border-slate-700/50 bg-slate-800/40 p-4 text-center
+      className={`item-animate group relative flex w-full flex-col items-center justify-center gap-2.5
+        overflow-hidden rounded-xl border border-slate-700/50 bg-slate-800/40 p-3.5 text-center
         backdrop-blur-md transition-all duration-300 ease-out cursor-pointer hover:-translate-y-1
-        active:scale-[0.98] ${style.hoverBorder} ${style.hoverBg} ${style.shadowGlow}`}
+        active:scale-[0.98] sm:gap-3 sm:p-4 ${style.hoverBorder} ${style.hoverBg} ${style.shadowGlow}`}
     >
       <div
         className={`pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r
