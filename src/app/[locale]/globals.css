@@ -7,9 +7,6 @@
   --breakpoint-3xl: 125rem;
   --font-inter: Inter, sans-serif;
   --font-inconsolata: Inconsolata, monospace;
-  --font-oswald: Oswald, sans-serif;
-  --font-dm-mono: "DM Mono", monospace;
-  --font-comfortaa: Comfortaa, cursive;
   --font-system-ui:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
     Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -205,7 +202,6 @@
   --color-sidebar-bg: #252b37;
   --color-explorer-bg: #252b37;
   --color-active-tab-text: #fff;
-  --color-tabs-bg: var(--color-active-tab-bg);
 }
 
 /* ── Scrollbar ── */
@@ -303,3 +299,214 @@ body {
     color: white;
   }
 }
+
+/* ── PageWrapper item appearance animation ── */
+@keyframes item-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.item-animate {
+  animation: item-appear 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.item-animate-1 {
+  animation: item-appear 0.45s 0.08s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.item-animate-2 {
+  animation: item-appear 0.45s 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.item-animate-3 {
+  animation: item-appear 0.45s 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.item-animate-4 {
+  animation: item-appear 0.45s 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Ambient Background Glow Breathing Animation ── */
+@keyframes ambient-glow {
+  0%, 100% {
+    opacity: 0.65;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.02);
+  }
+}
+
+.animate-ambient-glow {
+  animation: ambient-glow 7s ease-in-out infinite;
+}
+
+/* ── Accessibility: Prefers Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .item-animate,
+  .item-animate-1,
+  .item-animate-2,
+  .item-animate-3,
+  .item-animate-4,
+  .cv-float,
+  .cv-float-1,
+  .cv-float-2,
+  .cv-float-3,
+  .cv-float-4,
+  .cv-float-5,
+  .cv-float-6 {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .bg-blobs,
+  .animate-ambient-glow {
+    animation: none !important;
+  }
+}
+
+/* ── Command Palette (cmdk) styles ── */
+/* ── Command Palette (cmdk) authentic VS Code styling ── */
+[cmdk-overlay] {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+}
+
+[cmdk-dialog] {
+  position: fixed;
+  top: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92vw;
+  max-width: 610px;
+  background: #252526;
+  background-color: var(--color-explorer-bg, #252526);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  z-index: 10000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #cccccc;
+}
+
+.ayu [cmdk-dialog] {
+  background-color: #1f2430;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dracula [cmdk-dialog] {
+  background-color: #21222c;
+  border-color: rgba(98, 114, 164, 0.4);
+}
+
+.oneDarkPro [cmdk-dialog] {
+  background-color: #21252b;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.poimandres [cmdk-dialog] {
+  background-color: #1b1e28;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[cmdk-input-wrapper] {
+  padding: 6px 6px 4px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[cmdk-input] {
+  width: 100%;
+  height: 28px;
+  padding: 4px 8px;
+  font-size: 13px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+[cmdk-input]:focus {
+  border-color: var(--color-accent, #007fd4);
+  box-shadow: 0 0 0 1px var(--color-accent, #007fd4);
+}
+
+[cmdk-input]::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 12.5px;
+}
+
+[cmdk-list] {
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+[cmdk-group-heading] {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 6px 12px 2px;
+}
+
+[cmdk-item] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  margin: 0 4px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.82);
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: none;
+}
+
+[cmdk-item][data-selected="true"] {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.ayu [cmdk-item][data-selected="true"] {
+  background: rgba(255, 204, 102, 0.12);
+}
+
+.dracula [cmdk-item][data-selected="true"] {
+  background: rgba(68, 71, 90, 0.7);
+}
+
+.oneDarkPro [cmdk-item][data-selected="true"] {
+  background: rgba(44, 49, 58, 0.9);
+}
+
+.poimandres [cmdk-item][data-selected="true"] {
+  background: rgba(93, 228, 199, 0.12);
+}
+
+[cmdk-empty] {
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Background ambient glow halo toggle */
+html.no-glow .bg-blobs,
+.no-glow .bg-blobs {
+  display: none !important;
+}

@@ -34,7 +34,8 @@
     "about": "profil.html",
     "projects": "projets.js",
     "contact": "contact.css",
-    "cv": "cv.json"
+    "cv": "cv.json",
+    "settings": "parametres.json"
   },
   "menu": {
     "file": "Fichier",
@@ -47,6 +48,9 @@
     "help": "Aide",
     "search": "Ruddy Autem Portfolio",
     "language": "Changer de Langue"
+  },
+  "footer": {
+    "rights": "© {year} autem.dev - tous droits réservés"
   },
   "projectsData": {
     "portfolio": {
@@ -62,7 +66,7 @@
       "desc": "Plateforme E-Commerce. Ajoutez vos articles dans le panier et payez avec Stripe!"
     },
     "mytasky": {
-      "desc": "ToDo list en Vue.js pour organiser vos tâches quotidiennes."
+      "desc": "ToDo list pour organiser vos tâches quotidiennes."
     },
     "dresscode": {
       "desc": "Plateforme E-commerce sous Sanity Studio, un CMS headless flexible qui permet de gérer facilement les produits et le contenu via une interface intuitive."
@@ -241,5 +245,29 @@
       "copied": "Copié !",
       "reset": "Réinitialiser"
     }
+  },
+  "settingsPage": {
+    "title": "Paramètres",
+    "titleAccent": "d'affichage",
+    "subtitle": "Personnalisez l'affichage et les préférences du portfolio.",
+    "filename": "parametres.json",
+    "searchPlaceholder": "Rechercher un paramètre...",
+    "appearanceTitle": "Thèmes et couleurs",
+    "appearanceDesc": "Choisissez le thème de couleurs qui vous convient le mieux.",
+    "themeOption": "Thèmes de couleur",
+    "activeTheme": "Actif",
+    "languageTitle": "Langues",
+    "languageDesc": "Basculez instantanément l'affichage entre Français et Anglais.",
+    "activeLanguage": "Langue actuelle",
+    "switchLanguage": "Changer",
+    "effectsTitle": "Effets visuels",
+    "effectsDesc": "Activez ou désactivez les animations et halos lumineux en arrière-plan.",
+    "blobsLabel": "Dégradés d'arrière-plan",
+    "blobsDesc": "Affiche de discrets halos lumineux",
+    "jsonTitle": "Aperçu de la configuration",
+    "jsonDesc": "Configuration de vos préférences.",
+    "copyConfig": "Copier la configuration",
+    "copied": "Configuration copiée !",
+    "resetDefaults": "Restaurer les valeurs par défaut"
   }
 }

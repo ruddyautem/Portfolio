@@ -12,59 +12,74 @@
 
 ### 📋 Présentation
 
-Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais envie d'un site qui me ressemble un peu plus qu'un template classique — alors j'ai eu l'idée de le construire comme une véritable interface **VS Code** : barre de menu, sidebar, explorateur de fichiers, onglets ouverts, le tout recréé de zéro en React. Le site est bilingue (FR/EN) et se décline en quatre thèmes visuels, au choix.
+Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais envie d'un site qui me ressemble un peu plus qu'un template classique — alors j'ai eu l'idée de le construire comme une véritable interface **VS Code** : barre de menu, sidebar, explorateur de fichiers, onglets ouverts, le tout recréé de zéro en React & TypeScript. Le site est bilingue (FR/EN) et se décline en quatre thèmes visuels, au choix.
 
 ### 📑 Les pages
 
 | Route         | Ce qu'on y trouve                                                                                                                                                       |
 | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/` (Accueil) | Un héro, ma stack technique, et un carrousel auto-défilant de mes projets récents                                                                                       |
-| `/about`      | Mes compétences, réparties en Front-End, Back-End et Outils, avec quelques effets visuels que j'aime bien                                                               |
+| `/` (Accueil) | Un héro, ma stack technique, et un carrousel auto-défilant de mes projets récents avec préchargement LCP                                                                |
+| `/about`      | Mes compétences, réparties en Front-End, Back-End et Outils, avec animations graduelles en cascade                                                                      |
 | `/projects`   | La galerie complète de mes projets — Portfolio, Temporis, Stokki, Style-D, Mytasky, DressCode, OhMyBlog!, Laxxy, CoolMail... — avec les liens vers le code et les démos |
-| `/contact`    | Un formulaire simple, avec validation et notifications toast                                                                                                            |
-| `/cv`         | Mon CV, rendu à partir de données bilingues                                                                                                                             |
+| `/contact`    | Un formulaire simple, avec validation Zod, protection honeypot et notifications toast                                                                                   |
+| `/cv`         | Mon CV, rendu à partir de données bilingues avec téléchargement PDF                                                                                                     |
+| `/settings`   | Page de configuration (`parametres.json`) : sélection des 4 thèmes, choix de la langue et interrupteur d'effets visuels (halos lumineux)                                |
+
+### ⌨️ Palette de commandes VS Code (`cmdk`)
+
+Accessible à tout moment via `Ctrl+K` / `Cmd+K` ou depuis la barre de recherche supérieure :
+
+- Navigation instantanée entre les fichiers du portfolio.
+- Bascule de thème en direct (Ayu, One Dark Pro, Dracula, Poimandres).
+- Changement instantané de langue (Français / Anglais).
+- Actions rapides (téléchargement du CV, accès au code source GitHub).
 
 ### 📬 Le formulaire de contact
 
-J'ai pris le temps de sécuriser la route qui envoie les emails (via Resend + Zod) :
+Sécurisation complète de la route d'envoi d'emails (via Resend + Zod) :
 
-- une limitation à 3 envois par IP toutes les 10 minutes, pour éviter le spam ;
-- un nettoyage strict de tout ce qui pourrait finir dans un en-tête d'email, pour éviter l'injection ;
-- un échappement du contenu avant affichage ;
-- des messages d'erreur bilingues, histoire de rester cohérent avec le reste du site.
+- Limitation à 3 envois par IP toutes les 10 minutes pour éviter le spam ;
+- Protection honeypot pour bloquer les robots automatisés ;
+- Nettoyage strict des en-têtes d'email et échappement du contenu pour parer aux injections ;
+- Messages d'erreur et de succès bilingues.
 
-### 🌍 Internationalisation
+### 🌍 Internationalisation & Navigation Instantanée (0 ms)
 
-Le site parle français et anglais grâce à `next-intl`. Les routes sont préfixées par la langue (`/fr/...`, `/en/...`), toutes les chaînes vivent dans `src/messages/`, et on change de langue d'un simple clic depuis la barre de menu.
+- Bilingue français et anglais grâce à `next-intl` avec routes préfixées (`/fr/...`, `/en/...`).
+- **Génération Statique Intégrale (`generateStaticParams`)** : Précompilation des 20 pages statiques au build.
+- **Préchargement en mémoire (`router.prefetch`)** : Les routes sont préchargées dans le cache client dès le montage.
+- **UI Optimiste (0 ms)** : Le trait des onglets et la barre latérale glissent instantanément au clic sans latence réseau.
 
 ### 🎨 Les thèmes
 
-J'ai toujours aimé bidouiller les thèmes de mon éditeur, alors j'en ai intégré quatre, directement inspirés de vrais thèmes VS Code :
+Quatre thèmes inspirés des éditeurs de code, mémorisés par cookies et `localStorage` avec zéro flash (FOUC) au rafraîchissement :
 
-| Thème                | Couleur d'accent |
-| -------------------- | ---------------- |
-| **Ayu** (par défaut) | `#ffcc66`        |
-| **One Dark Pro**     | `#98c379`        |
-| **Dracula**          | `#ff79c6`        |
-| **Poimandres**       | `#5de4c7`        |
+| Thème                | Couleur d'accent | Ambiance                                       |
+| -------------------- | ---------------- | ---------------------------------------------- |
+| **Ayu** (par défaut) | `#ffcc66`        | Nuances sombres et dorées chaleureuses         |
+| **One Dark Pro**     | `#98c379`        | Nuances anthracite et vert pastel sobre        |
+| **Dracula**          | `#ff79c6`        | Nuances sombres aux touches violettes et roses |
+| **Poimandres**       | `#5de4c7`        | Nuances bleu nuit et turquoise épuré           |
 
-Le choix est mémorisé, et chaque thème redéfinit ses propres tokens CSS dans `globals.css`.
+### ⚡ Performance & Core Web Vitals
 
-### 🔒 Sécurité
-
-Rien d'extraordinaire, mais j'y tenais : chaque page passe par un middleware qui pose une vraie `Content-Security-Policy`, interdit l'affichage en iframe (`X-Frame-Options: DENY`), bloque le sniffing de type MIME, et désactive caméra/micro/géolocalisation par défaut. Le site expose aussi un `robots.txt` et un `sitemap.xml` générés dynamiquement, pour rester correctement indexé.
+- **LCP Optimisé** : Préchargement prioritaire (`fetchpriority="high"`) de l'image héro du carrousel dans le `<head>` initial.
+- **Moteur d'images AVIF / WebP** : Conversion et dimensionnement dynamique via Next.js (réduction de 80% à 95% de la bande passante).
+- **Cache Immuable** : En-têtes `Cache-Control: public, max-age=31536000, immutable` pour tous les assets statiques.
+- **Tree-Shaking ciblé** : `optimizePackageImports` configuré pour Lucide React, Radix UI, cmdk et Framer Motion.
 
 ### 🛠 Stack technique
 
 | Catégorie            | Technologies                       |
 | -------------------- | ---------------------------------- |
-| Framework            | Next.js 16 (App Router) + React 19 |
-| Langage              | JavaScript / JSX                   |
+| Framework            | Next.js 16 (Turbopack, App Router) |
+| Librairie UI         | React 19                           |
+| Langage              | TypeScript                         |
 | Package manager      | Bun                                |
 | Styling              | Tailwind CSS v4                    |
 | Internationalisation | next-intl                          |
-| UI                   | Radix UI, Lucide React             |
-| Animations           | Framer Motion                      |
+| UI & Accessibilité   | Radix UI, Lucide React, cmdk       |
+| Animations           | Framer Motion + CSS Keyframes      |
 | Carrousel            | Embla Carousel                     |
 | Email                | Resend API + Zod                   |
 | Qualité de code      | ESLint + Prettier                  |
@@ -73,67 +88,39 @@ Rien d'extraordinaire, mais j'y tenais : chaque page passe par un middleware qui
 
 ```
 Portfolio/
-├── public/                          # 130+ ressources (icônes, images, PDF)
-│   ├── aboutmeIcon.svg
-│   ├── cv-sidebar.svg
-│   ├── contact-email.svg
-│   ├── contact-github.svg
-│   ├── contact-linkedin.svg
-│   └── ... (120+ autres icônes/images)
+├── public/                          # Ressources statiques (icônes, images, PDFs)
 ├── src/
 │   ├── app/
-│   │   ├── robots.js                # /robots.txt (route Next.js native)
-│   │   ├── sitemap.js               # /sitemap.xml (route Next.js native)
-│   │   └── [locale]/                # Routes préfixées par la langue (fr|en)
-│   │       ├── globals.css          # Styles globaux + Tailwind v4
-│   │       ├── layout.jsx           # Layout racine (providers, métadonnées)
-│   │       ├── page.jsx             # Accueil
-│   │       ├── about/page.jsx       # Compétences
-│   │       ├── contact/page.jsx     # Formulaire de contact
-│   │       ├── cv/
-│   │       │   └── page.jsx         # Affichage du CV (lecture seule)
-│   │       ├── projects/
-│   │       │   ├── page.jsx         # Galerie de projets
-│   │       │   └── projects.js      # Données des projets
-│   │       └── api/contact/route.js # Envoi d'email sécurisé
-│   ├── components/                  # 18 composants UI réutilisables
-│   │   ├── AboutContent/            # Contenu de la section "À propos"
-│   │   ├── AnimatedLink/            # Lien avec animation au survol
-│   │   ├── Card/                    # Conteneur de carte générique
-│   │   ├── ContactForm/             # Formulaire côté client (appels API)
-│   │   ├── ContactList/             # Liste de contacts / liens sociaux
-│   │   ├── Explorer/                # Panneau explorateur de fichiers
-│   │   ├── Footer/                  # Pied de page
-│   │   ├── HomepageContent/         # Contenu principal de l'accueil
-│   │   ├── Icons/                   # Icônes SVG
-│   │   ├── InputField/              # Champ de formulaire avec label/erreur
-│   │   ├── LanguageSwitcher/        # Bascule FR ↔ EN
-│   │   ├── Menu/                    # Barre de menu supérieure
-│   │   ├── PageWrapper/             # Wrapper de page + décorations
-│   │   ├── Sidebar/                 # Barre latérale de navigation
-│   │   ├── SkillList/               # Liste de badges de compétences
-│   │   ├── Tabsbar/                 # Barre d'onglets
-│   │   ├── TechSection/             # Bloc technologies
-│   │   ├── ThemeToggle/             # Sélecteur de thème
-│   │   ├── Tooltip/                 # Infobulle au survol
-│   │   └── TopPageDecoration/       # Décoration d'en-tête de page
-│   ├── context/ThemeContext.js      # Fournisseur de thème (4 thèmes)
-│   ├── i18n/routing.js              # Configuration next-intl
-│   ├── lib/
-│   │   ├── constants.js             # Données de nav, couleurs, classes partagées
-│   │   ├── cvData.js                # Données du CV & logique de sauvegarde
-│   │   ├── icons.jsx                # Icônes React partagées
-│   │   └── utils.js                 # Helpers (échappement HTML, nettoyage)
-│   └── proxy.js                     # Middleware : i18n + en-têtes de sécurité
-├── .env                              # Variables d'environnement
-├── .gitignore
-├── bun.lock
-├── eslint.config.mjs
-├── jsconfig.json
-├── next.config.mjs
-├── postcss.config.cjs
-├── package.json
-└── README.md
+│   │   ├── robots.ts                # /robots.txt natif Next.js
+│   │   ├── sitemap.ts               # /sitemap.xml bilingue natif
+│   │   ├── api/contact/route.ts     # Route API d'envoi d'emails sécurisée
+│   │   └── [locale]/                # Routes bilingues (fr|en)
+│   │       ├── globals.css          # Styles globaux + Tailwind v4 + animations
+│   │       ├── layout.tsx           # Layout racine (SSR cookies, polices, métadonnées)
+│   │       ├── page.tsx             # Accueil
+│   │       ├── about/page.tsx       # Compétences
+│   │       ├── contact/page.tsx     # Formulaire de contact
+│   │       ├── cv/page.tsx          # Affichage du CV
+│   │       ├── projects/page.tsx    # Galerie de projets
+│   │       └── settings/page.tsx    # Configuration (parametres.json)
+│   ├── components/                  # Composants UI React
+│   │   ├── CommandPalette/          # Palette de commandes (cmdk)
+│   │   ├── Settings/                # Interface des paramètres
+│   │   ├── HomepageContent/         # Contenu héro & carrousel d'accueil
+│   │   ├── AboutContent/            # Compétences & badges
+│   │   ├── Card/                    # Cartes de projets avec tailles responsives
+│   │   ├── ContactForm/             # Formulaire de contact
+│   │   ├── Menu/                    # Barre de titre VS Code
+│   │   ├── Sidebar/                 # Navigation latérale avec indicateur optimiste
+│   │   ├── Tabsbar/                 # Barre d'onglets responsive
+│   │   └── Explorer/                # Explorateur de fichiers
+│   ├── context/ThemeContext.tsx     # Gestion du thème et des halos lumineux
+│   ├── i18n/                        # Configuration next-intl & routage
+│   ├── lib/                         # Constantes, données CV, utilitaires typés
+│   └── messages/                    # Dictionnaires de traduction JSON (fr / en)
+├── tsconfig.json                    # Configuration TypeScript
+├── next.config.js                   # Configuration Next.js (optimisations & cache)
+└── package.json
 ```
 
 ### 🚀 Pour lancer le projet
@@ -160,129 +147,77 @@ Je suis Ruddy Autem, développeur Full Stack. Si le code vous inspire ou que vou
 
 ### 📋 Overview
 
-Welcome to the source code of my portfolio. As a Full Stack developer, I wanted something that felt more like _me_ than a standard template — so I built it as a real **VS Code**-style interface: menu bar, sidebar, file explorer, open tabs, all recreated from scratch in React. The site is bilingual (FR/EN) and comes with four selectable visual themes.
+Welcome to the source code of my portfolio. As a Full Stack developer, I wanted something that felt more like _me_ than a standard template — so I built it as a real **VS Code**-style interface: menu bar, sidebar, file explorer, open tabs, all recreated from scratch in React & TypeScript. The site is bilingual (FR/EN) and comes with four selectable visual themes.
 
 ### 📑 Pages
 
-| Route       | What's there                                                                                                                                                  |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/` (Home)  | A hero section, my tech stack, and an auto-scrolling carousel of my recent projects                                                                           |
-| `/about`    | My skills, split into Front-End, Back-End and Tools, with a few visual touches I'm fond of                                                                    |
-| `/projects` | The full gallery of my work — Portfolio, Temporis, Stokki, Style-D, Mytasky, DressCode, OhMyBlog!, Laxxy, CoolMail... — with links to the code and live demos |
-| `/contact`  | A simple form, with validation and toast notifications                                                                                                        |
-| `/cv`       | My CV, rendered from bilingual data                                                                                                                           |
+| Route       | What's there                                                                                                                                                |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/` (Home)  | A hero section, my tech stack, and an auto-scrolling carousel of my recent work with LCP priority preloading                                                |
+| `/about`    | My skills, split into Front-End, Back-End and Tools, with staggered reveal animations                                                                       |
+| `/projects` | The full gallery of my work — Portfolio, Temporis, Stokki, Style-D, Mytasky, DressCode, OhMyBlog!, Laxxy, CoolMail... — with links to source code and demos |
+| `/contact`  | A simple form, with Zod validation, honeypot spam protection, and toast notifications                                                                       |
+| `/cv`       | My CV, rendered from bilingual data with PDF download                                                                                                       |
+| `/settings` | Built-in settings page (`settings.json`): theme switcher, language selector, and visual background glow toggle                                              |
+
+### ⌨️ VS Code Command Palette (`cmdk`)
+
+Open anytime with `Ctrl+K` / `Cmd+K` or by clicking the top search bar:
+
+- Quick file navigation across the portfolio.
+- Live theme switching (Ayu, One Dark Pro, Dracula, Poimandres).
+- Instant language toggle (French / English).
+- Quick actions (download resume, view GitHub source).
 
 ### 📬 The contact form
 
-I took the time to properly secure the route that sends emails (via Resend + Zod):
+Fully secured email submission route (via Resend + Zod):
 
-- rate limiting to 3 submissions per IP every 10 minutes, to keep spam away;
-- strict sanitization of anything that could end up in an email header, to prevent injection;
-- escaping the message content before it's rendered;
-- bilingual error messages, to stay consistent with the rest of the site.
+- Rate limited to 3 submissions per IP every 10 minutes to prevent abuse;
+- Honeypot spam trap blocking automated spam bots;
+- Strict header sanitization and HTML escaping;
+- Bilingual error and success feedback messages.
 
-### 🌍 Internationalization
+### 🌍 Internationalization & Instant Navigation (0 ms)
 
-The site speaks French and English thanks to `next-intl`. Routes are locale-prefixed (`/fr/...`, `/en/...`), every string lives in `src/messages/`, and switching languages is one click away in the menu bar.
+- Bilingual English and French powered by `next-intl` with locale-prefixed routes (`/en/...`, `/fr/...`).
+- **Full Static Generation (`generateStaticParams`)** : Pre-rendering of all 20 static pages at build time.
+- **In-Memory Prefetching (`router.prefetch`)** : All routes preloaded into client memory on mount.
+- **Optimistic UI (0 ms)** : Tab underlines and sidebar indicator glide immediately on click without network delay.
 
 ### 🎨 Themes
 
-I've always liked tinkering with my editor's theme, so I built in four, directly inspired by real VS Code themes:
+Four themes inspired by developer editors, persisted via cookies & `localStorage` with zero flash of unstyled content (FOUC):
 
-| Theme             | Accent color |
-| ----------------- | ------------ |
-| **Ayu** (default) | `#ffcc66`    |
-| **One Dark Pro**  | `#98c379`    |
-| **Dracula**       | `#ff79c6`    |
-| **Poimandres**    | `#5de4c7`    |
+| Theme             | Accent color | Atmosphere                                        |
+| ----------------- | ------------ | ------------------------------------------------- |
+| **Ayu** (default) | `#ffcc66`    | Warm dark palette with golden accents             |
+| **One Dark Pro**  | `#98c379`    | Understated anthracite with soft green accents    |
+| **Dracula**       | `#ff79c6`    | Classic dark palette with purple and pink touches |
+| **Poimandres**    | `#5de4c7`    | Deep midnight blue with clean turquoise accents   |
 
-The choice is remembered, and each theme redefines its own CSS tokens in `globals.css`.
+### ⚡ Performance & Core Web Vitals
 
-### 🔒 Security
-
-Nothing fancy, but it mattered to me: every page goes through a middleware that sets a real `Content-Security-Policy`, blocks framing (`X-Frame-Options: DENY`), prevents MIME sniffing, and disables camera/mic/geolocation by default. The site also serves a dynamically generated `robots.txt` and `sitemap.xml`, so it stays properly indexed.
+- **Optimized LCP**: Priority preloading (`fetchpriority="high"`) for the hero carousel image injected into the initial `<head>`.
+- **AVIF / WebP Images**: Next.js on-the-fly conversion and responsive sizing (80% to 95% bandwidth reduction).
+- **Immutable Caching**: Long-term `Cache-Control: public, max-age=31536000, immutable` headers for all static assets.
+- **Targeted Tree-Shaking**: `optimizePackageImports` configured for Lucide React, Radix UI, cmdk and Framer Motion.
 
 ### 🛠 Tech stack
 
 | Category             | Technologies                       |
 | -------------------- | ---------------------------------- |
-| Framework            | Next.js 16 (App Router) + React 19 |
-| Language             | JavaScript / JSX                   |
+| Framework            | Next.js 16 (Turbopack, App Router) |
+| UI Library           | React 19                           |
+| Language             | TypeScript                         |
 | Package manager      | Bun                                |
 | Styling              | Tailwind CSS v4                    |
 | Internationalization | next-intl                          |
-| UI                   | Radix UI, Lucide React             |
-| Animations           | Framer Motion                      |
+| UI & Accessibility   | Radix UI, Lucide React, cmdk       |
+| Animations           | Framer Motion + CSS Keyframes      |
 | Carousel             | Embla Carousel                     |
 | Email                | Resend API + Zod                   |
 | Code quality         | ESLint + Prettier                  |
-
-### 📁 Project structure
-
-```
-Portfolio/
-├── public/                          # 130+ assets (icons, images, PDFs)
-│   ├── aboutmeIcon.svg
-│   ├── cv-sidebar.svg
-│   ├── contact-email.svg
-│   ├── contact-github.svg
-│   ├── contact-linkedin.svg
-│   └── ... (120+ other icons/images)
-├── src/
-│   ├── app/
-│   │   ├── robots.js                # /robots.txt (native Next.js route)
-│   │   ├── sitemap.js               # /sitemap.xml (native Next.js route)
-│   │   └── [locale]/                # Locale-prefixed routes (fr|en)
-│   │       ├── globals.css          # Global styles + Tailwind v4
-│   │       ├── layout.jsx           # Root layout (providers, metadata)
-│   │       ├── page.jsx             # Home
-│   │       ├── about/page.jsx       # Skills
-│   │       ├── contact/page.jsx     # Contact form
-│   │       ├── cv/
-│   │       │   └── page.jsx         # CV display (read-only)
-│   │       ├── projects/
-│   │       │   ├── page.jsx         # Project gallery
-│   │       │   └── projects.js      # Project data
-│   │       └── api/contact/route.js # Secured email endpoint
-│   ├── components/                  # 18 reusable UI components
-│   │   ├── AboutContent/            # About section content
-│   │   ├── AnimatedLink/            # Hover-animated link
-│   │   ├── Card/                    # Generic card wrapper
-│   │   ├── ContactForm/             # Client-side form (calls API)
-│   │   ├── ContactList/             # Contacts / social links list
-│   │   ├── Explorer/                # File explorer panel
-│   │   ├── Footer/                  # Footer
-│   │   ├── HomepageContent/         # Main home content block
-│   │   ├── Icons/                   # SVG icons
-│   │   ├── InputField/              # Form input with label/error
-│   │   ├── LanguageSwitcher/        # FR ↔ EN toggle
-│   │   ├── Menu/                    # Top menu bar
-│   │   ├── PageWrapper/             # Page wrapper + decorations
-│   │   ├── Sidebar/                 # Main navigation sidebar
-│   │   ├── SkillList/               # Skills badges list
-│   │   ├── Tabsbar/                 # Tab bar
-│   │   ├── TechSection/             # Technologies section block
-│   │   ├── ThemeToggle/             # Theme switcher
-│   │   ├── Tooltip/                 # Hover tooltip
-│   │   └── TopPageDecoration/       # Page header decoration
-│   ├── context/ThemeContext.js      # Theme provider (4 themes)
-│   ├── i18n/routing.js              # next-intl configuration
-│   ├── lib/
-│   │   ├── constants.js             # Nav data, tag colors, shared classes
-│   │   ├── cvData.js                # CV data & autosave logic
-│   │   ├── icons.jsx                # Shared React icons
-│   │   └── utils.js                 # Helpers (HTML escaping, sanitization)
-│   └── proxy.js                     # Middleware: i18n + security headers
-├── .env                              # Environment variables
-├── .gitignore
-├── bun.lock
-├── eslint.config.mjs
-├── jsconfig.json
-├── next.config.mjs
-├── postcss.config.cjs
-├── package.json
-└── README.md
-```
 
 ### 🚀 Running it locally
 
@@ -296,7 +231,7 @@ bun run dev
 
 Then head to [http://localhost:3000](http://localhost:3000).
 
-> 💡 The contact form needs a `RESEND_API_KEY` and `MY_EMAIL` (in a `.env` file) to send emails.
+---
 
 ### About me
 

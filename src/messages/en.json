@@ -34,7 +34,8 @@
     "about": "profile.html",
     "projects": "projects.js",
     "contact": "contact.css",
-    "cv": "resume.json"
+    "cv": "resume.json",
+    "settings": "settings.json"
   },
   "menu": {
     "file": "File",
@@ -47,6 +48,9 @@
     "help": "Help",
     "search": "Ruddy Autem Portfolio",
     "language": "Change Language"
+  },
+  "footer": {
+    "rights": "© {year} autem.dev - all rights reserved"
   },
   "projectsData": {
     "portfolio": {
@@ -62,7 +66,7 @@
       "desc": "E-Commerce platform. Add items to your cart and pay with Stripe!"
     },
     "mytasky": {
-      "desc": "Vue.js ToDo list to organize your daily tasks."
+      "desc": "ToDo list to organize your daily tasks."
     },
     "dresscode": {
       "desc": "E-commerce platform using Sanity Studio, a flexible headless CMS for easy product and content management."
@@ -241,5 +245,29 @@
       "copied": "Copied!",
       "reset": "Reset"
     }
+  },
+  "settingsPage": {
+    "title": "Display",
+    "titleAccent": "Settings",
+    "subtitle": "Customize the portfolio's display and appearance.",
+    "filename": "settings.json",
+    "searchPlaceholder": "Search settings...",
+    "appearanceTitle": "Themes & Colors",
+    "appearanceDesc": "Choose your preferred color theme.",
+    "themeOption": "Color Themes",
+    "activeTheme": "Active",
+    "languageTitle": "Languages",
+    "languageDesc": "Instantly switch the display between English and French.",
+    "activeLanguage": "Current Language",
+    "switchLanguage": "Switch",
+    "effectsTitle": "Visual Effects",
+    "effectsDesc": "Enable or disable ambient background glow animations.",
+    "blobsLabel": "Background Halos",
+    "blobsDesc": "Colored glows",
+    "jsonTitle": "Configuration Preview",
+    "jsonDesc": "Overview of your current preferences.",
+    "copyConfig": "Copy configuration",
+    "copied": "Configuration copied!",
+    "resetDefaults": "Reset to Defaults"
   }
 }
