@@ -70,22 +70,28 @@
       "shortDesc": "Headless Next.js e-commerce with Sanity Studio, Clerk, Zustand, and Stripe."
     },
     "styled": {
-      "desc": "E-commerce storefront with Firebase authentication, Zustand reactive state, and Stripe payment integration."
+      "desc": "E-commerce storefront with Firebase authentication, Zustand reactive state, and Stripe payment integration.",
+      "shortDesc": "E-commerce storefront with Firebase auth, Zustand state, and Stripe payments."
     },
     "ohmyblog": {
-      "desc": "Modern, responsive blogging platform powered by Drizzle ORM and Clerk authentication."
+      "desc": "Modern, responsive blogging platform powered by Drizzle ORM and Clerk authentication.",
+      "shortDesc": "Modern blogging platform powered by Drizzle ORM and Clerk authentication."
     },
     "laxxy": {
-      "desc": "Slack-inspired real-time team messaging app with channels and Firebase synchronization."
+      "desc": "Slack-inspired real-time team messaging app with channels and Firebase synchronization.",
+      "shortDesc": "Slack-inspired real-time messaging app with Firebase synchronization."
     },
     "coolmail": {
-      "desc": "Local mailbox client with Google authentication and Firebase Firestore storage."
+      "desc": "Local mailbox client with Google authentication and Firebase Firestore storage.",
+      "shortDesc": "Webmail client with Google authentication and Firebase Firestore storage."
     },
     "mytasky": {
-      "desc": "Clean and responsive daily task manager."
+      "desc": "Clean and responsive daily task manager.",
+      "shortDesc": "Clean and responsive daily task manager with intuitive interface."
     },
     "gpt3": {
-      "desc": "Modern landing interface for an AI platform."
+      "desc": "Modern landing interface for an AI platform.",
+      "shortDesc": "Modern and responsive landing page for an AI platform."
     }
   },
   "projectsPage": {

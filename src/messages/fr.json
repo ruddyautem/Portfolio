@@ -70,22 +70,28 @@
       "shortDesc": "E-commerce headless Next.js avec catalogue Sanity Studio, Clerk et Stripe."
     },
     "styled": {
-      "desc": "Plateforme e-commerce avec authentification Firebase, gestion de panier Zustand et paiements sécurisés Stripe."
+      "desc": "Plateforme e-commerce avec authentification Firebase, gestion de panier Zustand et paiements sécurisés Stripe.",
+      "shortDesc": "E-commerce avec authentification Firebase, gestion Zustand et paiements Stripe."
     },
     "ohmyblog": {
-      "desc": "Plateforme de publication de blogs moderne et responsive, avec ORM Drizzle et authentification Clerk."
+      "desc": "Plateforme de publication de blogs moderne et responsive, avec ORM Drizzle et authentification Clerk.",
+      "shortDesc": "Plateforme de blogs moderne avec ORM Drizzle et authentification Clerk."
     },
     "laxxy": {
-      "desc": "Messagerie instantanée inspirée de Slack avec salons en temps réel et synchronisation Firebase."
+      "desc": "Messagerie instantanée inspirée de Slack avec salons en temps réel et synchronisation Firebase.",
+      "shortDesc": "Messagerie d'équipe temps réel inspirée de Slack avec Firebase."
     },
     "coolmail": {
-      "desc": "Client de messagerie web local avec authentification Google et stockage Firestore."
+      "desc": "Client de messagerie web local avec authentification Google et stockage Firestore.",
+      "shortDesc": "Client webmail avec authentification Google et stockage Firestore."
     },
     "mytasky": {
-      "desc": "Gestionnaire de tâches du quotidien avec interface ergonomique et réactive."
+      "desc": "Gestionnaire de tâches du quotidien avec interface ergonomique et réactive.",
+      "shortDesc": "Gestionnaire de tâches réactif avec interface intuitive et soignée."
     },
     "gpt3": {
-      "desc": "Intégration d'interface moderne pour plateforme d'intelligence artificielle."
+      "desc": "Intégration d'interface moderne pour plateforme d'intelligence artificielle.",
+      "shortDesc": "Landing page moderne et responsive dédiée à une plateforme d'IA."
     }
   },
   "projectsPage": {
