@@ -56,7 +56,7 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
   const [emblaRef, emblaApi] = useEmblaCarousel({
     startIndex: activeIndex !== -1 ? activeIndex : 0,
     loop: false,
-    duration: 25,
+    duration: 45,
     skipSnaps: false,
     dragFree: false,
   });
@@ -69,11 +69,11 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
     }
   }, [activeIndex, emblaApi]);
 
-  // Sync URL when user swipes with finger
+  // Sync URL when user finishes swiping (on settle, ensuring 100% smooth glide physics)
   useEffect(() => {
     if (!emblaApi) return;
 
-    const onSelect = () => {
+    const onSettle = () => {
       const selectedIndex = emblaApi.selectedScrollSnap();
       const targetItem = NAV_ITEMS[selectedIndex];
       if (targetItem && !checkIsActive(targetItem.link)) {
@@ -83,9 +83,9 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
       }
     };
 
-    emblaApi.on('select', onSelect);
+    emblaApi.on('settle', onSettle);
     return () => {
-      emblaApi.off('select', onSelect);
+      emblaApi.off('settle', onSettle);
     };
   }, [emblaApi, checkIsActive, router]);
 
