@@ -50,6 +50,11 @@ Sécurisation complète de la route d'envoi d'emails (via Resend + Zod) :
 - **Préchargement en mémoire (`router.prefetch`)** : Les routes sont préchargées dans le cache client dès le montage.
 - **UI Optimiste (0 ms)** : Le trait des onglets et la barre latérale glissent instantanément au clic sans latence réseau.
 
+### 📱 Navigation Gestuelle (Swipe) Mobile
+
+- **Glissement horizontal fluide (< 1280px)** : Changement de page au doigt via carrousel continu avec mise à jour instantanée des onglets.
+- **Indicateurs visuels discrets** : Aperçu animé au chargement et invitation à explorer la palette de commandes depuis la barre supérieure.
+
 ### 🎨 Les thèmes
 
 Quatre thèmes inspirés des éditeurs de code, mémorisés par cookies et `localStorage` avec zéro flash (FOUC) au rafraîchissement :
@@ -104,15 +109,19 @@ Portfolio/
 │   │       ├── projects/page.tsx    # Galerie de projets
 │   │       └── settings/page.tsx    # Configuration (parametres.json)
 │   ├── components/                  # Composants UI React
+│   │   ├── SwipeNavigator/          # Carrousel multi-pages gestuel (mobile/tablette)
 │   │   ├── CommandPalette/          # Palette de commandes (cmdk)
 │   │   ├── Settings/                # Interface des paramètres
 │   │   ├── HomepageContent/         # Contenu héro & carrousel d'accueil
 │   │   ├── AboutContent/            # Compétences & badges
+│   │   ├── ProjectsContent/         # Galerie de projets (découplée & responsive)
+│   │   ├── CVContent/               # Rendu du CV interactif
 │   │   ├── Card/                    # Cartes de projets avec tailles responsives
 │   │   ├── ContactForm/             # Formulaire de contact
 │   │   ├── Menu/                    # Barre de titre VS Code
 │   │   ├── Sidebar/                 # Navigation latérale avec indicateur optimiste
 │   │   ├── Tabsbar/                 # Barre d'onglets responsive
+│   │   ├── MobileNav/               # Barre de navigation mobile (<1280px) réactive
 │   │   └── Explorer/                # Explorateur de fichiers
 │   ├── context/ThemeContext.tsx     # Gestion du thème et des halos lumineux
 │   ├── i18n/                        # Configuration next-intl & routage
@@ -185,6 +194,11 @@ Fully secured email submission route (via Resend + Zod):
 - **In-Memory Prefetching (`router.prefetch`)** : All routes preloaded into client memory on mount.
 - **Optimistic UI (0 ms)** : Tab underlines and sidebar indicator glide immediately on click without network delay.
 
+### 📱 Mobile Gesture Navigation (Swipe)
+
+- **Smooth horizontal paging (< 1280px)** : Seamless swipe between all pages with zero-latency tab indicator synchronization.
+- **Subtle visual onboarding** : Gentle introductory peek slide and an interactive top search bar invitation to explore.
+
 ### 🎨 Themes
 
 Four themes inspired by developer editors, persisted via cookies & `localStorage` with zero flash of unstyled content (FOUC):
@@ -218,6 +232,49 @@ Four themes inspired by developer editors, persisted via cookies & `localStorage
 | Carousel             | Embla Carousel                     |
 | Email                | Resend API + Zod                   |
 | Code quality         | ESLint + Prettier                  |
+
+### 📁 Project structure
+
+```
+Portfolio/
+├── public/                          # Static assets (icons, images, PDFs)
+├── src/
+│   ├── app/
+│   │   ├── robots.ts                # Native Next.js /robots.txt
+│   │   ├── sitemap.ts               # Native bilingual /sitemap.xml
+│   │   ├── api/contact/route.ts     # Secure email contact API route
+│   │   └── [locale]/                # Bilingual routes (fr|en)
+│   │       ├── globals.css          # Global styles + Tailwind v4 + animations
+│   │       ├── layout.tsx           # Root layout (SSR cookies, fonts, metadata)
+│   │       ├── page.tsx             # Home page
+│   │       ├── about/page.tsx       # About / Skills page
+│   │       ├── contact/page.tsx     # Contact form page
+│   │       ├── cv/page.tsx          # Resume / CV page
+│   │       ├── projects/page.tsx    # Projects gallery page
+│   │       └── settings/page.tsx    # Settings (settings.json)
+│   ├── components/                  # React UI components
+│   │   ├── SwipeNavigator/          # Multi-page gesture carousel (mobile/tablet)
+│   │   ├── CommandPalette/          # Command palette (cmdk)
+│   │   ├── Settings/                # Settings interface
+│   │   ├── HomepageContent/         # Hero & featured project carousel
+│   │   ├── AboutContent/            # Skills & badges
+│   │   ├── ProjectsContent/         # Decoupled responsive projects gallery
+│   │   ├── CVContent/               # Interactive CV view
+│   │   ├── Card/                    # Project cards with responsive sizing
+│   │   ├── ContactForm/             # Contact form
+│   │   ├── Menu/                    # VS Code title bar
+│   │   ├── Sidebar/                 # Sidebar navigation with optimistic indicator
+│   │   ├── Tabsbar/                 # Responsive tabs bar
+│   │   ├── MobileNav/               # Responsive mobile bottom navigation (<1280px)
+│   │   └── Explorer/                # File explorer tree
+│   ├── context/ThemeContext.tsx     # Theme and background glow state management
+│   ├── i18n/                        # next-intl configuration & routing
+│   ├── lib/                         # Constants, CV data, typed utilities
+│   └── messages/                    # JSON translation dictionaries (fr / en)
+├── tsconfig.json                    # TypeScript configuration
+├── next.config.js                   # Next.js configuration (optimizations & cache)
+└── package.json
+```
 
 ### 🚀 Running it locally
 
