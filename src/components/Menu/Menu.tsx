@@ -546,6 +546,34 @@ ThemeMenu.displayName = 'ThemeMenu';
 const Menu = () => {
   const t = useTranslations('menu');
   const [isCommandOpen, setIsCommandOpen] = useState(false);
+  const [showSearchNudge, setShowSearchNudge] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const STORAGE_KEY = 'portfolio_search_nudge_seen_v9';
+    const hasSeen = localStorage.getItem(STORAGE_KEY);
+    if (!hasSeen) {
+      const isMobile = window.innerWidth < 1280;
+      // On mobile, wait for swipe peek to complete (~2000ms); on desktop, trigger snappy after 800ms
+      const startDelay = isMobile ? 2000 : 800;
+      const timer = setTimeout(() => {
+        setShowSearchNudge(true);
+        try {
+          localStorage.setItem(STORAGE_KEY, 'true');
+        } catch {}
+      }, startDelay);
+
+      const cleanupTimer = setTimeout(() => {
+        setShowSearchNudge(false);
+      }, startDelay + 2200);
+
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(cleanupTimer);
+      };
+    }
+  }, []);
 
   return (
     <>
@@ -570,6 +598,7 @@ const Menu = () => {
               'hover:border-accent group relative flex h-7 shrink-0 items-center overflow-hidden',
               `rounded border border-gray-100/10 bg-gray-300/5 text-xs font-semibold text-light
               transition-colors`,
+              showSearchNudge && 'animate-search-bar-nudge',
             )}
           >
             {/* Clickable search area with perfectly centered name and icon next to it */}
@@ -579,8 +608,43 @@ const Menu = () => {
               className="relative flex h-full w-full cursor-pointer items-center justify-center overflow-visible"
               aria-label="Search portfolio (Ctrl+K)"
             >
-              {/* Perfectly centered container */}
-              <div className="pointer-events-none flex items-center justify-center">
+              {/* Navigation invitation layer (cross-fades out smoothly) */}
+              <div
+                className={cn(
+                  'pointer-events-none absolute inset-0 flex items-center justify-center gap-1.5 px-2 text-accent',
+                  'transition-all duration-500 ease-in-out',
+                  showSearchNudge
+                    ? 'opacity-100 translate-y-0 scale-100'
+                    : 'opacity-0 -translate-y-1 scale-95 pointer-events-none',
+                )}
+                aria-hidden={!showSearchNudge}
+              >
+                <svg
+                  className="h-3.5 w-3.5 shrink-0 drop-shadow-[0_0_6px_rgba(255,204,102,0.8)]"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14z" />
+                </svg>
+                <span className="truncate text-xs font-semibold tracking-wide text-accent drop-shadow-[0_0_8px_rgba(255,204,102,0.6)]">
+                  {t('searchHint')}
+                </span>
+              </div>
+
+              {/* Standard title container (cross-fades back in seamlessly with zero empty gap) */}
+              <div
+                className={cn(
+                  'pointer-events-none flex items-center justify-center',
+                  'transition-all duration-500 ease-in-out',
+                  showSearchNudge
+                    ? 'opacity-0 translate-y-1 scale-95'
+                    : 'opacity-100 translate-y-0 scale-100',
+                )}
+              >
                 {/* Search icon placed right next to the name */}
                 <NavIcon src="/search.svg" alt="Search" className="mr-1.5 shrink-0 opacity-70" />
 

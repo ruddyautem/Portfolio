@@ -11,8 +11,10 @@ import Menu from '@/components/Menu/Menu';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import Tabsbar from '@/components/Tabsbar/Tabsbar';
 import MobileNav from '@/components/MobileNav/MobileNav';
+import SwipeNavigator from '@/components/SwipeNavigator/SwipeNavigator';
 import { ThemeContextProvider } from '@/context/ThemeContext';
 import ThemeProvider from '../providers/ThemeProvider';
+import { BackgroundBlobs } from '@/components/PageWrapper/PageWrapper';
 import { THEME_OPTIONS } from '@/lib/constants';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ruddyautem.dev';
@@ -129,6 +131,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeContextProvider initialTheme={initialTheme} initialGlow={initialGlow}>
             <ThemeProvider>
+              <BackgroundBlobs />
               <Menu />
 
               <div className="flex flex-1 overflow-hidden">
@@ -139,12 +142,9 @@ export default async function RootLayout({
 
                 <main className="flex flex-1 flex-col min-w-0">
                   <Tabsbar />
-                  <div
-                    className="font-inconsolata text-light h-[calc(100dvh-88px)] sm:h-[calc(100dvh-116px)] md:h-[calc(100dvh-124px)] xl:h-[calc(100dvh-80px)] overflow-y-auto
-                      overflow-x-hidden p-0"
-                  >
+                  <SwipeNavigator className="font-inconsolata text-light h-[calc(100dvh-88px)] sm:h-[calc(100dvh-116px)] md:h-[calc(100dvh-124px)] xl:h-[calc(100dvh-80px)] overflow-y-auto overflow-x-hidden p-0">
                     {children}
-                  </div>
+                  </SwipeNavigator>
                 </main>
               </div>
 

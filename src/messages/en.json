@@ -47,6 +47,8 @@
     "terminal": "Terminal",
     "help": "Help",
     "search": "Ruddy Autem Portfolio",
+    "searchHint": "Click here to navigate",
+    "swipeHint": "Swipe to navigate",
     "language": "Change Language"
   },
   "footer": {

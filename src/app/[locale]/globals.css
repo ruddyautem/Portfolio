@@ -509,4 +509,153 @@ body {
 html.no-glow .bg-blobs,
 .no-glow .bg-blobs {
   display: none !important;
+}
+
+/* Page slide transition animations for mobile/tablet */
+@keyframes pageSlideInFromRight {
+  from {
+    opacity: 0.85;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pageSlideInFromLeft {
+  from {
+    opacity: 0.85;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-page-slide-left {
+  animation: pageSlideInFromRight 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-page-slide-right {
+  animation: pageSlideInFromLeft 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* ── Option 3: Swipe Peek & Edge Tab Indicators (Snappy, dynamic tempo) ── */
+@keyframes swipePeekNudge {
+  0% {
+    transform: translateX(0);
+  }
+  35% {
+    transform: translateX(-40px);
+  }
+  65% {
+    transform: translateX(0);
+  }
+  85% {
+    transform: translateX(-12px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-swipe-peek {
+  animation: swipePeekNudge 1.4s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+  will-change: transform;
+}
+
+@keyframes edgeBounceHint {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  /* First bounce inward (matches 35% of swipe peek) */
+  35% {
+    opacity: 1;
+    transform: translateX(-16px);
+  }
+  /* Recedes back as peek returns to center (matches 65%) */
+  65% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  /* Second bounce inward (matches 85% of swipe peek) */
+  85% {
+    opacity: 1;
+    transform: translateX(-8px);
+  }
+  /* Smooth exit off-screen */
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.animate-edge-hint {
+  animation: edgeBounceHint 1.4s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+}
+
+/* ── Top Search Bar (CmdK) Invitation Pulse on Mobile (Sequential Step 2) ── */
+@keyframes searchBarNudge {
+  0% {
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 0 rgba(255, 204, 102, 0);
+    transform: scale(1);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  20% {
+    border-color: var(--color-accent, #ffcc66);
+    box-shadow: 0 0 20px rgba(255, 204, 102, 0.55), inset 0 0 8px rgba(255, 204, 102, 0.2);
+    transform: scale(1.04);
+    background-color: rgba(255, 204, 102, 0.12);
+  }
+  50% {
+    border-color: var(--color-accent, #ffcc66);
+    box-shadow: 0 0 16px rgba(255, 204, 102, 0.45);
+    transform: scale(1.02);
+    background-color: rgba(255, 204, 102, 0.1);
+  }
+  80% {
+    border-color: var(--color-accent, #ffcc66);
+    box-shadow: 0 0 8px rgba(255, 204, 102, 0.2);
+    transform: scale(1);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  100% {
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 0 rgba(255, 204, 102, 0);
+    transform: scale(1);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.animate-search-bar-nudge {
+  animation: searchBarNudge 2.1s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+}
+
+@keyframes textMorphSwap {
+  0% {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  12% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-text-morph {
+  animation: textMorphSwap 0.35s ease-out forwards;
 }
