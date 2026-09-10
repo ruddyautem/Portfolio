@@ -110,23 +110,23 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
 
   useEffect(() => {
     if (window.innerWidth >= 1280) return;
-    const STORAGE_KEY = 'portfolio_peek_seen_v8';
+    const STORAGE_KEY = 'portfolio_peek_seen_v9';
     const hasSeen = localStorage.getItem(STORAGE_KEY);
     if (!hasSeen) {
-      // Trigger snappy peek after initial render
+      // Trigger peek animation after 1 second (1000ms)
       const peekTimer = setTimeout(() => {
         setShowPeekAnimation(true);
         setShowHandHint(true);
         try {
           localStorage.setItem(STORAGE_KEY, 'true');
         } catch {}
-      }, 400);
+      }, 1000);
 
-      // Animation slides away and unmounts cleanly
+      // Animation slides away and unmounts cleanly (1000ms delay + 1900ms duration = 2900ms)
       const cleanupTimer = setTimeout(() => {
         setShowPeekAnimation(false);
         setShowHandHint(false);
-      }, 2000);
+      }, 3000);
 
       return () => {
         clearTimeout(peekTimer);

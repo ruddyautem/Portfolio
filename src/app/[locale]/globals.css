@@ -564,7 +564,7 @@ html.no-glow .bg-blobs,
 }
 
 .animate-swipe-peek {
-  animation: swipePeekNudge 1.4s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+  animation: swipePeekNudge 1.9s cubic-bezier(0.25, 1, 0.4, 1) forwards;
   will-change: transform;
 }
 
@@ -600,7 +600,7 @@ html.no-glow .bg-blobs,
 }
 
 .animate-edge-hint {
-  animation: edgeBounceHint 1.4s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+  animation: edgeBounceHint 1.9s cubic-bezier(0.25, 1, 0.4, 1) forwards;
 }
 
 /* ── Top Search Bar (CmdK) Invitation Pulse on Mobile (Sequential Step 2) ── */

@@ -551,12 +551,12 @@ const Menu = () => {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const STORAGE_KEY = 'portfolio_search_nudge_seen_v9';
+    const STORAGE_KEY = 'portfolio_search_nudge_seen_v10';
     const hasSeen = localStorage.getItem(STORAGE_KEY);
     if (!hasSeen) {
       const isMobile = window.innerWidth < 1280;
-      // On mobile, wait for swipe peek to complete (~2000ms); on desktop, trigger snappy after 800ms
-      const startDelay = isMobile ? 2000 : 800;
+      // On mobile, wait for swipe peek to complete (1000ms delay + 1900ms duration = ~3000ms); on desktop, trigger after 800ms
+      const startDelay = isMobile ? 3000 : 800;
       const timer = setTimeout(() => {
         setShowSearchNudge(true);
         try {
