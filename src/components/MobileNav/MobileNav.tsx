@@ -22,6 +22,19 @@ export default function MobileNav() {
     setPendingRoute(null);
   }, [currentRoute]);
 
+  // Instant response to swipe gestures (0ms latency without waiting for router.replace)
+  useEffect(() => {
+    const handleSwipeNav = (event: Event) => {
+      const customEvent = event as CustomEvent<{ link: string }>;
+      if (customEvent.detail?.link) {
+        setPendingRoute(customEvent.detail.link);
+      }
+    };
+
+    window.addEventListener('swipe-nav-change', handleSwipeNav);
+    return () => window.removeEventListener('swipe-nav-change', handleSwipeNav);
+  }, []);
+
   const effectiveRoute = pendingRoute ?? currentRoute;
 
   // Prefetch routes for instant responsiveness

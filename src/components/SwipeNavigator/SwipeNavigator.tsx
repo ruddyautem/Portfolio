@@ -69,9 +69,22 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
     }
   }, [activeIndex, emblaApi]);
 
-  // Sync URL when user finishes swiping (on settle, ensuring 100% smooth glide physics)
+  // Sync active item immediately on select (instant feedback on MobileNav / Tabsbar)
   useEffect(() => {
     if (!emblaApi) return;
+
+    const onSelect = () => {
+      const selectedIndex = emblaApi.selectedScrollSnap();
+      const targetItem = NAV_ITEMS[selectedIndex];
+      if (targetItem) {
+        // Dispatch instant event for MobileNav and Tabsbar with 0ms latency
+        window.dispatchEvent(
+          new CustomEvent('swipe-nav-change', {
+            detail: { index: selectedIndex, link: targetItem.link },
+          }),
+        );
+      }
+    };
 
     const onSettle = () => {
       const selectedIndex = emblaApi.selectedScrollSnap();
@@ -83,8 +96,10 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
       }
     };
 
+    emblaApi.on('select', onSelect);
     emblaApi.on('settle', onSettle);
     return () => {
+      emblaApi.off('select', onSelect);
       emblaApi.off('settle', onSettle);
     };
   }, [emblaApi, checkIsActive, router]);
