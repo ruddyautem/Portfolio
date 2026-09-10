@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import ContactForm from '../ContactForm/ContactForm';
 import TopPageDecoration from '../TopPageDecoration/TopPageDecoration';
+import { PAGE_OUTER_CLASSES, PAGE_INNER_CLASSES, PAGE_CARD_CLASSES } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 
 interface ContactItem {
   social: string;
@@ -107,49 +109,41 @@ const ContactList = () => {
   ];
 
   return (
-    <div
-      className="box-border flex h-auto min-h-screen w-full flex-col items-center justify-start
-        overflow-x-hidden overflow-y-auto p-4 sm:p-6 lg:h-full lg:min-h-0 lg:justify-center
-        lg:overflow-hidden lg:p-6 2xl:p-10 3xl:p-16"
-    >
-      <div className="relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400">
-        <div
-          className="flex h-auto w-full max-w-full flex-col overflow-hidden rounded-2xl border
-            border-slate-700/50 bg-slate-800/20 shadow-2xl backdrop-blur-xl sm:rounded-3xl lg:h-full
-            lg:max-h-[85vh] 2xl:max-h-[90vh] 3xl:max-h-[90vh]"
-        >
+    <div className={PAGE_OUTER_CLASSES}>
+      <div className={PAGE_INNER_CLASSES}>
+        <div className={PAGE_CARD_CLASSES}>
           <TopPageDecoration filename={tTabs('contact')} />
 
           <div className="flex w-full flex-col overflow-y-auto lg:h-full">
             <div
-              className="border-b border-slate-700/30 p-6 text-center sm:p-8 md:p-10
+              className="border-b border-slate-700/30 px-4 py-4 text-center sm:p-6 md:p-8 2xl:py-6 3xl:p-14
                 lg:shrink-0"
             >
               <h1
-                className="item-animate mb-3 text-3xl font-bold text-white sm:text-4xl md:text-5xl 2xl:mb-4
-                  2xl:text-6xl"
+                className="item-animate mb-1.5 text-2xl font-bold text-white sm:mb-2.5 sm:text-3xl md:text-4xl 2xl:mb-2
+                  2xl:text-4xl 3xl:mb-4 3xl:text-6xl"
               >
                 {t('title')} <span className="text-accent">{t('titleAccent')}</span>
               </h1>
-              <p className="item-animate mx-auto max-w-2xl text-base text-slate-300 sm:text-lg 2xl:text-2xl">
+              <p className="item-animate mx-auto max-w-2xl text-xs text-slate-300 sm:text-base 2xl:text-base 3xl:text-2xl">
                 {t('subtitle')}
               </p>
             </div>
 
             <div className="grid flex-1 grid-cols-1 lg:grid-cols-5">
               <div
-                className="flex flex-col border-b border-slate-700/30 p-6 sm:p-8 lg:col-span-2
+                className="flex flex-col border-b border-slate-700/30 p-4 sm:p-6 2xl:p-7 3xl:p-12 lg:col-span-2
                   lg:border-r lg:border-b-0"
               >
-                <div className="item-animate mb-6 text-center lg:mb-8 lg:text-left">
-                  <h2 className="mb-2 text-xl font-bold text-white 2xl:mb-3 2xl:text-2xl">
+                <div className="item-animate mb-4 text-center lg:mb-5 3xl:mb-8 lg:text-left">
+                  <h2 className="mb-1.5 text-lg font-bold text-white 2xl:mb-2 2xl:text-xl 3xl:mb-3 3xl:text-2xl">
                     {t('networksTitle')}
                   </h2>
-                  <div className="mx-auto h-1 w-16 rounded-full bg-accent lg:mx-0" />
+                  <div className="mx-auto h-1 w-12 rounded-full bg-accent lg:mx-0 3xl:w-16" />
                 </div>
 
                 <div
-                  className="flex flex-col gap-4 sm:flex-row sm:justify-center lg:flex-col lg:gap-6"
+                  className="flex flex-col gap-3 sm:flex-row sm:justify-center lg:flex-col lg:gap-4 3xl:gap-6"
                 >
                   {CONTACT_LINKS.map((contact, index) => (
                     <SocialCard key={contact.social} contact={contact} index={index} />
@@ -157,23 +151,23 @@ const ContactList = () => {
                 </div>
 
                 <div
-                  className="item-animate mt-8 border-t border-slate-700/30 pt-6 text-center lg:mt-auto lg:pt-8
-                    lg:text-left"
+                  className="item-animate mt-4 border-t border-slate-700/30 pt-4 text-center lg:mt-auto lg:pt-6
+                    3xl:mt-8 3xl:pt-8 lg:text-left"
                 >
-                  <div className="mb-3 flex items-center justify-center lg:justify-start">
-                    <div className="mr-3 h-2.5 w-2.5 rounded-full bg-green-400" />
-                    <h3 className="text-base font-bold text-white 2xl:text-lg">{t('responseTime')}</h3>
+                  <div className="mb-2 flex items-center justify-center lg:justify-start 3xl:mb-3">
+                    <div className="mr-2.5 h-2 w-2 rounded-full bg-green-400 3xl:h-2.5 3xl:w-2.5" />
+                    <h3 className="text-sm font-bold text-white 2xl:text-base 3xl:text-lg">{t('responseTime')}</h3>
                   </div>
-                  <p className="text-sm text-slate-300 2xl:text-base">{t('hours24')}</p>
+                  <p className="text-xs text-slate-300 2xl:text-sm 3xl:text-base">{t('hours24')}</p>
                 </div>
               </div>
 
-              <div className="flex flex-col p-6 sm:p-8 lg:col-span-3">
-                <div className="item-animate mb-6 text-center lg:mb-8 lg:text-left">
-                  <h2 className="mb-2 text-xl font-bold text-white 2xl:mb-3 2xl:text-2xl">
+              <div className="flex flex-col p-4 sm:p-6 2xl:p-7 3xl:p-12 lg:col-span-3">
+                <div className="item-animate mb-4 text-center lg:mb-5 3xl:mb-8 lg:text-left">
+                  <h2 className="mb-1.5 text-lg font-bold text-white 2xl:mb-2 2xl:text-xl 3xl:mb-3 3xl:text-2xl">
                     {t('sendMessageTitle')}
                   </h2>
-                  <p className="text-sm text-slate-300 2xl:text-base">
+                  <p className="text-xs text-slate-300 2xl:text-sm 3xl:text-base">
                     {t('sendMessageSubtitle')}
                   </p>
                 </div>

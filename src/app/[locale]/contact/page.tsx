@@ -13,7 +13,7 @@ export async function generateMetadata({ params }) {
 
 const Contact = () => {
   return (
-    <PageWrapper className="h-full xl:overflow-y-hidden" skipChildWrapping={true}>
+    <PageWrapper skipChildWrapping={true}>
       <ContactList />
     </PageWrapper>
   );

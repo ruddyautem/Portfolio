@@ -84,7 +84,7 @@ const Tabsbar = () => {
   }, [checkIsActive, theme, currentTabs]);
 
   return (
-    <div className="bg-menu text-darker h-7 w-full relative">
+    <div className="bg-menu text-darker hidden sm:block h-7 w-full relative">
       <div
         ref={containerRef}
         className="relative flex flex-row items-center justify-center lg:justify-start overflow-x-auto no-scrollbar h-full scroll-smooth"

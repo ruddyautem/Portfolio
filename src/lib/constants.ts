@@ -122,30 +122,30 @@ export const TAG_COLORS_CARD = {
 };
  
 // ──────────────────────────────────────────────
-// Common page layout styles reused by About, Projects, Contact pages
+// Common page layout styles reused across all pages (Home, About, Projects, Contact, Settings, CV)
 // ──────────────────────────────────────────────
 export const PAGE_OUTER_CLASSES =
-  'flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden' +
-  ' px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 lg:pt-[7.5vh] xl:px-12 xl:pb-12 xl:pt-[7.5vh]' +
-  ' 2xl:px-16 2xl:pb-16 2xl:pt-[5vh] 3xl:px-20 3xl:pb-20 3xl:pt-[5vh]';
+  'box-border flex min-h-full w-full flex-col items-center justify-start overflow-x-hidden' +
+  ' p-2 sm:p-4 md:p-6 lg:p-8 2xl:p-12';
  
 export const PAGE_INNER_CLASSES =
-  'relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400 shadow-2xl';
+  'relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400';
  
 // Reduced for single-column pages (e.g. CV)
 export const PAGE_INNER_NARROW_CLASSES =
   'relative z-10 w-full max-w-400';
  
 export const PAGE_CARD_CLASSES =
-  'flex flex-col overflow-hidden rounded-2xl border border-slate-700/50' +
-  ' bg-slate-800/20 backdrop-blur-xl sm:rounded-3xl';
+  'flex flex-col overflow-hidden rounded-xl border border-slate-700/50' +
+  ' bg-slate-800/20 shadow-2xl backdrop-blur-xl sm:rounded-3xl' +
+  ' 2xl:min-h-[calc(100dvh-176px)] 2xl:overflow-hidden';
  
 // Section heading with title + subtitle (used by About, Projects, Contact)
 export const SECTION_HEADER_CLASSES =
-  'border-b border-slate-700/30 p-6 text-center sm:p-8 md:p-10';
+  'border-b border-slate-700/30 px-4 py-6 text-center sm:p-8 md:p-10';
  
 export const HEADING_CLASSES =
-  'item-animate mb-4 text-3xl font-bold text-white sm:text-4xl md:text-5xl 2xl:text-6xl';
+  'item-animate mb-3 text-2xl font-bold text-white sm:mb-4 sm:text-4xl md:text-5xl 2xl:text-6xl';
  
 export const SUBHEADING_CLASSES =
-  'item-animate mx-auto max-w-2xl text-lg text-slate-300 sm:text-xl 2xl:text-2xl';
+  'item-animate mx-auto max-w-2xl text-sm text-slate-300 sm:text-lg md:text-xl 2xl:text-2xl';

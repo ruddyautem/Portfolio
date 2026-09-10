@@ -23,7 +23,7 @@ const CAROUSEL_OPTIONS = {
   loop: true,
   align: 'center',
   slidesToScroll: 1,
-  draggable: false,
+  draggable: true,
 };
 
 const getTagColor = (tag: string) => (TAG_COLORS_CAROUSEL as Record<string, string>)[tag] ?? 'bg-gray-500';
@@ -35,7 +35,7 @@ interface ProjectTagProps {
 const ProjectTag = memo(({ tag }: ProjectTagProps) => (
   <span
     className="inline-flex h-5 items-center gap-1 rounded-md bg-slate-800 px-1.5 text-xs font-medium
-      leading-none text-slate-400 2xl:h-6 2xl:px-2 2xl:text-sm"
+      leading-none text-slate-400 2xl:h-6 2xl:px-2.5 2xl:text-xs 3xl:h-7 3xl:px-2.5 3xl:text-sm"
   >
     <span className={`block h-1.5 w-1.5 shrink-0 rounded-full ${getTagColor(tag)}`} />
     <span className="block leading-none">{tag}</span>
@@ -69,7 +69,7 @@ const ProjectCard = memo(({ project, onExternalLink, t, isFirst }: ProjectCardPr
       </div>
 
       <div
-        className="flex min-h-0 flex-1 flex-col gap-2 p-2.5 text-center sm:gap-2.5 sm:p-3.5 2xl:gap-3 2xl:p-4"
+        className="flex min-h-0 flex-1 flex-col gap-2 p-2.5 text-center sm:gap-2.5 sm:p-3 2xl:gap-3.5 2xl:p-5 3xl:gap-4 3xl:p-6"
       >
         <Link
           href="/projects"
@@ -86,13 +86,13 @@ const ProjectCard = memo(({ project, onExternalLink, t, isFirst }: ProjectCardPr
           {project.shortDesc || project.desc}
         </p>
 
-        <div className="flex flex-wrap justify-center gap-1.5">
+        <div className="flex flex-wrap justify-center gap-1.5 2xl:gap-2 3xl:gap-2">
           {tags.map((tag: string) => (
             <ProjectTag key={tag} tag={tag} />
           ))}
         </div>
 
-        <div className="mt-auto flex gap-2 pt-1">
+        <div className="mt-auto flex gap-2 pt-1 2xl:gap-2.5 2xl:pt-2 3xl:gap-3 3xl:pt-2">
           <button
             type="button"
             onClick={(event) => {
@@ -101,8 +101,8 @@ const ProjectCard = memo(({ project, onExternalLink, t, isFirst }: ProjectCardPr
             }}
             className="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-md
               border border-slate-700 py-1.5 text-xs font-medium text-slate-300 transition-colors
-              hover:border-slate-500 hover:text-white sm:text-[11px] 2xl:py-2 2xl:text-xs
-              3xl:text-sm"
+              hover:border-slate-500 hover:text-white sm:text-[11px] 2xl:py-2.5 2xl:text-xs
+              3xl:py-3 3xl:text-sm"
           >
             {t('carousel.see')} Code
           </button>
@@ -115,10 +115,10 @@ const ProjectCard = memo(({ project, onExternalLink, t, isFirst }: ProjectCardPr
             }}
             className="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-md
               bg-accent py-1.5 text-xs font-medium text-slate-900 transition-opacity
-              hover:opacity-90 sm:text-[11px] 2xl:py-2 2xl:text-xs 3xl:text-sm"
+              hover:opacity-90 sm:text-[11px] 2xl:py-2.5 2xl:text-xs 3xl:py-3 3xl:text-sm"
           >
             Demo
-            <ExternalLink className="h-3 w-3 3xl:h-4 3xl:w-4" />
+            <ExternalLink className="h-3 w-3 2xl:h-4 2xl:w-4 3xl:h-4 3xl:w-4" />
           </button>
         </div>
       </div>
@@ -293,11 +293,11 @@ const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
         }
       }}
     >
-      <div className="mb-3 flex items-baseline justify-center gap-1.5 2xl:mb-4">
+      <div className="mb-2.5 flex items-baseline justify-center gap-1.5 2xl:mb-4 3xl:mb-6">
         <h2 className="text-sm font-bold text-white sm:text-base 2xl:text-lg 3xl:text-xl">
           {t('recentProjects')}
         </h2>
-        <span className="text-[10px] text-slate-600 sm:text-[11px] 2xl:text-xs">
+        <span className="text-[10px] text-slate-600 sm:text-[11px] 2xl:text-xs 3xl:text-sm">
           {current + 1}/{count}
         </span>
       </div>
@@ -313,7 +313,7 @@ const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
                   key={project.id}
                   aria-label={`${index + 1} of ${count}`}
                   className={cn(
-                    'basis-[78%] pl-4 sm:basis-[72%] sm:pl-5 md:basis-[68%]',
+                    'basis-[85%] pl-4 sm:basis-[72%] sm:pl-5 md:basis-[68%] 2xl:basis-[75%] 3xl:basis-[78%]',
                     'transition-opacity duration-300 ease-out',
                     isActive ? 'opacity-100' : 'pointer-events-none opacity-30',
                   )}
@@ -337,14 +337,14 @@ const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
               suppressHydrationWarning
               className="left-1 h-7 w-7 cursor-pointer border-none bg-slate-950/60 text-slate-300
                 backdrop-blur-sm hover:bg-slate-900/90 hover:text-accent sm:left-2 sm:h-8 sm:w-8
-                disabled:pointer-events-none disabled:opacity-0"
+                2xl:h-9.5 2xl:w-9.5 3xl:h-11 3xl:w-11 disabled:pointer-events-none disabled:opacity-0"
             />
 
             <CarouselNext
               suppressHydrationWarning
               className="right-1 h-7 w-7 cursor-pointer border-none bg-slate-950/60 text-slate-300
                 backdrop-blur-sm hover:bg-slate-900/90 hover:text-accent sm:right-2 sm:h-8 sm:w-8
-                disabled:pointer-events-none disabled:opacity-0"
+                2xl:h-9.5 2xl:w-9.5 3xl:h-11 3xl:w-11 disabled:pointer-events-none disabled:opacity-0"
             />
           </>
         )}

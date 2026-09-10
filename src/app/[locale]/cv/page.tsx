@@ -5,6 +5,8 @@ import { useTranslations, useLocale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { getCvData } from '@/lib/cvData';
 import Link from 'next/link';
+import { PAGE_OUTER_CLASSES, PAGE_INNER_CLASSES, PAGE_CARD_CLASSES } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 
 export const generateMetadata = async ({ params }) => {
   const { locale } = await params;
@@ -160,14 +162,13 @@ const CV = () => {
   return (
     <PageWrapper skipChildWrapping>
       <div
-        className="flex min-h-screen w-full flex-col items-center justify-start
-          font-['Inter','Segoe_UI',system-ui,sans-serif]"
+        className={cn(
+          PAGE_OUTER_CLASSES,
+          "font-['Inter','Segoe_UI',system-ui,sans-serif]",
+        )}
       >
-        <div className="relative z-10 w-full max-w-400">
-          <div
-            className="rounded-xl border border-slate-700/50 bg-slate-800/20 shadow-2xl
-              backdrop-blur-xl sm:rounded-2xl"
-          >
+        <div className={PAGE_INNER_CLASSES}>
+          <div className={PAGE_CARD_CLASSES}>
             <TopPageDecoration filename={tTabs('cv')} />
 
             <div
@@ -182,7 +183,7 @@ const CV = () => {
             </div>
 
             <div
-              className="mx-4 my-6 min-h-[80vh] rounded-2xl border border-slate-300 bg-[#f1f3f7] p-3
+              className="mx-1 my-3 sm:mx-4 sm:my-6 min-h-[80vh] rounded-xl sm:rounded-2xl border border-slate-300 bg-[#f1f3f7] p-2.5
                 sm:p-4 md:p-5"
             >
               <div
@@ -220,9 +221,10 @@ const CV = () => {
                   <div className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2">
                     {/* --- PROFILE PICTURE  --- */}
                     <div
-                      className="h-40 w-40 overflow-hidden rounded-3xl border-[6px] border-white
-                        bg-white shadow-lg sm:h-44 sm:w-44 md:h-48 md:w-48 lg:h-64 lg:w-64 xl:h-72
-                        xl:w-72"
+                      className="h-32 w-32 overflow-hidden rounded-2xl border-[4px] border-white
+                        bg-white shadow-lg min-[375px]:h-36 min-[375px]:w-36 min-[375px]:rounded-3xl
+                        min-[375px]:border-[5px] sm:h-44 sm:w-44 sm:border-[6px] md:h-48 md:w-48
+                        lg:h-64 lg:w-64 xl:h-72 xl:w-72"
                     >
                       <Image
                         src="/profile.jpg"
@@ -237,11 +239,11 @@ const CV = () => {
 
                 {/* --- TEXT CONTENT --- */}
                 <div
-                  className="flex flex-col items-center px-4 pb-6 pt-24 text-center min-[375px]:px-5
-                    min-[375px]:pb-8 min-[375px]:pt-28 sm:pt-32 md:pt-32 lg:pt-40 xl:pt-44"
+                  className="flex flex-col items-center px-4 pb-6 pt-18 text-center min-[375px]:px-5
+                    min-[375px]:pb-8 min-[375px]:pt-22 sm:pt-28 md:pt-32 lg:pt-40 xl:pt-44"
                 >
                   <span
-                    className="mb-2.5 inline-block rounded-md bg-slate-100 px-2.5 py-1 text-[9px]
+                    className="mb-2 inline-block rounded-md bg-slate-100 px-2.5 py-1 text-[9px]
                       font-black uppercase tracking-[0.2em] text-slate-600 min-[375px]:mb-3
                       min-[375px]:px-3 min-[375px]:py-1.5 min-[375px]:text-[10px] sm:text-xs
                       md:text-sm"

@@ -572,22 +572,32 @@ const Menu = () => {
               transition-colors`,
             )}
           >
-            {/* Clickable search area with perfectly centered label */}
+            {/* Clickable search area with perfectly centered name and icon next to it */}
             <button
               type="button"
               onClick={() => setIsCommandOpen(true)}
-              className="flex h-full w-full cursor-pointer items-center justify-center gap-1.5
-                px-16"
+              className="relative flex h-full w-full cursor-pointer items-center justify-center overflow-visible"
               aria-label="Search portfolio (Ctrl+K)"
             >
-              <NavIcon src="/search.svg" alt="Search" className="shrink-0 opacity-70" />
-              <span className="truncate text-xs font-normal text-white/80">{t('search')}</span>
-              <kbd
-                className="ml-1 hidden rounded bg-white/10 px-1.5 py-0.5 font-mono text-[9px]
-                  text-slate-400 sm:inline-block"
-              >
-                ⌘K
-              </kbd>
+              {/* Perfectly centered container */}
+              <div className="pointer-events-none flex items-center justify-center">
+                {/* Search icon placed right next to the name */}
+                <NavIcon src="/search.svg" alt="Search" className="mr-1.5 shrink-0 opacity-70" />
+
+                {/* Name text */}
+                <span className="truncate text-xs font-normal text-white/80">{t('search')}</span>
+
+                {/* ⌘K badge visible on sm and above */}
+                <kbd
+                  className="ml-1 hidden rounded bg-white/10 px-1.5 py-0.5 font-mono text-[9px]
+                    text-slate-400 sm:inline-block"
+                >
+                  ⌘K
+                </kbd>
+
+                {/* Invisible spacer matching the search icon width + margin so the name stays centered on mobile */}
+                <span className="w-[calc(15px+0.375rem)] shrink-0 sm:hidden" aria-hidden="true" />
+              </div>
             </button>
 
             {/* Embedded Language and Theme buttons pinned to the far right with slight vertical separators */}

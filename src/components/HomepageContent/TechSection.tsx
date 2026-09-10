@@ -9,12 +9,12 @@ const TechSection = () => {
 
   return (
     <div
-      className="item-animate mt-6 flex w-full max-w-full flex-col items-center overflow-hidden
-        border-t border-slate-700/50 pt-3"
+      className="item-animate mt-4 flex w-full max-w-full flex-col items-center overflow-hidden
+        border-t border-slate-700/50 pt-2.5 2xl:mt-4 2xl:pt-3 3xl:mt-10 3xl:pt-5"
     >
       <h3
-        className="mb-2 w-full truncate text-center font-mono text-sm tracking-widest
-          text-slate-500"
+        className="mb-2 w-full truncate text-center font-mono text-xs tracking-widest
+          text-slate-500 2xl:text-xs 3xl:mb-4 3xl:text-base"
       >
         {t('technologies')}
       </h3>

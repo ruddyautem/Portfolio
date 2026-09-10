@@ -17,10 +17,7 @@ export async function generateMetadata({
 
 const SettingsPage = () => {
   return (
-    <PageWrapper
-      skipChildWrapping={true}
-      className="flex min-h-full w-full flex-col items-center justify-center"
-    >
+    <PageWrapper skipChildWrapping={true}>
       <SettingsContent />
     </PageWrapper>
   );

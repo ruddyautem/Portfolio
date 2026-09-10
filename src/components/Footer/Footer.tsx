@@ -34,11 +34,11 @@ const Footer = () => {
 
   const containerClasses = 'flex h-5 cursor-pointer items-center rounded-xs px-1 hover:bg-white/10';
   const footerClasses =
-    'bg-menu text-opacity-50 z-50 flex h-5 w-full items-center gap-1 text-[10px] relative select-none';
+    'bg-menu text-opacity-50 z-50 hidden xl:flex h-5 w-full items-center gap-1 text-[10px] relative select-none';
 
   return (
     <footer className={footerClasses}>
-      <Link href="https://github.com/ruddyautem" className={cn(containerClasses, 'ml-1 hidden sm:flex')}>
+      <Link href="https://github.com/ruddyautem" className={cn(containerClasses, 'ml-1 hidden xl:flex')}>
         <FooterItem icon="/source-control.svg" label="main" alt="Source control" />
       </Link>
 

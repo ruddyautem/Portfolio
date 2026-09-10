@@ -22,19 +22,19 @@ const NavCard = ({ href, label, icon: Icon }) => (
     href={href}
     className="group relative flex flex-1 flex-col items-center justify-center gap-2 rounded-xl
       border border-slate-700/80 bg-slate-800/40 px-2 py-4 shadow-md transition-all duration-300
-      hover:border-accent hover:bg-slate-800/80 hover:shadow-accent/10 active:scale-[0.98] xl:py-5
-      2xl:py-6"
+      hover:border-accent hover:bg-slate-800/80 hover:shadow-accent/10 active:scale-[0.98] xl:py-4.5
+      2xl:gap-2.5 2xl:py-6 3xl:gap-3 3xl:py-7"
   >
     <div
       className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-700/50 text-accent
         transition-colors duration-300 group-hover:bg-accent group-hover:text-slate-950 xl:h-9
-        xl:w-9"
+        xl:w-9 2xl:h-10.5 2xl:w-10.5 3xl:h-12 3xl:w-12 3xl:rounded-xl"
     >
-      <Icon className="h-4 w-4 xl:h-4.5 xl:w-4.5" />
+      <Icon className="h-4 w-4 xl:h-4.5 xl:w-4.5 2xl:h-5.5 2xl:w-5.5 3xl:h-6 3xl:w-6" />
     </div>
     <span
       className="text-[10px] font-semibold text-slate-200 transition-colors duration-300
-        group-hover:text-white sm:text-xs xl:text-xs 2xl:text-sm"
+        group-hover:text-white sm:text-xs xl:text-xs 2xl:text-sm 3xl:text-base"
     >
       {label}
     </span>
@@ -42,7 +42,7 @@ const NavCard = ({ href, label, icon: Icon }) => (
 );
 
 const CvButton = ({ label, href, downloadName }) => (
-  <div className="item-animate mt-7 flex w-full items-center justify-center gap-3 2xl:mt-9">
+  <div className="item-animate mt-5 flex w-full items-center justify-center gap-3 2xl:mt-7 3xl:mt-9">
     <span className="h-px flex-1 bg-linear-to-r from-transparent to-slate-600/60" />
     <a
       href={href}
@@ -61,7 +61,7 @@ const CvButton = ({ label, href, downloadName }) => (
       />
       <Download
         className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 xl:h-4 xl:w-4 2xl:h-5
-          2xl:w-5"
+          2xl:w-5 3xl:h-6 3xl:w-6"
       />
       <span className="tracking-wide">{label}</span>
     </a>
@@ -88,37 +88,37 @@ const HeroSection = () => {
 
   return (
     <div className="w-full pt-3 text-center lg:pt-0">
-      <div className="mb-4 flex w-full flex-col items-center lg:mb-4 xl:mb-5 2xl:mb-7">
+      <div className="mb-3 flex w-full flex-col items-center lg:mb-3 xl:mb-4 2xl:mb-6 3xl:mb-8">
         <div
-          className="item-animate mb-4 inline-block max-w-full truncate rounded-full bg-slate-700/50
-            px-2 py-1 font-mono text-[10px] text-accent lg:px-3 lg:text-xs xl:text-sm 2xl:px-4
-            2xl:py-2 2xl:text-base 3xl:px-6 3xl:py-3 3xl:text-xl"
+          className="item-animate mb-2.5 inline-block max-w-full truncate rounded-full bg-slate-700/50
+            px-2 py-1 font-mono text-[10px] text-accent lg:px-3 lg:text-xs xl:text-sm 2xl:mb-4
+            2xl:px-4.5 2xl:py-2 2xl:text-sm 3xl:mb-5 3xl:px-6 3xl:py-3 3xl:text-xl"
         >
           {t('badge')}
         </div>
         <h1
-          className="item-animate mb-4 w-full truncate text-2xl font-bold tracking-tight sm:text-3xl
-            lg:mb-3 lg:text-lg xl:text-2xl 2xl:mb-4 2xl:text-4xl 3xl:text-6xl"
+          className="item-animate mb-2 w-full text-4xl font-bold tracking-tight sm:text-5xl
+            lg:mb-2.5 lg:text-2xl xl:text-3xl 2xl:mb-3.5 2xl:text-5xl 3xl:mb-5 3xl:text-6xl"
         >
           {t('name')} <span className="text-accent">{t('surname')}</span>
         </h1>
         <p
-          className="item-animate mb-5 w-full truncate text-base text-slate-300 sm:text-lg lg:mb-4
-            lg:text-sm xl:text-lg 2xl:mb-5 2xl:text-2xl 3xl:text-4xl"
+          className="item-animate mb-2 w-full text-base text-slate-300 sm:text-lg lg:mb-3
+            lg:text-sm xl:text-lg 2xl:mb-4.5 2xl:text-2xl 3xl:mb-6 3xl:text-4xl"
         >
           {t('title')}
         </p>
       </div>
       <p
-        className="item-animate mx-auto mb-6 w-full max-w-md text-xs text-slate-300 sm:text-sm
-          lg:mb-4 lg:max-w-xs lg:text-xs xl:max-w-md xl:text-base 2xl:mb-6 2xl:max-w-2xl
-          2xl:leading-relaxed 2xl:text-lg 3xl:max-w-3xl 3xl:text-2xl"
+        className="item-animate mx-auto mb-4 w-full max-w-md text-xs text-slate-300 sm:text-sm
+          lg:mb-3 lg:max-w-xs lg:text-xs xl:max-w-md xl:text-base 2xl:mb-6 2xl:max-w-xl
+          2xl:text-lg 2xl:leading-relaxed 3xl:mb-8 3xl:max-w-3xl 3xl:text-2xl"
       >
         {t('description')}
       </p>
       <div
-        className="item-animate mb-6 flex flex-wrap justify-center gap-2 lg:mb-4 lg:gap-1.5 xl:gap-2
-          2xl:mb-6 2xl:gap-2.5"
+        className="item-animate mb-4 flex flex-wrap justify-center gap-2 lg:mb-3 lg:gap-1.5 xl:gap-2
+          2xl:mb-6 2xl:gap-3 3xl:mb-8"
       >
         {SKILL_PILLS.map(({ icon: Icon, label }) => (
           <span
@@ -127,30 +127,30 @@ const HeroSection = () => {
               border-slate-600/70 bg-slate-800/20 px-3 py-1.5 text-xs font-medium text-slate-300
               transition-all duration-300 hover:border-slate-500 hover:bg-slate-700/40
               hover:text-white lg:px-2 lg:py-1 lg:text-[9px] xl:px-3 xl:py-1.5 xl:text-[11px]
-              2xl:px-3.5 2xl:py-1.5 2xl:text-xs 3xl:px-5 3xl:py-2 3xl:text-sm"
+              2xl:px-4 2xl:py-2 2xl:text-sm 3xl:px-5 3xl:py-2.5 3xl:text-sm"
           >
             <Icon
               className="h-3.5 w-3.5 shrink-0 text-accent transition-transform duration-300
-                group-hover:scale-110 lg:h-3 lg:w-3 xl:h-3.5 xl:w-3.5 2xl:h-4 2xl:w-4 3xl:h-5
+                group-hover:scale-110 lg:h-3 lg:w-3 xl:h-3.5 xl:w-3.5 2xl:h-4.5 2xl:w-4.5 3xl:h-5
                 3xl:w-5"
             />
             {label}
           </span>
         ))}
       </div>
-      <div className="item-animate mb-6 flex justify-center lg:mb-4 2xl:mb-6">
+      <div className="item-animate mb-4 flex justify-center lg:mb-3 2xl:mb-6 3xl:mb-8">
         <span
           className="inline-flex items-center gap-1.5 text-xs text-slate-400 lg:text-[10px]
             xl:text-xs 2xl:text-sm 3xl:text-base"
         >
           <MapPin
-            className="h-3.5 w-3.5 shrink-0 text-slate-400 lg:h-3 lg:w-3 xl:h-3.5 xl:w-3.5 2xl:h-4
-              2xl:w-4"
+            className="h-3.5 w-3.5 shrink-0 text-slate-400 lg:h-3 lg:w-3 xl:h-3.5 xl:w-3.5 2xl:h-4.5
+              2xl:w-4.5 3xl:h-5 3xl:w-5"
           />
           {t('location')}
         </span>
       </div>
-      <div className="item-animate grid w-full grid-cols-2 sm:grid-cols-4 gap-2 xl:gap-2.5 2xl:gap-3">
+      <div className="item-animate grid w-full grid-cols-2 sm:grid-cols-4 gap-2 xl:gap-2.5 2xl:gap-3.5 3xl:gap-4">
         {NAV_LINKS.map((link) => (
           <NavCard key={link.href} {...link} />
         ))}

@@ -10,6 +10,7 @@ import Footer from '@/components/Footer/Footer';
 import Menu from '@/components/Menu/Menu';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import Tabsbar from '@/components/Tabsbar/Tabsbar';
+import MobileNav from '@/components/MobileNav/MobileNav';
 import { ThemeContextProvider } from '@/context/ThemeContext';
 import ThemeProvider from '../providers/ThemeProvider';
 import { THEME_OPTIONS } from '@/lib/constants';
@@ -131,7 +132,7 @@ export default async function RootLayout({
               <Menu />
 
               <div className="flex flex-1 overflow-hidden">
-                <aside className="flex h-[calc(100dvh-60px)] shrink-0">
+                <aside className="hidden xl:flex h-[calc(100dvh-60px)] shrink-0">
                   <Sidebar />
                   <Explorer />
                 </aside>
@@ -139,8 +140,8 @@ export default async function RootLayout({
                 <main className="flex flex-1 flex-col min-w-0">
                   <Tabsbar />
                   <div
-                    className="font-inconsolata text-light h-[calc(100dvh-80px)] overflow-y-auto
-                      overflow-x-hidden p-4"
+                    className="font-inconsolata text-light h-[calc(100dvh-88px)] sm:h-[calc(100dvh-116px)] md:h-[calc(100dvh-124px)] xl:h-[calc(100dvh-80px)] overflow-y-auto
+                      overflow-x-hidden p-0"
                   >
                     {children}
                   </div>
@@ -148,6 +149,7 @@ export default async function RootLayout({
               </div>
 
               <Footer />
+              <MobileNav />
             </ThemeProvider>
           </ThemeContextProvider>
         </NextIntlClientProvider>

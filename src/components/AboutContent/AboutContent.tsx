@@ -4,7 +4,7 @@ import { skills } from './skills';
 import { useTranslations } from 'next-intl';
 import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
 import TopPageDecoration from '../TopPageDecoration/TopPageDecoration';
-import { PAGE_OUTER_CLASSES } from '@/lib/constants';
+import { PAGE_OUTER_CLASSES, PAGE_INNER_CLASSES, PAGE_CARD_CLASSES } from '@/lib/constants';
 
 const AboutContent = () => {
   const t = useTranslations('about');
@@ -97,25 +97,22 @@ const AboutContent = () => {
   return (
     <PageWrapper skipChildWrapping={true}>
       <div className={PAGE_OUTER_CLASSES}>
-        <div className="relative z-10 flex w-full max-w-7xl flex-col 2xl:max-w-400">
-          <div
-            className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/50
-              bg-slate-800/10 shadow-2xl backdrop-blur-xl sm:rounded-3xl"
-          >
+        <div className={PAGE_INNER_CLASSES}>
+          <div className={PAGE_CARD_CLASSES}>
             <TopPageDecoration filename={tTabs('about')} />
 
-            <div className="flex flex-col items-center p-6 sm:p-8 md:p-10 lg:p-14">
-              <div className="item-animate mb-8 max-w-3xl text-center sm:mb-12">
-                <h1 className={`item-animate mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl
-                    md:text-5xl 2xl:text-6xl`}>
+            <div className="flex flex-col items-center p-3 sm:p-8 md:p-10 lg:p-14">
+              <div className="item-animate mb-6 max-w-3xl text-center sm:mb-12">
+                <h1 className="item-animate mb-3 text-2xl font-bold tracking-tight text-white sm:mb-4 sm:text-4xl
+                    md:text-5xl 2xl:text-6xl">
                   {t('title')} <span className="text-accent">{t('titleAccent')}</span>
                 </h1>
-                <p className="item-animate mx-auto max-w-3xl text-lg text-slate-300 sm:text-xl 2xl:text-2xl">{t('subtitle')}</p>
+                <p className="item-animate mx-auto max-w-3xl text-sm text-slate-300 sm:text-xl 2xl:text-2xl">{t('subtitle')}</p>
               </div>
 
               <div
-                className="w-full rounded-2xl border border-slate-700/20 bg-slate-800/5 px-4
-                  sm:px-10"
+                className="w-full rounded-xl border border-slate-700/20 bg-slate-800/5 px-2.5 py-2
+                  sm:rounded-2xl sm:px-10"
               >
                 {sections.map((section, index) => renderSkillsSection(section, index))}
               </div>

@@ -33,7 +33,7 @@ const Projects = () => {
   return (
     <PageWrapper skipChildWrapping={true}>
       <div className={PAGE_OUTER_CLASSES}>
-        <div className={`${PAGE_INNER_CLASSES} shadow-2xl`}>
+        <div className={PAGE_INNER_CLASSES}>
           <div className={PAGE_CARD_CLASSES}>
             <TopPageDecoration filename={t('filename')} />
 
@@ -44,7 +44,7 @@ const Projects = () => {
               <p className={SUBHEADING_CLASSES}>{t('subtitle')}</p>
             </div>
 
-            <div className="p-6 sm:p-8 md:p-10">
+            <div className="p-3 sm:p-8 md:p-10">
               {/* Featured Projects Header */}
               <div className="mb-6 flex flex-col items-center text-center">
                 <div
