@@ -23,7 +23,14 @@ const CAROUSEL_OPTIONS = {
   loop: true,
   align: 'center',
   slidesToScroll: 1,
-  draggable: true,
+  watchDrag: (emblaApi: any, event: MouseEvent | TouchEvent) => {
+    // Only allow mouse drag on desktop (pointerType !== 'touch' or window.innerWidth >= 1280)
+    // Disables finger swiping on mobile/tablet so it doesn't conflict with side page navigation
+    if (typeof window !== 'undefined' && window.innerWidth < 1280) {
+      return false;
+    }
+    return true;
+  },
 };
 
 const getTagColor = (tag: string) => (TAG_COLORS_CAROUSEL as Record<string, string>)[tag] ?? 'bg-gray-500';
