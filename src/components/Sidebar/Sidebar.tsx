@@ -50,6 +50,8 @@ const NavItem = ({ item, isActive, onRef, onSelect, priority }: NavItemProps) =>
             prefetch={true}
             onClick={() => onSelect?.(item.link!)}
             className="w-full"
+            aria-label={item.name}
+            aria-current={isActive ? 'page' : undefined}
           >
             {content}
           </Link>
@@ -73,7 +75,7 @@ const Sidebar = () => {
   const [pendingRoute, setPendingRoute] = useState<string | null>(null);
   const t = useTranslations('sidebar');
 
-  const itemsRef = useRef([]);
+  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, height: 0, opacity: 0 });
 
   // Prefetch all sidebar routes on mount

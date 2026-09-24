@@ -1,5 +1,8 @@
-export default function robots() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ruddyautem.dev';
+import type { MetadataRoute } from 'next';
+import { SITE_URL } from '@/lib/site';
+
+export default function robots(): MetadataRoute.Robots {
+  const baseUrl = SITE_URL;
 
   return {
     rules: [
@@ -10,5 +13,6 @@ export default function robots() {
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   };
 }

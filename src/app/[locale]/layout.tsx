@@ -1,10 +1,10 @@
 import './globals.css';
 import { Inconsolata, Inter } from 'next/font/google';
-import { NextIntlClientProvider } from 'next-intl';
+import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import Explorer from '@/components/Explorer/Explorer';
 import Footer from '@/components/Footer/Footer';
 import Menu from '@/components/Menu/Menu';
@@ -16,18 +16,22 @@ import { ThemeContextProvider } from '@/context/ThemeContext';
 import ThemeProvider from '../providers/ThemeProvider';
 import { BackgroundBlobs } from '@/components/PageWrapper/PageWrapper';
 import { THEME_OPTIONS } from '@/lib/constants';
+import { SITE_URL } from '@/lib/site';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ruddyautem.dev';
+import type { Viewport } from 'next';
+
+export const viewport: Viewport = {
+  themeColor: '#0f172a',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const isFr = locale === 'fr';
 
@@ -60,6 +64,25 @@ export async function generateMetadata({
     creator: 'Ruddy Autem',
     icons: {
       icon: '/vsclogo.svg',
+    },
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        en: '/en',
+        fr: '/fr',
+        'x-default': '/en',
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
     openGraph: {
       type: 'website',
@@ -107,7 +130,7 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
@@ -115,10 +138,49 @@ export default async function RootLayout({
   const fontVariables = `${inter.variable} ${inconsolata.variable}`;
 
   const cookieStore = await cookies();
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
   const themeCookie = cookieStore.get('theme')?.value;
-  const initialTheme = THEME_OPTIONS.includes(themeCookie as string) ? (themeCookie as string) : 'ayu';
+  const initialTheme = THEME_OPTIONS.includes(themeCookie as string)
+    ? (themeCookie as string)
+    : 'ayu';
   const glowCookie = cookieStore.get('backgroundGlow')?.value;
   const initialGlow = glowCookie !== 'false';
+
+  const isFr = locale === 'fr';
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Person',
+        '@id': `${SITE_URL}/#person`,
+        name: 'Ruddy Autem',
+        jobTitle: isFr ? 'Développeur Full Stack' : 'Full Stack Developer',
+        url: SITE_URL,
+        image: `${SITE_URL}/profile.jpg`,
+        sameAs: ['https://github.com/ruddyautem', 'https://www.linkedin.com/in/ruddy-autem/'],
+        knowsAbout: [
+          'React',
+          'Next.js',
+          'TypeScript',
+          'Node.js',
+          'Tailwind CSS',
+          'PostgreSQL',
+          'Elysia',
+          'Full Stack Web Development',
+        ],
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: 'Ruddy Autem Portfolio',
+        author: {
+          '@id': `${SITE_URL}/#person`,
+        },
+        inLanguage: ['en', 'fr'],
+      },
+    ],
+  };
 
   return (
     <html
@@ -128,6 +190,19 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="flex h-dvh flex-col overflow-hidden">
+        <script
+          type="application/ld+json"
+          nonce={nonce}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[99999]
+            focus:px-4 focus:py-2 focus:bg-accent focus:text-slate-950 focus:font-bold
+            focus:rounded-md focus:shadow-lg focus:outline-none"
+        >
+          {isFr ? 'Passer au contenu principal' : 'Skip to main content'}
+        </a>
         <NextIntlClientProvider messages={messages}>
           <ThemeContextProvider initialTheme={initialTheme} initialGlow={initialGlow}>
             <ThemeProvider>
@@ -135,14 +210,22 @@ export default async function RootLayout({
               <Menu />
 
               <div className="flex flex-1 overflow-hidden">
-                <aside className="hidden xl:flex h-[calc(100dvh-60px)] shrink-0">
+                <div className="hidden lg:flex h-[calc(100dvh-60px)] shrink-0">
                   <Sidebar />
                   <Explorer />
-                </aside>
+                </div>
 
-                <main className="flex flex-1 flex-col min-w-0">
+                <main
+                  id="main-content"
+                  tabIndex={-1}
+                  className="flex flex-1 flex-col min-w-0 outline-none"
+                >
                   <Tabsbar />
-                  <SwipeNavigator className="font-inconsolata text-light h-[calc(100dvh-88px)] sm:h-[calc(100dvh-116px)] md:h-[calc(100dvh-124px)] xl:h-[calc(100dvh-80px)] overflow-y-auto overflow-x-hidden p-0">
+                  <SwipeNavigator
+                    className="font-inconsolata text-light h-[calc(100dvh-88px)]
+                      sm:h-[calc(100dvh-116px)] md:h-[calc(100dvh-124px)] lg:h-[calc(100dvh-80px)]
+                      overflow-y-auto overflow-x-hidden p-0"
+                  >
                     {children}
                   </SwipeNavigator>
                 </main>

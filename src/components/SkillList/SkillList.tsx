@@ -3,40 +3,48 @@ import Image from 'next/image';
 const SkillList = ({ skill, icon, altText, category }) => {
   const categoryStyles = {
     frontend: {
+      border: 'border-slate-700/60',
       hoverBorder: 'hover:border-blue-400/60',
+      bg: 'bg-slate-800/40',
       hoverBg: 'hover:bg-blue-500/10',
       iconBoxBg: 'bg-blue-500/10',
-      iconBorder: 'border-blue-500/20 group-hover:border-blue-400/50',
+      iconBorder: 'border-blue-500/25 group-hover:border-blue-400/50',
       shadowGlow: 'hover:shadow-[0_4px_20px_-4px_rgba(59,130,246,0.3)]',
       shimmerColor: 'via-blue-400/15',
-      glowLine: 'via-blue-400/40',
+      glowLine: 'via-blue-400/50',
     },
     backend: {
+      border: 'border-slate-700/60',
       hoverBorder: 'hover:border-purple-400/60',
+      bg: 'bg-slate-800/40',
       hoverBg: 'hover:bg-purple-500/10',
       iconBoxBg: 'bg-purple-500/10',
-      iconBorder: 'border-purple-500/20 group-hover:border-purple-400/50',
+      iconBorder: 'border-purple-500/25 group-hover:border-purple-400/50',
       shadowGlow: 'hover:shadow-[0_4px_20px_-4px_rgba(147,51,234,0.3)]',
       shimmerColor: 'via-purple-400/15',
-      glowLine: 'via-purple-400/40',
+      glowLine: 'via-purple-400/50',
     },
     tools: {
+      border: 'border-slate-700/60',
       hoverBorder: 'hover:border-emerald-400/60',
+      bg: 'bg-slate-800/40',
       hoverBg: 'hover:bg-emerald-500/10',
       iconBoxBg: 'bg-emerald-500/10',
-      iconBorder: 'border-emerald-500/20 group-hover:border-emerald-400/50',
+      iconBorder: 'border-emerald-500/25 group-hover:border-emerald-400/50',
       shadowGlow: 'hover:shadow-[0_4px_20px_-4px_rgba(16,185,129,0.3)]',
       shimmerColor: 'via-emerald-400/15',
-      glowLine: 'via-emerald-400/40',
+      glowLine: 'via-emerald-400/50',
     },
     outils: {
+      border: 'border-slate-700/60',
       hoverBorder: 'hover:border-emerald-400/60',
+      bg: 'bg-slate-800/40',
       hoverBg: 'hover:bg-emerald-500/10',
       iconBoxBg: 'bg-emerald-500/10',
-      iconBorder: 'border-emerald-500/20 group-hover:border-emerald-400/50',
+      iconBorder: 'border-emerald-500/25 group-hover:border-emerald-400/50',
       shadowGlow: 'hover:shadow-[0_4px_20px_-4px_rgba(16,185,129,0.3)]',
       shimmerColor: 'via-emerald-400/15',
-      glowLine: 'via-emerald-400/40',
+      glowLine: 'via-emerald-400/50',
     },
   };
 
@@ -45,7 +53,7 @@ const SkillList = ({ skill, icon, altText, category }) => {
   return (
     <div
       className={`item-animate group relative flex w-full flex-col items-center justify-center gap-2.5
-        overflow-hidden rounded-xl border border-slate-700/50 bg-slate-800/40 p-3.5 text-center
+        overflow-hidden rounded-xl border ${style.border} ${style.bg} p-3.5 text-center
         backdrop-blur-md transition-all duration-300 ease-out cursor-pointer hover:-translate-y-1
         active:scale-[0.98] sm:gap-3 sm:p-4 ${style.hoverBorder} ${style.hoverBg} ${style.shadowGlow}`}
     >
@@ -88,7 +96,7 @@ const SkillList = ({ skill, icon, altText, category }) => {
       </div>
 
       <h3
-        className="relative z-10 w-full truncate text-sm font-medium text-slate-300
+        className="relative z-10 w-full truncate text-sm font-medium text-slate-200
           transition-colors duration-300 group-hover:text-white leading-tight"
       >
         {skill}

@@ -167,10 +167,10 @@ const CV = () => {
             <div
               className="border-b border-slate-700/30 px-4 py-5 text-center sm:px-6 sm:py-7 md:py-8"
             >
-              <h1 className="cv-float mb-2 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+              <h1 className="item-animate mb-2 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
                 {t('title')} <span className="text-accent">{t('titleAccent')}</span>
               </h1>
-              <p className="cv-float-1 mx-auto max-w-xl text-sm text-slate-400 sm:text-base">
+              <p className="item-animate-1 mx-auto max-w-xl text-sm text-slate-400 sm:text-base">
                 {t('subtitle')}
               </p>
             </div>
@@ -180,7 +180,7 @@ const CV = () => {
                 sm:p-4 md:p-5"
             >
               <div
-                className="cv-float relative mb-4 overflow-hidden rounded-2xl border
+                className="item-animate relative mb-4 overflow-hidden rounded-2xl border
                   border-slate-200 bg-white shadow-sm"
               >
                 {/* --- HEADER BACKGROUND --- */}
@@ -280,7 +280,7 @@ const CV = () => {
                 <div className="flex flex-col gap-5 lg:col-span-2 lg:gap-6">
                   {about && (
                     <div
-                      className="cv-float-1 rounded-2xl border border-slate-200 bg-white p-5
+                      className="item-animate-1 rounded-2xl border border-slate-200 bg-white p-5
                         shadow-sm sm:p-6"
                     >
                       <SectionHeading label={t('aboutTitle')} />
@@ -294,7 +294,7 @@ const CV = () => {
                   )}
 
                   <div
-                    className="cv-float-2 flex-1 rounded-2xl border border-slate-200 bg-white p-5
+                    className="item-animate-2 flex-1 rounded-2xl border border-slate-200 bg-white p-5
                       shadow-sm sm:p-6"
                   >
                     <SectionHeading label={t('projectsTitle')} />
@@ -329,7 +329,7 @@ const CV = () => {
 
                 <div className="flex flex-col gap-4">
                   <div
-                    className="cv-float-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm
+                    className="item-animate-2 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm
                       sm:p-5"
                   >
                     <SectionHeading label={t('skillsTitle')} />
@@ -362,7 +362,7 @@ const CV = () => {
                   </div>
 
                   <div
-                    className="cv-float-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm
+                    className="item-animate-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm
                       sm:p-5"
                   >
                     <SectionHeading label={t('educationTitle')} />
@@ -405,7 +405,7 @@ const CV = () => {
                   </div>
 
                   <div
-                    className="cv-float-6 flex-1 rounded-2xl border border-slate-200 bg-white p-4
+                    className="item-animate-4 flex-1 rounded-2xl border border-slate-200 bg-white p-4
                       shadow-sm sm:p-5"
                   >
                     <SectionHeading label={t('languagesTitle')} />

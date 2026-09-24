@@ -9,7 +9,7 @@ const COLUMN_STAGGER_DELAY = 200;
 
 const BREAKPOINTS = [
   { minWidth: 2000, columns: 6 },
-  { minWidth: 1280, columns: 4 },
+  { minWidth: 1024, columns: 4 },
   { minWidth: 768, columns: 3 },
   { minWidth: 600, columns: 4 },
   { minWidth: 400, columns: 3 },
@@ -177,7 +177,7 @@ const LogoColumn = memo(
 
     return (
       <motion.div
-        className="relative h-14 w-20 shrink min-w-0 overflow-hidden sm:w-24 md:h-20 md:w-40"
+        className="relative h-12 w-20 shrink min-w-0 overflow-hidden sm:w-24 md:h-16 md:w-36 lg:h-14 lg:w-32 xl:h-16 xl:w-40 2xl:h-18 2xl:w-48 3xl:h-20 3xl:w-40"
         variants={ANIMATION_VARIANTS.container}
         initial="initial"
         animate="animate"
@@ -186,7 +186,7 @@ const LogoColumn = memo(
         <AnimatePresence mode="wait">
           <motion.div
             key={`${currentLogo.id}-${currentIndex}`}
-            className="absolute inset-0 flex items-center justify-center p-2 sm:p-2.5 md:p-3"
+            className="absolute inset-0 flex items-center justify-center p-2 sm:p-2.5 md:p-3 lg:p-2 xl:p-2.5 2xl:p-3"
             variants={ANIMATION_VARIANTS.logo}
             initial="initial"
             animate="animate"
@@ -229,7 +229,7 @@ export function LogoCarousel() {
   }, []);
 
   return (
-    <div className="flex w-full max-w-full justify-center gap-2 overflow-hidden py-6 px-2 sm:gap-4">
+    <div className="flex w-full max-w-full justify-center gap-2 overflow-hidden py-4 sm:py-6 lg:py-2.5 xl:py-3 2xl:py-4 3xl:py-6 px-2 sm:gap-4 lg:gap-3 xl:gap-5 2xl:gap-6">
       {logoColumns.map((columnLogos, index) => (
         <LogoColumn
           key={`column-${index}`}

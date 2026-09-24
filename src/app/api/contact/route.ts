@@ -1,13 +1,111 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { z } from 'zod';
+import { createHash } from 'node:crypto';
 
-
-// --- H1: Rate limiting ---
-// In-memory rate limiting
-const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+const RATE_LIMIT_WINDOW_SECONDS = 10 * 60;
 const MAX_REQUESTS_PER_IP = 3;
-const rateLimitMap = new Map();
+const MAX_REQUEST_BODY_BYTES = 32 * 1024;
+const localRateLimitMap = new Map<string, number[]>();
+const RATE_LIMIT_SCRIPT = `
+  local count = redis.call('INCR', KEYS[1])
+  if count == 1 then redis.call('EXPIRE', KEYS[1], ARGV[1]) end
+  return count
+`;
+
+function rateLimitResponse(locale: string, status: number) {
+  const message =
+    status === 429
+      ? locale === 'en'
+        ? 'Too many messages sent. Please wait a few minutes before trying again.'
+        : 'Trop de messages envoyés. Veuillez patienter quelques minutes avant de réessayer.'
+      : locale === 'en'
+        ? 'The contact form is temporarily unavailable. Please try again later.'
+        : 'Le formulaire de contact est temporairement indisponible. Veuillez réessayer plus tard.';
+
+  return NextResponse.json({ message }, { status });
+}
+
+function payloadTooLargeResponse(locale: string) {
+  const message =
+    locale === 'en'
+      ? 'Your message is too large. Please keep it under 5,000 characters.'
+      : 'Votre message est trop volumineux. Veuillez le limiter à 5 000 caractères.';
+
+  return NextResponse.json({ message }, { status: 413 });
+}
+
+async function checkContactRateLimit(request: Request, locale: string) {
+  // In development, use a bounded per-process limiter so no shared service is needed.
+  if (process.env.NODE_ENV !== 'production') {
+    const now = Date.now();
+    const ip = request.headers.get('x-real-ip')?.trim() || 'local-development';
+    const activeRequests = (localRateLimitMap.get(ip) ?? []).filter(
+      (timestamp) => timestamp > now - RATE_LIMIT_WINDOW_SECONDS * 1000,
+    );
+
+    if (activeRequests.length >= MAX_REQUESTS_PER_IP) {
+      return rateLimitResponse(locale, 429);
+    }
+
+    activeRequests.push(now);
+    localRateLimitMap.set(ip, activeRequests);
+
+    if (localRateLimitMap.size > 1000) {
+      for (const [key, timestamps] of localRateLimitMap) {
+        if (timestamps.every((timestamp) => timestamp <= now - RATE_LIMIT_WINDOW_SECONDS * 1000)) {
+          localRateLimitMap.delete(key);
+        }
+      }
+    }
+
+    return null;
+  }
+
+  // Production must sit behind a proxy that overwrites x-real-ip and have a
+  // shared Upstash Redis limiter configured; never trust a client supplied XFF value.
+  const clientIp = request.headers.get('x-real-ip')?.trim();
+  const redisUrl = process.env.UPSTASH_REDIS_REST_URL?.replace(/\/+$/, '');
+  const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!clientIp || !redisUrl || !redisToken) {
+    console.error(
+      'Contact rate limiting unavailable: configure trusted x-real-ip and Upstash credentials.',
+    );
+    return rateLimitResponse(locale, 503);
+  }
+
+  try {
+    const response = await fetch(redisUrl, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${redisToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify([
+        'EVAL',
+        RATE_LIMIT_SCRIPT,
+        '1',
+        `portfolio:contact:${createHash('sha256').update(clientIp).digest('hex')}`,
+        String(RATE_LIMIT_WINDOW_SECONDS),
+      ]),
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Upstash returned HTTP ${response.status}`);
+    }
+
+    const result = (await response.json()) as { result?: number };
+    if (typeof result.result !== 'number') {
+      throw new Error('Upstash returned an invalid rate-limit result.');
+    }
+
+    return result.result > MAX_REQUESTS_PER_IP ? rateLimitResponse(locale, 429) : null;
+  } catch (error) {
+    console.error('Contact rate limiter error:', error);
+    return rateLimitResponse(locale, 503);
+  }
+}
 
 // Strict email regex:
 // - Local part: letters, digits, standard dots/hyphens/plus (no special symbols like @, &, ", etc.)
@@ -20,8 +118,24 @@ const contactSchema = (locale: string) =>
     name: z
       .string()
       .trim()
-      .min(3, locale === 'en' ? 'Your name must have at least 3 characters.' : 'Votre nom doit comporter au moins 3 caractères.')
-      .max(100, locale === 'en' ? 'Your name cannot exceed 100 characters.' : 'Votre nom ne peut pas dépasser 100 caractères.'),
+      .min(
+        3,
+        locale === 'en'
+          ? 'Your name must have at least 3 characters.'
+          : 'Votre nom doit comporter au moins 3 caractères.',
+      )
+      .max(
+        100,
+        locale === 'en'
+          ? 'Your name cannot exceed 100 characters.'
+          : 'Votre nom ne peut pas dépasser 100 caractères.',
+      )
+      .regex(
+        /^[^\r\n]+$/,
+        locale === 'en'
+          ? 'Your name contains invalid characters.'
+          : 'Votre nom contient des caractères non valides.',
+      ),
     email: z
       .string()
       .trim()
@@ -35,13 +149,39 @@ const contactSchema = (locale: string) =>
     sujet: z
       .string()
       .trim()
-      .min(2, locale === 'en' ? 'The subject must have at least 2 characters.' : 'Le sujet doit comporter au moins 2 caractères.')
-      .max(150, locale === 'en' ? 'The subject cannot exceed 150 characters.' : 'Le sujet ne peut pas dépasser 150 caractères.'),
+      .min(
+        2,
+        locale === 'en'
+          ? 'The subject must have at least 2 characters.'
+          : 'Le sujet doit comporter au moins 2 caractères.',
+      )
+      .max(
+        150,
+        locale === 'en'
+          ? 'The subject cannot exceed 150 characters.'
+          : 'Le sujet ne peut pas dépasser 150 caractères.',
+      )
+      .regex(
+        /^[^\r\n]+$/,
+        locale === 'en'
+          ? 'The subject contains invalid characters.'
+          : 'Le sujet contient des caractères non valides.',
+      ),
     message: z
       .string()
       .trim()
-      .min(10, locale === 'en' ? 'Your message must have at least 10 characters.' : 'Votre message doit comporter au moins 10 caractères.')
-      .max(5000, locale === 'en' ? 'Your message is too long (5000 characters max).' : 'Votre message est trop long (5000 caractères max).'),
+      .min(
+        10,
+        locale === 'en'
+          ? 'Your message must have at least 10 characters.'
+          : 'Votre message doit comporter au moins 10 caractères.',
+      )
+      .max(
+        5000,
+        locale === 'en'
+          ? 'Your message is too long (5000 characters max).'
+          : 'Votre message est trop long (5000 caractères max).',
+      ),
     locale: z.enum(['en', 'fr']).default('fr'),
   });
 
@@ -56,50 +196,39 @@ const escapeHtml = (str = '') => {
 };
 
 export const POST = async (request) => {
-  let locale = 'fr';
-  try {
-    const rawBody = await request.clone().json().catch(() => ({}));
-    if (rawBody && rawBody.locale === 'en') locale = 'en';
-  } catch {
-    // default to fr
-  }
-
-  // --- Rate limiting ---
-  const forwarded = request.headers.get('x-forwarded-for');
-  const clientIP = forwarded ? forwarded.split(',')[0].trim() : 'unknown';
-  const now = Date.now();
-
-  if (!rateLimitMap.has(clientIP)) rateLimitMap.set(clientIP, []);
-  const requests = rateLimitMap.get(clientIP);
-
-  while (requests.length > 0 && requests[0] < now - RATE_LIMIT_WINDOW_MS) {
-    requests.shift();
-  }
-
-  if (requests.length >= MAX_REQUESTS_PER_IP) {
-    const rateLimitMsg =
-      locale === 'en'
-        ? 'Too many messages sent. Please wait a few minutes before trying again.'
-        : 'Trop de messages envoyés. Veuillez patienter quelques minutes avant de réessayer.';
-    return NextResponse.json({ message: rateLimitMsg }, { status: 429 });
-  }
-
-  rateLimitMap.set(clientIP, [...requests, now]);
-  // ----------------------------------------
-
-  try {
-    const body = await request.json();
-    if (body.locale === 'en') locale = 'en';
-
-    // Honeypot trap: if filled by spam bots, silently pretend success
-    if (body.website || body._gotcha) {
-      const fakeMsg =
-        locale === 'en'
-          ? "Message sent! I'll get back to you within 24 hours :)"
-          : 'Message envoyé! Je reviens vers vous sous 24h :)';
-      return NextResponse.json({ message: fakeMsg }, { status: 200 });
+  const contentLength = request.headers.get('content-length');
+  if (contentLength) {
+    const declaredSize = Number(contentLength);
+    if (!Number.isSafeInteger(declaredSize) || declaredSize < 0) {
+      return NextResponse.json({ message: 'Invalid request body.' }, { status: 400 });
     }
+    if (declaredSize > MAX_REQUEST_BODY_BYTES) {
+      return payloadTooLargeResponse('fr');
+    }
+  }
 
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ message: 'Invalid request body.' }, { status: 400 });
+  }
+
+  const locale = body?.locale === 'en' ? 'en' : 'fr';
+
+  // Honeypot trap: if filled by spam bots, silently pretend success.
+  if (body?.website || body?._gotcha) {
+    const fakeMsg =
+      locale === 'en'
+        ? "Message sent! I'll get back to you within 24 hours :)"
+        : 'Message envoyé! Je reviens vers vous sous 24h :)';
+    return NextResponse.json({ message: fakeMsg }, { status: 200 });
+  }
+
+  const rateLimitResult = await checkContactRateLimit(request, locale);
+  if (rateLimitResult) return rateLimitResult;
+
+  try {
     // Parse and validate using Zod with localized and strict rules
     const schema = contactSchema(locale);
     const safeData = schema.parse(body);
@@ -132,11 +261,11 @@ export const POST = async (request) => {
     });
 
     const { error } = await resend.emails.send({
-      // Resend requires a verified domain to send from. 'onboarding@resend.dev' works for testing 
+      // Resend requires a verified domain to send from. 'onboarding@resend.dev' works for testing
       // but only to your registered Resend email address.
       from: 'Portfolio Contact <onboarding@resend.dev>',
       to: myEmail,
-      replyTo: safeData.email, 
+      replyTo: safeData.email,
       subject: `📬 Nouveau message de ${safeData.name} - ${safeData.sujet}`,
       html: `
         <!DOCTYPE html>
@@ -213,7 +342,8 @@ export const POST = async (request) => {
       // Return the specific message of the first failing field
       const firstIssue = error.issues[0];
       const fieldName = firstIssue?.path[0] ? String(firstIssue.path[0]) : null;
-      const specificMessage = firstIssue?.message || (locale === 'en' ? 'Invalid input.' : 'Entrée invalide.');
+      const specificMessage =
+        firstIssue?.message || (locale === 'en' ? 'Invalid input.' : 'Entrée invalide.');
 
       return NextResponse.json(
         {
@@ -224,7 +354,7 @@ export const POST = async (request) => {
         { status: 400 },
       );
     }
-    
+
     console.error('Mail Error:', error);
     const errorMsg =
       locale === 'en' ? 'Your message could not be sent' : "Votre message n'a pas pu être envoyé";

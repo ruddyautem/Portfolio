@@ -1,6 +1,5 @@
 "use client";
-import React, { useContext } from "react";
-import { ThemeContext } from "@/context/ThemeContext";
+import React from "react";
 
 // Background blobs component - centralized
 export const BackgroundBlobs = () => (

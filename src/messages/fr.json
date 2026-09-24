@@ -6,18 +6,25 @@
     "surname": "Autem",
     "title": "Développeur Full Stack",
     "description": "Conception d'applications web modernes de bout en bout. Interfaces réactives et soignées, architectures backend robustes et APIs haute performance.",
-    "location": "France · Remote",
+    "location": "Leers, France · Remote",
     "featured": "En Vedette",
     "recentProjects": "Projets récents",
     "technologies": "TECHNOLOGIES",
-    "downloadCv": "Télécharger CV",
+    "downloadCv": "Télécharger le CV",
     "cvFile": "/Autem_Ruddy_CV.pdf",
     "cvFileName": "Autem_Ruddy_CV.pdf",
+    "spotlightTitle": "Projets Phares",
+    "ctaProjects": "Explorer mes projets",
+    "quickNav": "Navigation Rapide",
     "nav": {
       "projects": "Projets",
+      "projectsDesc": "Applications & réalisations",
       "about": "Profil",
+      "aboutDesc": "Stack, parcours & vision",
       "contact": "Contact",
-      "cv": "CV"
+      "contactDesc": "Discutons de vos projets",
+      "cv": "CV",
+      "cvDesc": "Compétences & expérience"
     },
     "skills": {
       "frontend": "React · Next.js",
@@ -26,7 +33,14 @@
       "database": "UI / UX"
     },
     "carousel": {
-      "see": "Voir"
+      "codeSource": "Code source",
+      "liveDemo": "Voir le site",
+      "architectureTitle": "Architecture & Points Clés",
+      "previous": "Projet précédent",
+      "next": "Projet suivant",
+      "goTo": "Aller au projet {title}",
+      "progress": "Progression du carrousel de projets",
+      "position": "{current} sur {total}"
     }
   },
   "tabsbar": {
@@ -42,42 +56,70 @@
     "edit": "Édition",
     "selection": "Sélection",
     "view": "Affichage",
-    "go": "Go",
+    "go": "Aller",
     "run": "Exécuter",
     "terminal": "Terminal",
     "help": "Aide",
     "search": "Ruddy Autem Portfolio",
     "searchHint": "Cliquer ici pour naviguer",
     "swipeHint": "Glisser pour naviguer",
-    "language": "Changer de Langue"
+    "language": "Changer de Langue",
+    "selectLanguage": "Choisir la langue",
+    "theme": "Thème",
+    "selectTheme": "Choisir le thème",
+    "searchAria": "Rechercher dans le portfolio (Ctrl+K)"
   },
   "footer": {
     "rights": "© {year} autem.dev - tous droits réservés"
   },
   "projectsData": {
     "portfolio": {
-      "desc": "Portfolio interactif inspiré de VS Code. Thèmes dynamiques, internationalisation (i18n), design responsive et formulaire de contact sécurisé.",
-      "shortDesc": "Portfolio interactif style VS Code avec thèmes dynamiques et contact sécurisé."
+      "badge": "Portfolio VS Code • Next.js 16 & i18n",
+      "desc": "Portfolio interactif inspiré de l'éditeur VS Code. Système d'onglets, palette de commandes cmdk, thèmes dynamiques, internationalisation complète next-intl (FR/EN) et formulaire de contact sécurisé avec Resend.",
+      "shortDesc": "Portfolio interactif inspiré de VS Code avec thèmes dynamiques et contact sécurisé.",
+      "h1": "Portfolio interactif inspiré de VS Code avec palette de commandes (cmdk) et thèmes dynamiques",
+      "h2": "Internationalisation bilingue (FR/EN) complète pilotée par next-intl et Next.js 16",
+      "h3": "Formulaire de contact avec validation en temps réel, protection antispam et envoi sécurisé"
     },
     "temporis": {
-      "desc": "Salons de chat éphémères et chiffrés de bout en bout (Web Crypto API). Zéro empreinte persistante avec Upstash Redis, API typée de bout en bout via Elysia & Eden Treaty, et synchronisation temps réel TanStack Query.",
-      "shortDesc": "Chat éphémère chiffré de bout en bout avec Upstash Redis et API typée Elysia."
+      "badge": "Messagerie Éphémère • Elysia & Web Crypto API",
+      "desc": "Chat temporaire chiffré de bout en bout. Conversations supprimées à expiration ou sur demande, sans historique conservé. API typée avec Elysia & Eden Treaty.",
+      "shortDesc": "Chat temporaire chiffré, avec suppression des conversations sans historique conservé.",
+      "h1": "Chiffrement client via Web Crypto API (AES-GCM)",
+      "h2": "Suppression des conversations, sans historique conservé",
+      "h3": "Typage de bout en bout client-serveur avec Elysia & Eden Treaty"
     },
     "stokki": {
-      "desc": "Dashboard de gestion d'inventaire et d'analyse financière en temps réel. Visualisations interactives de marge/croissance avec Recharts, schéma relationnel typé Prisma, et validation Zod.",
-      "shortDesc": "Dashboard d'inventaire en temps réel avec analyses Recharts et typage Prisma."
+      "badge": "Gestion de stocks • Prisma & Recharts",
+      "desc": "Tableau de bord de gestion des stocks avec mise à jour des quantités, suivi de la valeur du stock et alertes de stock faible. Visualisations Recharts, base PostgreSQL avec Prisma ORM et validation des formulaires avec Zod.",
+      "shortDesc": "Gestion des stocks avec suivi des quantités, de leur valeur et graphiques Recharts.",
+      "h1": "Graphiques Recharts sur les ajouts de produits et la répartition des niveaux de stock",
+      "h2": "Base de données relationnelle et requêtes typées avec Prisma ORM",
+      "h3": "Validation des formulaires de produits avec des schémas Zod"
     },
     "dresscode": {
-      "desc": "Boutique e-commerce headless sous Next.js avec catalogue géré via Sanity Studio, authentification Clerk, panier réactif Zustand et paiements sécurisés Stripe.",
-      "shortDesc": "E-commerce headless Next.js avec catalogue Sanity Studio, Clerk et Stripe."
+      "badge": "E-Commerce Headless • Sanity CMS",
+      "desc": "Boutique e-commerce headless sous Next.js avec catalogue géré via Sanity Studio, authentification Clerk, gestion de panier Zustand et paiement sécurisé Stripe.",
+      "shortDesc": "E-commerce headless Next.js avec catalogue Sanity Studio, Clerk et Stripe.",
+      "h1": "Architecture headless sous Next.js App Router",
+      "h2": "Catalogue géré en temps réel avec Sanity Studio",
+      "h3": "Paiement en ligne sécurisé avec Stripe et gestion des commandes"
     },
     "styled": {
-      "desc": "Plateforme e-commerce avec authentification Firebase, gestion de panier Zustand et paiements sécurisés Stripe.",
-      "shortDesc": "E-commerce avec authentification Firebase, gestion Zustand et paiements Stripe."
+      "badge": "E-Commerce SPA • Gestion Zustand",
+      "desc": "Boutique e-commerce SPA sous React & Vite avec authentification Firebase, gestion de panier Zustand et paiements sécurisés Stripe.",
+      "shortDesc": "E-commerce avec authentification Firebase, gestion Zustand et paiements Stripe.",
+      "h1": "Architecture Single Page Application fluide sous React & Vite",
+      "h2": "Base de données Cloud Firestore et authentification Firebase Auth",
+      "h3": "Gestion réactive du panier avec Zustand et paiements Stripe"
     },
     "ohmyblog": {
-      "desc": "Plateforme de publication de blogs moderne et responsive, avec ORM Drizzle et authentification Clerk.",
-      "shortDesc": "Plateforme de blogs moderne avec ORM Drizzle et authentification Clerk."
+      "badge": "Plateforme Blog • Drizzle ORM & Cloudflare R2",
+      "desc": "Plateforme de blogging moderne avec éditeur de texte enrichi intuitif (TipTap), base relationnelle PostgreSQL pilotée par Drizzle ORM, authentification Clerk et stockage média sur Cloudflare R2.",
+      "shortDesc": "Plateforme de blogs moderne avec ORM Drizzle et authentification Clerk.",
+      "h1": "Éditeur d'articles intuitif et enrichi (TipTap) avec sécurisation des contenus",
+      "h2": "Base de données relationnelle PostgreSQL et requêtes type-safe avec Drizzle ORM",
+      "h3": "Authentification Clerk, webhooks sécurisés Svix et stockage média sur Cloudflare R2"
     },
     "laxxy": {
       "desc": "Messagerie instantanée inspirée de Slack avec salons en temps réel et synchronisation Firebase.",
@@ -101,50 +143,97 @@
     "title": "Mes",
     "titleAccent": "Projets",
     "subtitle": "Mon portfolio en action : des idées transformées en expériences web concrètes.",
-    "featuredTitle": "Projets Récents",
-    "featuredSubtitle": "Applications web complètes, interactives et déployées en production.",
-    "otherTitle": "Autres Réalisations",
-    "otherSubtitle": "Applications front-end, intégrations d'APIs et projets antérieurs."
+    "featuredTitle": "Projets Phares",
+    "featuredSubtitle": "Applications web complètes et interactives, prêtes pour la production et accessibles en ligne.",
+    "otherTitle": "Autres Projets",
+    "otherSubtitle": "Applications web interactives, outils pratiques et intégrations d'APIs.",
+    "codeSource": "Code source",
+    "liveDemo": "Voir le site",
+    "architectureTitle": "Architecture & Points Clés"
   },
   "about": {
-    "title": "Stack",
-    "titleAccent": "Technique",
-    "subtitle": "Un aperçu détaillé de mon environnement de développement, des langages aux outils de déploiement, pour créer des applications modernes.",
+    "title": "À Propos",
+    "titleAccent": "de Moi",
+    "subtitle": "Développeur Full-Stack passionné par les architectures modernes, le code propre et l'expérience utilisateur.",
+    "location": "Leers, France · Remote / Hybride",
+    "role": "Développeur Full Stack",
+    "bioTitle": "Concevoir des applications web complètes, performantes et sécurisées.",
+    "bioP1": "Développeur Full-Stack spécialisé sur React, Next.js et TypeScript, je conçois des applications web de bout en bout : de la conception des données et des APIs serveur jusqu'aux interfaces soignées et réactives.",
+    "bioP2": "Mon approche associe TypeScript, validation des données avec Zod et attention à la sécurité : chiffrement côté client dans Temporis et intégration de services d’authentification dans mes applications. J’utilise aussi les outils d’IA Cursor et Codex pour accélérer le développement tout en veillant à la lisibilité et à la maintenabilité du code.",
+    "metricProjects": "10+ Projets",
+    "metricProjectsDesc": "conçus et déployés",
+    "metricTypeSafe": "Typage & validation",
+    "metricTypeSafeDesc": "TypeScript & Zod",
+    "metricFullstack": "Full-Stack",
+    "metricFullstackDesc": "React, Next.js & Node",
+    "metricBilingual": "Bilingue",
+    "metricBilingualDesc": "Français & Anglais",
+    "btnProjects": "Découvrir mes projets",
+    "btnContact": "Me contacter",
+    "btnDownloadCv": "Télécharger le CV",
+    "configFilename": "developer.config.ts",
+    "configComment": "// Configuration & stack de référence",
+    "configRole": "Développeur Full Stack",
+    "configLocation": "Leers, France",
+    "configFocus": "Expérience utilisateur & fiabilité",
+    "pillarsBadge": "Standards",
+    "pillarsTitle": "Architecture & Bonnes Pratiques",
+    "pillarsSubtitle": "Concevoir des applications fiables, maintenables et performantes de bout en bout.",
+    "pillar1Title": "Typage & validation des données",
+    "pillar1Desc": "TypeScript pour décrire les données et les contrats du code, Zod pour valider les entrées à l’exécution.",
+    "pillar2Title": "Performance & Fluidité",
+    "pillar2Desc": "Rendu avec Next.js et préchargement des routes pour limiter les chargements et fluidifier la navigation.",
+    "pillar3Title": "Sécurité & Authentification",
+    "pillar3Desc": "Authentification fiable avec Clerk ou Firebase, protection des routes d'API et traitement sécurisé des données sensibles.",
+    "pillar4Title": "Qualité de code & Workflow",
+    "pillar4Desc": "Architecture modulaire, code structuré et lisible pour concevoir des applications faciles à maintenir et à faire évoluer.",
+    "stackBadge": "Technologies",
+    "stackTitle": "Technologies & Outils",
+    "stackSubtitle": "Ce que j'utilise au quotidien pour développer mes projets.",
+    "filterAll": "Toutes",
+    "filterFrontend": "Frontend",
+    "filterBackend": "Backend",
+    "filterTools": "Outils & DevOps",
     "frontend": {
       "title": "Frontend",
-      "desc": "Interfaces utilisateur modernes, gestion d'état et expériences web performantes.",
-      "counterLabel": "technologies"
+      "desc": "Interfaces utilisateur modernes, gestion d'état et expériences web performantes."
     },
     "backend": {
       "title": "Backend",
-      "desc": "Architecture serveur, bases de données et gestion de l'authentification.",
-      "counterLabel": "technologies"
+      "desc": "Architecture serveur, bases de données et gestion de l'authentification."
     },
     "tools": {
       "title": "Outils",
-      "desc": "Développement, déploiement, versioning et gestion de contenu.",
-      "counterLabel": "outils"
-    }
+      "desc": "Développement, déploiement, versioning et gestion de contenu."
+    },
+    "ariaProfileSection": "Profil développeur",
+    "ariaFilterSkills": "Filtrer les compétences par catégorie"
   },
   "contact": {
     "title": "Me",
     "titleAccent": "Contacter",
-    "subtitle": "Vous pouvez me contacter via le formulaire ci-dessous ou via mes réseaux.",
-    "networksTitle": "Réseaux",
+    "subtitle": "Un projet web en tête, une opportunité ou une question ? Discutons-en.",
+    "statusBadge": "Disponible pour de nouvelles opportunités",
+    "networksTitle": "Me joindre",
     "responseTime": "Temps de réponse",
-    "hours24": "24 heures",
-    "sendMessageTitle": "Envoyer un message",
-    "sendMessageSubtitle": "Veuillez remplir le formulaire ci-dessous.",
+    "hours24": "< 24 heures",
+    "location": "Remote & Hybride",
+    "guarantee": "Confidentialité garantie & zéro spam",
+    "copyEmail": "Copier",
+    "copied": "Copié !",
+    "sendMessageTitle": "M'envoyer un message",
+    "sendMessageSubtitle": "Tous les champs sont vérifiés en temps réel avant transmission sécurisée.",
     "socials": {
-      "email": "Pour me contacter",
-      "linkedin": "Réseau professionnel",
-      "github": "Codes et Projets"
-    }
+      "email": "Échange direct par email",
+      "linkedin": "Réseau professionnel & messagerie",
+      "github": "Code source & contributions"
+    },
+    "locationDetail": "Leers, France"
   },
   "cv": {
     "metaTitle": "CV Ruddy Autem",
     "metaDesc": "CV Ruddy Autem — Développeur Web Full-Stack",
-    "downloadBtn": "Télécharger CV",
+    "downloadBtn": "Télécharger le CV",
     "cvFile": "/Autem_Ruddy_CV.pdf",
     "cvFileName": "Autem_Ruddy_CV.pdf",
     "aboutTitle": "À propos de moi",
@@ -155,18 +244,6 @@
     "title": "Mon",
     "titleAccent": "CV",
     "subtitle": "Découvrez mon parcours, mes compétences et mes réalisations en développement web."
-  },
-  "cvData": {
-    "contactApi": {
-      "emailSubject": "📬 Nouveau message de {name} - {sujet}",
-      "emailHeader": "Nouveau message",
-      "emailSubheader": "Via votre portfolio",
-      "emailSubjectLabel": "Sujet",
-      "emailMessageLabel": "Message",
-      "emailFooter": "Message reçu via votre portfolio -",
-      "successMessage": "Message envoyé! Je reviens vers vous sous 24h :)",
-      "errorMessage": "Votre message n'a pas pu être envoyé"
-    }
   },
   "contactForm": {
     "fields": {
@@ -184,11 +261,12 @@
     },
     "ui": {
       "placeholder": "Votre {label}...",
-      "progressComplete": "Formulaire complet!",
+      "progressComplete": "Formulaire complet !",
       "progressIncomplete": "Progression du formulaire",
       "sending": "Envoi en cours...",
       "sendBtn": "Envoyer le message",
-      "fillAllFields": "Remplissez tous les champs pour activer le bouton d'envoi."
+      "fillAllFields": "Remplissez tous les champs pour activer le bouton d'envoi.",
+      "ready": "Prêt"
     }
   },
   "sidebar": {
@@ -207,8 +285,8 @@
   "explorer": {
     "title": "Explorateur",
     "portfolio": "Ruddy Autem Portfolio",
-    "outline": "Outline",
-    "timeline": "Timeline"
+    "outline": "Plan",
+    "timeline": "Chronologie"
   },
   "cvBuilder": {
     "preview": {
@@ -284,6 +362,12 @@
     "jsonDesc": "Configuration de vos préférences.",
     "copyConfig": "Copier la configuration",
     "copied": "Configuration copiée !",
-    "resetDefaults": "Restaurer les valeurs par défaut"
+    "resetDefaults": "Restaurer les valeurs par défaut",
+    "themeDescriptions": {
+      "ayu": "Nuances sombres et dorées chaleureuses (défaut)",
+      "oneDarkPro": "Nuances anthracite et vert pastel sobre",
+      "dracula": "Nuances sombres aux touches violettes et roses",
+      "poimandres": "Nuances bleu nuit et turquoise épuré"
+    }
   }
 }

@@ -13,11 +13,11 @@ import {
   useState,
   useTransition,
 } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
-import { usePathname, useRouter } from '@/i18n/routing';
+import { useTranslations, useLocale, hasLocale } from 'next-intl';
+import { usePathname, useRouter, routing } from '@/i18n/routing';
 import { Minimize, Restore, Close } from '../Icons/Icons';
 import { ThemeContext } from '@/context/ThemeContext';
-import { cn } from '@/lib/utils';
+import { cn, saveScrollPosition } from '@/lib/utils';
 import { LANGUAGES, THEME_OPTIONS, THEME_DOT_COLORS, THEME_LABELS } from '@/lib/constants';
 import { ChevronDown, CheckIcon } from '@/lib/icons';
 import dynamic from 'next/dynamic';
@@ -53,7 +53,7 @@ const MenuItem = memo(({ item }: { item: string }) => (
 ));
 MenuItem.displayName = 'MenuItem';
 
-const IconButton = memo(({ icon: Icon, onClick, variant = 'default', tabIndex, ...rest }: any) => (
+const IconButton = memo(({ icon: Icon, onClick, variant = 'default', tabIndex, ...rest }: React.ButtonHTMLAttributes<HTMLButtonElement> & { icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; variant?: 'default' | 'danger' }) => (
   <button
     onClick={onClick}
     tabIndex={tabIndex}
@@ -92,7 +92,23 @@ const NavButton = memo(
 );
 NavButton.displayName = 'NavButton';
 
-const MoreButton = forwardRef<HTMLButtonElement, any>(({ onClick, isOpen, ...props }, ref) => (
+const CmdIcon = memo(({ className = 'h-2.5 w-2.5' }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
+  </svg>
+));
+CmdIcon.displayName = 'CmdIcon';
+
+const MoreButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement> & { isOpen?: boolean }>(({ onClick, isOpen, ...props }, ref) => (
   <button
     ref={ref}
     onClick={onClick}
@@ -110,9 +126,9 @@ const MoreButton = forwardRef<HTMLButtonElement, any>(({ onClick, isOpen, ...pro
 ));
 MoreButton.displayName = 'MoreButton';
 
-const useOverlay = () => {
+const useOverlay = <T extends HTMLElement = HTMLDivElement>() => {
   const [isOpen, setIsOpen] = useState(false);
-  const anchorRef = useRef<any>(null);
+  const anchorRef = useRef<T>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => setIsOpen(false), []);
@@ -143,7 +159,7 @@ const useOverlay = () => {
 };
 
 interface AnchoredPortalProps {
-  anchorRef: React.RefObject<any>;
+  anchorRef: React.RefObject<HTMLElement | null>;
   overlayRef: React.RefObject<HTMLDivElement | null>;
   isOpen: boolean;
   align?: 'left' | 'right';
@@ -278,7 +294,7 @@ const MenuNav = memo(() => {
     close: closeMore,
     anchorRef,
     overlayRef,
-  } = useOverlay();
+  } = useOverlay<HTMLLIElement>();
 
   const visibleItems = MENU_ITEMS.slice(0, visibleCount);
   const hiddenItems = MENU_ITEMS.slice(visibleCount);
@@ -377,9 +393,10 @@ const LanguageMenu = memo(({ className }: { className?: string }) => {
   const switchLanguage = useCallback(
     (nextLocale: string) => {
       close();
-      if (locale === nextLocale) return;
+      if (!hasLocale(routing.locales, nextLocale) || locale === nextLocale) return;
+      saveScrollPosition();
       startTransition(() => {
-        router.replace(pathname, { locale: nextLocale as any });
+        router.replace(pathname, { locale: nextLocale, scroll: false });
       });
     },
     [locale, pathname, router, close],
@@ -421,7 +438,7 @@ const LanguageMenu = memo(({ className }: { className?: string }) => {
       <AnchoredPortal anchorRef={anchorRef} overlayRef={overlayRef} isOpen={isOpen} align="right">
         <ul
           role="menu"
-          aria-label="Select language"
+          aria-label={t('selectLanguage')}
           className="bg-menu w-40 overflow-hidden rounded-md border border-white/10 py-1 shadow-lg"
         >
           {LANGUAGES.map((lang) => {
@@ -464,11 +481,12 @@ LanguageMenu.displayName = 'LanguageMenu';
 // Theme switcher
 // ----------------------------------------------------------------------------------
 const ThemeMenu = memo(({ className }: { className?: string }) => {
+  const t = useTranslations('menu');
   const { theme, toggle: setTheme } = useContext(ThemeContext);
   const { isOpen, toggle, close, anchorRef, overlayRef } = useOverlay();
 
   const handleThemeSelect = useCallback(
-    (option: any) => {
+    (option: (typeof THEME_OPTIONS)[number]) => {
       setTheme(option);
       close();
     },
@@ -482,8 +500,8 @@ const ThemeMenu = memo(({ className }: { className?: string }) => {
         onClick={toggle}
         aria-haspopup="menu"
         aria-expanded={isOpen}
-        aria-label="Theme"
-        title="Theme"
+        aria-label={t('theme')}
+        title={t('theme')}
         className={cn(
           `flex h-5 cursor-pointer items-center gap-0.5 rounded px-1 text-white/70
           transition-colors`,
@@ -508,7 +526,7 @@ const ThemeMenu = memo(({ className }: { className?: string }) => {
       <AnchoredPortal anchorRef={anchorRef} overlayRef={overlayRef} isOpen={isOpen} align="right">
         <ul
           role="menu"
-          aria-label="Select theme"
+          aria-label={t('selectTheme')}
           className="bg-menu w-40 overflow-hidden rounded-md border border-white/10 py-1 shadow-lg"
         >
           {THEME_OPTIONS.map((option) => {
@@ -554,14 +572,16 @@ const Menu = () => {
     const STORAGE_KEY = 'portfolio_search_nudge_seen_v10';
     const hasSeen = localStorage.getItem(STORAGE_KEY);
     if (!hasSeen) {
-      const isMobile = window.innerWidth < 1280;
+      const isMobile = window.innerWidth < 1024;
       // On mobile, wait for swipe peek to complete (1000ms delay + 1900ms duration = ~3000ms); on desktop, trigger after 800ms
       const startDelay = isMobile ? 3000 : 800;
       const timer = setTimeout(() => {
         setShowSearchNudge(true);
         try {
           localStorage.setItem(STORAGE_KEY, 'true');
-        } catch {}
+        } catch {
+          // Ignore unavailable local storage.
+        }
       }, startDelay);
 
       const cleanupTimer = setTimeout(() => {
@@ -606,7 +626,7 @@ const Menu = () => {
               type="button"
               onClick={() => setIsCommandOpen(true)}
               className="relative flex h-full w-full cursor-pointer items-center justify-center overflow-visible"
-              aria-label="Search portfolio (Ctrl+K)"
+              aria-label={t('searchAria')}
             >
               {/* Navigation invitation layer (cross-fades out smoothly) */}
               <div
@@ -653,10 +673,11 @@ const Menu = () => {
 
                 {/* ⌘K badge visible on sm and above */}
                 <kbd
-                  className="ml-1 hidden rounded bg-white/10 px-1.5 py-0.5 font-mono text-[9px]
-                    text-slate-400 sm:inline-block"
+                  className="ml-1.5 hidden h-4 items-center gap-0.5 rounded bg-white/10 px-1.5 font-mono text-[9px]
+                    font-medium leading-none text-slate-400 select-none sm:inline-flex"
                 >
-                  ⌘K
+                  <CmdIcon className="h-2.5 w-2.5 shrink-0 text-slate-400" />
+                  <span className="leading-none">K</span>
                 </kbd>
 
                 {/* Invisible spacer matching the search icon width + margin so the name stays centered on mobile */}

@@ -16,14 +16,14 @@ Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais 
 
 ### 📑 Les pages
 
-| Route         | Ce qu'on y trouve                                                                                                                                                       |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/` (Accueil) | Un héro, ma stack technique, et un carrousel auto-défilant de mes projets récents avec préchargement LCP                                                                |
-| `/about`      | Mes compétences, réparties en Front-End, Back-End et Outils, avec animations graduelles en cascade                                                                      |
-| `/projects`   | La galerie complète de mes projets — Portfolio, Temporis, Stokki, Style-D, Mytasky, DressCode, OhMyBlog!, Laxxy, CoolMail... — avec les liens vers le code et les démos |
-| `/contact`    | Un formulaire simple, avec validation Zod, protection honeypot et notifications toast                                                                                   |
-| `/cv`         | Mon CV, rendu à partir de données bilingues avec téléchargement PDF                                                                                                     |
-| `/settings`   | Page de configuration (`parametres.json`) : sélection des 4 thèmes, choix de la langue et interrupteur d'effets visuels (halos lumineux)                                |
+| Route         | Ce qu'on y trouve                                                                                                                                                              |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `/` (Accueil) | Héro interactif avec navigation rapide, projecteur carrousel auto-défilant avec compte à rebours, et ruban animé des technologies (`LogoCarousel`)                             |
+| `/about`      | Bento grid complet : biographie, 4 cartes de bonnes pratiques (architecture, performance, sécurité, qualité), profil VS Code interactif, compétences filtrables et téléchargement CV |
+| `/projects`   | Vitrine complète des projets — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — avec cartes mises en avant et archives            |
+| `/contact`    | Formulaire sécurisé avec validation Zod, protection anti-spam honeypot, rate limiting et notifications toast                                                                    |
+| `/cv`         | Rendu du CV interactif & stylisé, basé sur des données bilingues typées, avec liens directs vers les projets et bouton de téléchargement PDF                                    |
+| `/settings`   | Page de configuration (`parametres.json`) : sélection des 4 thèmes, choix de la langue et interrupteur d'effets visuels (halos lumineux d'ambiance)                             |
 
 ### ⌨️ Palette de commandes VS Code (`cmdk`)
 
@@ -40,19 +40,27 @@ Sécurisation complète de la route d'envoi d'emails (via Resend + Zod) :
 
 - Limitation à 3 envois par IP toutes les 10 minutes pour éviter le spam ;
 - Protection honeypot pour bloquer les robots automatisés ;
-- Nettoyage strict des en-têtes d'email et échappement du contenu pour parer aux injections ;
+- Rejet des requêtes dépassant 32 KiB avant parsing et validation stricte des champs ;
+- Protection contre les injections d'en-têtes d'email et échappement HTML du contenu ;
 - Messages d'erreur et de succès bilingues.
+
+### 🔒 Sécurité applicative
+
+- **CSP à nonce par requête** : les scripts inline non autorisés sont bloqués sans empêcher les scripts Next.js et les données structurées JSON-LD légitimes ;
+- **En-têtes de sécurité** : HSTS en production, protection anti-clickjacking, `nosniff`, politique de référent et permissions navigateur restreintes ;
+- **API défensive** : limitation de débit Redis partagée en production, IP hachée dans la clé de rate limiting, et réponses d'erreur sans détails sensibles côté visiteur ;
+- **Validation testée** : les payloads invalides renvoient `400` et les payloads trop volumineux `413`.
 
 ### 🌍 Internationalisation & Navigation Instantanée (0 ms)
 
 - Bilingue français et anglais grâce à `next-intl` avec routes préfixées (`/fr/...`, `/en/...`).
-- **Génération Statique Intégrale (`generateStaticParams`)** : Précompilation des 20 pages statiques au build.
+- **Génération des routes localisées (`generateStaticParams`)** : Les routes française et anglaise sont générées depuis la liste de locales configurée.
 - **Préchargement en mémoire (`router.prefetch`)** : Les routes sont préchargées dans le cache client dès le montage.
 - **UI Optimiste (0 ms)** : Le trait des onglets et la barre latérale glissent instantanément au clic sans latence réseau.
 
 ### 📱 Navigation Gestuelle (Swipe) Mobile
 
-- **Glissement horizontal fluide (< 1280px)** : Changement de page au doigt via carrousel continu avec mise à jour instantanée des onglets.
+- **Glissement horizontal fluide (< 1280px)** : Changement de page au doigt via carrousel continu (`SwipeNavigator`) avec mise à jour instantanée des onglets et de la barre de navigation mobile.
 - **Indicateurs visuels discrets** : Aperçu animé au chargement et invitation à explorer la palette de commandes depuis la barre supérieure.
 
 ### 🎨 Les thèmes
@@ -70,7 +78,7 @@ Quatre thèmes inspirés des éditeurs de code, mémorisés par cookies et `loca
 
 - **LCP Optimisé** : Préchargement prioritaire (`fetchpriority="high"`) de l'image héro du carrousel dans le `<head>` initial.
 - **Moteur d'images AVIF / WebP** : Conversion et dimensionnement dynamique via Next.js (réduction de 80% à 95% de la bande passante).
-- **Cache Immuable** : En-têtes `Cache-Control: public, max-age=31536000, immutable` pour tous les assets statiques.
+- **Cache des assets** : En-têtes `Cache-Control` appliqués aux images et documents statiques pour limiter les requêtes répétées.
 - **Tree-Shaking ciblé** : `optimizePackageImports` configuré pour Lucide React, Radix UI, cmdk et Framer Motion.
 
 ### 🛠 Stack technique
@@ -93,9 +101,10 @@ Quatre thèmes inspirés des éditeurs de code, mémorisés par cookies et `loca
 
 ```
 Portfolio/
-├── public/                          # Ressources statiques (icônes, images, PDFs)
+├── public/                          # Ressources statiques (icônes SVG, images, PDFs)
 ├── src/
 │   ├── app/
+│   │   ├── manifest.ts              # Web App Manifest PWA
 │   │   ├── robots.ts                # /robots.txt natif Next.js
 │   │   ├── sitemap.ts               # /sitemap.xml bilingue natif
 │   │   ├── api/contact/route.ts     # Route API d'envoi d'emails sécurisée
@@ -103,7 +112,7 @@ Portfolio/
 │   │       ├── globals.css          # Styles globaux + Tailwind v4 + animations
 │   │       ├── layout.tsx           # Layout racine (SSR cookies, polices, métadonnées)
 │   │       ├── page.tsx             # Accueil
-│   │       ├── about/page.tsx       # Compétences
+│   │       ├── about/page.tsx       # Compétences, bio & profil
 │   │       ├── contact/page.tsx     # Formulaire de contact
 │   │       ├── cv/page.tsx          # Affichage du CV
 │   │       ├── projects/page.tsx    # Galerie de projets
@@ -111,13 +120,12 @@ Portfolio/
 │   ├── components/                  # Composants UI React
 │   │   ├── SwipeNavigator/          # Carrousel multi-pages gestuel (mobile/tablette)
 │   │   ├── CommandPalette/          # Palette de commandes (cmdk)
-│   │   ├── Settings/                # Interface des paramètres
-│   │   ├── HomepageContent/         # Contenu héro & carrousel d'accueil
-│   │   ├── AboutContent/            # Compétences & badges
-│   │   ├── ProjectsContent/         # Galerie de projets (découplée & responsive)
-│   │   ├── CVContent/               # Rendu du CV interactif
-│   │   ├── Card/                    # Cartes de projets avec tailles responsives
-│   │   ├── ContactForm/             # Formulaire de contact
+│   │   ├── Settings/                # Interface des paramètres & thèmes
+│   │   ├── HomepageContent/         # Contenu héro, projecteur de projets & ruban tech
+│   │   ├── AboutContent/            # Bio, bonnes pratiques, profil VS Code & compétences filtrables
+│   │   ├── ProjectsContent/         # Galerie de projets (cartes Featured et Archive)
+│   │   ├── CVContent/               # Rendu du CV interactif bilingue
+│   │   ├── ContactForm/             # Formulaire de contact avec protection anti-spam
 │   │   ├── Menu/                    # Barre de titre VS Code
 │   │   ├── Sidebar/                 # Navigation latérale avec indicateur optimiste
 │   │   ├── Tabsbar/                 # Barre d'onglets responsive
@@ -145,6 +153,8 @@ bun run dev
 Direction [http://localhost:3000](http://localhost:3000).
 
 > 💡 Le formulaire de contact a besoin d'une clé `RESEND_API_KEY` et de `MY_EMAIL` (dans un fichier `.env`) pour envoyer les emails.
+> En production, ajoutez aussi `UPSTASH_REDIS_REST_URL` et `UPSTASH_REDIS_REST_TOKEN`. Le reverse proxy doit remplacer `x-real-ip` avec l'adresse IP réelle du visiteur.
+> `NEXT_PUBLIC_SITE_URL` est facultatif et vaut `https://autem.dev` par défaut.
 
 ### À propos de moi
 
@@ -160,14 +170,14 @@ Welcome to the source code of my portfolio. As a Full Stack developer, I wanted 
 
 ### 📑 Pages
 
-| Route       | What's there                                                                                                                                                |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/` (Home)  | A hero section, my tech stack, and an auto-scrolling carousel of my recent work with LCP priority preloading                                                |
-| `/about`    | My skills, split into Front-End, Back-End and Tools, with staggered reveal animations                                                                       |
-| `/projects` | The full gallery of my work — Portfolio, Temporis, Stokki, Style-D, Mytasky, DressCode, OhMyBlog!, Laxxy, CoolMail... — with links to source code and demos |
-| `/contact`  | A simple form, with Zod validation, honeypot spam protection, and toast notifications                                                                       |
-| `/cv`       | My CV, rendered from bilingual data with PDF download                                                                                                       |
-| `/settings` | Built-in settings page (`settings.json`): theme switcher, language selector, and visual background glow toggle                                              |
+| Route       | What's there                                                                                                                                                            |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/` (Home)  | Interactive hero with quick navigation, auto-advancing project spotlight carousel with visual timer, and animated tech logo ribbon (`LogoCarousel`)                    |
+| `/about`    | Full bento grid: developer narrative, 4 best-practice cards (architecture, performance, security, code quality), interactive VS Code profile snapshot, filterable skill tags (Front-End, Back-End, Tools), CV download |
+| `/projects` | Complete project showcase — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — with featured spotlight cards and archives  |
+| `/contact`  | Secured contact form with Zod validation, honeypot spam protection, rate limiting, and toast notifications                                                              |
+| `/cv`       | Interactive & styled resume view rendered from typed bilingual data with direct project links and PDF download                                                          |
+| `/settings` | Built-in settings page (`settings.json`): theme switcher (4 themes), language selector, and ambient background glow toggle                                             |
 
 ### ⌨️ VS Code Command Palette (`cmdk`)
 
@@ -183,20 +193,31 @@ Open anytime with `Ctrl+K` / `Cmd+K` or by clicking the top search bar:
 Fully secured email submission route (via Resend + Zod):
 
 - Rate limited to 3 submissions per IP every 10 minutes to prevent abuse;
+- Production rate limiting requires `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, and a reverse proxy that overwrites `x-real-ip` with the visitor's IP;
 - Honeypot spam trap blocking automated spam bots;
-- Strict header sanitization and HTML escaping;
+- Requests larger than 32 KiB are rejected before parsing, with strict field validation;
+- Email header-injection protection and HTML escaping;
 - Bilingual error and success feedback messages.
+
+`NEXT_PUBLIC_SITE_URL` is optional and defaults to `https://autem.dev`.
+
+### 🔒 Application security
+
+- **Per-request nonce CSP**: blocks unauthorized inline scripts while allowing legitimate Next.js scripts and JSON-LD structured data;
+- **Security headers**: production HSTS, anti-clickjacking protection, `nosniff`, a strict referrer policy, and restricted browser permissions;
+- **Defensive API**: shared Redis rate limiting in production, hashed IP addresses in rate-limit keys, and visitor-safe error responses with no technical details exposed;
+- **Validated safeguards**: malformed payloads return `400`, while oversized payloads return `413`.
 
 ### 🌍 Internationalization & Instant Navigation (0 ms)
 
 - Bilingual English and French powered by `next-intl` with locale-prefixed routes (`/en/...`, `/fr/...`).
-- **Full Static Generation (`generateStaticParams`)** : Pre-rendering of all 20 static pages at build time.
+- **Localized route generation (`generateStaticParams`)** : English and French routes are generated from the configured locale list.
 - **In-Memory Prefetching (`router.prefetch`)** : All routes preloaded into client memory on mount.
 - **Optimistic UI (0 ms)** : Tab underlines and sidebar indicator glide immediately on click without network delay.
 
 ### 📱 Mobile Gesture Navigation (Swipe)
 
-- **Smooth horizontal paging (< 1280px)** : Seamless swipe between all pages with zero-latency tab indicator synchronization.
+- **Smooth horizontal paging (< 1280px)** : Seamless swipe between all pages (`SwipeNavigator`) with zero-latency tab and mobile nav synchronization.
 - **Subtle visual onboarding** : Gentle introductory peek slide and an interactive top search bar invitation to explore.
 
 ### 🎨 Themes
@@ -214,7 +235,7 @@ Four themes inspired by developer editors, persisted via cookies & `localStorage
 
 - **Optimized LCP**: Priority preloading (`fetchpriority="high"`) for the hero carousel image injected into the initial `<head>`.
 - **AVIF / WebP Images**: Next.js on-the-fly conversion and responsive sizing (80% to 95% bandwidth reduction).
-- **Immutable Caching**: Long-term `Cache-Control: public, max-age=31536000, immutable` headers for all static assets.
+- **Asset Caching**: `Cache-Control` headers are applied to static images and documents to reduce repeated requests.
 - **Targeted Tree-Shaking**: `optimizePackageImports` configured for Lucide React, Radix UI, cmdk and Framer Motion.
 
 ### 🛠 Tech stack
@@ -226,7 +247,7 @@ Four themes inspired by developer editors, persisted via cookies & `localStorage
 | Language             | TypeScript                         |
 | Package manager      | Bun                                |
 | Styling              | Tailwind CSS v4                    |
-| Internationalization | next-intl                          |
+| Internationalisation | next-intl                          |
 | UI & Accessibility   | Radix UI, Lucide React, cmdk       |
 | Animations           | Framer Motion + CSS Keyframes      |
 | Carousel             | Embla Carousel                     |
@@ -237,9 +258,10 @@ Four themes inspired by developer editors, persisted via cookies & `localStorage
 
 ```
 Portfolio/
-├── public/                          # Static assets (icons, images, PDFs)
+├── public/                          # Static assets (SVG icons, images, PDFs)
 ├── src/
 │   ├── app/
+│   │   ├── manifest.ts              # PWA Web App Manifest
 │   │   ├── robots.ts                # Native Next.js /robots.txt
 │   │   ├── sitemap.ts               # Native bilingual /sitemap.xml
 │   │   ├── api/contact/route.ts     # Secure email contact API route
@@ -247,7 +269,7 @@ Portfolio/
 │   │       ├── globals.css          # Global styles + Tailwind v4 + animations
 │   │       ├── layout.tsx           # Root layout (SSR cookies, fonts, metadata)
 │   │       ├── page.tsx             # Home page
-│   │       ├── about/page.tsx       # About / Skills page
+│   │       ├── about/page.tsx       # About / Skills & profile page
 │   │       ├── contact/page.tsx     # Contact form page
 │   │       ├── cv/page.tsx          # Resume / CV page
 │   │       ├── projects/page.tsx    # Projects gallery page
@@ -255,13 +277,12 @@ Portfolio/
 │   ├── components/                  # React UI components
 │   │   ├── SwipeNavigator/          # Multi-page gesture carousel (mobile/tablet)
 │   │   ├── CommandPalette/          # Command palette (cmdk)
-│   │   ├── Settings/                # Settings interface
-│   │   ├── HomepageContent/         # Hero & featured project carousel
-│   │   ├── AboutContent/            # Skills & badges
-│   │   ├── ProjectsContent/         # Decoupled responsive projects gallery
-│   │   ├── CVContent/               # Interactive CV view
-│   │   ├── Card/                    # Project cards with responsive sizing
-│   │   ├── ContactForm/             # Contact form
+│   │   ├── Settings/                # Settings & themes interface
+│   │   ├── HomepageContent/         # Hero, project spotlight & tech ribbon
+│   │   ├── AboutContent/            # Narrative bio, best-practice cards, VS Code profile & filterable skills
+│   │   ├── ProjectsContent/         # Projects gallery (Featured and Archive cards)
+│   │   ├── CVContent/               # Bilingual interactive CV view
+│   │   ├── ContactForm/             # Contact form with anti-spam protection
 │   │   ├── Menu/                    # VS Code title bar
 │   │   ├── Sidebar/                 # Sidebar navigation with optimistic indicator
 │   │   ├── Tabsbar/                 # Responsive tabs bar

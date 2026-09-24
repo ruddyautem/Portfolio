@@ -1,11 +1,12 @@
 'use client';
 
+import type { Project } from '@/app/[locale]/projects/projects';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { TAG_COLORS_CARD } from '@/lib/constants';
 
-const Card = ({ project, compact = false }: { project: any; compact?: boolean }) => {
+const Card = ({ project, compact = false }: { project: Project; compact?: boolean }) => {
   const t = useTranslations('card');
 
   if (compact) {
@@ -21,7 +22,12 @@ const Card = ({ project, compact = false }: { project: any; compact?: boolean })
         >
           <div className="h-1 bg-linear-to-r from-slate-600/40 via-accent/30 to-purple-500/30" />
 
-          <Link href={project.demo} target="_blank" rel="noopener noreferrer">
+          <Link
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`View live demo of ${project.title}`}
+          >
             <div className="relative aspect-[16/10] w-full cursor-pointer overflow-hidden">
               <Image
                 src={project.img}
@@ -105,7 +111,12 @@ const Card = ({ project, compact = false }: { project: any; compact?: boolean })
       {/* Decorative header bar */}
       <div className="from-accent/30 h-1.5 bg-linear-to-r via-blue-500/30 to-purple-500/30"></div>
 
-      <Link href={project.demo} target="_blank" rel="noopener noreferrer">
+      <Link
+        href={project.demo}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`View live demo of ${project.title}`}
+      >
         {/* Image Container */}
         <div className="relative aspect-video w-full cursor-pointer overflow-hidden">
           <Image
@@ -121,7 +132,13 @@ const Card = ({ project, compact = false }: { project: any; compact?: boolean })
       {/* Content Section */}
       <div className="flex h-full flex-col p-6 text-center sm:p-8 md:text-left">
         {/* Project URL */}
-        <Link href={project.demo} className="cursor-pointer">
+        <Link
+          href={project.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Visit ${project.title} website`}
+          className="cursor-pointer"
+        >
           <span className="text-accent mb-3 text-xs font-semibold tracking-widest uppercase">
             {project.demo?.slice('https://'.length) || 'PROJET'}
           </span>

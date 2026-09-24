@@ -12,6 +12,14 @@ export async function generateMetadata({
   return {
     title: `${t('title')} ${t('titleAccent')}`,
     description: t('subtitle'),
+    alternates: {
+      canonical: `/${locale}/settings`,
+      languages: {
+        en: '/en/settings',
+        fr: '/fr/settings',
+        'x-default': '/en/settings',
+      },
+    },
   };
 }
 

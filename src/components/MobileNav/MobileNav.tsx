@@ -98,7 +98,7 @@ export default function MobileNav() {
     <nav
       ref={containerRef}
       aria-label="Mobile navigation"
-      className="bg-menu/95 border-t border-white/10 xl:hidden z-50 fixed bottom-0 left-0 right-0 flex h-14 md:h-16 w-full shrink-0 items-center justify-around px-1 sm:px-6 md:px-12 lg:px-24 backdrop-blur-md pb-[env(safe-area-inset-bottom)]"
+      className="bg-menu/95 border-t border-white/10 lg:hidden z-50 fixed bottom-0 left-0 right-0 flex h-14 md:h-16 w-full shrink-0 items-center justify-around px-1 sm:px-6 md:px-12 lg:px-24 backdrop-blur-md pb-[env(safe-area-inset-bottom)]"
     >
       {/* Sliding active indicator */}
       <div

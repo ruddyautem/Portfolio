@@ -1,8 +1,8 @@
 'use client';
 
 import { useContext, useTransition } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
-import { useRouter, usePathname } from '@/i18n/routing';
+import { useTranslations, useLocale, hasLocale } from 'next-intl';
+import { useRouter, usePathname, routing } from '@/i18n/routing';
 import { ThemeContext } from '@/context/ThemeContext';
 import {
   THEME_OPTIONS,
@@ -15,23 +15,8 @@ import {
 } from '@/lib/constants';
 import TopPageDecoration from '../TopPageDecoration/TopPageDecoration';
 import { Palette, Globe, Check, Sparkles } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, saveScrollPosition } from '@/lib/utils';
 import Image from 'next/image';
-
-const THEME_PREVIEWS: Record<string, { desc: string }> = {
-  ayu: {
-    desc: 'Nuances sombres et dorées chaleureuses (défaut)',
-  },
-  oneDarkPro: {
-    desc: 'Nuances anthracite et vert pastel sobre',
-  },
-  dracula: {
-    desc: 'Nuances sombres aux touches violettes et roses',
-  },
-  poimandres: {
-    desc: 'Nuances bleu nuit et turquoise épuré',
-  },
-};
 
 export default function SettingsContent() {
   const t = useTranslations('settingsPage');
@@ -42,9 +27,10 @@ export default function SettingsContent() {
   const { theme, toggle: setTheme, backgroundGlow, toggleBackgroundGlow } = useContext(ThemeContext);
 
   const handleLanguageChange = (nextLocale: string) => {
-    if (locale === nextLocale) return;
+    if (!hasLocale(routing.locales, nextLocale) || locale === nextLocale) return;
+    saveScrollPosition();
     startTransition(() => {
-      router.replace(pathname, { locale: nextLocale as any });
+      router.replace(pathname, { locale: nextLocale, scroll: false });
     });
   };
 
@@ -80,7 +66,7 @@ export default function SettingsContent() {
               <div className="grid grid-cols-1 gap-3 sm:gap-4 2xl:gap-4.5 3xl:gap-5 sm:grid-cols-2 landscape:lg:grid-cols-4 auto-rows-fr">
                 {THEME_OPTIONS.map((themeOption) => {
                   const isActive = theme === themeOption;
-                  const preview = THEME_PREVIEWS[themeOption];
+
 
                   return (
                     <button
@@ -109,7 +95,7 @@ export default function SettingsContent() {
                         </span>
                       </div>
                       <p className="mt-2 sm:mt-4 2xl:mt-4 text-xs text-slate-300/80 leading-relaxed sm:text-sm sm:leading-relaxed 2xl:text-sm">
-                        {preview.desc}
+                        {t(`themeDescriptions.${themeOption}`)}
                       </p>
                     </button>
                   );

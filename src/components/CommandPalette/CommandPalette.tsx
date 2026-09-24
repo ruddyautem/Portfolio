@@ -17,7 +17,7 @@ import {
   Download,
   Sliders,
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, saveScrollPosition } from '@/lib/utils';
 
 export default function CommandPalette({ open, setOpen }) {
   const router = useRouter();
@@ -130,7 +130,8 @@ export default function CommandPalette({ open, setOpen }) {
               onSelect={() =>
                 runCommand(() => {
                   if (locale !== lang.code) {
-                    router.replace(pathname, { locale: lang.code });
+                    saveScrollPosition();
+                    router.replace(pathname, { locale: lang.code, scroll: false });
                   }
                 })
               }

@@ -90,6 +90,8 @@ export const TAG_COLORS_CAROUSEL = {
   prisma: 'bg-teal-500',
   vite: 'bg-purple-500',
   'aws-s3': 'bg-amber-600',
+  'cloudflare-r2': 'bg-orange-500',
+  r2: 'bg-orange-500',
 };
  
 export const TAG_COLORS_CARD = {
@@ -119,11 +121,12 @@ export const TAG_COLORS_CARD = {
   prisma: 'bg-teal-500/20 border-teal-500/30 text-teal-300',
   vite: 'bg-purple-500/20 border-purple-500/30 text-purple-300',
   'aws-s3': 'bg-amber-600/20 border-amber-600/30 text-amber-300',
+  'cloudflare-r2': 'bg-orange-500/20 border-orange-500/30 text-orange-300',
+  r2: 'bg-orange-500/20 border-orange-500/30 text-orange-300',
 };
  
 // ──────────────────────────────────────────────
 // Common page layout styles reused across all pages (Home, About, Projects, Contact, Settings, CV)
-// ──────────────────────────────────────────────
 export const PAGE_OUTER_CLASSES =
   'box-border flex min-h-full w-full flex-col items-center justify-start overflow-x-hidden' +
   ' p-2 sm:p-4 md:p-6 lg:p-8 2xl:p-12';

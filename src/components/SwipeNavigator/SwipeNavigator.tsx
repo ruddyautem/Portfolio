@@ -12,6 +12,7 @@ import ProjectsContent from '@/components/ProjectsContent/ProjectsContent';
 import ContactList from '@/components/ContactList/ContactList';
 import CVContent from '@/components/CVContent/CVContent';
 import SettingsContent from '@/components/Settings/SettingsContent';
+import { restoreScrollPosition } from '@/lib/utils';
 
 interface SwipeNavigatorProps {
   children: React.ReactNode;
@@ -29,7 +30,7 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
 
   useEffect(() => {
     const checkViewport = () => {
-      setIsMobileOrTablet(window.innerWidth < 1280);
+      setIsMobileOrTablet(window.innerWidth < 1024);
     };
     checkViewport();
     window.addEventListener('resize', checkViewport);
@@ -43,14 +44,16 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
       }
       return (
         currentRoute === link ||
-        currentRoute === `/${locale}${link}` ||
-        currentRoute.endsWith(link)
+        currentRoute === `/${locale}${link}`
       );
     },
     [currentRoute, locale],
   );
 
   const activeIndex = NAV_ITEMS.findIndex((item) => checkIsActive(item.link));
+  const [selectedIndex, setSelectedIndex] = useState(activeIndex === -1 ? 0 : activeIndex);
+  const [showPeekAnimation, setShowPeekAnimation] = useState(false);
+  const [showHandHint, setShowHandHint] = useState(false);
 
   // Initialize Embla carousel for contiguous 1:1 multi-page slider
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -63,8 +66,14 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
 
   // Sync Carousel position when URL / Tab / MobileNav changes
   useEffect(() => {
-    if (!emblaApi || activeIndex === -1) return;
-    if (emblaApi.selectedScrollSnap() !== activeIndex) {
+    if (activeIndex === -1) return;
+
+    // Keep rendered slides in sync with route-driven navigation too. Embla may
+    // already be at the requested snap (and emit no `select` event), leaving
+    // the destination slide unmounted after tapping a mobile nav button.
+    setSelectedIndex(activeIndex);
+
+    if (emblaApi && emblaApi.selectedScrollSnap() !== activeIndex) {
       emblaApi.scrollTo(activeIndex);
     }
   }, [activeIndex, emblaApi]);
@@ -75,6 +84,7 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
 
     const onSelect = () => {
       const selectedIndex = emblaApi.selectedScrollSnap();
+      setSelectedIndex(selectedIndex);
       const targetItem = NAV_ITEMS[selectedIndex];
       if (targetItem) {
         // Dispatch instant event for MobileNav and Tabsbar with 0ms latency
@@ -120,28 +130,27 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
   }, [emblaApi]);
 
   // Option 3: Natural peek nudge animation on initial mobile landing
-  const [showPeekAnimation, setShowPeekAnimation] = useState(false);
-  const [showHandHint, setShowHandHint] = useState(false);
-
   useEffect(() => {
-    if (window.innerWidth >= 1280) return;
-    const STORAGE_KEY = 'portfolio_peek_seen_v9';
+    if (window.innerWidth >= 1024) return;
+    const STORAGE_KEY = 'portfolio_peek_seen_v11';
     const hasSeen = localStorage.getItem(STORAGE_KEY);
     if (!hasSeen) {
-      // Trigger peek animation after 1 second (1000ms)
+      // Trigger gentle edge hint after 800ms
       const peekTimer = setTimeout(() => {
         setShowPeekAnimation(true);
         setShowHandHint(true);
         try {
           localStorage.setItem(STORAGE_KEY, 'true');
-        } catch {}
-      }, 1000);
+          } catch {
+            // Ignore unavailable local storage.
+          }
+      }, 800);
 
-      // Animation slides away and unmounts cleanly (1000ms delay + 1900ms duration = 2900ms)
+      // Smooth unmount after 1600ms
       const cleanupTimer = setTimeout(() => {
         setShowPeekAnimation(false);
         setShowHandHint(false);
-      }, 3000);
+      }, 2450);
 
       return () => {
         clearTimeout(peekTimer);
@@ -150,72 +159,80 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
     }
   }, []);
 
-  // Desktop (>= 1280px) keeps the native standard page rendering
+  // Restore scroll position after a language switch
+  useEffect(() => {
+    restoreScrollPosition();
+  }, [locale]);
+
+  // Desktop (>= 1024px) keeps the native standard page rendering
   if (!isMobileOrTablet) {
-    return <div className={className}>{children}</div>;
+    return (
+      <div id="main-scroll-container" className={className}>
+        {children}
+      </div>
+    );
   }
 
-  // Mobile / Tablet (< 1280px): Multi-page continuous horizontal slider (Discord/Twitter style)
+  // Nested, unknown, and error routes use their actual route content on mobile.
+  if (activeIndex === -1) {
+    return (
+      <div id="main-scroll-container" className={className}>
+        {children}
+      </div>
+    );
+  }
+
+  // Mobile / Tablet (< 1024px): Multi-page continuous horizontal slider (Discord/Twitter style)
   const slideClasses =
     'flex-[0_0_100%] min-w-0 font-inconsolata text-light h-[calc(100dvh-88px)] sm:h-[calc(100dvh-116px)] md:h-[calc(100dvh-124px)] overflow-y-auto overflow-x-hidden';
+  const slides = [
+    <HomepageContent key="home" />,
+    <AboutContent key="about" />,
+    <ProjectsContent key="projects" />,
+    <ContactList key="contact" />,
+    <CVContent key="cv" />,
+    <SettingsContent key="settings" />,
+  ];
 
   return (
     <div
       className="relative flex-1 w-full overflow-hidden flex flex-col min-w-0 h-[calc(100dvh-88px)] sm:h-[calc(100dvh-116px)] md:h-[calc(100dvh-124px)]"
       ref={emblaRef}
     >
-      {/* Discreet modern right edge tab indicator */}
+      {/* Subtle right-edge indicator (docked flush against edge, smooth fade, no bounce) */}
       {showHandHint && (
-        <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 z-30 flex items-center">
-          <div className="animate-edge-hint flex items-center gap-1.5 rounded-l-full border-y border-l border-accent/40 bg-slate-900/90 py-3 pl-2.5 pr-2 shadow-2xl backdrop-blur-md">
-            <svg
-              className="h-4 w-4 text-accent drop-shadow-[0_0_6px_rgba(255,204,102,0.8)]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-            <span className="text-[11px] font-semibold tracking-wider text-accent drop-shadow-sm pr-1">
+        <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 z-40 flex items-center">
+          <div className="animate-edge-hint flex items-center gap-2 rounded-l-xl border-y border-l border-slate-700/80 bg-slate-900/90 py-2.5 pl-3 pr-2 shadow-2xl backdrop-blur-md">
+            <span className="text-[11px] font-mono font-medium tracking-wider text-slate-300">
               {t('swipeHint')}
             </span>
+            <div className="flex h-5 w-5 items-center justify-center rounded-md bg-accent/20 text-accent">
+              <svg
+                className="h-3 w-3 stroke-[2.5]"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </div>
           </div>
         </div>
       )}
 
       <div className={`flex h-full w-full touch-pan-y ${showPeekAnimation ? 'animate-swipe-peek' : ''}`}>
-        {/* Slide 0: Home */}
-        <div className={slideClasses}>
-          <HomepageContent />
-        </div>
+        {slides.map((slide, index) => {
+          const isActive = index === selectedIndex;
+          const shouldMount = Math.abs(index - selectedIndex) <= 1;
 
-        {/* Slide 1: About */}
-        <div className={slideClasses}>
-          <AboutContent />
-        </div>
-
-        {/* Slide 2: Projects */}
-        <div className={slideClasses}>
-          <ProjectsContent />
-        </div>
-
-        {/* Slide 3: Contact */}
-        <div className={slideClasses}>
-          <ContactList />
-        </div>
-
-        {/* Slide 4: CV */}
-        <div className={slideClasses}>
-          <CVContent />
-        </div>
-
-        {/* Slide 5: Settings */}
-        <div className={slideClasses}>
-          <SettingsContent />
-        </div>
+          return (
+            <div key={index} className={slideClasses} aria-hidden={!isActive} inert={!isActive}>
+              {shouldMount ? slide : null}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

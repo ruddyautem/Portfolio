@@ -222,27 +222,27 @@ body {
 
 /* ── Utilities ── */
 @layer utilities {
-  /* page-entry floats */
+  /* page-entry floats — aligned with global item-appear animation */
   .cv-float {
-    animation: cv-float-up 0.55s 0s ease both;
+    animation: item-appear 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .cv-float-1 {
-    animation: cv-float-up 0.55s 0.08s ease both;
+    animation: item-appear 0.45s 0.08s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .cv-float-2 {
-    animation: cv-float-up 0.55s 0.16s ease both;
+    animation: item-appear 0.45s 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .cv-float-3 {
-    animation: cv-float-up 0.55s 0.24s ease both;
+    animation: item-appear 0.45s 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .cv-float-4 {
-    animation: cv-float-up 0.55s 0.32s ease both;
+    animation: item-appear 0.45s 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .cv-float-5 {
-    animation: cv-float-up 0.55s 0.4s ease both;
+    animation: item-appear 0.45s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .cv-float-6 {
-    animation: cv-float-up 0.55s 0.48s ease both;
+    animation: item-appear 0.45s 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   /* animated name gradient */
@@ -544,19 +544,13 @@ html.no-glow .bg-blobs,
   will-change: transform, opacity;
 }
 
-/* ── Option 3: Swipe Peek & Edge Tab Indicators (Snappy, dynamic tempo) ── */
+/* ── Subtle Edge Hint on Mobile (Gentle edge glow & smooth slide, no bouncing) ── */
 @keyframes swipePeekNudge {
   0% {
     transform: translateX(0);
   }
-  35% {
-    transform: translateX(-40px);
-  }
-  65% {
-    transform: translateX(0);
-  }
-  85% {
-    transform: translateX(-12px);
+  50% {
+    transform: translateX(-14px);
   }
   100% {
     transform: translateX(0);
@@ -564,35 +558,23 @@ html.no-glow .bg-blobs,
 }
 
 .animate-swipe-peek {
-  animation: swipePeekNudge 1.9s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+  animation: swipePeekNudge 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   will-change: transform;
 }
 
-@keyframes edgeBounceHint {
+@keyframes edgeSoftHint {
   0% {
     opacity: 0;
     transform: translateX(100%);
   }
-  20% {
+  25% {
     opacity: 1;
     transform: translateX(0);
   }
-  /* First bounce inward (matches 35% of swipe peek) */
-  35% {
-    opacity: 1;
-    transform: translateX(-16px);
-  }
-  /* Recedes back as peek returns to center (matches 65%) */
-  65% {
+  75% {
     opacity: 1;
     transform: translateX(0);
   }
-  /* Second bounce inward (matches 85% of swipe peek) */
-  85% {
-    opacity: 1;
-    transform: translateX(-8px);
-  }
-  /* Smooth exit off-screen */
   100% {
     opacity: 0;
     transform: translateX(100%);
@@ -600,7 +582,7 @@ html.no-glow .bg-blobs,
 }
 
 .animate-edge-hint {
-  animation: edgeBounceHint 1.9s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+  animation: edgeSoftHint 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 /* ── Top Search Bar (CmdK) Invitation Pulse on Mobile (Sequential Step 2) ── */
@@ -658,4 +640,37 @@ html.no-glow .bg-blobs,
 
 .animate-text-morph {
   animation: textMorphSwap 0.35s ease-out forwards;
-}
+}
+
+@keyframes badgeTextMorph {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.animate-badge-morph {
+  animation: badgeTextMorph 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes sparkleTwinkle {
+  0% {
+    transform: rotate(-10deg) scale(0.9);
+  }
+  50% {
+    transform: rotate(15deg) scale(1.15);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.animate-sparkle-twinkle {
+  animation: sparkleTwinkle 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

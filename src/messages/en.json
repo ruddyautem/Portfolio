@@ -6,18 +6,25 @@
     "surname": "Autem",
     "title": "Full Stack Developer",
     "description": "End-to-end modern web applications. Polished, responsive interfaces, robust backend architectures, and high-performance APIs.",
-    "location": "France · Remote",
+    "location": "Leers, France · Remote",
     "featured": "Featured",
     "recentProjects": "Recent projects",
     "technologies": "TECHNOLOGIES",
     "downloadCv": "Download Resume",
     "cvFile": "/Autem_Ruddy_Resume.pdf",
     "cvFileName": "Autem_Ruddy_Resume.pdf",
+    "spotlightTitle": "Featured Projects",
+    "ctaProjects": "Explore my projects",
+    "quickNav": "Quick Navigation",
     "nav": {
       "projects": "Projects",
+      "projectsDesc": "Featured apps & builds",
       "about": "Profile",
+      "aboutDesc": "Stack, journey & vision",
       "contact": "Contact",
-      "cv": "Resume"
+      "contactDesc": "Let's discuss your ideas",
+      "cv": "Resume",
+      "cvDesc": "Skills & experience"
     },
     "skills": {
       "frontend": "React · Next.js",
@@ -26,7 +33,14 @@
       "database": "UI / UX"
     },
     "carousel": {
-      "see": "View"
+      "codeSource": "Source code",
+      "liveDemo": "Live demo",
+      "architectureTitle": "Architecture & Highlights",
+      "previous": "Previous project",
+      "next": "Next project",
+      "goTo": "Go to project {title}",
+      "progress": "Project carousel progress",
+      "position": "{current} of {total}"
     }
   },
   "tabsbar": {
@@ -49,35 +63,63 @@
     "search": "Ruddy Autem Portfolio",
     "searchHint": "Click here to navigate",
     "swipeHint": "Swipe to navigate",
-    "language": "Change Language"
+    "language": "Change Language",
+    "selectLanguage": "Select language",
+    "theme": "Theme",
+    "selectTheme": "Select theme",
+    "searchAria": "Search portfolio (Ctrl+K)"
   },
   "footer": {
     "rights": "© {year} autem.dev - all rights reserved"
   },
   "projectsData": {
     "portfolio": {
-      "desc": "Interactive VS Code-inspired portfolio. Dynamic color themes, full i18n support, responsive layout, and secure contact API.",
-      "shortDesc": "Interactive VS Code portfolio with dynamic themes, i18n, and secure contact API."
+      "badge": "VS Code Portfolio • Next.js 16 & i18n",
+      "desc": "Interactive portfolio inspired by VS Code. Multi-tab navigation, cmdk command palette, dynamic color themes, full next-intl (FR/EN) internationalisation, and secure Resend contact API.",
+      "shortDesc": "Interactive portfolio inspired by VS Code with dynamic themes, i18n, and secure contact API.",
+      "h1": "Interactive portfolio inspired by VS Code with command palette (cmdk) and dynamic themes",
+      "h2": "Full bilingual internationalisation (FR/EN) powered by next-intl and Next.js 16",
+      "h3": "Contact form with real-time validation, antispam protection, and secure delivery"
     },
     "temporis": {
-      "desc": "Ephemeral, end-to-end encrypted chat rooms (Web Crypto API). Zero-footprint architecture powered by Upstash Redis, fully typed API via Elysia & Eden Treaty, and real-time state with TanStack Query.",
-      "shortDesc": "End-to-end encrypted ephemeral chat with Upstash Redis and typed Elysia API."
+      "badge": "Ephemeral Messaging • Elysia & Web Crypto API",
+      "desc": "Temporary chat with end-to-end encryption. Conversations deleted on expiry or request, with no history retained. Typed API with Elysia & Eden Treaty.",
+      "shortDesc": "Temporary encrypted chat, with conversations deleted and no history retained.",
+      "h1": "Client-side encryption via Web Crypto API (AES-GCM)",
+      "h2": "Conversations deleted, with no history retained",
+      "h3": "End-to-end type safety between client and server via Elysia & Eden Treaty"
     },
     "stokki": {
-      "desc": "Real-time inventory management and financial analytics dashboard. Interactive profit and growth visualisations with Recharts, type-safe relational schema with Prisma, and strict Zod validation.",
-      "shortDesc": "Real-time inventory dashboard with Recharts analytics and Prisma typing."
+      "badge": "Stock Management • Prisma & Recharts",
+      "desc": "Stock management dashboard with quantity updates, stock value tracking, and low-stock alerts. Recharts visualisations, a PostgreSQL database with Prisma ORM, and form validation with Zod.",
+      "shortDesc": "Stock management with quantity and stock value tracking, plus Recharts visualisations.",
+      "h1": "Recharts visualisations of product additions and stock level distribution",
+      "h2": "Relational database and type-safe queries via Prisma ORM",
+      "h3": "Product form validation with Zod schemas"
     },
     "dresscode": {
-      "desc": "Headless e-commerce platform built with Next.js, featuring real-time catalog management via Sanity Studio, Clerk auth, Zustand reactive cart, and secure Stripe checkout.",
-      "shortDesc": "Headless Next.js e-commerce with Sanity Studio, Clerk, Zustand, and Stripe."
+      "badge": "Headless E-Commerce • Sanity CMS",
+      "desc": "Headless e-commerce platform built with Next.js, featuring real-time catalog management via Sanity Studio, Clerk auth, Zustand cart management, and secure Stripe payments.",
+      "shortDesc": "Headless Next.js e-commerce with Sanity Studio, Clerk, Zustand, and Stripe.",
+      "h1": "Headless architecture on Next.js App Router",
+      "h2": "Real-time catalog studio powered by Sanity CMS",
+      "h3": "Secure online payments via Stripe and order management"
     },
     "styled": {
-      "desc": "E-commerce storefront with Firebase authentication, Zustand reactive state, and Stripe payment integration.",
-      "shortDesc": "E-commerce storefront with Firebase auth, Zustand state, and Stripe payments."
+      "badge": "E-Commerce SPA • Zustand State",
+      "desc": "E-commerce SPA storefront built with React & Vite, featuring Firebase authentication, Zustand reactive state, and Stripe payment integration.",
+      "shortDesc": "E-commerce storefront with Firebase auth, Zustand state, and Stripe payments.",
+      "h1": "Fluid Single Page Application architecture with React & Vite",
+      "h2": "Cloud Firestore database and Firebase Auth",
+      "h3": "Reactive cart management via Zustand and Stripe payments"
     },
     "ohmyblog": {
-      "desc": "Modern, responsive blogging platform powered by Drizzle ORM and Clerk authentication.",
-      "shortDesc": "Modern blogging platform powered by Drizzle ORM and Clerk authentication."
+      "badge": "Blogging Platform • Drizzle ORM & Cloudflare R2",
+      "desc": "Modern blogging platform featuring an intuitive rich-text editor (TipTap), relational PostgreSQL database managed with Drizzle ORM, Clerk authentication, and Cloudflare R2 media storage.",
+      "shortDesc": "Modern blogging platform powered by Drizzle ORM and Clerk authentication.",
+      "h1": "Intuitive rich-text article editor (TipTap) with secure content sanitisation",
+      "h2": "Relational PostgreSQL database and type-safe schema queries with Drizzle ORM",
+      "h3": "Clerk authentication, secure Svix webhooks, and media storage on Cloudflare R2"
     },
     "laxxy": {
       "desc": "Slack-inspired real-time team messaging app with channels and Firebase synchronization.",
@@ -100,46 +142,93 @@
     "filename": "projects.js",
     "title": "My",
     "titleAccent": "Projects",
-    "subtitle": "My portfolio in action: turning ideas into concrete web experiences.",
-    "featuredTitle": "Recent Projects",
-    "featuredSubtitle": "Full-stack web applications, interactive and live in production.",
+    "subtitle": "My portfolio in action: Turning ideas into real, tangible web applications.",
+    "featuredTitle": "Featured Projects",
+    "featuredSubtitle": "Complete, interactive web applications, production-ready and available online.",
     "otherTitle": "Other Projects",
-    "otherSubtitle": "Front-end applications, API integrations, and earlier web projects."
+    "otherSubtitle": "Interactive web applications, practical utilities, and API integrations.",
+    "codeSource": "Source code",
+    "liveDemo": "Live demo",
+    "architectureTitle": "Architecture & Highlights"
   },
   "about": {
-    "title": "Tech",
-    "titleAccent": "Stack",
-    "subtitle": "A detailed overview of my development environment, from languages to deployment tools, for building modern applications.",
+    "title": "About",
+    "titleAccent": "Me",
+    "subtitle": "Full-Stack Developer focused on modern architecture, clean code, and user experience.",
+    "location": "Leers, France · Remote / Hybrid",
+    "role": "Full Stack Developer",
+    "bioTitle": "Building complete, high-performance, and secure web applications.",
+    "bioP1": "Full-Stack Developer specializing in React, Next.js, and TypeScript, I build web applications from end to end: from database design and server APIs to polished, reactive user interfaces.",
+    "bioP2": "My approach combines TypeScript, data validation with Zod, and attention to security: client-side encryption in Temporis and authentication services integrated into my applications. I also use AI tools such as Cursor and Codex to accelerate development while keeping the code readable and maintainable.",
+    "metricProjects": "10+ Projects",
+    "metricProjectsDesc": "built and deployed",
+    "metricTypeSafe": "Typing & validation",
+    "metricTypeSafeDesc": "TypeScript & Zod",
+    "metricFullstack": "Full-Stack",
+    "metricFullstackDesc": "React, Next.js & Node",
+    "metricBilingual": "Bilingual",
+    "metricBilingualDesc": "French & English",
+    "btnProjects": "Explore my projects",
+    "btnContact": "Get in touch",
+    "btnDownloadCv": "Download Resume",
+    "configFilename": "developer.config.ts",
+    "configComment": "// Configuration & core stack definition",
+    "configRole": "Full Stack Developer",
+    "configLocation": "Leers, France",
+    "configFocus": "User experience & reliability",
+    "pillarsBadge": "Standards",
+    "pillarsTitle": "Architecture & Best Practices",
+    "pillarsSubtitle": "Building reliable, maintainable, and high-performance applications from end to end.",
+    "pillar1Title": "Typing & data validation",
+    "pillar1Desc": "TypeScript to describe data and code contracts, Zod to validate inputs at runtime.",
+    "pillar2Title": "Performance & Fluidity",
+    "pillar2Desc": "Next.js rendering and route prefetching to reduce loading and make navigation smoother.",
+    "pillar3Title": "Security & Authentication",
+    "pillar3Desc": "Reliable authentication with Clerk or Firebase, protected API routes, and secure handling of sensitive data.",
+    "pillar4Title": "Code Quality & Workflow",
+    "pillar4Desc": "Modular architecture, structured and readable code to build applications that are easy to maintain and scale.",
+    "stackBadge": "Technologies",
+    "stackTitle": "Tech Stack & Tools",
+    "stackSubtitle": "The technologies and tools I work with daily to build projects.",
+    "filterAll": "All",
+    "filterFrontend": "Frontend",
+    "filterBackend": "Backend",
+    "filterTools": "Tools & DevOps",
     "frontend": {
       "title": "Frontend",
-      "desc": "Modern user interfaces, state management, and high-performance web experiences.",
-      "counterLabel": "technologies"
+      "desc": "Modern user interfaces, state management, and high-performance web experiences."
     },
     "backend": {
       "title": "Backend",
-      "desc": "Server architecture, databases, and authentication management.",
-      "counterLabel": "technologies"
+      "desc": "Server architecture, databases, and authentication management."
     },
     "tools": {
       "title": "Tools",
-      "desc": "Development, deployment, versioning, and content management.",
-      "counterLabel": "tools"
-    }
+      "desc": "Development, deployment, versioning, and content management."
+    },
+    "ariaProfileSection": "Developer profile",
+    "ariaFilterSkills": "Filter skills by category"
   },
   "contact": {
     "title": "Contact",
     "titleAccent": "Me",
-    "subtitle": "You can reach out via the form below or my social networks.",
-    "networksTitle": "Networks",
+    "subtitle": "Have a web project in mind, an opportunity, or a question? Let's talk.",
+    "statusBadge": "Available for new opportunities",
+    "networksTitle": "Reach Out",
     "responseTime": "Response time",
-    "hours24": "24 hours",
-    "sendMessageTitle": "Send a message",
-    "sendMessageSubtitle": "Please fill out the form below.",
+    "hours24": "< 24 hours",
+    "location": "Remote & Hybrid",
+    "guarantee": "Strict confidentiality & zero spam",
+    "copyEmail": "Copy",
+    "copied": "Copied!",
+    "sendMessageTitle": "Send me a message",
+    "sendMessageSubtitle": "All fields are validated in real time before secure transmission.",
     "socials": {
-      "email": "To contact me",
-      "linkedin": "Professional network",
-      "github": "Code and Projects"
-    }
+      "email": "Direct email communication",
+      "linkedin": "Professional network & messaging",
+      "github": "Source code & contributions"
+    },
+    "locationDetail": "Leers, France"
   },
   "cv": {
     "metaTitle": "Ruddy Autem Resume",
@@ -155,18 +244,6 @@
     "title": "My",
     "titleAccent": "Resume",
     "subtitle": "Discover my journey, skills, and web development achievements."
-  },
-  "cvData": {
-    "contactApi": {
-      "emailSubject": "📬 New message from {name} - {sujet}",
-      "emailHeader": "New message",
-      "emailSubheader": "Via your portfolio",
-      "emailSubjectLabel": "Subject",
-      "emailMessageLabel": "Message",
-      "emailFooter": "Message received via your portfolio -",
-      "successMessage": "Message sent! I'll get back to you within 24 hours :)",
-      "errorMessage": "Your message could not be sent"
-    }
   },
   "contactForm": {
     "fields": {
@@ -188,7 +265,8 @@
       "progressIncomplete": "Form progress",
       "sending": "Sending...",
       "sendBtn": "Send message",
-      "fillAllFields": "Fill out all fields to enable the send button."
+      "fillAllFields": "Fill out all fields to enable the send button.",
+      "ready": "Ready"
     }
   },
   "sidebar": {
@@ -284,6 +362,12 @@
     "jsonDesc": "Overview of your current preferences.",
     "copyConfig": "Copy configuration",
     "copied": "Configuration copied!",
-    "resetDefaults": "Reset to Defaults"
+    "resetDefaults": "Reset to Defaults",
+    "themeDescriptions": {
+      "ayu": "Warm dark and golden tones (default)",
+      "oneDarkPro": "Charcoal tones and soft pastel green",
+      "dracula": "Dark tones with purple and pink accents",
+      "poimandres": "Midnight blue and clean turquoise tones"
+    }
   }
 }

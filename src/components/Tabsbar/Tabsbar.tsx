@@ -16,8 +16,8 @@ const Tabsbar = () => {
   const router = useRouter();
   const [pendingRoute, setPendingRoute] = useState<string | null>(null);
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0, opacity: 0 });
-  const tabsRef = useRef([]);
-  const containerRef = useRef(null);
+  const tabsRef = useRef<(HTMLAnchorElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const { theme } = useContext(ThemeContext);
 
   const activeStyles = {
@@ -97,9 +97,10 @@ const Tabsbar = () => {
   }, [checkIsActive, theme, currentTabs]);
 
   return (
-    <div className="bg-menu text-darker hidden sm:block h-7 w-full relative">
+    <nav aria-label="Open tabs" className="bg-menu text-darker hidden sm:block h-7 w-full relative">
       <div
         ref={containerRef}
+        role="tablist"
         className="relative flex flex-row items-center justify-center lg:justify-start overflow-x-auto no-scrollbar h-full scroll-smooth"
       >
         {currentTabs.map(({ id, link }, index) => {
@@ -113,6 +114,9 @@ const Tabsbar = () => {
             <Link
               href={link}
               key={id}
+              role="tab"
+              aria-selected={isActive}
+              aria-label={name}
               prefetch={true}
               onClick={() => setPendingRoute(link)}
               ref={(el) => {
@@ -144,7 +148,7 @@ const Tabsbar = () => {
           }}
         />
       </div>
-    </div>
+    </nav>
   );
 };
 

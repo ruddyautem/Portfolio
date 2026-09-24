@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { ExternalLink } from 'lucide-react';
+import { Globe } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   Carousel,
@@ -16,14 +16,17 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { TAG_COLORS_CAROUSEL } from '@/lib/constants';
+import type { Project } from '@/app/[locale]/projects/projects';
+import type { EmblaOptionsType, EmblaCarouselType } from 'embla-carousel';
 
 const AUTO_SCROLL_MS = 5000;
 
-const CAROUSEL_OPTIONS = {
+const CAROUSEL_OPTIONS: EmblaOptionsType = {
   loop: true,
   align: 'center',
   slidesToScroll: 1,
-  watchDrag: (emblaApi: any, event: MouseEvent | TouchEvent) => {
+  skipSnaps: false,
+  watchDrag: (_emblaApi: EmblaCarouselType, _event: MouseEvent | TouchEvent) => {
     // Only allow mouse drag on desktop (pointerType !== 'touch' or window.innerWidth >= 1280)
     // Disables finger swiping on mobile/tablet so it doesn't conflict with side page navigation
     if (typeof window !== 'undefined' && window.innerWidth < 1280) {
@@ -51,9 +54,9 @@ const ProjectTag = memo(({ tag }: ProjectTagProps) => (
 ProjectTag.displayName = 'ProjectTag';
 
 interface ProjectCardProps {
-  project: any;
+  project: Project;
   onExternalLink: (event: React.MouseEvent, url?: string) => void;
-  t: any;
+  t: (key: string) => string;
   isFirst?: boolean;
 }
 
@@ -111,7 +114,7 @@ const ProjectCard = memo(({ project, onExternalLink, t, isFirst }: ProjectCardPr
               hover:border-slate-500 hover:text-white sm:text-[11px] 2xl:py-2.5 2xl:text-xs
               3xl:py-3 3xl:text-sm"
           >
-            {t('carousel.see')} Code
+            {t('carousel.codeSource')}
           </button>
 
           <button
@@ -124,8 +127,8 @@ const ProjectCard = memo(({ project, onExternalLink, t, isFirst }: ProjectCardPr
               bg-accent py-1.5 text-xs font-medium text-slate-900 transition-opacity
               hover:opacity-90 sm:text-[11px] 2xl:py-2.5 2xl:text-xs 3xl:py-3 3xl:text-sm"
           >
-            Demo
-            <ExternalLink className="h-3 w-3 2xl:h-4 2xl:w-4 3xl:h-4 3xl:w-4" />
+            {t('carousel.liveDemo')}
+            <Globe className="h-3 w-3 2xl:h-4 2xl:w-4 3xl:h-4 3xl:w-4" />
           </button>
         </div>
       </div>
@@ -135,18 +138,19 @@ const ProjectCard = memo(({ project, onExternalLink, t, isFirst }: ProjectCardPr
 ProjectCard.displayName = 'ProjectCard';
 
 interface CarouselProgressProps {
-  api: any;
+  api: EmblaCarouselType | null;
   current: number;
-  projects: any[];
+  projects: Project[];
   isPaused: boolean;
 }
 
 const CarouselProgress = memo(({ api, current, projects, isPaused }: CarouselProgressProps) => {
+  const t = useTranslations('homepage.carousel');
   const count = projects.length;
   const [progress, setProgress] = useState(0);
   const elapsedRef = useRef(0);
-  const lastFrameRef = useRef(null);
-  const animationFrameRef = useRef(null);
+  const lastFrameRef = useRef<number | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
   const waitingForSelectionRef = useRef(false);
 
   const resetTimer = useCallback(() => {
@@ -164,6 +168,14 @@ const CarouselProgress = memo(({ api, current, projects, isPaused }: CarouselPro
     
     return () => clearTimeout(timer);
   }, [api, current, resetTimer]);
+
+  useEffect(() => {
+    if (!api) return undefined;
+    api.on('pointerDown', resetTimer);
+    return () => {
+      api.off('pointerDown', resetTimer);
+    };
+  }, [api, resetTimer]);
 
   useEffect(() => {
     if (!api || count <= 1 || isPaused) {
@@ -217,7 +229,7 @@ const CarouselProgress = memo(({ api, current, projects, isPaused }: CarouselPro
   return (
     <div
       className="mt-3.5 flex items-center justify-center gap-2"
-      aria-label="Project carousel progress"
+      aria-label={t('progress')}
     >
       {projects.map((project, index) => {
         const isActive = index === current;
@@ -231,7 +243,7 @@ const CarouselProgress = memo(({ api, current, projects, isPaused }: CarouselPro
               resetTimer();
               api?.scrollTo(index);
             }}
-            aria-label={`Go to project ${index + 1}`}
+            aria-label={t("goTo", { title: project.title })}
             className={cn(
               `relative flex h-6 items-center justify-center rounded-full font-mono text-[11px]
               font-medium transition-all duration-300 cursor-pointer overflow-hidden border`,
@@ -256,11 +268,11 @@ const CarouselProgress = memo(({ api, current, projects, isPaused }: CarouselPro
 });
 CarouselProgress.displayName = 'CarouselProgress';
 
-const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
+const ProjectCarousel = ({ carouselProjects, onExternalLink }: { carouselProjects: Project[]; onExternalLink: ProjectCardProps['onExternalLink'] }) => {
   const t = useTranslations('homepage');
   const count = carouselProjects?.length ?? 0;
 
-  const [api, setApi] = useState(null);
+  const [api, setApi] = useState<EmblaCarouselType | null>(null);
   const [current, setCurrent] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [hasFocus, setHasFocus] = useState(false);
@@ -318,7 +330,7 @@ const ProjectCarousel = ({ carouselProjects, onExternalLink }) => {
               return (
                 <CarouselItem
                   key={project.id}
-                  aria-label={`${index + 1} of ${count}`}
+                  aria-label={t("carousel.position", { current: index + 1, total: count })}
                   className={cn(
                     'basis-[85%] pl-4 sm:basis-[72%] sm:pl-5 md:basis-[68%] 2xl:basis-[75%] 3xl:basis-[78%]',
                     'transition-opacity duration-300 ease-out',

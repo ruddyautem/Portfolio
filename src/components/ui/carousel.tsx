@@ -1,12 +1,24 @@
 "use client";
 import * as React from "react"
-import useEmblaCarousel from "embla-carousel-react";
+import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
+import type { EmblaCarouselType, EmblaOptionsType, EmblaPluginType } from "embla-carousel";
+import { useTranslations } from "next-intl";
 import { ArrowLeft, ArrowRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
-const CarouselContext = React.createContext<any>(null)
+interface CarouselContextValue {
+  carouselRef: UseEmblaCarouselType[0];
+  api: UseEmblaCarouselType[1];
+  opts?: EmblaOptionsType;
+  orientation: "horizontal" | "vertical";
+  scrollPrev: () => void;
+  scrollNext: () => void;
+  canScrollPrev: boolean;
+  canScrollNext: boolean;
+}
+const CarouselContext = React.createContext<CarouselContextValue | null>(null)
 
 function useCarousel() {
   const context = React.useContext(CarouselContext)
@@ -20,9 +32,9 @@ function useCarousel() {
 
 interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   orientation?: "horizontal" | "vertical"
-  opts?: any
-  setApi?: (api: any) => void
-  plugins?: any
+  opts?: EmblaOptionsType
+  setApi?: (api: EmblaCarouselType) => void
+  plugins?: EmblaPluginType[]
 }
 
 function Carousel({
@@ -41,21 +53,29 @@ function Carousel({
   const [canScrollPrev, setCanScrollPrev] = React.useState(Boolean(opts?.loop))
   const [canScrollNext, setCanScrollNext] = React.useState(Boolean(opts?.loop))
 
-  const onSelect = React.useCallback((api) => {
+  const onSelect = React.useCallback((api: EmblaCarouselType) => {
     if (!api) return
     setCanScrollPrev(api.canScrollPrev())
     setCanScrollNext(api.canScrollNext())
   }, [])
 
+  const lastScrollRef = React.useRef(0);
+
   const scrollPrev = React.useCallback(() => {
-    api?.scrollPrev()
-  }, [api])
+    const now = Date.now();
+    if (now - lastScrollRef.current < 120) return;
+    lastScrollRef.current = now;
+    api?.scrollPrev();
+  }, [api]);
 
   const scrollNext = React.useCallback(() => {
-    api?.scrollNext()
-  }, [api])
+    const now = Date.now();
+    if (now - lastScrollRef.current < 120) return;
+    lastScrollRef.current = now;
+    api?.scrollNext();
+  }, [api]);
 
-  const handleKeyDown = React.useCallback((event) => {
+  const handleKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowLeft") {
       event.preventDefault()
       scrollPrev()
@@ -111,7 +131,7 @@ function Carousel({
 function CarouselContent({
   className,
   ...props
-}) {
+}: React.HTMLAttributes<HTMLDivElement>) {
   const { carouselRef, orientation } = useCarousel()
 
   return (
@@ -133,7 +153,7 @@ function CarouselContent({
 function CarouselItem({
   className,
   ...props
-}) {
+}: React.HTMLAttributes<HTMLDivElement>) {
   const { orientation } = useCarousel()
 
   return (
@@ -156,6 +176,7 @@ function CarouselPrevious({
   size = "icon",
   ...props
 }: React.ComponentProps<typeof Button>) {
+  const t = useTranslations("homepage.carousel");
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
   return (
@@ -171,7 +192,7 @@ function CarouselPrevious({
       suppressHydrationWarning
       {...props}>
       <ArrowLeft />
-      <span className="sr-only">Previous slide</span>
+      <span className="sr-only">{t("previous")}</span>
     </Button>
   );
 }
@@ -182,6 +203,7 @@ function CarouselNext({
   size = "icon",
   ...props
 }: React.ComponentProps<typeof Button>) {
+  const t = useTranslations("homepage.carousel");
   const { orientation, scrollNext, canScrollNext } = useCarousel()
 
   return (
@@ -197,7 +219,7 @@ function CarouselNext({
       suppressHydrationWarning
       {...props}>
       <ArrowRight />
-      <span className="sr-only">Next slide</span>
+      <span className="sr-only">{t("next")}</span>
     </Button>
   );
 }
