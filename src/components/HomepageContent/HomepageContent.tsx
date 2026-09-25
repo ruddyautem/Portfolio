@@ -25,7 +25,7 @@ const HomepageContent = () => {
         <div className={PAGE_CARD_CLASSES}>
           <TopPageDecoration filename={t('filename')} />
 
-          <div className="flex w-full flex-col gap-8 sm:gap-10 lg:gap-12 p-4 sm:p-7 md:p-9 lg:p-10 xl:p-12">
+          <div className="flex w-full flex-col gap-6 sm:gap-10 lg:gap-12 p-4 sm:p-7 md:p-9 lg:p-10 xl:p-12">
             {/* Top Section: Hero (Identity, intro, skills & actions) */}
             <div className="w-full">
               <HeroSection />

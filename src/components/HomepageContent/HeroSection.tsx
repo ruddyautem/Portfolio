@@ -1,155 +1,85 @@
-// HeroSection.jsx
 'use client';
 
+import Image from 'next/image';
 import { Link } from '@/i18n/routing';
-import { FolderOpen, FileUser, User, Mail, Download, ArrowRight } from 'lucide-react';
+import { ArrowRight, FileUser, FolderOpen, Mail, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 const NavCard = ({ href, title, desc, icon: Icon }) => (
   <Link
     href={href}
-    className="group flex w-full items-center gap-3.5 rounded-xl border border-slate-700/60
-      bg-slate-800/40 p-3.5 transition-all duration-200 hover:border-accent/40 hover:bg-slate-800/70
-      2xl:gap-4 2xl:p-4 3xl:gap-5 3xl:rounded-2xl 3xl:p-5"
+    className="group flex items-center gap-3 rounded-xl border border-slate-700/60 bg-slate-800/40 p-3.5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:bg-slate-800/70 hover:shadow-lg hover:shadow-black/20 lg:gap-4 lg:p-4 xl:gap-4 xl:p-4"
   >
-    <Icon
-      className="h-5 w-5 shrink-0 text-accent transition-transform duration-200
-        group-hover:scale-110 2xl:h-5.5 2xl:w-5.5 3xl:h-6.5 3xl:w-6.5"
-    />
-
-    <div className="flex min-w-0 flex-1 flex-col text-center sm:text-left">
-      <span
-        className="text-sm font-semibold text-white transition-colors group-hover:text-accent
-          2xl:text-base 3xl:text-lg"
-      >
+    <span className="flex h-10 w-10 shrink-0 items-center justify-center text-accent transition-transform duration-300 group-hover:scale-110 lg:h-10 lg:w-10 xl:h-11 xl:w-11">
+      <Icon className="h-5 w-5 lg:h-5 lg:w-5 xl:h-5.5 xl:w-5.5" />
+    </span>
+    <span className="min-w-0 flex-1">
+      <span className="block text-sm font-semibold text-white transition-colors group-hover:text-accent lg:text-base xl:text-lg">
         {title}
       </span>
-
-      <span className="mt-0.5 truncate text-xs text-slate-400 2xl:text-sm 3xl:text-base">
+      <span className="mt-0.5 block overflow-hidden text-ellipsis whitespace-nowrap text-xs text-slate-400 lg:text-sm">
         {desc}
       </span>
-    </div>
-
-    <ArrowRight
-      className="ml-auto h-4 w-4 shrink-0 text-slate-500 transition-all duration-200
-        group-hover:translate-x-0.5 group-hover:text-accent 2xl:h-4.5 2xl:w-4.5 3xl:h-5.5 3xl:w-5.5"
-    />
+    </span>
+    <ArrowRight className="h-4 w-4 shrink-0 text-slate-500 transition-all duration-300 group-hover:translate-x-1 group-hover:text-accent lg:h-4.5 lg:w-4.5 xl:h-5 xl:w-5" />
   </Link>
-);
-
-const CvButton = ({ label, href, downloadName }) => (
-  <div className="mt-5 flex w-full items-center justify-center gap-3 2xl:mt-7 3xl:mt-9">
-    <span
-      className="h-px flex-1 origin-right scale-x-100 bg-linear-to-r from-transparent
-        to-slate-700/70 transition-transform duration-300 group-hover:scale-x-100"
-    />
-
-    <a
-      href={href}
-      download={downloadName}
-      rel="noopener noreferrer"
-      className="group relative flex items-center gap-2 text-xs text-accent transition-colors
-        duration-300 xl:text-sm 2xl:text-base 3xl:text-lg"
-    >
-      <span className="relative inline-flex items-center gap-2">
-        <Download
-          className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 xl:h-4 xl:w-4 2xl:h-5
-            2xl:w-5 3xl:h-6 3xl:w-6"
-        />
-        <span className="tracking-wide">{label}</span>
-        <span
-          className="absolute -bottom-1 left-0 h-px w-full origin-center scale-x-0 bg-accent
-            transition-transform duration-300 group-hover:scale-x-100"
-        />
-      </span>
-    </a>
-
-    <span
-      className="h-px flex-1 origin-left scale-x-100 bg-linear-to-l from-transparent to-slate-700/70
-        transition-transform duration-300 group-hover:scale-x-100"
-    />
-  </div>
 );
 
 const HeroSection = () => {
   const t = useTranslations('homepage');
-
-  const NAV_LINKS = [
-    {
-      href: '/about',
-      title: t('nav.about'),
-      desc: t('nav.aboutDesc'),
-      icon: User,
-    },
-    {
-      href: '/projects',
-      title: t('nav.projects'),
-      desc: t('nav.projectsDesc'),
-      icon: FolderOpen,
-    },
-    {
-      href: '/contact',
-      title: t('nav.contact'),
-      desc: t('nav.contactDesc'),
-      icon: Mail,
-    },
-    {
-      href: '/cv',
-      title: t('nav.cv'),
-      desc: t('nav.cvDesc'),
-      icon: FileUser,
-    },
+  const navLinks = [
+    { href: '/about', title: t('nav.about'), desc: t('nav.aboutDesc'), icon: User },
+    { href: '/projects', title: t('nav.projects'), desc: t('nav.projectsDesc'), icon: FolderOpen },
+    { href: '/contact', title: t('nav.contact'), desc: t('nav.contactDesc'), icon: Mail },
+    { href: '/cv', title: t('nav.cv'), desc: t('nav.cvDesc'), icon: FileUser },
   ];
 
   return (
-    <div className="w-full pt-3 text-center lg:pt-0">
-      {/* Intro */}
-      <div className="mb-3 flex w-full flex-col items-center lg:mb-4 xl:mb-5 2xl:mb-7 3xl:mb-10">
-        <div
-          className="mb-2.5 inline-block max-w-full truncate rounded-full bg-slate-700/50 px-2.5
-            py-1 font-mono text-[10px] text-accent lg:px-3 lg:text-xs xl:px-4 xl:py-1.5 xl:text-sm
-            2xl:mb-4 2xl:px-5 2xl:py-2 2xl:text-base 3xl:mb-5 3xl:px-7 3xl:py-3 3xl:text-xl"
-        >
-          {t('badge')}
+    <section className="rounded-2xl border border-slate-700/40 p-5 sm:p-7 lg:p-8 xl:p-10">
+      <div className="grid items-center gap-6 sm:gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+        <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left lg:gap-7">
+          <div className="w-full max-w-32 shrink-0 sm:max-w-36 lg:max-w-32 xl:max-w-36">
+            <div className="relative aspect-square">
+              <div className="absolute -inset-2 rounded-[1.8rem] border border-slate-600/50" />
+              <div className="relative h-full overflow-hidden rounded-[1.4rem] border border-white/15 bg-slate-800 shadow-xl shadow-black/30">
+                <Image
+                  src="/profile.jpg"
+                  alt={`${t('name')} ${t('surname')}`}
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 192px, (min-width: 640px) 176px, 160px"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-1/4 bg-linear-to-t from-slate-950/30 to-transparent" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl xl:text-5xl 2xl:text-6xl">
+              {t('name')} {t('surname')}
+            </h1>
+            <p className="mt-3 text-lg font-medium text-accent sm:text-xl xl:text-2xl">{t('title')}</p>
+          </div>
         </div>
 
-        <h1
-          className="mb-2 w-full text-center text-4xl font-bold tracking-tight text-white sm:text-5xl lg:mb-3
-            lg:text-4xl xl:text-5xl 2xl:mb-4 2xl:text-6xl 3xl:mb-5 3xl:text-8xl"
-        >
-          {t('name')} <span className="text-accent">{t('surname')}</span>
-        </h1>
-
-        <p
-          className="w-full text-center text-base text-slate-300 sm:text-lg lg:text-base xl:text-xl 2xl:text-2xl
-            3xl:text-4xl"
-        >
-          {t('title')}
-        </p>
+        <div className="mx-auto w-full max-w-xl text-center lg:mx-0 lg:justify-self-end lg:text-left">
+          <h2 className="text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl xl:text-4xl">
+            {t.rich('introTitle', {
+              accent: (chunks) => <span className="text-accent">{chunks}</span>,
+            })}
+          </h2>
+          <p className="mt-4 text-sm leading-relaxed text-slate-300 sm:text-base xl:text-lg">
+            {t('description')}
+          </p>
+        </div>
       </div>
 
-      {/* Description */}
-      <p
-        className="mx-auto mb-4 w-full max-w-md text-center text-xs leading-relaxed text-slate-300 sm:text-sm
-          lg:mb-4 lg:max-w-lg lg:text-sm xl:mb-5 xl:max-w-xl xl:text-base 2xl:mb-7 2xl:max-w-2xl
-          2xl:text-lg 3xl:mb-9 3xl:max-w-4xl 3xl:text-2xl"
-      >
-        {t('description')}
-      </p>
-
-      {/* Navigation – side by side (all 4 on large screens) */}
-      <div
-        className="grid w-full grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3 xl:gap-3
-          2xl:gap-4 3xl:gap-5"
-      >
-        {NAV_LINKS.map((link) => (
+      <div className="mt-6 hidden gap-2.5 sm:mt-9 sm:grid sm:grid-cols-2 xl:grid-cols-4 xl:gap-4">
+        {navLinks.map((link) => (
           <NavCard key={link.href} {...link} />
         ))}
       </div>
-
-      {/* CV */}
-      <CvButton label={t('downloadCv')} href={t('cvFile')} downloadName={t('cvFileName')} />
-    </div>
+    </section>
   );
 };
 

@@ -8,12 +8,10 @@ const CYCLE_DURATION = 3000;
 const COLUMN_STAGGER_DELAY = 200;
 
 const BREAKPOINTS = [
-  { minWidth: 2000, columns: 6 },
-  { minWidth: 1024, columns: 4 },
-  { minWidth: 768, columns: 3 },
-  { minWidth: 600, columns: 4 },
-  { minWidth: 400, columns: 3 },
-  { minWidth: 0, columns: 2 },
+  { minWidth: 1440, columns: 6 },
+  { minWidth: 1024, columns: 5 },
+  { minWidth: 768, columns: 4 },
+  { minWidth: 0, columns: 3 },
 ];
 
 const LOGOS = [
@@ -88,12 +86,12 @@ function distributeLogosAcrossColumns(logos: Logo[], columnCount: number): Logo[
 
 function getColumnsFromWidth(width) {
   const breakpoint = BREAKPOINTS.find((bp) => width >= bp.minWidth);
-  return breakpoint ? breakpoint.columns : 2;
+  return breakpoint ? breakpoint.columns : 3;
 }
 
 // --- Debounced Resize Listener ---
 function useResponsiveColumns() {
-  const [columns, setColumns] = useState(2);
+  const [columns, setColumns] = useState(3);
 
   useEffect(() => {
     // Set actual responsive columns after hydration
