@@ -8,6 +8,7 @@ const CYCLE_DURATION = 3000;
 const COLUMN_STAGGER_DELAY = 200;
 
 const BREAKPOINTS = [
+  { minWidth: 1750, columns: 7 },
   { minWidth: 1440, columns: 6 },
   { minWidth: 1024, columns: 5 },
   { minWidth: 768, columns: 4 },

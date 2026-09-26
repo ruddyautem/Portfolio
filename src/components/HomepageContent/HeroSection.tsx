@@ -36,8 +36,8 @@ const HeroSection = () => {
 
   return (
     <section className="rounded-2xl border border-slate-700/40 p-5 sm:p-7 lg:p-8 xl:p-10">
-      <div className="grid items-center gap-6 sm:gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-        <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left lg:gap-7">
+      <div className="grid items-center gap-3.5 sm:gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+        <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-left sm:gap-6 lg:gap-7">
           <div className="w-full max-w-32 shrink-0 sm:max-w-36 lg:max-w-32 xl:max-w-36">
             <div className="relative aspect-square">
               <div className="absolute -inset-2 rounded-[1.8rem] border border-slate-600/50" />
@@ -55,20 +55,20 @@ const HeroSection = () => {
             </div>
           </div>
           <div>
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl xl:text-5xl 2xl:text-6xl">
+            <h1 className="text-[2.5rem] leading-none font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">
               {t('name')} {t('surname')}
             </h1>
-            <p className="mt-3 text-lg font-medium text-accent sm:text-xl xl:text-2xl">{t('title')}</p>
+            <p className="mt-1.5 text-xl font-semibold tracking-tight text-accent sm:mt-2 sm:text-2xl lg:text-3xl">{t('title')}</p>
           </div>
         </div>
 
         <div className="mx-auto w-full max-w-xl text-center lg:mx-0 lg:justify-self-end lg:text-left">
-          <h2 className="text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl xl:text-4xl">
+          <h2 className="text-lg font-semibold leading-snug tracking-tight text-white sm:text-xl lg:text-2xl">
             {t.rich('introTitle', {
               accent: (chunks) => <span className="text-accent">{chunks}</span>,
             })}
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-slate-300 sm:text-base xl:text-lg">
+          <p className="mt-2 text-sm leading-relaxed text-slate-300 sm:mt-4 sm:text-base xl:text-lg">
             {t('description')}
           </p>
         </div>

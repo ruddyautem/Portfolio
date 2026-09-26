@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { useTranslations, useLocale } from 'next-intl';
 import { NAV_ITEMS, SIDEBAR_NAV_ICONS } from '@/lib/constants';
@@ -14,10 +15,13 @@ export default function MobileNav() {
   const [pendingRoute, setPendingRoute] = useState<string | null>(null);
   const t = useTranslations('sidebar');
 
-  // Optimistic routing transition
-  useEffect(() => {
+  const [prevRoute, setPrevRoute] = useState(currentRoute);
+
+  // Reset optimistic state when route changes
+  if (prevRoute !== currentRoute) {
+    setPrevRoute(currentRoute);
     setPendingRoute(null);
-  }, [currentRoute]);
+  }
 
   // Instant response to swipe gestures (0ms latency without waiting for router.replace)
   useEffect(() => {
@@ -64,7 +68,7 @@ export default function MobileNav() {
   return (
     <nav
       aria-label="Mobile navigation"
-      className="fixed inset-x-0 bottom-0 z-50 flex min-h-16 items-center border-t border-white/10 bg-menu/95 px-2 pb-[max(0.375rem,env(safe-area-inset-bottom))] pt-1.5 backdrop-blur-xl lg:hidden sm:px-5"
+      className="fixed inset-x-0 bottom-0 z-50 flex min-h-16 items-center gap-0.5 border-t border-white/10 bg-menu/95 px-2 pb-[max(0.375rem,env(safe-area-inset-bottom))] pt-1.5 shadow-[0_-8px_20px_rgba(0,0,0,0.12)] backdrop-blur-xl lg:hidden sm:px-5"
     >
       {NAV_ITEMS.map((item) => {
         const isActive = checkIsActive(item.link);
@@ -78,17 +82,27 @@ export default function MobileNav() {
             prefetch={true}
             onClick={() => setPendingRoute(item.link)}
             className={cn(
-              'group relative flex min-w-0 flex-1 flex-col items-center justify-center rounded-lg py-1.5 transition-all duration-200 active:scale-95',
+              'group relative flex min-h-13 min-w-0 flex-1 flex-col items-center justify-center rounded-md py-1.5 transition-all duration-200 active:scale-95',
               isActive
-                ? 'bg-white/[0.045] text-white'
+                ? 'text-white'
                 : 'text-slate-400 hover:bg-white/[0.035] hover:text-slate-200',
             )}
             aria-label={label}
             aria-current={isActive ? 'page' : undefined}
           >
+            {isActive && (
+              <motion.span
+                layoutId="mobile-nav-active-tile"
+                className="pointer-events-none absolute inset-0 z-0 rounded-md bg-white/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
+                transition={{ type: 'spring', stiffness: 500, damping: 36, mass: 0.6 }}
+                aria-hidden="true"
+              >
+                <span className="absolute inset-x-3 top-0 h-0.5 rounded-full bg-accent shadow-[0_1px_7px_color-mix(in_srgb,var(--color-accent)_55%,transparent)]" />
+              </motion.span>
+            )}
             <div
               className={cn(
-                'flex h-7 w-7 items-center justify-center transition-all duration-200 sm:h-8 sm:w-8',
+                'relative z-10 flex h-7 w-7 items-center justify-center transition-all duration-200 sm:h-8 sm:w-8',
                 isActive ? 'scale-110 opacity-100' : 'opacity-60 group-hover:opacity-100',
               )}
             >
@@ -103,7 +117,7 @@ export default function MobileNav() {
 
             <span
               className={cn(
-                'mt-1 text-[10px] font-medium leading-none tracking-tight transition-colors sm:text-xs',
+                'relative z-10 mt-1 text-[10px] font-medium leading-none tracking-tight transition-colors sm:text-xs',
                 isActive ? 'font-semibold text-accent' : 'text-slate-400',
               )}
             >

@@ -184,7 +184,7 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
 
   // Mobile / Tablet (< 1024px): Multi-page continuous horizontal slider (Discord/Twitter style)
   const slideClasses =
-    'flex-[0_0_100%] min-w-0 font-inconsolata text-light h-[calc(100dvh-88px)] sm:h-[calc(100dvh-116px)] md:h-[calc(100dvh-124px)] overflow-y-auto overflow-x-hidden';
+    'flex-[0_0_100%] min-w-0 font-inconsolata text-light h-[calc(100dvh-88px)] overflow-y-auto overflow-x-hidden';
   const slides = [
     <HomepageContent key="home" />,
     <AboutContent key="about" />,
@@ -196,7 +196,7 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
 
   return (
     <div
-      className="relative flex-1 w-full overflow-hidden flex flex-col min-w-0 h-[calc(100dvh-88px)] sm:h-[calc(100dvh-116px)] md:h-[calc(100dvh-124px)]"
+      className="relative flex-1 w-full overflow-hidden flex flex-col min-w-0 h-[calc(100dvh-88px)]"
       ref={emblaRef}
     >
       {/* Subtle right-edge indicator (docked flush against edge, smooth fade, no bounce) */}

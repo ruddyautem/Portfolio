@@ -222,8 +222,7 @@ export default async function RootLayout({
                 >
                   <Tabsbar />
                   <SwipeNavigator
-                    className="font-inconsolata text-light h-[calc(100dvh-88px)]
-                      sm:h-[calc(100dvh-116px)] md:h-[calc(100dvh-124px)] lg:h-[calc(100dvh-80px)]
+                    className="font-inconsolata text-light h-[calc(100dvh-88px)] lg:h-[calc(100dvh-80px)]
                       overflow-y-auto overflow-x-hidden p-0"
                   >
                     {children}

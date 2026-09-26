@@ -739,11 +739,11 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
 
                         {/* Project Info & Highlights Block */}
                         <div
-                          className="flex h-92.5 flex-col justify-between gap-2.5 pt-3 text-center
-                            sm:text-left sm:h-87.5 lg:pt-0 lg:col-span-6 xl:h-auto"
+                          className="flex h-[356px] flex-col justify-between gap-2 pt-2.5 text-center
+                            sm:h-87.5 sm:gap-2.5 sm:pt-3 sm:text-left lg:pt-0 lg:col-span-6 xl:h-auto"
                         >
-                          <div className="flex flex-col gap-2">
-                            <div className="flex flex-wrap items-center justify-center sm:justify-between gap-2 min-w-0">
+                          <div className="flex flex-col gap-1.5 sm:gap-2">
+                            <div className="flex h-7 sm:h-auto flex-wrap items-center justify-center sm:justify-between gap-2 min-w-0">
                               <Link
                                 href="/projects"
                                 className="shrink-0 text-base sm:text-lg font-bold text-white
@@ -756,8 +756,8 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                             </div>
 
                             <p
-                              className="min-h-10 mt-4 text-center text-xs sm:text-sm leading-relaxed
-                                text-slate-300 line-clamp-3 xl:text-left"
+                              className="h-9 sm:h-auto min-h-9 sm:min-h-10 text-center text-xs sm:text-sm leading-relaxed
+                                text-slate-300 line-clamp-2 sm:line-clamp-3 xl:text-left"
                             >
                               {project.shortDesc || project.desc}
                             </p>
@@ -765,19 +765,12 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                             {/* Key Architecture Highlights Box */}
                             {project.highlights && project.highlights.length > 0 && (
                               <div
-                                className="w-full rounded-lg border border-slate-700/50 p-2.5
-                                  text-center xl:text-left"
+                                className="flex h-[168px] sm:h-[152px] w-full flex-col justify-between rounded-lg border border-slate-700/50 p-2.5 text-center xl:text-left"
                               >
                                 <div
-                                  className="mb-2.5 flex items-center justify-center gap-1.5
-                                    border-b border-slate-700/40 pb-2 text-[10px] sm:text-[11px]
-                                    font-mono font-semibold uppercase tracking-wider text-accent
-                                    xl:mb-1.5 xl:justify-between xl:border-slate-700/30 xl:pb-1"
+                                  className="flex items-center justify-between gap-1.5 border-b border-slate-700/40 pb-1.5 text-[10px] sm:text-[11px] font-mono font-semibold uppercase tracking-wider text-accent xl:mb-1.5 xl:border-slate-700/30 xl:pb-1"
                                 >
-                                  <div
-                                    className="flex items-center justify-center gap-1.5
-                                      xl:justify-start"
-                                  >
+                                  <div className="flex items-center gap-1.5">
                                     <Layers className="h-3 w-3 text-accent" />
                                     <span>{t('carousel.architectureTitle')}</span>
                                   </div>
@@ -785,18 +778,16 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                     {project.category.toUpperCase()}
                                   </span>
                                 </div>
-                                <ul className="space-y-1 sm:space-y-1.5">
+                                <ul className="flex flex-1 flex-col justify-between gap-1.5 pt-1.5">
                                   {project.highlights.map((highlight, hIdx) => (
                                     <li
                                       key={hIdx}
-                                      className="flex items-start justify-center gap-1.5 text-center
-                                        text-[11px] sm:text-xs text-slate-200 leading-snug
-                                        xl:justify-start xl:text-left"
+                                      className="flex flex-1 items-center justify-center gap-1.5 text-center text-xs leading-snug text-slate-200 sm:justify-start sm:text-left"
                                     >
                                       <CheckCircle2
-                                        className="h-3.5 w-3.5 shrink-0 text-accent mt-0.5"
+                                        className="h-3.5 w-3.5 shrink-0 text-accent"
                                       />
-                                      <span className="line-clamp-2 text-center xl:text-left">{highlight}</span>
+                                      <span className="line-clamp-2 text-center sm:text-left">{highlight}</span>
                                     </li>
                                   ))}
                                 </ul>
@@ -804,10 +795,10 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                             )}
                           </div>
 
-                          <div className="flex flex-col gap-2 pt-1 border-t border-slate-700/40">
+                          <div className="mt-auto flex flex-col gap-2 pt-1 border-t border-slate-700/40">
                             {/* Tech Stack Badges */}
                             <div
-                              className="flex flex-wrap items-center justify-center gap-1.5
+                              className="flex h-11 sm:h-auto flex-wrap items-center justify-center content-center gap-1.5
                                 xl:justify-start"
                             >
                               {project.tags.slice(0, 5).map((tag) => (
@@ -822,18 +813,18 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                               ))}
                             </div>
 
-                            {/* Action Buttons */}
-                            <div className="flex gap-2">
+                            {/* Action Buttons: Locked to identical height across all projects */}
+                            <div className="flex h-9 sm:h-auto gap-2">
                               {project.source && (
                                 <a
                                   href={project.source}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex flex-1 items-center justify-center gap-1.5
+                                  className="flex h-full flex-1 items-center justify-center gap-1.5
                                     rounded-lg border border-slate-700 bg-slate-800/60 py-1.5
                                     sm:py-2 text-xs font-semibold text-slate-300 transition-all
                                     duration-200 hover:border-slate-500 hover:bg-slate-700/50
-                                    hover:text-white"
+                                    hover:text-white active:scale-95"
                                 >
                                   <GithubIcon className="h-3.5 w-3.5" />
                                   <span>{t('carousel.codeSource')}</span>
@@ -845,10 +836,10 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                   href={project.demo}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex flex-1 items-center justify-center gap-1.5
+                                  className="flex h-full flex-1 items-center justify-center gap-1.5
                                     rounded-lg bg-accent py-1.5 sm:py-2 text-xs font-bold
                                     text-slate-950 shadow-md transition-all duration-200
-                                    hover:bg-accent/90 hover:shadow-accent/20"
+                                    hover:bg-accent/90 hover:shadow-accent/20 active:scale-95"
                                 >
                                   <Globe className="h-3.5 w-3.5" />
                                   <span>{t('carousel.liveDemo')}</span>
@@ -888,8 +879,8 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
               aria-label={t('carousel.previous')}
               onClick={handlePrev}
               className="flex h-8 w-8 touch-manipulation items-center justify-center rounded-lg
-                text-slate-400 transition-colors hover:bg-slate-700/70 hover:text-white
-                active:scale-95 cursor-pointer"
+                text-slate-400 active:scale-95 cursor-pointer outline-none focus:outline-none
+                focus-visible:outline-none select-none [-webkit-tap-highlight-color:transparent]"
             >
               <ChevronLeft className="h-3.5 w-3.5 stroke-[2.5]" />
             </button>
@@ -922,8 +913,8 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
               aria-label={t('carousel.next')}
               onClick={handleNext}
               className="flex h-8 w-8 touch-manipulation items-center justify-center rounded-lg
-                text-slate-400 transition-colors hover:bg-slate-700/70 hover:text-white
-                active:scale-95 cursor-pointer"
+                text-slate-400 active:scale-95 cursor-pointer outline-none focus:outline-none
+                focus-visible:outline-none select-none [-webkit-tap-highlight-color:transparent]"
             >
               <ChevronRight className="h-3.5 w-3.5 stroke-[2.5]" />
             </button>

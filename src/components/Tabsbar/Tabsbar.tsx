@@ -97,7 +97,7 @@ const Tabsbar = () => {
   }, [checkIsActive, theme, currentTabs]);
 
   return (
-    <nav aria-label="Open tabs" className="bg-menu text-darker hidden sm:block h-7 w-full relative">
+    <nav aria-label="Open tabs" className="bg-menu text-darker hidden lg:block h-7 w-full relative">
       <div
         ref={containerRef}
         role="tablist"
