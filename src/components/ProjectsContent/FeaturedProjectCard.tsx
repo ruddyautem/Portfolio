@@ -24,7 +24,7 @@ export const FeaturedProjectCard = ({
 }: FeaturedProjectCardProps) => {
   const isReversed = index % 2 === 1;
 
-  // Luminous ambient glows tailored to each project's brand identity
+  // Subtle accent colors tailored to each project's brand identity
   const themes: Record<
     string,
     {
@@ -81,11 +81,10 @@ export const FeaturedProjectCard = ({
 
   return (
     <article
-      className={`group relative overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/20
-        backdrop-blur-xl transition-all duration-300 ${currentTheme.borderHover} hover:bg-slate-800/30
-        hover:shadow-2xl sm:rounded-3xl`}
+      className={`group relative overflow-hidden rounded-[10px] border border-white/[0.08] bg-[var(--theme-bg)]
+        transition-all duration-300 ${currentTheme.borderHover} hover:border-white/[0.14]`}
     >
-      {/* Ambient background glow - soft and subtle */}
+      {/* Subtle background accent */}
       <div
         className={`pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-gradient-to-br
           ${currentTheme.glow} opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-70`}
@@ -103,41 +102,26 @@ export const FeaturedProjectCard = ({
           }`}
         >
           <div
-            className="group/browser relative flex flex-col overflow-hidden rounded-xl border
-              border-slate-700/60 bg-slate-800/40 shadow-xl transition-all duration-300
-              hover:border-slate-500/70 hover:shadow-2xl"
+            className="group/browser relative flex flex-col overflow-hidden rounded-[10px] border
+              border-white/[0.08] bg-[var(--theme-bg)] transition-colors duration-300
+              hover:border-white/[0.14]"
           >
             {/* Browser Header Bar */}
             <div
-              className="relative flex h-8 items-center justify-between border-b border-slate-700/60
-                bg-slate-800/70 px-3 backdrop-blur-md sm:px-3.5"
+              className="flex h-8 items-center justify-center border-b border-white/[0.08]
+                bg-[var(--theme-bg)] px-3 sm:px-3.5"
             >
-              {/* Traffic Light Dots (Left) */}
-              <div className="flex items-center gap-1.5 z-10" aria-hidden="true">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]" />
-              </div>
-
-              {/* Centered Address / Window Title Bar (Middle) */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none px-16">
-                <Link
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  tabIndex={-1}
-                  className="pointer-events-auto flex max-w-[200px] items-center gap-1.5 truncate rounded-md border
-                    border-slate-700/50 bg-slate-900/60 px-2 py-0.5 text-[10px] font-mono
-                    text-slate-300 transition-colors hover:border-slate-500 hover:text-white
-                    sm:max-w-xs sm:text-[11px] sm:px-2.5"
-                >
-                  <Lock className="h-2.5 w-2.5 shrink-0 text-emerald-400 sm:h-3 sm:w-3" />
-                  <span className="truncate">{project.displayUrl || project.demo.replace('https://', '')}</span>
-                </Link>
-              </div>
-
-              {/* Right Placeholder Spacer to maintain symmetry */}
-              <div className="w-12" aria-hidden="true" />
+              <Link
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex max-w-[85%] items-center gap-1.5 truncate rounded-md border border-white/[0.08]
+                  bg-transparent px-2 py-0.5 text-[10px] font-mono text-slate-300 transition-colors
+                  hover:border-white/[0.14] hover:text-white sm:max-w-xs sm:text-[11px] sm:px-2.5"
+              >
+                <Lock className="h-2.5 w-2.5 shrink-0 text-emerald-400 sm:h-3 sm:w-3" />
+                <span className="truncate">{project.displayUrl || project.demo.replace('https://', '')}</span>
+              </Link>
             </div>
 
             {/* Viewport Screenshot */}

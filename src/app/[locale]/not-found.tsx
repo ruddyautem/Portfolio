@@ -3,7 +3,6 @@
 import { Link } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { FileQuestion, ArrowLeft, Home } from 'lucide-react';
-import TopPageDecoration from '@/components/TopPageDecoration/TopPageDecoration';
 import { PAGE_OUTER_CLASSES, PAGE_INNER_CLASSES, PAGE_CARD_CLASSES } from '@/lib/constants';
 
 export default function NotFound() {
@@ -14,8 +13,6 @@ export default function NotFound() {
     <div className={PAGE_OUTER_CLASSES}>
       <div className={PAGE_INNER_CLASSES}>
         <div className={PAGE_CARD_CLASSES}>
-          <TopPageDecoration filename="404_NotFound.ts" />
-
           <div className="flex flex-1 flex-col items-center justify-center p-6 text-center sm:p-12">
             {/* Editor error card */}
             <div className="w-full max-w-lg rounded-xl border border-slate-700/60 bg-slate-900/80 p-6 shadow-2xl backdrop-blur-md">

@@ -4,7 +4,6 @@ import { memo, useState, useRef, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { useTranslations } from 'next-intl';
 import ContactForm from '../ContactForm/ContactForm';
-import TopPageDecoration from '../TopPageDecoration/TopPageDecoration';
 import { GithubIcon } from '@/components/Icons/Icons';
 import {
   Mail,
@@ -59,9 +58,9 @@ const SocialChannelCard = memo(
         href={href}
         target={isMailto ? '_self' : '_blank'}
         rel={isMailto ? undefined : 'noopener noreferrer'}
-        className={`group relative overflow-hidden rounded-xl sm:rounded-2xl border border-slate-700/50 bg-slate-800/25
-          backdrop-blur-xl p-2.5 sm:p-3.5 xl:p-5 transition-all duration-300 ${themeClasses.borderHover}
-          hover:bg-slate-800/40 hover:shadow-lg cursor-pointer block select-none
+        className={`group relative overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg)
+          p-2.5 sm:p-3.5 xl:p-5 transition-all duration-300 ${themeClasses.borderHover}
+          hover:border-white/[0.14] cursor-pointer block select-none
           w-[calc((100%-0.5rem)/2)] sm:w-[calc((100%-1.5rem)/3)] xl:w-full xl:flex-1 xl:flex xl:flex-col xl:justify-center`}
       >
         <div
@@ -86,7 +85,7 @@ const SocialChannelCard = memo(
           </div>
 
           <div
-            className="w-full max-w-[200px] sm:max-w-none inline-flex items-center justify-center gap-1 rounded-md border border-slate-700/60 bg-slate-800/50 py-1 px-1 text-[10px] sm:text-xs font-mono text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent"
+            className="w-full max-w-50 sm:max-w-none inline-flex items-center justify-center gap-1 rounded-md border border-slate-700/60  py-1 px-1 text-[10px] sm:text-xs font-mono text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent"
           >
             <span>{mobileActionLabel ?? (isMailto ? 'Écrire' : 'Ouvrir')}</span>
             <ExternalLink className="h-2.5 w-2.5 shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -115,7 +114,7 @@ const SocialChannelCard = memo(
               className="inline-flex items-center gap-1.5 text-xs xl:text-sm font-mono text-slate-300 transition-colors
                 group-hover:text-accent mt-1"
             >
-              <span className="truncate max-w-[200px] sm:max-w-xs xl:max-w-sm">{displayUrl}</span>
+              <span className="truncate max-w-50 sm:max-w-xs xl:max-w-sm">{displayUrl}</span>
               <ExternalLink className="h-3 w-3 xl:h-3.5 xl:w-3.5 shrink-0 opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
             </div>
           </div>
@@ -128,7 +127,6 @@ SocialChannelCard.displayName = 'SocialChannelCard';
 
 const ContactList = () => {
   const t = useTranslations('contact');
-  const tTabs = useTranslations('tabsbar');
 
   const [defaultRightHeight, setDefaultRightHeight] = useState<number | null>(null);
   const rightCardRef = useRef<HTMLDivElement>(null);
@@ -159,8 +157,6 @@ const ContactList = () => {
     <div className={PAGE_OUTER_CLASSES}>
       <div className={PAGE_INNER_CLASSES}>
         <div className={PAGE_CARD_CLASSES}>
-          <TopPageDecoration filename={tTabs('contact')} />
-
           {/* Section Header */}
           <div className={SECTION_HEADER_CLASSES}>
             <h1 className={HEADING_CLASSES}>
@@ -239,9 +235,9 @@ const ContactList = () => {
 
                     {/* Response Time Card */}
                     <div
-                      className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-slate-700/50 bg-slate-800/25
-                        backdrop-blur-xl p-2.5 sm:p-3.5 xl:p-5 transition-all duration-300 hover:border-emerald-500/50 hover:bg-slate-800/40
-                        hover:shadow-lg select-none w-[calc((100%-0.5rem)/2)] sm:w-[calc((100%-1.5rem)/3)] xl:w-full xl:flex-1 xl:flex xl:flex-col xl:justify-center"
+                      className="group relative overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg)
+                        p-2.5 sm:p-3.5 xl:p-5 transition-all duration-300 hover:border-emerald-500/50
+                        select-none w-[calc((100%-0.5rem)/2)] sm:w-[calc((100%-1.5rem)/3)] xl:w-full xl:flex-1 xl:flex xl:flex-col xl:justify-center"
                     >
                       <div
                         className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 xl:h-32 xl:w-32 rounded-full
@@ -259,7 +255,7 @@ const ContactList = () => {
                             {t('responseTime')}
                           </h3>
                         </div>
-                        <div className="w-full max-w-[200px] sm:max-w-none inline-flex items-center justify-center gap-1 rounded-md border border-slate-700/60 bg-slate-800/50 py-1 px-1 text-[10px] sm:text-xs font-mono text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent">
+                        <div className="w-full max-w-50 sm:max-w-none inline-flex items-center justify-center gap-1 rounded-md border border-slate-700/60  py-1 px-1 text-[10px] sm:text-xs font-mono text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent">
                           <span>{t('hours24')}</span>
                         </div>
                       </div>
@@ -282,9 +278,9 @@ const ContactList = () => {
 
                     {/* Location Card */}
                     <div
-                      className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-slate-700/50 bg-slate-800/25
-                        backdrop-blur-xl p-2.5 sm:p-3.5 xl:p-5 transition-all duration-300 hover:border-sky-500/50 hover:bg-slate-800/40
-                        hover:shadow-lg select-none w-[calc((100%-0.5rem)/2)] sm:w-[calc((100%-1.5rem)/3)] xl:w-full xl:flex-1 xl:flex xl:flex-col xl:justify-center"
+                      className="group relative overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg)
+                        p-2.5 sm:p-3.5 xl:p-5 transition-all duration-300 hover:border-sky-500/50
+                        select-none w-[calc((100%-0.5rem)/2)] sm:w-[calc((100%-1.5rem)/3)] xl:w-full xl:flex-1 xl:flex xl:flex-col xl:justify-center"
                     >
                       <div
                         className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 xl:h-32 xl:w-32 rounded-full
@@ -302,7 +298,7 @@ const ContactList = () => {
                             {t('location')}
                           </h3>
                         </div>
-                        <div className="w-full max-w-[200px] sm:max-w-none inline-flex items-center justify-center gap-1 rounded-md border border-slate-700/60 bg-slate-800/50 py-1 px-1 text-[10px] sm:text-xs font-mono text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent">
+                        <div className="w-full max-w-50 sm:max-w-none inline-flex items-center justify-center gap-1 rounded-md border border-slate-700/60  py-1 px-1 text-[10px] sm:text-xs font-mono text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent">
                           <span>{t('locationDetail')}</span>
                         </div>
                       </div>
@@ -349,8 +345,8 @@ const ContactList = () => {
       </div>
 
       <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
+        position="top-center"
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -359,6 +355,8 @@ const ContactList = () => {
         draggable
         pauseOnHover
         theme="dark"
+        toastClassName="portfolio-toast"
+        progressClassName="portfolio-toast__progress"
       />
     </div>
   );

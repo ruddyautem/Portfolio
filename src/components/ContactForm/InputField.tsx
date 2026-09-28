@@ -44,12 +44,12 @@ const InputField = ({
 
   const placeholderText = t("placeholder", { label: label.toLowerCase() });
 
-  const inputClasses = `w-full rounded-xl border bg-slate-800/35 backdrop-blur-md pl-3.5 sm:pl-4 pr-10 sm:pr-11 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-slate-400 placeholder:text-center xl:placeholder:text-left transition-[color,background-color,border-color,box-shadow] duration-200 focus:outline-none focus:ring-2 focus:bg-slate-800/55 ${
+  const inputClasses = `w-full rounded-[10px] border bg-transparent pl-3.5 sm:pl-4 pr-10 sm:pr-11 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-slate-400 placeholder:text-center xl:placeholder:text-left transition-[color,border-color,box-shadow] duration-200 focus:outline-none focus:ring-2 ${
     hasError
       ? "border-red-500/80 focus:border-red-500 focus:ring-red-500/20"
       : isValid && hasValue
       ? "border-emerald-500/60 focus:border-emerald-400 focus:ring-emerald-500/20"
-      : "border-slate-700/60 hover:border-slate-500/80 focus:border-accent focus:ring-accent/20"
+      : "border-white/[0.08] hover:border-white/[0.14] focus:border-accent focus:ring-accent/20"
   }`;
 
   return (

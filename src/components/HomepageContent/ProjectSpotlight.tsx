@@ -28,6 +28,7 @@ import { Link } from '@/i18n/routing';
 import { Project } from '@/app/[locale]/projects/projects';
 import { TAG_COLORS_CARD } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import { Tooltip } from '@/components/ui/beui-tooltip';
 
 interface ProjectSpotlightProps {
   projects: Project[];
@@ -58,6 +59,7 @@ const MorphingBadge = memo(({ badge }: MorphingBadgeProps) => {
   }, [parts]);
 
   return (
+    <Tooltip content={badge} side="top">
     <button
       type="button"
       onClick={(e) => {
@@ -70,7 +72,6 @@ const MorphingBadge = memo(({ badge }: MorphingBadgeProps) => {
         bg-accent/10 px-2 py-0.5 font-mono text-[9px] sm:text-[10px] font-medium text-accent
         transition-all duration-300 ease-out select-none cursor-pointer hover:bg-accent/15
         active:scale-95 shadow-xs"
-      title={badge}
     >
       <Sparkles
         key={`sparkle-${index}`}
@@ -98,6 +99,7 @@ const MorphingBadge = memo(({ badge }: MorphingBadgeProps) => {
       {/* On larger screens (sm+): full badge displayed continuously */}
       <span className="hidden sm:inline whitespace-nowrap">{badge}</span>
     </button>
+    </Tooltip>
   );
 });
 MorphingBadge.displayName = 'MorphingBadge';
@@ -250,8 +252,9 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
 
   // Sync currentIndex whenever openSlide changes
   useEffect(() => {
-    setCurrentIndex(openSlide);
+    const frame = window.requestAnimationFrame(() => setCurrentIndex(openSlide));
     emblaApi?.scrollTo(openSlide);
+    return () => window.cancelAnimationFrame(frame);
   }, [openSlide, emblaApi]);
 
   // Pause when window/tab loses focus, and reInit on focus/visibility change
@@ -380,18 +383,18 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
       <div
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
-        className="relative flex w-full flex-col overflow-hidden rounded-2xl border
-          border-slate-700/60 bg-slate-800/35 shadow-2xl backdrop-blur-xl transition-colors
-          duration-300 hover:border-slate-600/80"
+        className="relative flex w-full flex-col overflow-hidden rounded-[10px] border
+          border-white/8 bg-(--theme-bg) transition-colors duration-300
+          hover:border-white/12"
       >
         {/* Browser address bar: Centered with subtle background and padlock */}
         <div
-          className="relative z-20 flex items-center justify-center border-b border-slate-700/40
-            bg-slate-900/40 px-3.5 py-1.5 font-mono text-[11px]"
+          className="relative z-20 flex items-center justify-center border-b border-white/8
+            bg-(--theme-bg) px-3.5 py-1.5 font-mono text-[11px]"
         >
           <div
             className="flex max-w-[85%] sm:max-w-md items-center gap-1.5 truncate rounded-md border
-              border-slate-700/50 bg-slate-900/70 px-2.5 py-0.5 text-slate-300 shadow-inner"
+              border-white/8 bg-transparent px-2.5 py-0.5 text-slate-300"
           >
             <Lock className="h-2.5 w-2.5 shrink-0 text-emerald-400 sm:h-3 sm:w-3" />
             <span className="truncate text-slate-200">{activeProject.displayUrl}</span>
@@ -446,7 +449,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
 
             return (
               <div
-                className="hidden xl:flex w-full flex-col p-2 sm:p-3 lg:p-4 bg-slate-900/20"
+                className="hidden xl:flex w-full flex-col bg-[var(--theme-bg)] p-2 sm:p-3 lg:p-4"
                 style={{
                   containerType: 'inline-size',
                   ...vars,
@@ -631,7 +634,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
-                                    className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-slate-800/80 px-3 py-1.5 text-xs font-mono font-medium text-slate-200 transition-all duration-150 hover:border-white/25 hover:bg-slate-700 hover:text-white active:scale-95"
+                                    className="inline-flex items-center gap-1.5 rounded-lg border border-white/10  px-3 py-1.5 text-xs font-mono font-medium text-slate-200 transition-all duration-150 hover:border-white/25 hover:bg-slate-700 hover:text-white active:scale-95"
                                   >
                                     <GithubIcon className="h-3.5 w-3.5" />
                                     <span>{t('carousel.codeSource')}</span>
@@ -675,12 +678,13 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                       className="flex items-center gap-2.5 rounded-lg border border-slate-700/30 px-3 py-1.5 text-slate-200 min-h-10"
                                     >
                                       <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
-                                      <span
-                                        title={highlight}
-                                        className="min-w-0 truncate text-xs xl:text-sm leading-relaxed"
-                                      >
-                                        {highlight}
-                                      </span>
+                                      <Tooltip content={highlight} side="top" className="max-w-xs whitespace-normal">
+                                        <span
+                                          className="min-w-0 truncate text-xs xl:text-sm leading-relaxed block"
+                                        >
+                                          {highlight}
+                                        </span>
+                                      </Tooltip>
                                     </li>
                                   ))}
                                 </ul>
@@ -821,9 +825,9 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="flex h-full flex-1 items-center justify-center gap-1.5
-                                    rounded-lg border border-slate-700 bg-slate-800/60 py-1.5
+                                    rounded-lg border border-slate-700 bg-transparent py-1.5
                                     sm:py-2 text-xs font-semibold text-slate-300 transition-all
-                                    duration-200 hover:border-slate-500 hover:bg-slate-700/50
+                                    duration-200 hover:border-slate-500 hover:bg-white/5
                                     hover:text-white active:scale-95"
                                 >
                                   <GithubIcon className="h-3.5 w-3.5" />
@@ -860,7 +864,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
         {/* Bottom Pagination Bar: only on small mobiles (<sm) */}
         <div
           className="relative z-30 flex xl:hidden items-center justify-center border-t
-            border-slate-700/60 bg-slate-800/70 px-3 py-2"
+            border-white/[0.08] bg-transparent px-3 py-2"
         >
           {/* Animated Progress Bar across top of bottom bar */}
           <div className="absolute top-0 left-0 h-0.5 w-full bg-slate-700/40">
@@ -872,7 +876,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
 
           <div
             className="flex items-center justify-center gap-1.5 rounded-xl border
-              border-slate-600/40 bg-slate-800/45 px-1.5 py-1.5 shadow-inner backdrop-blur-sm"
+              border-slate-600/40 bg-transparent px-1.5 py-1.5"
           >
             <button
               type="button"
@@ -898,8 +902,8 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                     rounded-lg font-mono font-bold text-sm transition-colors duration-150
                     cursor-pointer ${
                       isActive
-                        ? 'bg-slate-700/35 text-accent font-extrabold'
-                        : 'text-slate-400 hover:bg-slate-700/70 hover:text-white'
+                        ? 'bg-transparent text-accent font-extrabold'
+                        : 'text-slate-400 hover:text-white'
                     }`}
                   >
                     <span>{idx + 1}</span>

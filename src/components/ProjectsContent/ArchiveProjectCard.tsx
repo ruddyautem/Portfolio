@@ -20,13 +20,13 @@ export const ArchiveProjectCard = ({
 }: ArchiveProjectCardProps) => {
   return (
     <article
-      className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-slate-700/50
-        bg-slate-800/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5
-        hover:border-slate-600/70 hover:bg-slate-700/25 hover:shadow-lg"
+      className="group relative flex h-full flex-col overflow-hidden rounded-[10px] border border-white/[0.08]
+        bg-[var(--theme-bg)] transition-all duration-300 hover:-translate-y-1.5
+        hover:border-white/[0.14]"
     >
       {/* Top Header / Mini File tab */}
       <div
-        className="flex h-9 items-center justify-between border-b border-slate-700/50 bg-slate-800/50
+        className="flex h-9 items-center justify-between border-b border-white/[0.08] bg-[var(--theme-bg)]
           px-3.5 text-xs font-mono text-slate-300"
       >
         <div className="flex items-center gap-1.5">

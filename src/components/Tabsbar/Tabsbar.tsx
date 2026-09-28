@@ -1,6 +1,6 @@
 // src/components/Tabsbar/Tabsbar.jsx
 'use client';
-import { useRef, useEffect, useState, useContext, useCallback } from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import Image from 'next/image';
 import { Link, useRouter } from '@/i18n/routing';
 import { ThemeContext } from '@/context/ThemeContext';
@@ -15,14 +15,10 @@ const Tabsbar = () => {
   const currentRoute = usePathname();
   const router = useRouter();
   const [pendingRoute, setPendingRoute] = useState<string | null>(null);
-  const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0, opacity: 0 });
-  const tabsRef = useRef<(HTMLAnchorElement | null)[]>([]);
-  const containerRef = useRef<HTMLDivElement | null>(null);
   const { theme } = useContext(ThemeContext);
 
   const activeStyles = {
     bg: theme === 'dracula' || theme === 'oneDarkPro' ? 'bg-active-tab-bg' : '',
-    pos: ['ayu', 'oneDarkPro', 'poimandres'].includes(theme) ? 'bottom-0' : 'top-0',
   };
 
   const currentTabs = NAV_ITEMS;
@@ -36,7 +32,8 @@ const Tabsbar = () => {
 
   // Reset optimistic selection when the route transition finishes
   useEffect(() => {
-    setPendingRoute(null);
+    const timer = window.setTimeout(() => setPendingRoute(null), 0);
+    return () => window.clearTimeout(timer);
   }, [currentRoute]);
 
   // Instant response to swipe gestures (0ms latency without waiting for router.replace)
@@ -64,46 +61,13 @@ const Tabsbar = () => {
     [effectiveRoute, locale],
   );
 
-  useEffect(() => {
-    const updateUnderlineStyle = () => {
-      const activeIndex = currentTabs.findIndex((item) => checkIsActive(item.link));
-      const activeTab = tabsRef.current[activeIndex];
-
-      if (activeTab) {
-        setUnderlineStyle({
-          left: activeTab.offsetLeft,
-          width: activeTab.offsetWidth,
-          opacity: 1,
-        });
-        if (containerRef.current && containerRef.current.scrollWidth > containerRef.current.clientWidth) {
-          activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-        }
-      }
-    };
-
-    updateUnderlineStyle();
-
-    const resizeObserver = new ResizeObserver(updateUnderlineStyle);
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
-    }
-
-    window.addEventListener('resize', updateUnderlineStyle);
-
-    return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener('resize', updateUnderlineStyle);
-    };
-  }, [checkIsActive, theme, currentTabs]);
-
   return (
-    <nav aria-label="Open tabs" className="bg-menu text-darker hidden lg:block h-7 w-full relative">
+    <nav aria-label="Open tabs" className="text-darker hidden lg:block h-7 w-full relative">
       <div
-        ref={containerRef}
         role="tablist"
         className="relative flex flex-row items-center justify-center lg:justify-start overflow-x-auto no-scrollbar h-full scroll-smooth"
       >
-        {currentTabs.map(({ id, link }, index) => {
+        {currentTabs.map(({ id, link }) => {
           const name = t(id);
           const icon = TABS_NAV_ICONS[id];
           const isActive = checkIsActive(link);
@@ -119,12 +83,9 @@ const Tabsbar = () => {
               aria-label={name}
               prefetch={true}
               onClick={() => setPendingRoute(link)}
-              ref={(el) => {
-                tabsRef.current[index] = el;
-              }}
               className={cn(
-                'relative flex shrink-0 sm:flex-none cursor-pointer items-center justify-center px-2 sm:px-3 h-full transition-colors',
-                isActive ? cn(activeStyles.bg, 'text-white') : 'text-darker hover:text-white',
+                'relative flex h-full shrink-0 cursor-pointer items-center justify-center rounded-[2px] px-2 transition-colors sm:flex-none sm:px-3',
+                isActive ? cn(activeStyles.bg, 'text-accent') : 'text-darker hover:bg-white/[0.06] hover:text-white',
               )}
             >
               <div className="flex items-center gap-1 sm:gap-1.5 text-[10px] sm:my-1 sm:text-sm">
@@ -135,18 +96,6 @@ const Tabsbar = () => {
             </Link>
           );
         })}
-
-        <div
-          className={cn(
-            'absolute bg-accent h-px transition-all duration-300 ease-out',
-            activeStyles.pos,
-          )}
-          style={{
-            left: `${underlineStyle.left}px`,
-            width: `${underlineStyle.width}px`,
-            opacity: underlineStyle.opacity,
-          }}
-        />
       </div>
     </nav>
   );

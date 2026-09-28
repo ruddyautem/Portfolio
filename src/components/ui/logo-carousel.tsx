@@ -96,7 +96,9 @@ function useResponsiveColumns() {
 
   useEffect(() => {
     // Set actual responsive columns after hydration
-    setColumns(getColumnsFromWidth(window.innerWidth));
+    const initialFrame = window.requestAnimationFrame(() => {
+      setColumns(getColumnsFromWidth(window.innerWidth));
+    });
 
     let timeoutId: ReturnType<typeof setTimeout>;
     const handleResize = () => {
@@ -109,6 +111,7 @@ function useResponsiveColumns() {
     window.addEventListener('resize', handleResize, { passive: true });
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.cancelAnimationFrame(initialFrame);
       clearTimeout(timeoutId);
     };
   }, []);
@@ -124,10 +127,14 @@ function useSteppedAnimation(columnCount: number, totalFrames: number) {
 
   // Synchronize array length whenever columnCount changes
   useEffect(() => {
-    setColumnIndices((prev) => {
-      const current = prev[0] || 0;
-      return Array(columnCount).fill(current % (totalFrames || 1));
-    });
+    const timer = window.setTimeout(() => {
+      setColumnIndices((prev) => {
+        const current = prev[0] || 0;
+        return Array(columnCount).fill(current % (totalFrames || 1));
+      });
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, [columnCount, totalFrames]);
 
   useEffect(() => {

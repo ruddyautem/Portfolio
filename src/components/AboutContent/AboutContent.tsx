@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
@@ -18,7 +19,6 @@ import {
 import SkillItem from '@/components/SkillList/SkillList';
 import { skills } from './skills';
 import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
-import TopPageDecoration from '../TopPageDecoration/TopPageDecoration';
 import {
   PAGE_OUTER_CLASSES,
   PAGE_INNER_CLASSES,
@@ -33,7 +33,6 @@ type SkillCategory = 'all' | 'frontend' | 'backend' | 'tools';
 const AboutContent = () => {
   const t = useTranslations('about');
   const tHome = useTranslations('homepage');
-  const tTabs = useTranslations('tabsbar');
 
   const [activeFilter, setActiveFilter] = useState<SkillCategory>('all');
 
@@ -91,8 +90,6 @@ const AboutContent = () => {
       <div className={PAGE_OUTER_CLASSES}>
         <div className={PAGE_INNER_CLASSES}>
           <div className={PAGE_CARD_CLASSES}>
-            <TopPageDecoration filename={tTabs('about')} />
-
             {/* Main Header */}
             <header className={SECTION_HEADER_CLASSES}>
               <h1 className={HEADING_CLASSES}>
@@ -111,8 +108,8 @@ const AboutContent = () => {
               >
                 {/* Left Card (7 cols): Bio Narrative, Metrics & CTAs */}
                 <div
-                  className="flex flex-col justify-between overflow-hidden rounded-2xl border
-                    border-slate-700/60 bg-slate-800/25 p-5 shadow-xl backdrop-blur-xl sm:p-7
+                  className="flex flex-col justify-between overflow-hidden rounded-[10px] border
+                    border-white/[0.08] bg-[var(--theme-bg)] p-5 sm:p-7
                     lg:col-span-7"
                 >
                   <div>
@@ -156,7 +153,7 @@ const AboutContent = () => {
 
                     {/* Key Metrics Grid */}
                     <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-3">
-                      <div className="rounded-xl border border-slate-700/50 bg-slate-800/40 p-2.5 xl:p-3 text-center">
+                      <div className="rounded-[10px] border border-white/[0.08] bg-[var(--theme-bg)] p-2.5 xl:p-3 text-center">
                         <div className="font-mono text-sm sm:text-base xl:text-lg font-bold text-accent">
                           {t('metricProjects')}
                         </div>
@@ -165,7 +162,7 @@ const AboutContent = () => {
                         </div>
                       </div>
 
-                      <div className="rounded-xl border border-slate-700/50 bg-slate-800/40 p-2.5 xl:p-3 text-center">
+                      <div className="rounded-[10px] border border-white/[0.08] bg-[var(--theme-bg)] p-2.5 xl:p-3 text-center">
                         <div className="font-mono text-sm sm:text-base xl:text-lg font-bold text-emerald-400">
                           {t('metricTypeSafe')}
                         </div>
@@ -174,7 +171,7 @@ const AboutContent = () => {
                         </div>
                       </div>
 
-                      <div className="rounded-xl border border-slate-700/50 bg-slate-800/40 p-2.5 xl:p-3 text-center">
+                      <div className="rounded-[10px] border border-white/[0.08] bg-[var(--theme-bg)] p-2.5 xl:p-3 text-center">
                         <div className="font-mono text-sm sm:text-base xl:text-lg font-bold text-sky-400">
                           {t('metricFullstack')}
                         </div>
@@ -183,7 +180,7 @@ const AboutContent = () => {
                         </div>
                       </div>
 
-                      <div className="rounded-xl border border-slate-700/50 bg-slate-800/40 p-2.5 xl:p-3 text-center">
+                      <div className="rounded-[10px] border border-white/[0.08] bg-[var(--theme-bg)] p-2.5 xl:p-3 text-center">
                         <div className="font-mono text-sm sm:text-base xl:text-lg font-bold text-purple-400">
                           {t('metricBilingual')}
                         </div>
@@ -198,9 +195,9 @@ const AboutContent = () => {
                   <div className="mt-6 flex flex-wrap items-center justify-center sm:justify-start gap-2.5 pt-5 border-t border-slate-700/50">
                     <Link
                       href="/projects"
-                      className="inline-flex h-9 sm:h-10 xl:h-11 flex-1 sm:flex-initial items-center justify-center gap-1.5 rounded-xl
-                        border border-slate-600 bg-slate-800/60 px-4 xl:px-5 text-xs sm:text-sm xl:text-[15px] font-semibold text-white
-                        transition-all duration-200 hover:border-slate-500 hover:bg-slate-700/50
+                      className="inline-flex h-9 sm:h-10 xl:h-11 flex-1 sm:flex-initial items-center justify-center gap-1.5 rounded-[10px]
+                        border border-white/[0.08] bg-[var(--theme-bg)] px-4 xl:px-5 text-xs sm:text-sm xl:text-[15px] font-semibold text-white
+                        transition-all duration-200 hover:border-white/[0.14]
                         hover:-translate-y-0.5"
                     >
                       <FolderOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent" />
@@ -209,9 +206,9 @@ const AboutContent = () => {
 
                     <Link
                       href="/contact"
-                      className="inline-flex h-9 sm:h-10 xl:h-11 flex-1 sm:flex-initial items-center justify-center gap-1.5 rounded-xl
-                        border border-slate-600 bg-slate-800/60 px-4 xl:px-5 text-xs sm:text-sm xl:text-[15px] font-semibold text-white
-                        transition-all duration-200 hover:border-slate-500 hover:bg-slate-700/50
+                      className="inline-flex h-9 sm:h-10 xl:h-11 flex-1 sm:flex-initial items-center justify-center gap-1.5 rounded-[10px]
+                        border border-white/[0.08] bg-[var(--theme-bg)] px-4 xl:px-5 text-xs sm:text-sm xl:text-[15px] font-semibold text-white
+                        transition-all duration-200 hover:border-white/[0.14]
                         hover:-translate-y-0.5"
                     >
                       <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent" />
@@ -234,33 +231,20 @@ const AboutContent = () => {
 
                 {/* Right Card (5 cols): VS Code Code Card with matching background */}
                 <div
-                  className="flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-700/60
-                    bg-slate-800/25 p-5 shadow-xl backdrop-blur-xl sm:p-7 lg:col-span-5"
+                  className="flex flex-col justify-between overflow-hidden rounded-[10px] border border-white/[0.08]
+                    bg-[var(--theme-bg)] p-5 sm:p-7 lg:col-span-5"
                 >
-                  {/* Window Bar */}
-                  <div className="relative flex h-9 items-center justify-between border-b border-slate-700/50 pb-3 mb-4">
-                    <div className="flex items-center gap-1.5 z-10">
-                      <span className="h-2.5 w-2.5 rounded-full bg-rose-500" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                  <div className="-ml-2 -mt-2 flex h-6 items-start justify-start">
+                    <div className="flex items-center gap-1 font-mono text-[10px] text-slate-200 xl:text-xs">
+                      <Image
+                        src="/typescript.svg"
+                        alt="TypeScript"
+                        width={13}
+                        height={13}
+                        className="h-3 w-3"
+                      />
+                      <span>{t('configFilename')}</span>
                     </div>
-
-                    {/* Centered Tab filename */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="flex items-center gap-1.5 rounded-lg bg-slate-800/60 px-2.5 py-1 font-mono text-xs xl:text-sm text-slate-200 border border-slate-700/60">
-                        <Image
-                          src="/typescript.svg"
-                          alt="TypeScript"
-                          width={13}
-                          height={13}
-                          className="h-3.5 w-3.5"
-                        />
-                        <span>{t('configFilename')}</span>
-                      </div>
-                    </div>
-
-                    {/* Right Spacer for symmetry */}
-                    <div className="w-12" aria-hidden="true" />
                   </div>
 
                   {/* Code Editor Body */}
@@ -356,11 +340,11 @@ const AboutContent = () => {
                     return (
                       <div
                         key={idx}
-                        className={`group relative overflow-hidden rounded-2xl border border-slate-700/50
-                          bg-slate-800/20 p-5 sm:p-6 backdrop-blur-xl transition-all duration-300
-                          ${pillar.borderHover} hover:bg-slate-800/35 hover:-translate-y-1 hover:shadow-lg`}
+                        className={`group relative overflow-hidden rounded-[10px] border border-white/[0.08]
+                          bg-[var(--theme-bg)] p-5 sm:p-6 transition-all duration-300
+                          ${pillar.borderHover} hover:-translate-y-1`}
                       >
-                        {/* Ambient glow */}
+                        {/* Accent decoration */}
                         <div
                           className={`pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full
                             bg-linear-to-br ${pillar.glow} opacity-0 blur-2xl transition-opacity duration-300
@@ -419,7 +403,7 @@ const AboutContent = () => {
                     role="tablist"
                     aria-label={t('ariaFilterSkills')}
                     className="flex flex-wrap items-center justify-center gap-1.5 rounded-xl border
-                      border-slate-700/60 bg-slate-800/40 p-1.5 backdrop-blur-md"
+                      border-slate-700/60  p-1.5 backdrop-blur-md"
                   >
                     {[
                       { id: 'all', label: t('filterAll'), count: allSkillsList.length, dot: 'bg-accent' },
@@ -429,28 +413,35 @@ const AboutContent = () => {
                     ].map((tab) => {
                       const isActive = activeFilter === tab.id;
                       return (
-                        <button
+                        <motion.button
                           key={tab.id}
                           role="tab"
                           aria-selected={isActive}
                           onClick={() => setActiveFilter(tab.id as SkillCategory)}
-                          className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs xl:text-sm font-mono
+                          className={`relative flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs xl:text-sm font-mono
                             transition-all duration-200 cursor-pointer ${
                               isActive
-                                ? 'bg-accent text-slate-950 font-bold shadow-sm shadow-accent/20'
+                                ? 'text-slate-950 font-bold'
                                 : 'text-slate-400 hover:bg-slate-700/40 hover:text-white'
                             }`}
                         >
-                          <span className={`h-1.5 w-1.5 rounded-full ${isActive ? 'bg-slate-950' : tab.dot}`} />
-                          <span>{tab.label}</span>
+                          {isActive && (
+                            <motion.span
+                              layoutId="skill-filter-indicator"
+                              className="absolute inset-0 rounded-lg bg-accent shadow-sm shadow-accent/20"
+                              transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                            />
+                          )}
+                          <span className={`relative h-1.5 w-1.5 rounded-full ${isActive ? 'bg-slate-950' : tab.dot}`} />
+                          <span className="relative">{tab.label}</span>
                           <span
-                            className={`rounded-full px-1.5 py-0.2 text-[10px] xl:text-xs ${
+                            className={`relative rounded-full px-1.5 py-0.2 text-[10px] xl:text-xs ${
                               isActive ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-700/50 text-slate-400'
                             }`}
                           >
                             {tab.count}
                           </span>
-                        </button>
+                        </motion.button>
                       );
                     })}
                   </div>

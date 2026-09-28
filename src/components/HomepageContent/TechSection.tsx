@@ -9,6 +9,7 @@ const TechSection = () => {
 
   return (
     <div
+      data-tech-carousel="true"
       className="item-animate mt-2 flex w-full max-w-full flex-col items-center overflow-hidden
         border-t border-slate-700/50 pt-1.5 lg:mt-1.5 lg:pt-1.5 xl:mt-2 xl:pt-2 2xl:mt-2.5 2xl:pt-2.5 3xl:mt-10 3xl:pt-5"
     >

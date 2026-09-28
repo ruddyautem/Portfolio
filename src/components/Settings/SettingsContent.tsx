@@ -13,8 +13,7 @@ import {
   PAGE_CARD_CLASSES,
   THEME_LABELS,
 } from '@/lib/constants';
-import TopPageDecoration from '../TopPageDecoration/TopPageDecoration';
-import { Palette, Globe, Check, Sparkles } from 'lucide-react';
+import { Palette, Globe, Check } from 'lucide-react';
 import { cn, saveScrollPosition } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -24,7 +23,7 @@ export default function SettingsContent() {
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
-  const { theme, toggle: setTheme, backgroundGlow, toggleBackgroundGlow } = useContext(ThemeContext);
+  const { theme, toggle: setTheme } = useContext(ThemeContext);
 
   const handleLanguageChange = (nextLocale: string) => {
     if (!hasLocale(routing.locales, nextLocale) || locale === nextLocale) return;
@@ -38,15 +37,12 @@ export default function SettingsContent() {
     <div className={PAGE_OUTER_CLASSES}>
       <div className={PAGE_INNER_CLASSES}>
         <div className={PAGE_CARD_CLASSES}>
-          {/* Top VS Code Window Tab decoration */}
-          <TopPageDecoration filename={t('filename')} />
-
           {/* Unified Section Header */}
-          <div className="border-b border-slate-700/30 px-4 py-4 text-center sm:py-6 2xl:py-6 3xl:py-9 portrait:py-6 sm:portrait:py-10">
+          <div className="border-b border-white/[0.08] px-4 py-4 text-center sm:py-6 2xl:py-6 3xl:py-9 portrait:py-6 sm:portrait:py-10">
             <h1 className="item-animate mb-1.5 sm:mb-2.5 text-2xl font-bold text-white sm:text-3xl md:text-4xl 2xl:text-4xl 3xl:text-5xl portrait:text-2xl sm:portrait:text-4xl">
               {t('title')} <span className="text-accent">{t('titleAccent')}</span>
             </h1>
-            <p className="item-animate mx-auto max-w-2xl text-xs text-slate-300 sm:text-base 2xl:text-base 3xl:text-lg portrait:text-sm sm:portrait:text-base">
+            <p className="item-animate mx-auto max-w-2xl text-sm text-slate-300 sm:text-lg md:text-xl 2xl:text-2xl portrait:text-sm sm:portrait:text-base">
               {t('subtitle')}
             </p>
           </div>
@@ -74,10 +70,10 @@ export default function SettingsContent() {
                       type="button"
                       onClick={() => setTheme(themeOption)}
                       className={cn(
-                        'relative flex h-full min-h-26 sm:min-h-32 md:min-h-34 2xl:min-h-38 3xl:min-h-45 portrait:min-h-37.5 sm:portrait:min-h-41.25 cursor-pointer flex-col justify-between items-center sm:items-start rounded-xl sm:rounded-2xl border-2 p-3.5 sm:p-4.5 2xl:p-5 3xl:p-7 text-center sm:text-left transition-all duration-200 hover:scale-[1.02]',
+                        'relative flex h-full min-h-26 sm:min-h-32 md:min-h-34 2xl:min-h-38 3xl:min-h-45 portrait:min-h-37.5 sm:portrait:min-h-41.25 cursor-pointer flex-col justify-between items-center sm:items-start rounded-[10px] border p-3.5 sm:p-4.5 2xl:p-5 3xl:p-7 text-center sm:text-left transition-all duration-200 hover:scale-[1.02]',
                         isActive
-                          ? 'border-accent bg-slate-900/90 shadow-sm'
-                          : 'border-slate-700/60 bg-slate-900/40 hover:border-slate-600',
+                          ? 'border-accent bg-[var(--theme-bg)]'
+                          : 'border-white/[0.08] bg-[var(--theme-bg)] hover:border-white/[0.14]',
                       )}
                     >
                       {isActive && (
@@ -101,80 +97,10 @@ export default function SettingsContent() {
                   );
                 })}
               </div>
-
-              {/* VS Code Interactive Card Button for Background Glow Toggle */}
-              <div className="mt-3.5 sm:mt-5 2xl:mt-5 3xl:mt-7 flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => toggleBackgroundGlow()}
-                  title={t('blobsDesc')}
-                  aria-pressed={backgroundGlow}
-                  className={cn(
-                    'group relative inline-flex w-full max-w-md sm:max-w-lg 2xl:max-w-xl cursor-pointer items-center justify-between gap-3 sm:gap-6 rounded-xl sm:rounded-2xl border-2 px-3.5 py-2.5 sm:px-5 sm:py-3.5 2xl:px-5 2xl:py-3.5 3xl:px-6 3xl:py-4 backdrop-blur-sm transition-all duration-200 hover:scale-[1.01] focus:outline-none min-h-12 sm:min-h-15 2xl:min-h-16 3xl:min-h-18',
-                    backgroundGlow
-                      ? 'border-accent bg-slate-900/90 shadow-sm'
-                      : 'border-slate-700/60 bg-slate-900/40 hover:border-slate-600',
-                  )}
-                >
-                  <div className="flex items-center justify-center sm:justify-start gap-2.5 sm:gap-4 text-center sm:text-left min-w-0 flex-1">
-                    {/* Desktop Icon Container */}
-                    <div
-                      className={cn(
-                        'hidden sm:flex h-8.5 w-8.5 sm:h-9.5 sm:w-9.5 2xl:h-10 2xl:w-10 3xl:h-11 3xl:w-11 shrink-0 items-center justify-center rounded-xl transition-colors',
-                        backgroundGlow ? 'bg-accent/15 text-accent' : 'bg-slate-800 text-slate-400',
-                      )}
-                    >
-                      <Sparkles
-                        className={cn(
-                          'h-4 w-4 sm:h-4.5 sm:w-4.5 2xl:h-5 2xl:w-5 3xl:h-5.5 3xl:w-5.5 transition-transform duration-200 group-hover:scale-110',
-                          backgroundGlow ? 'text-accent' : 'text-slate-400',
-                        )}
-                      />
-                    </div>
-                    {/* Mobile Inline Icon */}
-                    <Sparkles
-                      className={cn(
-                        'sm:hidden h-4.5 w-4.5 shrink-0 transition-transform duration-200',
-                        backgroundGlow ? 'text-accent' : 'text-slate-400',
-                      )}
-                    />
-                    <div className="min-w-0">
-                      <span
-                        className={cn(
-                          'block text-sm sm:text-base 2xl:text-sm 3xl:text-base font-bold transition-colors tracking-wide text-center sm:text-left',
-                          backgroundGlow ? 'text-white' : 'text-slate-300',
-                        )}
-                      >
-                        {t('effectsTitle')}
-                      </span>
-                      <p className="hidden sm:block mt-0.5 text-xs text-slate-400 line-clamp-1">
-                        {t('blobsDesc')}
-                      </p>
-                    </div>
-                  </div>
-
-                  <span
-                    className={cn(
-                      'inline-flex shrink-0 items-center gap-1 sm:gap-1.5 rounded-lg sm:rounded-xl px-2.5 py-1 sm:px-3 sm:py-1 2xl:px-3 2xl:py-1 3xl:px-3.5 3xl:py-1.5 text-xs sm:text-xs 3xl:text-sm font-bold font-mono transition-all',
-                      backgroundGlow
-                        ? 'bg-accent/20 text-accent ring-1 ring-accent/40'
-                        : 'bg-slate-800 text-slate-400 ring-1 ring-slate-700/60',
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        'h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full',
-                        backgroundGlow ? 'bg-accent animate-pulse' : 'bg-slate-500',
-                      )}
-                    />
-                    {backgroundGlow ? 'ON' : 'OFF'}
-                  </span>
-                </button>
-              </div>
             </div>
 
             {/* Divider */}
-            <div className="border-t border-slate-700/40" />
+            <div className="border-t border-white/[0.08]" />
 
             {/* Language Section - Perfectly Aligned Side-by-Side Buttons */}
             <div className="item-animate-2">
@@ -197,10 +123,10 @@ export default function SettingsContent() {
                       disabled={isPending}
                       onClick={() => handleLanguageChange(lang.code)}
                       className={cn(
-                        'relative flex min-h-13 sm:min-h-16 2xl:min-h-18 3xl:min-h-23 cursor-pointer items-center justify-center sm:justify-between rounded-xl sm:rounded-2xl border-2 px-4 py-3 sm:px-5 sm:py-3.5 2xl:px-6 2xl:py-4 3xl:px-6 3xl:py-6 transition-all duration-200 hover:scale-[1.01]',
+                        'relative flex min-h-13 sm:min-h-16 2xl:min-h-18 3xl:min-h-23 cursor-pointer items-center justify-center sm:justify-between rounded-[10px] border px-4 py-3 sm:px-5 sm:py-3.5 2xl:px-6 2xl:py-4 3xl:px-6 3xl:py-6 transition-all duration-200 hover:scale-[1.01]',
                         isActive
-                          ? 'border-accent bg-slate-900/90 shadow-sm'
-                          : 'border-slate-700/60 bg-slate-900/40 hover:border-slate-600',
+                          ? 'border-accent bg-[var(--theme-bg)]'
+                          : 'border-white/[0.08] bg-[var(--theme-bg)] hover:border-white/[0.14]',
                       )}
                     >
                       <div className="flex items-center justify-center sm:justify-start gap-3 sm:gap-3.5 2xl:gap-4">

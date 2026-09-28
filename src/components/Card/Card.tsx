@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { TAG_COLORS_CARD } from '@/lib/constants';
+import { Tooltip } from '@/components/ui/beui-tooltip';
 
 const Card = ({ project, compact = false }: { project: Project; compact?: boolean }) => {
   const t = useTranslations('card');
@@ -44,15 +45,16 @@ const Card = ({ project, compact = false }: { project: Project; compact?: boolea
               <h3 className="text-base font-bold text-white sm:text-lg">
                 {project.title}
               </h3>
-              <Link
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={project.demo?.replace('https://', '')}
-                className="text-[11px] font-mono text-accent truncate max-w-[130px] hover:underline"
-              >
-                {project.demo?.replace('https://', '')}
-              </Link>
+              <Tooltip content={project.demo?.replace('https://', '')} side="top">
+                <Link
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] font-mono text-accent truncate max-w-[130px] hover:underline"
+                >
+                  {project.demo?.replace('https://', '')}
+                </Link>
+              </Tooltip>
             </div>
 
             <p className="mb-4 min-h-[2.5rem] text-xs leading-relaxed text-slate-300 sm:min-h-[2.75rem] sm:text-sm">

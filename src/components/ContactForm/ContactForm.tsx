@@ -147,25 +147,19 @@ const ContactForm = () => {
   const isComplete = progressPercentage === 100;
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/20 backdrop-blur-xl transition-all duration-300 hover:border-slate-600/70 shadow-xl">
+    <div className="relative overflow-hidden rounded-[10px] border border-white/8 bg-transparent transition-colors duration-300 hover:border-white/[0.14]">
       {/* IDE Terminal Header */}
-      <div className="flex h-9 items-stretch justify-between border-b border-slate-700/50 bg-slate-800/60 px-3.5 backdrop-blur-md">
-        <div className="flex h-full items-end gap-2">
-          {/* Traffic light dots */}
-          <div className="flex items-center gap-1.5 self-center" aria-hidden="true">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]" />
-          </div>
+      <div className="flex h-9 items-center justify-between bg-transparent px-3.5">
+        <div className="flex h-full items-center">
           {/* Active file tab */}
-          <div className="relative z-10 -mb-px ml-2 flex items-center gap-1.5 rounded-t-md border-x border-t border-b-0 border-slate-700/50 bg-slate-800 px-2.5 py-0.5 text-[11px] font-mono text-slate-200">
+          <div className="flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-mono text-slate-200">
             <span className="text-accent">ts</span>
             <span>send-message.ts</span>
           </div>
         </div>
 
         {/* Status Pill */}
-        <div className="flex items-center gap-1.5 self-center rounded-full border border-slate-700/50 bg-slate-800/50 px-2 py-0.5 text-[10px] font-mono text-slate-300">
+        <div className="flex items-center gap-1.5 self-center rounded-full border border-slate-700/50 px-2 py-0.5 text-[10px] font-mono text-slate-300">
           <span className={`h-1.5 w-1.5 rounded-full ${isComplete ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
           <span>{isComplete ? t('ui.ready') : `${validFields}/${FIELDS_CONFIG.length}`}</span>
         </div>
@@ -293,7 +287,7 @@ const ContactForm = () => {
                 font-mono font-semibold text-sm transition-all duration-300 ${
                   progressPercentage === 100 && !status.loading
                     ? 'bg-accent text-slate-950 hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 active:scale-[0.99]'
-                    : 'bg-slate-800/80 text-slate-500 border border-slate-700/50 cursor-not-allowed opacity-60'
+                    : ' text-slate-500 border border-slate-700/50 cursor-not-allowed opacity-60'
                 }`}
             >
               {status.loading ? (

@@ -6,7 +6,6 @@ import { getProjects } from '@/app/[locale]/projects/projects';
 import HeroSection from './HeroSection';
 import TechSection from './TechSection';
 import ProjectSpotlight from './ProjectSpotlight';
-import TopPageDecoration from '../TopPageDecoration/TopPageDecoration';
 
 import { PAGE_OUTER_CLASSES, PAGE_INNER_CLASSES, PAGE_CARD_CLASSES } from '@/lib/constants';
 
@@ -23,8 +22,6 @@ const HomepageContent = () => {
     <div className={PAGE_OUTER_CLASSES}>
       <div className={PAGE_INNER_CLASSES}>
         <div className={PAGE_CARD_CLASSES}>
-          <TopPageDecoration filename={t('filename')} />
-
           <div className="flex w-full flex-col gap-6 sm:gap-10 lg:gap-12 p-4 sm:p-7 md:p-9 lg:p-10 xl:p-12">
             {/* Top Section: Hero (Identity, intro, skills & actions) */}
             <div className="w-full">

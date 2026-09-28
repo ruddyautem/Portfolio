@@ -3,7 +3,6 @@
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
-import TopPageDecoration from '@/components/TopPageDecoration/TopPageDecoration';
 import { getProjects } from '@/app/[locale]/projects/projects';
 import { FeaturedProjectCard } from './FeaturedProjectCard';
 import { ArchiveProjectCard } from './ArchiveProjectCard';
@@ -30,8 +29,6 @@ const Projects = () => {
       <div className={PAGE_OUTER_CLASSES}>
         <div className={PAGE_INNER_CLASSES}>
           <div className={PAGE_CARD_CLASSES}>
-            <TopPageDecoration filename={t('filename')} />
-
             {/* Page Header */}
             <div className={SECTION_HEADER_CLASSES}>
               <h1 className={HEADING_CLASSES}>
@@ -75,12 +72,12 @@ const Projects = () => {
               {/* Lab & Other Projects Section */}
               <section
                 aria-label={t('otherTitle')}
-                className="mt-12 sm:mt-24 border-t border-slate-700/40 pt-8 sm:pt-16"
+                className="mt-12 sm:mt-24 border-t border-white/[0.08] pt-8 sm:pt-16"
               >
                 <div className="mb-6 sm:mb-8 flex flex-col items-center text-center">
                   <div
-                    className="inline-flex items-center gap-1.5 rounded-full border border-slate-700
-                      bg-slate-800/60 px-3 py-0.5 text-[11px] sm:text-xs font-mono font-semibold uppercase tracking-wider
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08]
+                      bg-[var(--theme-bg)] px-3 py-0.5 text-[11px] sm:text-xs font-mono font-semibold uppercase tracking-wider
                       text-slate-300"
                   >
                     <Code2 className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-slate-400" />

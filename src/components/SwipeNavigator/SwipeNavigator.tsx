@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState, useTransition } from 'react';
+import { useCallback, useEffect, useRef, useState, useTransition } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { useLocale, useTranslations } from 'next-intl';
@@ -12,6 +12,7 @@ import ProjectsContent from '@/components/ProjectsContent/ProjectsContent';
 import ContactList from '@/components/ContactList/ContactList';
 import CVContent from '@/components/CVContent/CVContent';
 import SettingsContent from '@/components/Settings/SettingsContent';
+import LineNumbersGutter from '@/components/LineNumbersGutter/LineNumbersGutter';
 import { restoreScrollPosition } from '@/lib/utils';
 
 interface SwipeNavigatorProps {
@@ -27,6 +28,7 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
   const [, startTransition] = useTransition();
 
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkViewport = () => {
@@ -71,11 +73,13 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
     // Keep rendered slides in sync with route-driven navigation too. Embla may
     // already be at the requested snap (and emit no `select` event), leaving
     // the destination slide unmounted after tapping a mobile nav button.
-    setSelectedIndex(activeIndex);
+    const frame = window.requestAnimationFrame(() => setSelectedIndex(activeIndex));
 
     if (emblaApi && emblaApi.selectedScrollSnap() !== activeIndex) {
       emblaApi.scrollTo(activeIndex);
     }
+
+    return () => window.cancelAnimationFrame(frame);
   }, [activeIndex, emblaApi]);
 
   // Sync active item immediately on select (instant feedback on MobileNav / Tabsbar)
@@ -164,11 +168,20 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
     restoreScrollPosition();
   }, [locale]);
 
-  // Desktop (>= 1024px) keeps the native standard page rendering
+  // Desktop (>= 1024px) keeps the native standard page rendering with line numbers gutter
   if (!isMobileOrTablet) {
     return (
       <div id="main-scroll-container" className={className}>
-        {children}
+        <div className="relative flex min-h-full w-full flex-row">
+          <div className="relative w-16 shrink-0 select-none">
+            <div className="absolute inset-0 overflow-hidden">
+              <LineNumbersGutter contentRef={contentRef} />
+            </div>
+          </div>
+          <div ref={contentRef} className="flex-1 min-w-0">
+            {children}
+          </div>
+        </div>
       </div>
     );
   }

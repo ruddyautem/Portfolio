@@ -332,22 +332,6 @@ body {
   animation: item-appear 0.45s 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ── Ambient Background Glow Breathing Animation ── */
-@keyframes ambient-glow {
-  0%, 100% {
-    opacity: 0.65;
-    transform: scale(0.98);
-  }
-  50% {
-    opacity: 0.95;
-    transform: scale(1.02);
-  }
-}
-
-.animate-ambient-glow {
-  animation: ambient-glow 7s ease-in-out infinite;
-}
-
 /* ── Accessibility: Prefers Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
   .item-animate,
@@ -365,10 +349,6 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-  .bg-blobs,
-  .animate-ambient-glow {
-    animation: none !important;
   }
 }
 
@@ -503,12 +483,6 @@ body {
   text-align: center;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.4);
-}
-
-/* Background ambient glow halo toggle */
-html.no-glow .bg-blobs,
-.no-glow .bg-blobs {
-  display: none !important;
 }
 
 /* Page slide transition animations for mobile/tablet */
@@ -673,4 +647,70 @@ html.no-glow .bg-blobs,
 
 .animate-sparkle-twinkle {
   animation: sparkleTwinkle 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Contact notifications: compact VS Code-style status panels ── */
+.Toastify__toast-container--top-center {
+  top: 3.25rem;
+  width: min(calc(100vw - 2rem), 28rem);
+}
+
+.portfolio-toast {
+  min-height: 0;
+  margin-bottom: 0.75rem;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 10px;
+  background: var(--theme-bg) !important;
+  color: var(--color-light) !important;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.28);
+  font-family: var(--font-inconsolata), ui-monospace, monospace;
+}
+
+.portfolio-toast .Toastify__toast-body {
+  margin: 0;
+  padding: 0.8rem 2.75rem 0.8rem 0.9rem;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+
+.portfolio-toast .Toastify__toast-icon {
+  width: 1rem;
+  margin-inline-end: 0.65rem;
+}
+
+.portfolio-toast.Toastify__toast--success .Toastify__toast-icon svg {
+  fill: #34d399;
+}
+
+.portfolio-toast.Toastify__toast--error .Toastify__toast-icon svg {
+  fill: #fb7185;
+}
+
+.portfolio-toast .Toastify__close-button {
+  top: 50%;
+  right: 0.65rem;
+  transform: translateY(-50%);
+  color: var(--color-light);
+  opacity: 0.45;
+}
+
+.portfolio-toast .Toastify__close-button:hover {
+  opacity: 1;
+}
+
+.portfolio-toast__progress {
+  height: 2px;
+  background: #34d399;
+}
+
+.portfolio-toast.Toastify__toast--error .portfolio-toast__progress {
+  background: #fb7185;
+}
+
+@media (min-width: 640px) {
+  .Toastify__toast-container--top-center {
+    top: 3.75rem;
+  }
 }

@@ -12,7 +12,7 @@
 
 ### 📋 Présentation
 
-Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais envie d'un site qui me ressemble un peu plus qu'un template classique — alors j'ai eu l'idée de le construire comme une véritable interface **VS Code** : barre de menu, sidebar, explorateur de fichiers, onglets ouverts, le tout recréé de zéro en React & TypeScript. Le site est bilingue (FR/EN) et se décline en quatre thèmes visuels, au choix.
+Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais envie d'un site qui me ressemble un peu plus qu'un template classique — alors j'ai eu l'idée de le construire comme une véritable interface **VS Code** : barre de menu, sidebar, explorateur de fichiers redimensionnable, onglets ouverts et gouttière de numéros de ligne, le tout recréé de zéro en React & TypeScript. Le site est bilingue (FR/EN) et se décline en quatre thèmes visuels, au choix.
 
 ### 📑 Les pages
 
@@ -21,9 +21,9 @@ Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais 
 | `/` (Accueil) | Héro interactif avec navigation rapide, projecteur carrousel auto-défilant avec compte à rebours, et ruban animé des technologies (`LogoCarousel`)                             |
 | `/about`      | Bento grid complet : biographie, 4 cartes de bonnes pratiques (architecture, performance, sécurité, qualité), profil VS Code interactif, compétences filtrables et téléchargement CV |
 | `/projects`   | Vitrine complète des projets — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — avec cartes mises en avant et archives            |
-| `/contact`    | Formulaire sécurisé avec validation Zod, protection anti-spam honeypot, rate limiting et notifications toast                                                                    |
+| `/contact`    | Formulaire sécurisé avec validation Zod, protection anti-spam honeypot, rate limiting et notifications toast centrées et intégrées au thème                                      |
 | `/cv`         | Rendu du CV interactif & stylisé, basé sur des données bilingues typées, avec liens directs vers les projets et bouton de téléchargement PDF                                    |
-| `/settings`   | Page de configuration (`parametres.json`) : sélection des 4 thèmes, choix de la langue et interrupteur d'effets visuels (halos lumineux d'ambiance)                             |
+| `/settings`   | Page de configuration (`parametres.json`) : sélection des 4 thèmes et choix de la langue                                                                                   |
 
 ### ⌨️ Palette de commandes VS Code (`cmdk`)
 
@@ -56,11 +56,11 @@ Sécurisation complète de la route d'envoi d'emails (via Resend + Zod) :
 - Bilingue français et anglais grâce à `next-intl` avec routes préfixées (`/fr/...`, `/en/...`).
 - **Génération des routes localisées (`generateStaticParams`)** : Les routes française et anglaise sont générées depuis la liste de locales configurée.
 - **Préchargement en mémoire (`router.prefetch`)** : Les routes sont préchargées dans le cache client dès le montage.
-- **UI Optimiste (0 ms)** : Le trait des onglets et la barre latérale glissent instantanément au clic sans latence réseau.
+- **UI optimiste (0 ms)** : Les onglets et icônes de la sidebar reflètent immédiatement la navigation sans attendre le réseau.
 
 ### 📱 Navigation Gestuelle (Swipe) Mobile
 
-- **Glissement horizontal fluide (< 1280px)** : Changement de page au doigt via carrousel continu (`SwipeNavigator`) avec mise à jour instantanée des onglets et de la barre de navigation mobile.
+- **Glissement horizontal fluide (< 1024px)** : Changement de page au doigt via carrousel continu (`SwipeNavigator`) avec mise à jour instantanée des onglets et de la barre de navigation mobile.
 - **Indicateurs visuels discrets** : Aperçu animé au chargement et invitation à explorer la palette de commandes depuis la barre supérieure.
 
 ### 🎨 Les thèmes
@@ -127,11 +127,14 @@ Portfolio/
 │   │   ├── CVContent/               # Rendu du CV interactif bilingue
 │   │   ├── ContactForm/             # Formulaire de contact avec protection anti-spam
 │   │   ├── Menu/                    # Barre de titre VS Code
-│   │   ├── Sidebar/                 # Navigation latérale avec indicateur optimiste
-│   │   ├── Tabsbar/                 # Barre d'onglets responsive
-│   │   ├── MobileNav/               # Barre de navigation mobile (<1280px) réactive
-│   │   └── Explorer/                # Explorateur de fichiers
-│   ├── context/ThemeContext.tsx     # Gestion du thème et des halos lumineux
+│   │   ├── Sidebar/                 # Navigation latérale, icône active colorée
+│   │   ├── Explorer/                # Explorateur de fichiers animé et redimensionnable
+│   │   ├── BreadcrumbBar/           # Fil d'Ariane de l'éditeur
+│   │   ├── LineNumbersGutter/       # Gouttière de numéros de ligne (bureau)
+│   │   ├── Tabsbar/                 # Barre d'onglets intégrée à l'éditeur
+│   │   ├── MobileNav/               # Barre de navigation mobile (<1024px) réactive
+│   │   └── ui/                      # Primitives d'animation et tooltip partagés
+│   ├── context/ThemeContext.tsx     # Gestion du thème
 │   ├── i18n/                        # Configuration next-intl & routage
 │   ├── lib/                         # Constantes, données CV, utilitaires typés
 │   └── messages/                    # Dictionnaires de traduction JSON (fr / en)
@@ -166,7 +169,7 @@ Je suis Ruddy Autem, développeur Full Stack. Si le code vous inspire ou que vou
 
 ### 📋 Overview
 
-Welcome to the source code of my portfolio. As a Full Stack developer, I wanted something that felt more like _me_ than a standard template — so I built it as a real **VS Code**-style interface: menu bar, sidebar, file explorer, open tabs, all recreated from scratch in React & TypeScript. The site is bilingual (FR/EN) and comes with four selectable visual themes.
+Welcome to the source code of my portfolio. As a Full Stack developer, I wanted something that felt more like _me_ than a standard template — so I built it as a real **VS Code**-style interface: menu bar, sidebar, resizable file explorer, open tabs, and an editor line-number gutter, all recreated from scratch in React & TypeScript. The site is bilingual (FR/EN) and comes with four selectable visual themes.
 
 ### 📑 Pages
 
@@ -175,9 +178,9 @@ Welcome to the source code of my portfolio. As a Full Stack developer, I wanted 
 | `/` (Home)  | Interactive hero with quick navigation, auto-advancing project spotlight carousel with visual timer, and animated tech logo ribbon (`LogoCarousel`)                    |
 | `/about`    | Full bento grid: developer narrative, 4 best-practice cards (architecture, performance, security, code quality), interactive VS Code profile snapshot, filterable skill tags (Front-End, Back-End, Tools), CV download |
 | `/projects` | Complete project showcase — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — with featured spotlight cards and archives  |
-| `/contact`  | Secured contact form with Zod validation, honeypot spam protection, rate limiting, and toast notifications                                                              |
+| `/contact`  | Secured contact form with Zod validation, honeypot spam protection, rate limiting, and theme-integrated centered toast notifications                                  |
 | `/cv`       | Interactive & styled resume view rendered from typed bilingual data with direct project links and PDF download                                                          |
-| `/settings` | Built-in settings page (`settings.json`): theme switcher (4 themes), language selector, and ambient background glow toggle                                             |
+| `/settings` | Built-in settings page (`settings.json`): theme switcher (4 themes) and language selector                                                                           |
 
 ### ⌨️ VS Code Command Palette (`cmdk`)
 
@@ -213,11 +216,11 @@ Fully secured email submission route (via Resend + Zod):
 - Bilingual English and French powered by `next-intl` with locale-prefixed routes (`/en/...`, `/fr/...`).
 - **Localized route generation (`generateStaticParams`)** : English and French routes are generated from the configured locale list.
 - **In-Memory Prefetching (`router.prefetch`)** : All routes preloaded into client memory on mount.
-- **Optimistic UI (0 ms)** : Tab underlines and sidebar indicator glide immediately on click without network delay.
+- **Optimistic UI (0 ms)** : Tabs and sidebar icons reflect navigation immediately without waiting for the network.
 
 ### 📱 Mobile Gesture Navigation (Swipe)
 
-- **Smooth horizontal paging (< 1280px)** : Seamless swipe between all pages (`SwipeNavigator`) with zero-latency tab and mobile nav synchronization.
+- **Smooth horizontal paging (< 1024px)** : Seamless swipe between all pages (`SwipeNavigator`) with zero-latency tab and mobile nav synchronization.
 - **Subtle visual onboarding** : Gentle introductory peek slide and an interactive top search bar invitation to explore.
 
 ### 🎨 Themes
@@ -284,11 +287,14 @@ Portfolio/
 │   │   ├── CVContent/               # Bilingual interactive CV view
 │   │   ├── ContactForm/             # Contact form with anti-spam protection
 │   │   ├── Menu/                    # VS Code title bar
-│   │   ├── Sidebar/                 # Sidebar navigation with optimistic indicator
-│   │   ├── Tabsbar/                 # Responsive tabs bar
-│   │   ├── MobileNav/               # Responsive mobile bottom navigation (<1280px)
-│   │   └── Explorer/                # File explorer tree
-│   ├── context/ThemeContext.tsx     # Theme and background glow state management
+│   │   ├── Sidebar/                 # Sidebar navigation with an accented active icon
+│   │   ├── Explorer/                # Animated, resizable file explorer
+│   │   ├── BreadcrumbBar/           # Editor breadcrumb bar
+│   │   ├── LineNumbersGutter/       # Desktop editor line-number gutter
+│   │   ├── Tabsbar/                 # Tabs integrated into the editor panel
+│   │   ├── MobileNav/               # Responsive mobile bottom navigation (<1024px)
+│   │   └── ui/                      # Shared animation and tooltip primitives
+│   ├── context/ThemeContext.tsx     # Theme state management
 │   ├── i18n/                        # next-intl configuration & routing
 │   ├── lib/                         # Constants, CV data, typed utilities
 │   └── messages/                    # JSON translation dictionaries (fr / en)

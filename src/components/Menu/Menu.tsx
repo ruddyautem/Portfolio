@@ -20,6 +20,7 @@ import { ThemeContext } from '@/context/ThemeContext';
 import { cn, saveScrollPosition } from '@/lib/utils';
 import { LANGUAGES, THEME_OPTIONS, THEME_DOT_COLORS, THEME_LABELS } from '@/lib/constants';
 import { ChevronDown, CheckIcon } from '@/lib/icons';
+import { Tooltip } from '@/components/ui/beui-tooltip';
 import dynamic from 'next/dynamic';
 
 const CommandPalette = dynamic(() => import('@/components/CommandPalette/CommandPalette'), {
@@ -404,13 +405,13 @@ const LanguageMenu = memo(({ className }: { className?: string }) => {
 
   return (
     <div ref={anchorRef} className={cn('relative shrink-0', className)}>
+      <Tooltip content={t('language') ?? 'Language'} side="bottom" disabled={isOpen}>
       <button
         type="button"
         onClick={toggle}
         aria-haspopup="menu"
         aria-expanded={isOpen}
         aria-label={t('language') ?? 'Language'}
-        title={t('language') ?? 'Language'}
         disabled={isPending}
         className={cn(
           `flex h-5 cursor-pointer items-center gap-0.5 rounded px-1 text-white/70
@@ -434,6 +435,7 @@ const LanguageMenu = memo(({ className }: { className?: string }) => {
           )}
         />
       </button>
+      </Tooltip>
 
       <AnchoredPortal anchorRef={anchorRef} overlayRef={overlayRef} isOpen={isOpen} align="right">
         <ul
@@ -495,13 +497,13 @@ const ThemeMenu = memo(({ className }: { className?: string }) => {
 
   return (
     <div ref={anchorRef} className={cn('relative shrink-0', className)}>
+      <Tooltip content={t('theme')} side="bottom" disabled={isOpen}>
       <button
         type="button"
         onClick={toggle}
         aria-haspopup="menu"
         aria-expanded={isOpen}
         aria-label={t('theme')}
-        title={t('theme')}
         className={cn(
           `flex h-5 cursor-pointer items-center gap-0.5 rounded px-1 text-white/70
           transition-colors`,
@@ -522,6 +524,7 @@ const ThemeMenu = memo(({ className }: { className?: string }) => {
           )}
         />
       </button>
+      </Tooltip>
 
       <AnchoredPortal anchorRef={anchorRef} overlayRef={overlayRef} isOpen={isOpen} align="right">
         <ul
@@ -616,7 +619,7 @@ const Menu = () => {
             style={{ width: SEARCH_BAR_WIDTH }}
             className={cn(
               'hover:border-accent group relative flex h-7 shrink-0 items-center overflow-hidden',
-              `rounded border border-gray-100/10 bg-gray-300/5 text-xs font-semibold text-light
+              `rounded border border-gray-100/10 text-xs font-semibold text-light
               transition-colors`,
               showSearchNudge && 'animate-search-bar-nudge',
             )}
@@ -673,7 +676,7 @@ const Menu = () => {
 
                 {/* ⌘K badge visible on sm and above */}
                 <kbd
-                  className="ml-1.5 hidden h-4 items-center gap-0.5 rounded bg-white/10 px-1.5 font-mono text-[9px]
+                  className="ml-1.5 hidden h-4 bg-white/10 items-center gap-0.5 rounded px-1.5 font-mono text-[9px]
                     font-medium leading-none text-slate-400 select-none sm:inline-flex"
                 >
                   <CmdIcon className="h-2.5 w-2.5 shrink-0 text-slate-400" />
@@ -681,7 +684,7 @@ const Menu = () => {
                 </kbd>
 
                 {/* Invisible spacer matching the search icon width + margin so the name stays centered on mobile */}
-                <span className="w-[calc(15px+0.375rem)] shrink-0 sm:hidden" aria-hidden="true" />
+                <span className="w-5.25 shrink-0 sm:hidden" aria-hidden="true" />
               </div>
             </button>
 

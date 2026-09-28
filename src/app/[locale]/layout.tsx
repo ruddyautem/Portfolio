@@ -10,11 +10,11 @@ import Footer from '@/components/Footer/Footer';
 import Menu from '@/components/Menu/Menu';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import Tabsbar from '@/components/Tabsbar/Tabsbar';
+import BreadcrumbBar from '@/components/BreadcrumbBar/BreadcrumbBar';
 import MobileNav from '@/components/MobileNav/MobileNav';
 import SwipeNavigator from '@/components/SwipeNavigator/SwipeNavigator';
 import { ThemeContextProvider } from '@/context/ThemeContext';
 import ThemeProvider from '../providers/ThemeProvider';
-import { BackgroundBlobs } from '@/components/PageWrapper/PageWrapper';
 import { THEME_OPTIONS } from '@/lib/constants';
 import { SITE_URL } from '@/lib/site';
 
@@ -143,8 +143,6 @@ export default async function RootLayout({
   const initialTheme = THEME_OPTIONS.includes(themeCookie as string)
     ? (themeCookie as string)
     : 'ayu';
-  const glowCookie = cookieStore.get('backgroundGlow')?.value;
-  const initialGlow = glowCookie !== 'false';
 
   const isFr = locale === 'fr';
   const jsonLd = {
@@ -185,7 +183,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${fontVariables} ${initialTheme} ${initialGlow ? '' : 'no-glow'}`}
+      className={`${fontVariables} ${initialTheme}`}
       style={{ fontFamily: 'var(--font-system-ui)' }}
       suppressHydrationWarning
     >
@@ -204,13 +202,12 @@ export default async function RootLayout({
           {isFr ? 'Passer au contenu principal' : 'Skip to main content'}
         </a>
         <NextIntlClientProvider messages={messages}>
-          <ThemeContextProvider initialTheme={initialTheme} initialGlow={initialGlow}>
+          <ThemeContextProvider initialTheme={initialTheme}>
             <ThemeProvider>
-              <BackgroundBlobs />
               <Menu />
 
               <div className="flex flex-1 overflow-hidden">
-                <div className="hidden lg:flex h-[calc(100dvh-60px)] shrink-0">
+                <div className="m-1 hidden h-[calc(100dvh-60px)] shrink-0 rounded-[10px] border border-white/[0.08] lg:flex">
                   <Sidebar />
                   <Explorer />
                 </div>
@@ -218,11 +215,12 @@ export default async function RootLayout({
                 <main
                   id="main-content"
                   tabIndex={-1}
-                  className="flex flex-1 flex-col min-w-0 outline-none"
+                  className="flex flex-1 flex-col min-w-0 bg-[var(--theme-bg)] outline-none lg:my-1 lg:mr-1 lg:overflow-hidden lg:rounded-[10px] lg:border lg:border-white/[0.08]"
                 >
                   <Tabsbar />
+                  <BreadcrumbBar />
                   <SwipeNavigator
-                    className="font-inconsolata text-light h-[calc(100dvh-88px)] lg:h-[calc(100dvh-80px)]
+                    className="font-inconsolata text-light h-[calc(100dvh-88px)] bg-[var(--theme-bg)] lg:h-auto lg:min-h-0 lg:flex-1
                       overflow-y-auto overflow-x-hidden p-0"
                   >
                     {children}

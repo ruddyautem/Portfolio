@@ -1,7 +1,6 @@
 'use client';
 
 import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
-import TopPageDecoration from '@/components/TopPageDecoration/TopPageDecoration';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { getCvData } from '@/lib/cvData';
@@ -146,7 +145,6 @@ const ProjectCardContent = ({ proj, idx }) => {
 
 const CV = () => {
   const t = useTranslations('cv');
-  const tTabs = useTranslations('tabsbar');
   const locale = useLocale();
 
   const { name, title, about, contacts, skillGroups, projects, formations, languages } =
@@ -162,15 +160,13 @@ const CV = () => {
       >
         <div className={PAGE_INNER_CLASSES}>
           <div className={PAGE_CARD_CLASSES}>
-            <TopPageDecoration filename={tTabs('cv')} />
-
             <div
               className="border-b border-slate-700/30 px-4 py-5 text-center sm:px-6 sm:py-7 md:py-8"
             >
               <h1 className="item-animate mb-2 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
                 {t('title')} <span className="text-accent">{t('titleAccent')}</span>
               </h1>
-              <p className="item-animate-1 mx-auto max-w-xl text-sm text-slate-400 sm:text-base">
+              <p className="item-animate-1 mx-auto max-w-2xl text-sm text-slate-300 sm:text-lg md:text-xl 2xl:text-2xl">
                 {t('subtitle')}
               </p>
             </div>
@@ -200,7 +196,6 @@ const CV = () => {
                   <a
                     href={t('cvFile')}
                     download={t('cvFileName')}
-                    title={t('downloadBtn')}
                     className="absolute right-5 top-5 z-20 hidden sm:inline-flex cursor-pointer
                       items-center justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 text-xs
                       font-bold text-white shadow-md transition-all duration-300
@@ -264,7 +259,6 @@ const CV = () => {
                   <a
                     href={t('cvFile')}
                     download={t('cvFileName')}
-                    title={t('downloadBtn')}
                     className="cv-download-btn mx-auto mt-4 flex w-full cursor-pointer items-center
                       justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 transition-all
                       duration-300 hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg

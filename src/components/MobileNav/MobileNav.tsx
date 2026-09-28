@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
-import Image from 'next/image';
+import { useEffect, useState, useCallback, type CSSProperties } from 'react';
 import { motion } from 'framer-motion';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { useTranslations, useLocale } from 'next-intl';
@@ -75,6 +74,17 @@ export default function MobileNav() {
         const icon = SIDEBAR_NAV_ICONS[item.id];
         const label = t(item.id);
 
+        const iconStyle = {
+          WebkitMaskImage: `url(${icon})`,
+          maskImage: `url(${icon})`,
+          WebkitMaskPosition: 'center',
+          maskPosition: 'center',
+          WebkitMaskRepeat: 'no-repeat',
+          maskRepeat: 'no-repeat',
+          WebkitMaskSize: 'contain',
+          maskSize: 'contain',
+        } as CSSProperties;
+
         return (
           <Link
             key={item.id}
@@ -82,10 +92,8 @@ export default function MobileNav() {
             prefetch={true}
             onClick={() => setPendingRoute(item.link)}
             className={cn(
-              'group relative flex min-h-13 min-w-0 flex-1 flex-col items-center justify-center rounded-md py-1.5 transition-all duration-200 active:scale-95',
-              isActive
-                ? 'text-white'
-                : 'text-slate-400 hover:bg-white/[0.035] hover:text-slate-200',
+              'group relative flex min-h-13 min-w-0 flex-1 flex-col items-center justify-center rounded-lg py-1.5 transition-all duration-200 active:scale-95',
+              isActive ? 'opacity-100' : 'opacity-35 hover:opacity-100',
             )}
             aria-label={label}
             aria-current={isActive ? 'page' : undefined}
@@ -93,32 +101,27 @@ export default function MobileNav() {
             {isActive && (
               <motion.span
                 layoutId="mobile-nav-active-tile"
-                className="pointer-events-none absolute inset-0 z-0 rounded-md bg-white/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
+                className="pointer-events-none absolute inset-0 z-0 rounded-lg bg-white/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
                 transition={{ type: 'spring', stiffness: 500, damping: 36, mass: 0.6 }}
                 aria-hidden="true"
-              >
-                <span className="absolute inset-x-3 top-0 h-0.5 rounded-full bg-accent shadow-[0_1px_7px_color-mix(in_srgb,var(--color-accent)_55%,transparent)]" />
-              </motion.span>
+              />
             )}
-            <div
-              className={cn(
-                'relative z-10 flex h-7 w-7 items-center justify-center transition-all duration-200 sm:h-8 sm:w-8',
-                isActive ? 'scale-110 opacity-100' : 'opacity-60 group-hover:opacity-100',
-              )}
-            >
-              <Image
-                src={icon}
-                width={26}
-                height={26}
-                alt=""
-                className="h-4.5 w-4.5 shrink-0 sm:h-5 sm:w-5"
+
+            <div className="relative z-10 flex h-7 w-7 items-center justify-center sm:h-8 sm:w-8">
+              <span
+                aria-hidden="true"
+                style={iconStyle}
+                className={cn(
+                  'relative h-5 w-5 shrink-0 transition-transform duration-200 group-hover:scale-110 sm:h-6 sm:w-6',
+                  isActive ? 'z-10 bg-accent' : 'bg-light',
+                )}
               />
             </div>
 
             <span
               className={cn(
-                'relative z-10 mt-1 text-[10px] font-medium leading-none tracking-tight transition-colors sm:text-xs',
-                isActive ? 'font-semibold text-accent' : 'text-slate-400',
+                'relative z-10 mt-1 text-[10px] leading-none tracking-tight transition-colors sm:text-xs',
+                isActive ? 'font-semibold text-accent' : 'text-light',
               )}
             >
               {label}

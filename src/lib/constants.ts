@@ -128,24 +128,21 @@ export const TAG_COLORS_CARD = {
 // ──────────────────────────────────────────────
 // Common page layout styles reused across all pages (Home, About, Projects, Contact, Settings, CV)
 export const PAGE_OUTER_CLASSES =
-  'box-border flex min-h-full w-full flex-col items-center justify-start overflow-x-hidden' +
-  ' p-2 sm:p-4 md:p-6 lg:p-8 2xl:p-12';
- 
+  'box-border flex min-h-full w-full flex-col overflow-x-hidden px-4 py-5 sm:px-6 sm:py-7 lg:px-8 lg:py-8 2xl:px-10 2xl:py-10';
+
 export const PAGE_INNER_CLASSES =
-  'relative z-10 flex w-full max-w-6xl flex-col 2xl:max-w-400';
+  'relative z-10 mx-auto flex w-full max-w-7xl flex-col 2xl:max-w-[100rem]';
  
 // Reduced for single-column pages (e.g. CV)
 export const PAGE_INNER_NARROW_CLASSES =
-  'relative z-10 w-full max-w-400';
+  'relative z-10 mx-auto w-full max-w-5xl';
  
 export const PAGE_CARD_CLASSES =
-  'flex flex-col overflow-hidden rounded-xl border border-slate-700/50' +
-  ' bg-slate-800/20 shadow-2xl backdrop-blur-xl sm:rounded-3xl' +
-  ' 2xl:min-h-[calc(100dvh-176px)] 2xl:overflow-hidden';
+  'flex min-h-full flex-col';
  
 // Section heading with title + subtitle (used by About, Projects, Contact)
 export const SECTION_HEADER_CLASSES =
-  'border-b border-slate-700/30 px-4 py-6 text-center sm:p-8 md:p-10';
+  'border-b border-white/[0.08] px-4 py-6 text-center sm:p-8 md:p-10';
  
 export const HEADING_CLASSES =
   'item-animate mb-3 text-2xl font-bold text-white sm:mb-4 sm:text-4xl md:text-5xl 2xl:text-6xl';

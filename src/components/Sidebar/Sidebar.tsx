@@ -1,10 +1,9 @@
 'use client';
-import Image from 'next/image';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 
-import { useRef, useEffect, useState } from 'react';
-import Tooltip from '../Tooltip/Tooltip';
+import { useEffect, useState, type CSSProperties } from 'react';
+import Tooltip from '@/components/ui/beui-tooltip';
 import { cn } from '@/lib/utils';
 import { NAV_ITEMS, SIDEBAR_NAV_ICONS, BOTTOM_SIDEBAR_ITEMS } from '@/lib/constants';
 
@@ -12,38 +11,46 @@ interface NavItemProps {
   item: {
     id: string;
     icon: string;
-    name: string;
-    link?: string;
+  name: string;
+  link?: string;
   };
   isActive?: boolean;
-  onRef?: (el: HTMLDivElement | null) => void;
   onSelect?: (link: string) => void;
-  priority?: boolean;
 }
 
-const NavItem = ({ item, isActive, onRef, onSelect, priority }: NavItemProps) => {
+const NavItem = ({ item, isActive, onSelect }: NavItemProps) => {
+  const iconStyle = {
+    WebkitMaskImage: `url(${item.icon})`,
+    maskImage: `url(${item.icon})`,
+    WebkitMaskPosition: 'center',
+    maskPosition: 'center',
+    WebkitMaskRepeat: 'no-repeat',
+    maskRepeat: 'no-repeat',
+    WebkitMaskSize: 'contain',
+    maskSize: 'contain',
+  } as CSSProperties;
+
   const content = (
     <div className="group flex h-11 w-full items-center justify-center">
-      <Image
-        src={item.icon}
-        width={24}
-        height={24}
-        alt={item.name}
-        className="transition-transform duration-200 group-hover:scale-110"
-        priority={priority}
+      <span
+        aria-hidden="true"
+        style={iconStyle}
+        className={cn(
+          'relative h-6 w-6 transition-transform duration-200 group-hover:scale-110',
+          isActive ? 'z-10 bg-accent' : 'bg-light',
+        )}
       />
     </div>
   );
 
   return (
     <div
-      ref={onRef}
       className={cn(
         'relative flex items-center justify-center transition-opacity duration-200',
         isActive ? 'opacity-100' : 'opacity-30 hover:opacity-100',
       )}
     >
-      <Tooltip tooltipText={item.name}>
+      <Tooltip content={item.name} side="right">
         {item.link ? (
           <Link
             href={item.link}
@@ -75,8 +82,6 @@ const Sidebar = () => {
   const [pendingRoute, setPendingRoute] = useState<string | null>(null);
   const t = useTranslations('sidebar');
 
-  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, height: 0, opacity: 0 });
 
   // Prefetch all sidebar routes on mount
   useEffect(() => {
@@ -87,62 +92,27 @@ const Sidebar = () => {
 
   // Reset optimistic state once the real route transition completes
   useEffect(() => {
-    setPendingRoute(null);
+    const timer = window.setTimeout(() => setPendingRoute(null), 0);
+    return () => window.clearTimeout(timer);
   }, [currentRoute]);
 
   const effectiveRoute = pendingRoute ?? currentRoute;
 
-  useEffect(() => {
-    const updateIndicator = () => {
-      const activeIndex = NAV_ITEMS.findIndex((item) => item.link === effectiveRoute);
-      const activeElement = itemsRef.current[activeIndex];
-
-      if (activeElement) {
-        setIndicatorStyle({
-          top: activeElement.offsetTop,
-          height: activeElement.offsetHeight,
-          opacity: 1,
-        });
-      }
-    };
-
-    updateIndicator();
-    window.addEventListener('resize', updateIndicator);
-
-    return () => {
-      window.removeEventListener('resize', updateIndicator);
-    };
-  }, [effectiveRoute]);
-
   return (
     <aside
-      className="bg-sidebar-bg hidden h-full w-12 flex-col justify-between lg:flex"
+      className="bg-sidebar-bg hidden h-full w-12 flex-col justify-between rounded-[9px] border-r border-white/[0.08] xl:rounded-r-none lg:flex"
       aria-label="Sidebar navigation"
     >
       {/* SECTION HAUTE */}
       <nav className="relative flex flex-col" aria-label="Primary navigation">
-        {NAV_ITEMS.map((item, index) => (
+        {NAV_ITEMS.map((item) => (
           <NavItem
             key={item.id}
             item={{ ...item, icon: SIDEBAR_NAV_ICONS[item.id], name: t(item.id) }} // 🔥 Inject the translated name + this view's icon
             isActive={effectiveRoute === item.link}
             onSelect={(link) => setPendingRoute(link)}
-            priority={index < 3}
-            onRef={(el) => {
-              itemsRef.current[index] = el;
-            }}
           />
         ))}
-
-        {/* INDICATEUR ACTIF */}
-        <div
-          className="bg-accent absolute left-0 w-0.5 transition-all duration-300 ease-out"
-          style={{
-            top: `${indicatorStyle.top}px`,
-            height: `${indicatorStyle.height}px`,
-            opacity: indicatorStyle.opacity,
-          }}
-        />
       </nav>
 
       {/* SECTION BASSE */}
@@ -152,7 +122,6 @@ const Sidebar = () => {
             key={item.id}
             item={{ ...item, name: t(item.id) }} // 🔥 Inject the translated name here!
             isActive={false}
-            priority={false}
           />
         ))}
       </nav>

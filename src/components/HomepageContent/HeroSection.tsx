@@ -8,20 +8,20 @@ import { useTranslations } from 'next-intl';
 const NavCard = ({ href, title, desc, icon: Icon }) => (
   <Link
     href={href}
-    className="group flex items-center gap-3 rounded-xl border border-slate-700/60 bg-slate-800/40 p-3.5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:bg-slate-800/70 hover:shadow-lg hover:shadow-black/20 lg:gap-4 lg:p-4 xl:gap-4 xl:p-4"
+    className="group flex items-center gap-3 rounded-[10px] border border-white/[0.08] bg-[var(--theme-bg)] p-3.5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-white/[0.14] lg:gap-3.5 lg:p-3.5 xl:gap-2.5 xl:p-2.5 2xl:gap-4 2xl:p-4"
   >
-    <span className="flex h-10 w-10 shrink-0 items-center justify-center text-accent transition-transform duration-300 group-hover:scale-110 lg:h-10 lg:w-10 xl:h-11 xl:w-11">
-      <Icon className="h-5 w-5 lg:h-5 lg:w-5 xl:h-5.5 xl:w-5.5" />
+    <span className="flex h-10 w-10 shrink-0 items-center justify-center text-accent transition-transform duration-300 group-hover:scale-110 lg:h-10 lg:w-10 xl:h-8.5 xl:w-8.5 2xl:h-11 2xl:w-11">
+      <Icon className="h-5 w-5 lg:h-5 lg:w-5 xl:h-4.5 xl:w-4.5 2xl:h-5.5 2xl:w-5.5" />
     </span>
     <span className="min-w-0 flex-1">
-      <span className="block text-sm font-semibold text-white transition-colors group-hover:text-accent lg:text-base xl:text-lg">
+      <span className="block text-sm font-semibold text-white transition-colors group-hover:text-accent lg:text-base xl:text-sm 2xl:text-lg">
         {title}
       </span>
-      <span className="mt-0.5 block overflow-hidden text-ellipsis whitespace-nowrap text-xs text-slate-400 lg:text-sm">
+      <span className="mt-0.5 block overflow-hidden text-ellipsis whitespace-nowrap text-xs text-slate-400 lg:text-sm xl:text-[11px] 2xl:text-sm">
         {desc}
       </span>
     </span>
-    <ArrowRight className="h-4 w-4 shrink-0 text-slate-500 transition-all duration-300 group-hover:translate-x-1 group-hover:text-accent lg:h-4.5 lg:w-4.5 xl:h-5 xl:w-5" />
+    <ArrowRight className="h-4 w-4 shrink-0 text-slate-500 transition-all duration-300 group-hover:translate-x-1 group-hover:text-accent xl:h-3.5 xl:w-3.5 2xl:h-5 2xl:w-5" />
   </Link>
 );
 
@@ -74,7 +74,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="mt-6 hidden gap-2.5 sm:mt-9 sm:grid sm:grid-cols-2 xl:grid-cols-4 xl:gap-4">
+      <div className="mt-6 hidden gap-2.5 sm:mt-9 sm:grid sm:grid-cols-2 xl:grid-cols-4 xl:gap-2.5 2xl:gap-4">
         {navLinks.map((link) => (
           <NavCard key={link.href} {...link} />
         ))}
