@@ -40,7 +40,10 @@ function FolderRow({
   return (
     <FolderItem defaultOpen={defaultOpen} className="w-full">
       <FolderHeader>
-        <FolderTrigger className="group w-full cursor-pointer text-start bg-transparent border-0 p-0 outline-none">
+        <FolderTrigger
+          className="group w-full cursor-pointer text-start bg-transparent border-0 p-0
+            outline-none"
+        >
           <FolderHighlight className="w-full">
             <div
               className={cn(
@@ -53,7 +56,9 @@ function FolderRow({
                 openIcon={<FolderOpen className="size-4 text-accent shrink-0" />}
                 closeIcon={<FolderClosedIcon className="size-4 text-accent/80 shrink-0" />}
               />
-              <FileLabel className="font-medium text-lighter transition-colors group-hover:text-accent">
+              <FileLabel
+                className="font-medium text-lighter transition-colors group-hover:text-accent"
+              >
                 {label}
               </FileLabel>
             </div>
@@ -273,8 +278,13 @@ const Explorer = () => {
         )}
       >
         {/* Explorer Header */}
-        <div className="relative flex items-center justify-between after:pointer-events-none after:absolute after:inset-x-2 after:bottom-0 after:h-px after:bg-white/8">
-          <p className="my-1 ml-4 flex h-5 items-center text-xs font-bold uppercase tracking-wider text-light/70">
+        <div
+          className="relative flex items-center justify-between after:pointer-events-none
+            after:absolute after:inset-x-2 after:bottom-0 after:h-px after:bg-white/8"
+        >
+          <p
+            className="my-1 ml-4 flex h-5 items-center text-xs font-bold tracking-wider text-accent"
+          >
             {tExp('title')}
           </p>
           <div className="mr-2 cursor-pointer rounded-sm p-0.5 hover:bg-white/5">
@@ -286,7 +296,10 @@ const Explorer = () => {
         <div className="text-darker flex flex-col flex-1 overflow-hidden">
           <button
             type="button"
-            className="relative flex h-6 w-full cursor-pointer items-center text-[11px] font-bold uppercase text-left bg-transparent text-inherit after:pointer-events-none after:absolute after:inset-x-2 after:bottom-0 after:h-px after:bg-white/8 outline-none"
+            className="relative flex h-6 w-full cursor-pointer items-center text-[11px] font-bold
+              uppercase text-left bg-transparent text-inherit after:pointer-events-none
+              after:absolute after:inset-x-2 after:bottom-0 after:h-px after:bg-white/8
+              outline-none"
             onClick={() => setIsOpen(!isOpen)}
             aria-expanded={isOpen}
             aria-controls="explorer-nav-list"
@@ -303,9 +316,10 @@ const Explorer = () => {
 
           <div
             id="explorer-nav-list"
-            className={`flex flex-col overflow-y-auto no-scrollbar transition-all duration-200 ease-in-out ${
-              isOpen ? 'opacity-100 max-h-full py-1' : 'max-h-0 opacity-0 overflow-hidden'
-            }`}
+            className={`flex flex-col overflow-y-auto no-scrollbar transition-all duration-200
+              ease-in-out ${
+                isOpen ? 'opacity-100 max-h-full py-1' : 'max-h-0 opacity-0 overflow-hidden'
+              }`}
           >
             <Files className="relative isolate w-full px-2 py-1">
               <FolderRow label="src" defaultOpen>
@@ -361,12 +375,15 @@ const Explorer = () => {
         <div
           className={`${theme === 'dracula' ? 'bg-active-explorer-tab' : ''} ${
             theme === 'oneDarkPro' ? 'bg-sidebar-bg' : ''
-          } text-darker mt-auto flex flex-col opacity-100`}
+          } text-darker mt-auto flex flex-col
+            opacity-100`}
         >
           {[tExp('outline'), tExp('timeline')].map((title) => (
             <div
               key={title}
-              className="relative flex h-6 cursor-pointer items-center text-[9px] font-bold uppercase before:pointer-events-none before:absolute before:inset-x-2 before:top-0 before:h-px before:bg-white/[0.08]"
+              className="relative flex h-6 cursor-pointer items-center text-[9px] font-bold
+                uppercase before:pointer-events-none before:absolute before:inset-x-2 before:top-0
+                before:h-px before:bg-white/[0.08]"
             >
               <Image src="/chevron.svg" width={16} height={16} alt="" className="shrink-0" />
               <p className="ml-2 flex items-center tracking-wider">{title}</p>
@@ -383,7 +400,8 @@ const Explorer = () => {
         onPointerDown={handlePointerDown}
         onDoubleClick={handleDoubleClick}
         className={cn(
-          'group/resizer absolute top-0 z-40 flex h-full w-5 cursor-col-resize select-none items-center justify-center',
+          `group/resizer absolute top-0 z-40 flex h-full w-5 cursor-col-resize select-none
+          items-center justify-center`,
           isDragging && 'cursor-col-resize',
         )}
         style={{
@@ -404,7 +422,8 @@ const Explorer = () => {
         {/* 3 Little Dots Separator in the Middle */}
         <div
           className={cn(
-            'pointer-events-none absolute top-1/2 -translate-y-1/2 flex flex-col items-center justify-center gap-[3px] py-1.5 px-0.5 rounded-full transition-all duration-150',
+            `pointer-events-none absolute top-1/2 -translate-y-1/2 flex flex-col items-center
+            justify-center gap-[3px] py-1.5 px-0.5 rounded-full transition-all duration-150`,
             isDragging
               ? 'opacity-100 bg-accent/20'
               : 'opacity-70 group-hover/resizer:opacity-100 group-hover/resizer:bg-accent/15',
