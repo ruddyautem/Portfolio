@@ -48,51 +48,17 @@ export const SIDEBAR_NAV_ICONS: Record<string, string> = {
  
 // Icons for the Tabsbar (file-type tab icons)
 export const TABS_NAV_ICONS: Record<string, string> = {
-  home: '/jsx.svg',
-  about: '/html5.svg',
-  projects: '/js.svg',
-  contact: '/css.svg',
-  cv: '/cv.svg',
-  settings: '/settings-gear.svg',
+  home: '/react.svg',
+  about: '/markdown.svg',
+  projects: '/typescript.svg',
+  contact: '/react.svg',
+  cv: '/pdf.svg',
+  settings: '/json.svg',
 };
 
 export const BOTTOM_SIDEBAR_ITEMS = [
   { id: 'accounts', icon: '/account.svg' },
 ];
- 
-// ──────────────────────────────────────────────
-// Project tag color mappings (used in ProjectCarousel and Card)
-// ──────────────────────────────────────────────
-export const TAG_COLORS_CAROUSEL = {
-  react: 'bg-blue-500',
-  tailwindcss: 'bg-cyan-500',
-  nextjs: 'bg-slate-400',
-  express: 'bg-green-600',
-  redux: 'bg-purple-600',
-  firebase: 'bg-orange-500',
-  'styled-components': 'bg-pink-500',
-  'material-ui': 'bg-blue-600',
-  mysql: 'bg-orange-600',
-  axios: 'bg-blue-400',
-  clerk: 'bg-indigo-600',
-  sanity: 'bg-red-500',
-  typescript: 'bg-blue-700',
-  zustand: 'bg-amber-600',
-  javascript: 'bg-yellow-500',
-  stripe: 'bg-violet-500',
-  zod: 'bg-blue-600',
-  shadcn: 'bg-zinc-600',
-  bun: 'bg-amber-700',
-  elysia: 'bg-purple-600',
-  redis: 'bg-red-600',
-  drizzle: 'bg-emerald-500',
-  postgresql: 'bg-sky-600',
-  prisma: 'bg-teal-500',
-  vite: 'bg-purple-500',
-  'aws-s3': 'bg-amber-600',
-  'cloudflare-r2': 'bg-orange-500',
-  r2: 'bg-orange-500',
-};
  
 export const TAG_COLORS_CARD = {
   react: 'bg-blue-500/20 border-blue-500/30 text-blue-300',

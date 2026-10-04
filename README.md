@@ -18,12 +18,19 @@ Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais 
 
 | Route         | Ce qu'on y trouve                                                                                                                                                              |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `/` (Accueil) | Héro interactif avec navigation rapide, projecteur carrousel auto-défilant avec compte à rebours, et ruban animé des technologies (`LogoCarousel`)                             |
+| `/` (Accueil) | Héro animé avec navigation rapide, projecteur de projets tactile et ruban animé de technologies (`LogoCarousel`)                                                          |
 | `/about`      | Bento grid complet : biographie, 4 cartes de bonnes pratiques (architecture, performance, sécurité, qualité), profil VS Code interactif, compétences filtrables et téléchargement CV |
 | `/projects`   | Vitrine complète des projets — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — avec cartes mises en avant et archives            |
 | `/contact`    | Formulaire sécurisé avec validation Zod, protection anti-spam honeypot, rate limiting et notifications toast centrées et intégrées au thème                                      |
 | `/cv`         | Rendu du CV interactif & stylisé, basé sur des données bilingues typées, avec liens directs vers les projets et bouton de téléchargement PDF                                    |
 | `/settings`   | Page de configuration (`parametres.json`) : sélection des 4 thèmes et choix de la langue                                                                                   |
+
+### ✨ Dernières évolutions de l’interface
+
+- **Accueil adaptatif** : le héro bascule vers une composition mobile plus lisible sur les écrans compacts, tout en conservant la mise en page bureau sur les grands formats ; le nom utilise une animation de pliage qui respecte les préférences de mouvement réduit.
+- **Projecteur de projets robuste** : affichage tactile sous les grands écrans, mise en page compacte sur bureau, et zones de détails/actions stabilisées afin que les boutons conservent une position cohérente, y compris sur mobile et tablette.
+- **Chargement visuel des médias** : les images de contenu affichent maintenant un squelette pendant leur décodage, sans décaler la mise en page.
+- **Système visuel enrichi** : fond lumineux WebGL discret, carousel de technologies responsive et icônes d’onglets alignées sur les vrais types de fichiers (`.tsx`, `.md`, `.pdf`, `.json`).
 
 ### ⌨️ Palette de commandes VS Code (`cmdk`)
 
@@ -80,6 +87,7 @@ Quatre thèmes inspirés des éditeurs de code, mémorisés par cookies et `loca
 - **Moteur d'images AVIF / WebP** : Conversion et dimensionnement dynamique via Next.js (réduction de 80% à 95% de la bande passante).
 - **Cache des assets** : En-têtes `Cache-Control` appliqués aux images et documents statiques pour limiter les requêtes répétées.
 - **Tree-Shaking ciblé** : `optimizePackageImports` configuré pour Lucide React, Radix UI, cmdk et Framer Motion.
+- **Chargements stables** : les squelettes d’image préservent la composition des cartes et limitent les changements de mise en page perceptibles.
 
 ### 🛠 Stack technique
 
@@ -118,6 +126,8 @@ Portfolio/
 │   │       ├── projects/page.tsx    # Galerie de projets
 │   │       └── settings/page.tsx    # Configuration (parametres.json)
 │   ├── components/                  # Composants UI React
+│   │   ├── LightPillar/              # Fond WebGL lumineux non interactif
+│   │   ├── Loading/                  # Image Next.js avec squelette de chargement
 │   │   ├── SwipeNavigator/          # Carrousel multi-pages gestuel (mobile/tablette)
 │   │   ├── CommandPalette/          # Palette de commandes (cmdk)
 │   │   ├── Settings/                # Interface des paramètres & thèmes
@@ -175,12 +185,19 @@ Welcome to the source code of my portfolio. As a Full Stack developer, I wanted 
 
 | Route       | What's there                                                                                                                                                            |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/` (Home)  | Interactive hero with quick navigation, auto-advancing project spotlight carousel with visual timer, and animated tech logo ribbon (`LogoCarousel`)                    |
+| `/` (Home)  | Animated hero with quick navigation, touch-friendly project spotlight, and responsive animated technology ribbon (`LogoCarousel`)                                     |
 | `/about`    | Full bento grid: developer narrative, 4 best-practice cards (architecture, performance, security, code quality), interactive VS Code profile snapshot, filterable skill tags (Front-End, Back-End, Tools), CV download |
 | `/projects` | Complete project showcase — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — with featured spotlight cards and archives  |
 | `/contact`  | Secured contact form with Zod validation, honeypot spam protection, rate limiting, and theme-integrated centered toast notifications                                  |
 | `/cv`       | Interactive & styled resume view rendered from typed bilingual data with direct project links and PDF download                                                          |
 | `/settings` | Built-in settings page (`settings.json`): theme switcher (4 themes) and language selector                                                                           |
+
+### ✨ Recent interface updates
+
+- **Adaptive home page**: the hero switches to a more readable mobile composition on compact screens while preserving the desktop layout at larger sizes; its folding name animation respects reduced-motion preferences.
+- **Resilient project spotlight**: touch presentation below large breakpoints, compact desktop layout, and stabilized detail/action areas keep the buttons aligned on mobile, tablet, and desktop.
+- **Visual media loading**: content images now display a skeleton while decoding, without shifting the surrounding layout.
+- **Richer visual system**: a subtle WebGL light background, responsive technology carousel, and tabs that use real file-type icons (`.tsx`, `.md`, `.pdf`, `.json`).
 
 ### ⌨️ VS Code Command Palette (`cmdk`)
 
@@ -240,6 +257,7 @@ Four themes inspired by developer editors, persisted via cookies & `localStorage
 - **AVIF / WebP Images**: Next.js on-the-fly conversion and responsive sizing (80% to 95% bandwidth reduction).
 - **Asset Caching**: `Cache-Control` headers are applied to static images and documents to reduce repeated requests.
 - **Targeted Tree-Shaking**: `optimizePackageImports` configured for Lucide React, Radix UI, cmdk and Framer Motion.
+- **Stable loading states**: image skeletons preserve card composition and reduce perceptible layout shifts.
 
 ### 🛠 Tech stack
 
@@ -278,6 +296,8 @@ Portfolio/
 │   │       ├── projects/page.tsx    # Projects gallery page
 │   │       └── settings/page.tsx    # Settings (settings.json)
 │   ├── components/                  # React UI components
+│   │   ├── LightPillar/              # Non-interactive WebGL light background
+│   │   ├── Loading/                  # Next.js image wrapper with loading skeleton
 │   │   ├── SwipeNavigator/          # Multi-page gesture carousel (mobile/tablet)
 │   │   ├── CommandPalette/          # Command palette (cmdk)
 │   │   ├── Settings/                # Settings & themes interface

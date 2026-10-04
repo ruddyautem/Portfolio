@@ -9,8 +9,6 @@ import {
   Mail,
   Clock,
   MapPin,
-  Radio,
-  MessageSquareCode,
   ExternalLink,
 } from 'lucide-react';
 
@@ -171,13 +169,13 @@ const ContactList = () => {
               {/* Left Column: Direct Channels & Reassurance (5 cols on xl) */}
               <div className="flex flex-col xl:col-span-5">
                 <div className="flex items-center justify-center xl:justify-start mb-2 sm:mb-3">
-                  <div
-                    className="inline-flex items-center gap-1.5 rounded-full border border-accent/40
-                      bg-accent/10 px-3 sm:px-3.5 py-1 text-xs sm:text-sm font-mono font-semibold uppercase tracking-wider
-                      text-accent"
-                  >
-                    <Radio className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent animate-pulse" />
-                    <span>{t('networksTitle')}</span>
+                  <div className="inline-flex items-center gap-2.5 font-mono sm:gap-3">
+                    <span className="text-xs text-slate-600 sm:text-sm">//</span>
+                    <span className="text-xs font-medium tracking-[0.16em] text-slate-500 uppercase sm:text-sm">01</span>
+                    <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
+                    <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base lg:text-lg">
+                      {t('networksTitle')}
+                    </h2>
                   </div>
                 </div>
 
@@ -325,13 +323,13 @@ const ContactList = () => {
               {/* Right Column: High-Tech Terminal Contact Form (7 cols on xl) */}
               <div className="xl:col-span-7">
                 <div className="flex items-center justify-center xl:justify-start mb-2 sm:mb-3">
-                  <div
-                    className="inline-flex items-center gap-1.5 rounded-full border border-accent/40
-                      bg-accent/10 px-3 sm:px-3.5 py-1 text-xs sm:text-sm font-mono font-semibold uppercase tracking-wider
-                      text-accent"
-                  >
-                    <MessageSquareCode className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent animate-pulse" />
-                    <span>{t('sendMessageTitle')}</span>
+                  <div className="inline-flex items-center gap-2.5 font-mono sm:gap-3">
+                    <span className="text-xs text-slate-600 sm:text-sm">//</span>
+                    <span className="text-xs font-medium tracking-[0.16em] text-slate-500 uppercase sm:text-sm">02</span>
+                    <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
+                    <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base lg:text-lg">
+                      {t('sendMessageTitle')}
+                    </h2>
                   </div>
                 </div>
 

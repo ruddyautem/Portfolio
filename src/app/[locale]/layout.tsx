@@ -13,6 +13,7 @@ import Tabsbar from '@/components/Tabsbar/Tabsbar';
 import BreadcrumbBar from '@/components/BreadcrumbBar/BreadcrumbBar';
 import MobileNav from '@/components/MobileNav/MobileNav';
 import SwipeNavigator from '@/components/SwipeNavigator/SwipeNavigator';
+import LightPillar from '@/components/LightPillar/LightPillar';
 import { ThemeContextProvider } from '@/context/ThemeContext';
 import ThemeProvider from '../providers/ThemeProvider';
 import { THEME_OPTIONS } from '@/lib/constants';
@@ -204,9 +205,10 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeContextProvider initialTheme={initialTheme}>
             <ThemeProvider>
+              <LightPillar className="z-[60] opacity-20" />
               <Menu />
 
-              <div className="flex flex-1 overflow-hidden">
+              <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden">
                 <div className="m-1 hidden h-[calc(100dvh-60px)] shrink-0 rounded-[10px] border border-white/[0.08] lg:flex">
                   <Sidebar />
                   <Explorer />
@@ -215,12 +217,12 @@ export default async function RootLayout({
                 <main
                   id="main-content"
                   tabIndex={-1}
-                  className="flex flex-1 flex-col min-w-0 bg-[var(--theme-bg)] outline-none lg:my-1 lg:mr-1 lg:overflow-hidden lg:rounded-[10px] lg:border lg:border-white/[0.08]"
+                  className="flex min-h-0 min-w-0 flex-1 flex-col bg-[var(--theme-bg)] outline-none lg:my-1 lg:mr-1 lg:overflow-hidden lg:rounded-[10px] lg:border lg:border-white/[0.08]"
                 >
                   <Tabsbar />
                   <BreadcrumbBar />
                   <SwipeNavigator
-                    className="font-inconsolata text-light h-[calc(100dvh-88px)] bg-[var(--theme-bg)] lg:h-auto lg:min-h-0 lg:flex-1
+                    className="font-inconsolata text-light h-[calc(100dvh-88px)] min-h-0 bg-[var(--theme-bg)] lg:h-auto lg:flex-1
                       overflow-y-auto overflow-x-hidden p-0"
                   >
                     {children}

@@ -292,7 +292,10 @@ const ContactForm = () => {
             >
               {status.loading ? (
                 <>
-                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-950 border-t-transparent" />
+                  <span
+                    className="h-4 w-4 animate-spin rounded-full border-2 border-slate-950 border-t-transparent"
+                    aria-hidden="true"
+                  />
                   <span>{t('ui.sending')}</span>
                 </>
               ) : (

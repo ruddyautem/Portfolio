@@ -1,6 +1,6 @@
 {
   "homepage": {
-    "filename": "accueil.jsx",
+    "filename": "accueil.tsx",
     "badge": "AUTEM.DEV",
     "name": "Ruddy",
     "surname": "Autem",
@@ -36,7 +36,7 @@
     "carousel": {
       "codeSource": "Code source",
       "liveDemo": "Voir le site",
-      "architectureTitle": "Architecture & Points Clés",
+      "architectureTitle": "Conception & points clés",
       "previous": "Projet précédent",
       "next": "Projet suivant",
       "goTo": "Aller au projet {title}",
@@ -45,11 +45,11 @@
     }
   },
   "tabsbar": {
-    "home": "accueil.jsx",
-    "about": "profil.html",
-    "projects": "projets.js",
-    "contact": "contact.css",
-    "cv": "cv.json",
+    "home": "accueil.tsx",
+    "about": "profil.md",
+    "projects": "projets.ts",
+    "contact": "contact.tsx",
+    "cv": "cv.pdf",
     "settings": "parametres.json"
   },
   "menu": {
@@ -140,17 +140,18 @@
     }
   },
   "projectsPage": {
-    "filename": "projets.js",
+    "filename": "projets.ts",
     "title": "Mes",
     "titleAccent": "Projets",
     "subtitle": "Mon portfolio en action : des idées transformées en expériences web concrètes.",
     "featuredTitle": "Projets Phares",
+    "featuredEyebrow": "À la une",
     "featuredSubtitle": "Applications web complètes et interactives, prêtes pour la production et accessibles en ligne.",
     "otherTitle": "Autres Projets",
     "otherSubtitle": "Applications web interactives, outils pratiques et intégrations d'APIs.",
     "codeSource": "Code source",
     "liveDemo": "Voir le site",
-    "architectureTitle": "Architecture & Points Clés"
+    "architectureTitle": "Conception & points clés"
   },
   "about": {
     "title": "À Propos",

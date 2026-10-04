@@ -1,6 +1,6 @@
 {
   "homepage": {
-    "filename": "home.jsx",
+    "filename": "home.tsx",
     "badge": "AUTEM.DEV",
     "name": "Ruddy",
     "surname": "Autem",
@@ -45,11 +45,11 @@
     }
   },
   "tabsbar": {
-    "home": "home.jsx",
-    "about": "profile.html",
-    "projects": "projects.js",
-    "contact": "contact.css",
-    "cv": "resume.json",
+    "home": "homepage.tsx",
+    "about": "about.md",
+    "projects": "projects.ts",
+    "contact": "contact.tsx",
+    "cv": "resume.pdf",
     "settings": "settings.json"
   },
   "menu": {
@@ -140,11 +140,12 @@
     }
   },
   "projectsPage": {
-    "filename": "projects.js",
+    "filename": "projects.ts",
     "title": "My",
     "titleAccent": "Projects",
     "subtitle": "My portfolio in action: Turning ideas into real, tangible web applications.",
     "featuredTitle": "Featured Projects",
+    "featuredEyebrow": "Highlights",
     "featuredSubtitle": "Complete, interactive web applications, production-ready and available online.",
     "otherTitle": "Other Projects",
     "otherSubtitle": "Interactive web applications, practical utilities, and API integrations.",

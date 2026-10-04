@@ -2,6 +2,7 @@
 
 import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
 import Image from 'next/image';
+import { LoadingImage } from '@/components/Loading/LoadingImage';
 import { useTranslations, useLocale } from 'next-intl';
 import { getCvData } from '@/lib/cvData';
 import Link from 'next/link';
@@ -209,16 +210,17 @@ const CV = () => {
                   <div className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2">
                     {/* --- PROFILE PICTURE  --- */}
                     <div
-                      className="h-32 w-32 overflow-hidden rounded-2xl border-[4px] border-white
+                      className="h-32 w-32 overflow-hidden rounded-2xl border-4 border-white
                         bg-white shadow-lg min-[375px]:h-36 min-[375px]:w-36 min-[375px]:rounded-3xl
                         min-[375px]:border-[5px] sm:h-44 sm:w-44 sm:border-[6px] md:h-48 md:w-48
                         lg:h-64 lg:w-64 xl:h-72 xl:w-72"
                     >
-                      <Image
+                      <LoadingImage
                         src="/profile.jpg"
                         alt={name}
                         width={300}
                         height={300}
+                        priority
                         className="h-full w-full object-cover"
                       />
                     </div>

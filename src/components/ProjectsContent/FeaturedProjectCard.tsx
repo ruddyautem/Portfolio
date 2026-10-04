@@ -1,11 +1,11 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { Globe, Lock, CheckCircle2, Sparkles } from 'lucide-react';
 import { GithubIcon } from '@/components/Icons/Icons';
 import { Project } from '@/app/[locale]/projects/projects';
 import { TAG_COLORS_CARD } from '@/lib/constants';
+import { LoadingImage } from '@/components/Loading/LoadingImage';
 
 interface FeaturedProjectCardProps {
   project: Project;
@@ -132,10 +132,11 @@ export const FeaturedProjectCard = ({
               aria-label={`Ouvrir la démo de ${project.title}`}
               className="relative block aspect-[16/10] w-full overflow-hidden bg-slate-800/20"
             >
-              <Image
+              <LoadingImage
                 src={project.img}
                 alt={`Interface de ${project.title}`}
                 fill
+                priority={index === 0}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 50vw"
                 className="object-cover object-top transition-transform duration-500 ease-out will-change-transform group-hover:scale-[1.02]"
               />
@@ -164,7 +165,7 @@ export const FeaturedProjectCard = ({
           {project.badge && (
             <div className="flex w-full justify-center xl:justify-start">
               <span
-                className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5
+                className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5
                   text-[10px] sm:text-xs font-mono font-medium tracking-wide ${currentTheme.badgeStyle}`}
               >
                 <Sparkles className="h-3 w-3" />

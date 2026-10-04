@@ -67,7 +67,7 @@ const Footer = () => {
 
       <div className="ml-auto flex items-center gap-1 px-1">
         {rightSideItems.map((item, index) => (
-          <Tooltip key={index} content={item.alt} side="top">
+          <Tooltip key={index} content={item.alt} side="top" align="end">
             <div
               className={cn(containerClasses, 'hidden sm:flex')}
               aria-label={item.alt}

@@ -72,37 +72,37 @@ export default function CommandPalette({ open, setOpen }) {
             onSelect={() => runCommand(() => router.push('/'))}
           >
             <FileCode className="h-4 w-4 text-accent" />
-            <span>index.jsx (Home)</span>
+            <span>{isFr ? 'accueil.tsx' : 'home.tsx'} (Home)</span>
           </Command.Item>
           <Command.Item
             onSelect={() => runCommand(() => router.push('/about'))}
           >
             <User className="h-4 w-4 text-blue-400" />
-            <span>about.html ({isFr ? 'À propos / Compétences' : 'About / Skills'})</span>
+            <span>{isFr ? 'profil.md' : 'about.md'} ({isFr ? 'À propos / Compétences' : 'About / Skills'})</span>
           </Command.Item>
           <Command.Item
             onSelect={() => runCommand(() => router.push('/projects'))}
           >
             <FolderKanban className="h-4 w-4 text-amber-400" />
-            <span>projects.js ({isFr ? 'Mes Projets' : 'Projects'})</span>
+            <span>{isFr ? 'projets.ts' : 'projects.ts'} ({isFr ? 'Mes Projets' : 'Projects'})</span>
           </Command.Item>
           <Command.Item
             onSelect={() => runCommand(() => router.push('/cv'))}
           >
             <FileText className="h-4 w-4 text-emerald-400" />
-            <span>cv.json (Curriculum Vitae)</span>
+            <span>{isFr ? 'cv.pdf' : 'resume.pdf'} (Curriculum Vitae)</span>
           </Command.Item>
           <Command.Item
             onSelect={() => runCommand(() => router.push('/contact'))}
           >
             <Mail className="h-4 w-4 text-pink-400" />
-            <span>contact.css ({isFr ? 'Me contacter' : 'Contact Me'})</span>
+            <span>contact.tsx ({isFr ? 'Me contacter' : 'Contact Me'})</span>
           </Command.Item>
           <Command.Item
             onSelect={() => runCommand(() => router.push('/settings'))}
           >
             <Sliders className="h-4 w-4 text-purple-400" />
-            <span>settings.json ({isFr ? 'Paramètres IDE' : 'IDE Settings'})</span>
+            <span>{isFr ? 'parametres.json' : 'settings.json'} ({isFr ? 'Paramètres IDE' : 'IDE Settings'})</span>
           </Command.Item>
         </Command.Group>
 

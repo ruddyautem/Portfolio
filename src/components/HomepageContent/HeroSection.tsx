@@ -1,27 +1,28 @@
 'use client';
 
-import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { ArrowRight, FileUser, FolderOpen, Mail, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { LoadingImage } from '@/components/Loading/LoadingImage';
+import FoldText from './FoldText';
 
 const NavCard = ({ href, title, desc, icon: Icon }) => (
   <Link
     href={href}
-    className="group flex items-center gap-3 rounded-[10px] border border-white/[0.08] bg-[var(--theme-bg)] p-3.5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-white/[0.14] lg:gap-3.5 lg:p-3.5 xl:gap-2.5 xl:p-2.5 2xl:gap-4 2xl:p-4"
+    className="group flex items-center gap-3 rounded-[10px] border border-white/[0.08] bg-[var(--theme-bg)] p-3.5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-white/[0.14] lg:gap-3.5 lg:p-3.5 2xl:gap-4 2xl:p-4"
   >
-    <span className="flex h-10 w-10 shrink-0 items-center justify-center text-accent transition-transform duration-300 group-hover:scale-110 lg:h-10 lg:w-10 xl:h-8.5 xl:w-8.5 2xl:h-11 2xl:w-11">
-      <Icon className="h-5 w-5 lg:h-5 lg:w-5 xl:h-4.5 xl:w-4.5 2xl:h-5.5 2xl:w-5.5" />
+    <span className="flex h-10 w-10 shrink-0 items-center justify-center text-accent transition-transform duration-300 group-hover:scale-110 lg:h-10 lg:w-10 2xl:h-11 2xl:w-11">
+      <Icon className="h-5 w-5 lg:h-5 lg:w-5 2xl:h-5.5 2xl:w-5.5" />
     </span>
     <span className="min-w-0 flex-1">
-      <span className="block text-sm font-semibold text-white transition-colors group-hover:text-accent lg:text-base xl:text-sm 2xl:text-lg">
+      <span className="block text-sm font-semibold text-white transition-colors group-hover:text-accent lg:text-base 2xl:text-lg">
         {title}
       </span>
-      <span className="mt-0.5 block overflow-hidden text-ellipsis whitespace-nowrap text-xs text-slate-400 lg:text-sm xl:text-[11px] 2xl:text-sm">
+      <span className="mt-0.5 block overflow-hidden text-ellipsis whitespace-nowrap text-xs text-slate-400 lg:text-sm 2xl:text-sm">
         {desc}
       </span>
     </span>
-    <ArrowRight className="h-4 w-4 shrink-0 text-slate-500 transition-all duration-300 group-hover:translate-x-1 group-hover:text-accent xl:h-3.5 xl:w-3.5 2xl:h-5 2xl:w-5" />
+    <ArrowRight className="h-4 w-4 shrink-0 text-slate-500 transition-all duration-300 group-hover:translate-x-1 group-hover:text-accent 2xl:h-5 2xl:w-5" />
   </Link>
 );
 
@@ -35,14 +36,14 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="rounded-2xl border border-slate-700/40 p-5 sm:p-7 lg:p-8 xl:p-10">
-      <div className="grid items-center gap-3.5 sm:gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-        <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-left sm:gap-6 lg:gap-7">
-          <div className="w-full max-w-32 shrink-0 sm:max-w-36 lg:max-w-32 xl:max-w-36">
+    <section className="overflow-x-clip rounded-2xl border border-slate-700/40 p-5 sm:p-7 lg:p-8 xl:p-10">
+      <div className="grid items-center gap-3.5 sm:gap-8 2xl:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
+        <div className="flex flex-col items-center gap-4 text-center 2xl:flex-row 2xl:gap-7 2xl:text-left">
+          <div className="w-full max-w-32 shrink-0 2xl:max-w-36">
             <div className="relative aspect-square">
               <div className="absolute -inset-2 rounded-[1.8rem] border border-slate-600/50" />
               <div className="relative h-full overflow-hidden rounded-[1.4rem] border border-white/15 bg-slate-800 shadow-xl shadow-black/30">
-                <Image
+                <LoadingImage
                   src="/profile.jpg"
                   alt={`${t('name')} ${t('surname')}`}
                   fill
@@ -54,27 +55,40 @@ const HeroSection = () => {
               </div>
             </div>
           </div>
-          <div>
-            <h1 className="text-[2.5rem] leading-none font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">
-              {t('name')} {t('surname')}
-            </h1>
-            <p className="mt-1.5 text-xl font-semibold tracking-tight text-accent sm:mt-2 sm:text-2xl lg:text-3xl">{t('title')}</p>
+          <div className="w-full min-w-0 flex-1 sm:w-auto">
+            <h1 className="sr-only">{t('name')} {t('surname')}</h1>
+            <div className="-mb-8 flex h-28 w-full items-center justify-center sm:-mb-4 2xl:-ml-3 2xl:mb-0 2xl:h-24 2xl:w-[calc(100%+0.75rem)] 2xl:justify-start 2xl:pl-3">
+              <FoldText
+                text={`${t('name')} ${t('surname')}`}
+                fontWeight={800}
+                fontSize={72}
+                color="#ffffff"
+                whiteSpace="nowrap"
+                splitBy="char"
+                hinge="top"
+                creaseShading={0}
+                trigger="mount"
+                className="inline-block origin-center tracking-[0.02em] text-center sm:max-xl:scale-125 2xl:text-left"
+                style={{ fontSize: 'clamp(3.25rem, 4vw, 4.5rem)', wordSpacing: '-0.24em' }}
+              />
+            </div>
+            <p className="mt-1.5 inline-block origin-center whitespace-nowrap text-xl font-semibold tracking-[0.01em] text-accent sm:max-xl:scale-125 2xl:-translate-y-6 2xl:mt-2 2xl:text-[28px]">{t('title')}</p>
           </div>
         </div>
 
-        <div className="mx-auto w-full max-w-xl text-center lg:mx-0 lg:justify-self-end lg:text-left">
-          <h2 className="text-lg font-semibold leading-snug tracking-tight text-white sm:text-xl lg:text-2xl">
+        <div className="mx-auto w-full max-w-xl text-center 2xl:mx-0 2xl:justify-self-end 2xl:text-left">
+          <h2 className="text-lg font-semibold leading-snug tracking-tight text-white sm:text-xl 2xl:text-2xl">
             {t.rich('introTitle', {
               accent: (chunks) => <span className="text-accent">{chunks}</span>,
             })}
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-300 sm:mt-4 sm:text-base xl:text-lg">
+          <p className="mt-2 text-sm leading-relaxed text-slate-300 sm:mt-4 sm:text-base 2xl:text-lg">
             {t('description')}
           </p>
         </div>
       </div>
 
-      <div className="mt-6 hidden gap-2.5 sm:mt-9 sm:grid sm:grid-cols-2 xl:grid-cols-4 xl:gap-2.5 2xl:gap-4">
+      <div className="mt-6 hidden gap-2.5 sm:mt-9 sm:grid sm:grid-cols-2 2xl:grid-cols-4 2xl:gap-4">
         {navLinks.map((link) => (
           <NavCard key={link.href} {...link} />
         ))}

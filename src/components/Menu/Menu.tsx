@@ -421,13 +421,20 @@ const LanguageMenu = memo(({ className }: { className?: string }) => {
           isPending && 'opacity-50',
         )}
       >
-        <Image
-          src={currentLanguage.flag}
-          alt=""
-          width={16}
-          height={12}
-          className="h-2.5 w-3.5 rounded-xs object-contain sm:h-3 sm:w-4"
-        />
+        {isPending ? (
+          <span
+            className="h-3 w-3 animate-spin rounded-full border border-current border-t-transparent"
+            aria-label="Loading"
+          />
+        ) : (
+          <Image
+            src={currentLanguage.flag}
+            alt=""
+            width={16}
+            height={12}
+            className="h-2.5 w-3.5 rounded-xs object-contain sm:h-3 sm:w-4"
+          />
+        )}
         <ChevronDown
           className={cn(
             'h-2 w-2 sm:h-2.5 sm:w-2.5 transition-transform duration-150',

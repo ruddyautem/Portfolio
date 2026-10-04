@@ -6,7 +6,6 @@ import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
 import { getProjects } from '@/app/[locale]/projects/projects';
 import { FeaturedProjectCard } from './FeaturedProjectCard';
 import { ArchiveProjectCard } from './ArchiveProjectCard';
-import { Code2, Sparkles } from 'lucide-react';
 import {
   PAGE_OUTER_CLASSES,
   PAGE_INNER_CLASSES,
@@ -41,13 +40,15 @@ const Projects = () => {
               {/* Featured Showcase Section */}
               <section aria-label={t('featuredTitle')} className="space-y-6 sm:space-y-12">
                 <div className="flex flex-col items-center text-center">
-                  <div
-                    className="inline-flex items-center gap-1.5 rounded-full border border-accent/40
-                      bg-accent/10 px-3 py-1 text-sm sm:text-base lg:text-lg xl:text-xl font-mono font-semibold uppercase tracking-wider
-                      text-accent"
-                  >
-                    <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 animate-pulse text-accent" />
-                    {t('featuredTitle')}
+                  <div className="inline-flex items-center gap-2.5 font-mono sm:gap-3">
+                    <span className="text-xs text-slate-600 sm:text-sm">//</span>
+                    <span className="text-xs font-medium tracking-[0.16em] text-slate-500 uppercase sm:text-sm">
+                      {t('featuredEyebrow')}
+                    </span>
+                    <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
+                    <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base lg:text-lg">
+                      {t('featuredTitle')}
+                    </h2>
                   </div>
                   <p className="mt-2 max-w-2xl text-sm sm:text-base lg:text-lg text-slate-400">
                     {t('featuredSubtitle')}
@@ -75,13 +76,15 @@ const Projects = () => {
                 className="mt-12 sm:mt-24 border-t border-white/[0.08] pt-8 sm:pt-16"
               >
                 <div className="mb-6 sm:mb-8 flex flex-col items-center text-center">
-                  <div
-                    className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08]
-                      bg-[var(--theme-bg)] px-3 py-0.5 text-[11px] sm:text-xs font-mono font-semibold uppercase tracking-wider
-                      text-slate-300"
-                  >
-                    <Code2 className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-slate-400" />
-                    {t('otherTitle')}
+                  <div className="inline-flex items-center gap-2.5 font-mono sm:gap-3">
+                    <span className="text-xs text-slate-600 sm:text-sm">//</span>
+                    <span className="text-xs font-medium tracking-[0.16em] text-slate-500 uppercase sm:text-sm">
+                      02
+                    </span>
+                    <span aria-hidden="true" className="h-px w-5 bg-slate-600 sm:w-7" />
+                    <h2 className="text-sm font-semibold tracking-wide text-slate-300 sm:text-base lg:text-lg">
+                      {t('otherTitle')}
+                    </h2>
                   </div>
                   <p className="mt-1.5 text-[11px] sm:text-sm text-slate-400 max-w-xl">
                     {t('otherSubtitle')}

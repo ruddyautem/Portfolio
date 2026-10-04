@@ -11,7 +11,6 @@ import {
   memo,
   type CSSProperties,
 } from 'react';
-import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import {
   ChevronLeft,
@@ -29,6 +28,7 @@ import { Project } from '@/app/[locale]/projects/projects';
 import { TAG_COLORS_CARD } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { Tooltip } from '@/components/ui/beui-tooltip';
+import { LoadingImage } from '@/components/Loading/LoadingImage';
 
 interface ProjectSpotlightProps {
   projects: Project[];
@@ -513,7 +513,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                               minWidth: '100%',
                             }}
                           >
-                            <Image
+                            <LoadingImage
                               src={project.img || '/placeholder.jpg'}
                               alt={project.title}
                               fill
@@ -582,12 +582,12 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                           {/* Left Block (6 cols): Identity, Pitch, Tech Stack & Action Links */}
                           <div className="flex flex-col justify-between gap-3 xl:col-span-6 rounded-xl border border-slate-700/60 p-4 sm:p-4.5">
                             <div className="flex flex-col gap-2">
-                              {/* Header row with Title, Badge, and Quick Link */}
-                              <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-                                <div className="flex flex-wrap items-center gap-2 min-w-0">
+                              {/* Header row: project name left, URL right, category below the project name. */}
+                              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3 gap-y-2">
+                                <div className="flex min-w-0 flex-col items-start gap-1">
                                   <Link
                                     href="/projects"
-                                    className="shrink-0 text-lg xl:text-xl font-bold text-white transition-colors hover:text-accent tracking-tight"
+                                  className="max-w-full truncate text-lg font-bold tracking-tight text-white transition-colors hover:text-accent xl:text-xl"
                                   >
                                     {project.title}
                                   </Link>
@@ -598,9 +598,9 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                   href={project.demo}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex max-w-full items-center font-mono text-xs xl:text-sm font-semibold text-accent transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                                  className="max-w-full justify-self-end font-mono text-xs font-semibold text-accent transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent xl:text-sm"
                                 >
-                                  <span className="break-all">{project.displayUrl}</span>
+                                  <span className="block max-w-full truncate whitespace-nowrap">{project.displayUrl}</span>
                                 </Link>
                               </div>
 
@@ -611,7 +611,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                             </div>
 
                             {/* Footer of Left Block: Tags & Buttons */}
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2.5 border-t border-slate-700/40">
+                            <div className="flex flex-col items-start gap-2.5 border-t border-slate-700/40 pt-2.5">
                               {/* Tech Stack Pills */}
                               <div className="flex flex-wrap items-center gap-1.5">
                                 {project.tags.slice(0, 5).map((tag) => (
@@ -627,7 +627,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                               </div>
 
                               {/* Action Buttons */}
-                              <div className="flex items-center gap-2 shrink-0">
+                              <div className="flex shrink-0 items-center gap-2">
                                 {project.source && (
                                   <a
                                     href={project.source}
@@ -675,12 +675,17 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                   {project.highlights.map((highlight, hIdx) => (
                                     <li
                                       key={hIdx}
-                                      className="flex items-center gap-2.5 rounded-lg border border-slate-700/30 px-3 py-1.5 text-slate-200 min-h-10"
+                                      className="flex min-w-0 items-center gap-2.5 rounded-lg border border-slate-700/30 px-3 py-1.5 text-slate-200 min-h-10"
                                     >
                                       <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
-                                      <Tooltip content={highlight} side="top" className="max-w-xs whitespace-normal">
+                                      <Tooltip
+                                        content={highlight}
+                                        side="top"
+                                        className="max-w-xs whitespace-normal"
+                                        wrapperClassName="min-w-0 flex-1"
+                                      >
                                         <span
-                                          className="min-w-0 truncate text-xs xl:text-sm leading-relaxed block"
+                                          className="block w-full truncate text-xs leading-relaxed xl:text-sm"
                                         >
                                           {highlight}
                                         </span>
@@ -724,7 +729,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                             border-slate-700/40"
                         >
                           <Link href="/projects" className="relative block h-full w-full">
-                            <Image
+                            <LoadingImage
                               src={project.img || '/placeholder.jpg'}
                               alt={project.title}
                               fill
@@ -743,15 +748,15 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
 
                         {/* Project Info & Highlights Block */}
                         <div
-                          className="flex h-[356px] flex-col justify-between gap-2 pt-2.5 text-center
-                            sm:h-87.5 sm:gap-2.5 sm:pt-3 sm:text-left lg:pt-0 lg:col-span-6 xl:h-auto"
+                          className="flex flex-col justify-between gap-2 pt-2.5 text-center
+                            sm:h-[390px] sm:gap-2.5 sm:pt-3 sm:text-left lg:pt-0 lg:col-span-6"
                         >
                           <div className="flex flex-col gap-1.5 sm:gap-2">
-                            <div className="flex h-7 sm:h-auto flex-wrap items-center justify-center sm:justify-between gap-2 min-w-0">
+                            <div className="flex min-h-14 min-w-0 flex-col items-center justify-center gap-2 text-center xl:min-h-0 xl:flex-row xl:justify-between">
                               <Link
                                 href="/projects"
-                                className="shrink-0 text-base sm:text-lg font-bold text-white
-                                  transition-colors group-hover/card:text-accent tracking-tight text-center sm:text-left"
+                                className="shrink-0 text-center text-base font-bold tracking-tight text-white
+                                  transition-colors group-hover/card:text-accent sm:text-lg xl:text-left"
                               >
                                 {project.title}
                               </Link>
@@ -760,7 +765,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                             </div>
 
                             <p
-                              className="h-9 sm:h-auto min-h-9 sm:min-h-10 text-center text-xs sm:text-sm leading-relaxed
+                              className="h-9 min-h-9 text-center text-xs leading-relaxed sm:h-15 sm:text-sm
                                 text-slate-300 line-clamp-2 sm:line-clamp-3 xl:text-left"
                             >
                               {project.shortDesc || project.desc}
@@ -772,7 +777,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                 className="flex h-[168px] sm:h-[152px] w-full flex-col justify-between rounded-lg border border-slate-700/50 p-2.5 text-center xl:text-left"
                               >
                                 <div
-                                  className="flex items-center justify-between gap-1.5 border-b border-slate-700/40 pb-1.5 text-[10px] sm:text-[11px] font-mono font-semibold uppercase tracking-wider text-accent xl:mb-1.5 xl:border-slate-700/30 xl:pb-1"
+                                  className="flex items-center justify-between gap-1.5 border-b border-slate-700/40 pb-1.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-accent sm:text-[11px] xl:mb-1.5 xl:border-slate-700/30 xl:pb-1"
                                 >
                                   <div className="flex items-center gap-1.5">
                                     <Layers className="h-3 w-3 text-accent" />

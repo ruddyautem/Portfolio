@@ -1,11 +1,11 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { ExternalLink, Code2, Globe } from 'lucide-react';
 import { GithubIcon } from '@/components/Icons/Icons';
 import { Project } from '@/app/[locale]/projects/projects';
 import { TAG_COLORS_CARD } from '@/lib/constants';
+import { LoadingImage } from '@/components/Loading/LoadingImage';
 
 interface ArchiveProjectCardProps {
   project: Project;
@@ -20,13 +20,13 @@ export const ArchiveProjectCard = ({
 }: ArchiveProjectCardProps) => {
   return (
     <article
-      className="group relative flex h-full flex-col overflow-hidden rounded-[10px] border border-white/[0.08]
-        bg-[var(--theme-bg)] transition-all duration-300 hover:-translate-y-1.5
+      className="group relative flex h-full flex-col overflow-hidden rounded-[10px] border border-white/8
+        bg-(--theme-bg) transition-all duration-300 hover:-translate-y-1.5
         hover:border-white/[0.14]"
     >
       {/* Top Header / Mini File tab */}
       <div
-        className="flex h-9 items-center justify-between border-b border-white/[0.08] bg-[var(--theme-bg)]
+        className="flex h-9 items-center justify-between border-b border-white/8 bg-(--theme-bg)
           px-3.5 text-xs font-mono text-slate-300"
       >
         <div className="flex items-center gap-1.5">
@@ -35,7 +35,7 @@ export const ArchiveProjectCard = ({
         </div>
         <div className="flex items-center gap-1 text-[11px] text-accent/80 hover:text-accent">
           <Globe className="h-3 w-3" />
-          <span className="truncate max-w-[120px]">{project.displayUrl}</span>
+          <span className="truncate max-w-30">{project.displayUrl}</span>
         </div>
       </div>
 
@@ -45,9 +45,9 @@ export const ArchiveProjectCard = ({
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`Ouvrir la démo de ${project.title}`}
-        className="relative block aspect-[16/10] w-full overflow-hidden bg-slate-800/40"
+        className="relative block aspect-16/10 w-full overflow-hidden bg-slate-800/40"
       >
-        <Image
+        <LoadingImage
           src={project.img}
           alt={`Aperçu de ${project.title}`}
           fill
@@ -76,7 +76,7 @@ export const ArchiveProjectCard = ({
           </h3>
         </div>
 
-        <p className="mb-3.5 min-h-[2.25rem] text-xs leading-relaxed text-slate-300 line-clamp-3">
+        <p className="mb-3.5 min-h-9 text-xs leading-relaxed text-slate-300 line-clamp-3">
           {project.shortDesc || project.desc}
         </p>
 

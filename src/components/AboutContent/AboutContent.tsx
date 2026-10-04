@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { LoadingImage } from '@/components/Loading/LoadingImage';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import {
@@ -14,7 +15,6 @@ import {
   Zap,
   ShieldCheck,
   Sparkles,
-  Code2,
 } from 'lucide-react';
 import SkillItem from '@/components/SkillList/SkillList';
 import { skills } from './skills';
@@ -109,7 +109,7 @@ const AboutContent = () => {
                 {/* Left Card (7 cols): Bio Narrative, Metrics & CTAs */}
                 <div
                   className="flex flex-col justify-between overflow-hidden rounded-[10px] border
-                    border-white/[0.08] bg-[var(--theme-bg)] p-5 sm:p-7
+                    border-white/8 bg-(--theme-bg) p-5 sm:p-7
                     lg:col-span-7"
                 >
                   <div>
@@ -117,7 +117,7 @@ const AboutContent = () => {
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left pb-6 border-b border-slate-700/50">
                       <div className="relative shrink-0">
                         <div className="relative h-20 w-20 sm:h-24 sm:w-24 overflow-hidden rounded-2xl border-2 border-accent/40 shadow-lg shadow-accent/10">
-                          <Image
+                          <LoadingImage
                             src="/profile.jpg"
                             alt="Ruddy Autem"
                             fill
@@ -248,66 +248,86 @@ const AboutContent = () => {
                   </div>
 
                   {/* Code Editor Body */}
-                  <div className="flex-1 overflow-x-auto font-mono text-xs sm:text-sm xl:text-[14px] 2xl:text-[15px] leading-relaxed py-1">
-                    <div className="text-slate-400 italic mb-3 text-xs sm:text-[13px] xl:text-[14px]">
-                      {t('configComment')}
-                    </div>
+                  <div className="-mx-5 mt-3 flex-1 overflow-x-auto font-mono text-xs sm:-mx-7 sm:text-sm xl:text-[14px] 2xl:text-[15px] leading-relaxed py-1">
+                    <div className="grid grid-cols-[4rem_minmax(0,1fr)]">
+                      <aside aria-hidden="true" className="border-r border-white/[0.08] select-none">
+                        <div className="mb-3 flex w-full items-center justify-center text-center font-inconsolata text-[14.5px] text-[#787f8d]">
+                          1
+                        </div>
+                        <div className="space-y-1.5">
+                          {[2, 3, 4, 5, 6, 7, 8, 9, 10].map((line) => (
+                            <div
+                              key={line}
+                              className="flex w-full items-center justify-center text-center font-inconsolata text-[14.5px] text-[#787f8d]"
+                            >
+                              {line}
+                            </div>
+                          ))}
+                        </div>
+                      </aside>
 
-                    <div className="space-y-1.5">
-                      <div>
+                      <div className="pl-3">
+                        <div className="mb-3 text-xs italic text-slate-400 sm:text-[13px] xl:text-[14px]">
+                          {t('configComment')}
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <div>
                         <span className="text-purple-300 font-semibold">export const</span>{' '}
                         <span className="text-sky-300 font-semibold">developer</span>:{' '}
                         <span className="text-teal-300 font-semibold">DeveloperProfile</span> = &#123;
-                      </div>
+                          </div>
 
-                      <div className="pl-4">
+                          <div className="pl-4">
                         <span className="text-slate-200 font-medium">name:</span>{' '}
                         <span className="text-emerald-300">&apos;Ruddy Autem&apos;</span>,
-                      </div>
+                          </div>
 
-                      <div className="pl-4">
+                          <div className="pl-4">
                         <span className="text-slate-200 font-medium">role:</span>{' '}
                         <span className="text-emerald-300">&apos;{t('configRole')}&apos;</span>,
-                      </div>
+                          </div>
 
-                      <div className="pl-4">
+                          <div className="pl-4">
                         <span className="text-slate-200 font-medium">location:</span>{' '}
                         <span className="text-emerald-300">&apos;{t('configLocation')}&apos;</span>,
-                      </div>
+                          </div>
 
-                      <div className="pl-4">
+                          <div className="pl-4">
                         <span className="text-slate-200 font-medium">core:</span> [
                         <span className="text-amber-300">&apos;Next.js&apos;</span>,{' '}
                         <span className="text-amber-300">&apos;React&apos;</span>,{' '}
                         <span className="text-amber-300">&apos;TypeScript&apos;</span>,{' '}
                         <span className="text-amber-300">&apos;Node.js&apos;</span>
                         ],
-                      </div>
+                          </div>
 
-                      <div className="pl-4">
+                          <div className="pl-4">
                         <span className="text-slate-200 font-medium">databases:</span> [
                         <span className="text-amber-300">&apos;PostgreSQL&apos;</span>,{' '}
                         <span className="text-amber-300">&apos;Drizzle&apos;</span>,{' '}
                         <span className="text-amber-300">&apos;Prisma&apos;</span>,{' '}
                         <span className="text-amber-300">&apos;Redis&apos;</span>
                         ],
-                      </div>
+                          </div>
 
-                      <div className="pl-4">
+                          <div className="pl-4">
                         <span className="text-slate-200 font-medium">tooling:</span> [
                         <span className="text-amber-300">&apos;TailwindCSS&apos;</span>,{' '}
                         <span className="text-amber-300">&apos;Zod&apos;</span>,{' '}
                         <span className="text-amber-300">&apos;Clerk&apos;</span>,{' '}
                         <span className="text-amber-300">&apos;Cursor&apos;</span>
                         ],
-                      </div>
+                          </div>
 
-                      <div className="pl-4">
+                          <div className="pl-4">
                         <span className="text-slate-200 font-medium">focus:</span>{' '}
                         <span className="text-emerald-300">&apos;{t('configFocus')}&apos;</span>,
-                      </div>
+                          </div>
 
-                      <div>&#125;;</div>
+                          <div>&#125;;</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -318,18 +338,15 @@ const AboutContent = () => {
                   ============================================================ */}
               <section aria-label={t('pillarsTitle')}>
                 <div className="mb-6 sm:mb-8 text-center sm:text-left">
-                  <div
-                    className="inline-flex items-center gap-1.5 rounded-full border border-slate-700
-                      bg-slate-800/60 px-3 py-0.5 text-[11px] sm:text-xs xl:text-sm font-mono font-semibold uppercase tracking-wider
-                      text-slate-300 mb-2"
-                  >
-                    <Code2 className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-accent" />
-                    {t('pillarsBadge')}
+                  <div className="inline-flex items-center gap-2.5 font-mono sm:gap-3">
+                    <span className="text-xs text-slate-600 sm:text-sm">//</span>
+                    <span className="text-xs font-medium tracking-[0.16em] text-slate-500 uppercase sm:text-sm">02</span>
+                    <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
+                    <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base xl:text-lg">
+                      {t('pillarsTitle')}
+                    </h2>
                   </div>
-                  <h2 className="text-xl sm:text-2xl xl:text-3xl font-bold tracking-tight text-white">
-                    {t('pillarsTitle')}
-                  </h2>
-                  <p className="mt-1 text-xs sm:text-sm xl:text-base text-slate-400 max-w-2xl mx-auto sm:mx-0">
+                  <p className="mt-2 text-xs sm:text-sm xl:text-base text-slate-400 max-w-2xl mx-auto sm:mx-0">
                     {t('pillarsSubtitle')}
                   </p>
                 </div>
@@ -382,18 +399,15 @@ const AboutContent = () => {
               <section aria-label={t('stackTitle')}>
                 <div className="mb-6 sm:mb-8 flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
                   <div>
-                    <div
-                      className="inline-flex items-center gap-1.5 rounded-full border border-slate-700
-                        bg-slate-800/60 px-3 py-0.5 text-[11px] sm:text-xs xl:text-sm font-mono font-semibold uppercase tracking-wider
-                        text-slate-300 mb-2"
-                    >
-                      <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-accent" />
-                      {t('stackBadge')}
+                    <div className="inline-flex items-center gap-2.5 font-mono sm:gap-3">
+                      <span className="text-xs text-slate-600 sm:text-sm">//</span>
+                      <span className="text-xs font-medium tracking-[0.16em] text-slate-500 uppercase sm:text-sm">03</span>
+                      <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
+                      <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base xl:text-lg">
+                        {t('stackTitle')}
+                      </h2>
                     </div>
-                    <h2 className="text-xl sm:text-2xl xl:text-3xl font-bold tracking-tight text-white">
-                      {t('stackTitle')}
-                    </h2>
-                    <p className="mt-1 text-xs sm:text-sm xl:text-base text-slate-400 max-w-2xl mx-auto sm:mx-0">
+                    <p className="mt-2 text-xs sm:text-sm xl:text-base text-slate-400 max-w-2xl mx-auto sm:mx-0">
                       {t('stackSubtitle')}
                     </p>
                   </div>
