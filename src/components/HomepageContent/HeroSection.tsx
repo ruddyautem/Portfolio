@@ -69,7 +69,7 @@ const HeroSection = () => {
                 creaseShading={0}
                 trigger="mount"
                 className="inline-block origin-center tracking-[0.02em] text-center sm:max-xl:scale-125 2xl:text-left"
-                style={{ fontSize: 'clamp(3.25rem, 4vw, 4.5rem)', wordSpacing: '-0.24em' }}
+                style={{ fontSize: 'clamp(2.75rem, 4vw, 4.5rem)', wordSpacing: '-0.24em' }}
               />
             </div>
             <p className="mt-1.5 inline-block origin-center whitespace-nowrap text-xl font-semibold tracking-[0.01em] text-accent sm:max-xl:scale-125 2xl:-translate-y-6 2xl:mt-2 2xl:text-[28px]">{t('title')}</p>
@@ -77,12 +77,12 @@ const HeroSection = () => {
         </div>
 
         <div className="mx-auto w-full max-w-xl text-center 2xl:mx-0 2xl:justify-self-end 2xl:text-left">
-          <h2 className="text-lg font-semibold leading-snug tracking-tight text-white sm:text-xl 2xl:text-2xl">
+          <h2 className="text-balance break-words text-lg font-semibold leading-snug tracking-tight text-white sm:text-xl 2xl:text-2xl">
             {t.rich('introTitle', {
               accent: (chunks) => <span className="text-accent">{chunks}</span>,
             })}
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-300 sm:mt-4 sm:text-base 2xl:text-lg">
+          <p className="mt-2 break-words text-sm leading-relaxed text-slate-300 sm:mt-4 sm:text-base 2xl:text-lg">
             {t('description')}
           </p>
         </div>
