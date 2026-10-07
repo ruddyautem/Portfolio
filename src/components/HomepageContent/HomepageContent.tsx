@@ -22,7 +22,7 @@ const HomepageContent = () => {
     <div className={PAGE_OUTER_CLASSES}>
       <div className={PAGE_INNER_CLASSES}>
         <div className={PAGE_CARD_CLASSES}>
-          <div className="flex w-full flex-col gap-6 sm:gap-10 lg:gap-12 p-4 sm:p-7 md:p-9 lg:p-10 xl:p-12">
+          <div className="flex w-full flex-col gap-6 p-4 sm:gap-10 sm:p-7 md:p-9 lg:gap-12 lg:p-10 xl:p-12">
             {/* Top Section: Hero (Identity, intro, skills & actions) */}
             <div className="w-full">
               <HeroSection />

@@ -23,10 +23,28 @@ const renderWhitespace = (value, key) =>
   value.split(/(\n)/).map((part, index) => {
     if (part === '\n') return <br key={`${key}-br-${index}`} />;
     if (!part) return null;
-    return <span className="inline" key={`${key}-space-${index}`}>{part.replace(/ /g, '\u00A0')}</span>;
+    return (
+      <span className="inline" key={`${key}-space-${index}`}>
+        {part.replace(/ /g, '\u00A0')}
+      </span>
+    );
   });
 
-const FoldPiece = ({ content, delay, hinge, hingeConfig, safeCrease, duration, ease, reducedMotion, loop, play, hideBeforePlay, perspective, split }) => {
+const FoldPiece = ({
+  content,
+  delay,
+  hinge,
+  hingeConfig,
+  safeCrease,
+  duration,
+  ease,
+  reducedMotion,
+  loop,
+  play,
+  hideBeforePlay,
+  perspective,
+  split,
+}) => {
   const folded = {
     opacity: 0,
     rotateX: reducedMotion ? 0 : hingeConfig.rotateX,
@@ -36,9 +54,12 @@ const FoldPiece = ({ content, delay, hinge, hingeConfig, safeCrease, duration, e
   const unfolded = { opacity: 1, rotateX: 0, rotateY: 0, '--fold-crease': 0 };
 
   return (
-    <span className={`inline-block align-baseline [perspective:var(--fold-perspective)] [transform-style:preserve-3d] ${split === 'line' ? 'block' : ''}`} style={{ '--fold-perspective': `${perspective}px` }}>
+    <span
+      className={`inline-block align-baseline [perspective:var(--fold-perspective)] [transform-style:preserve-3d] ${split === 'line' ? 'block' : ''}`}
+      style={{ '--fold-perspective': `${perspective}px` }}
+    >
       <motion.span
-        className={`relative inline-block [backface-visibility:hidden] [transform-style:preserve-3d] will-change-transform after:pointer-events-none after:absolute after:-inset-x-[0.02em] after:-inset-y-[0.08em] after:rounded-[0.08em] after:opacity-[var(--fold-crease)] after:[mix-blend-mode:multiply] ${HINGE_SHADING[hinge] || HINGE_SHADING.top}`}
+        className={`relative inline-block will-change-transform [backface-visibility:hidden] [transform-style:preserve-3d] after:pointer-events-none after:absolute after:-inset-x-[0.02em] after:-inset-y-[0.08em] after:rounded-[0.08em] after:opacity-(--fold-crease) after:[mix-blend-mode:multiply] ${HINGE_SHADING[hinge] || HINGE_SHADING.top}`}
         initial={play || hideBeforePlay ? folded : unfolded}
         animate={play ? unfolded : hideBeforePlay ? folded : unfolded}
         transition={{
@@ -80,7 +101,8 @@ const FoldText = ({
   const safeCrease = clamp(creaseShading, 0, 1);
   const safePerspective = Math.max(120, perspective);
 
-  const shouldAnimate = trigger === 'scroll' ? isInView : trigger === 'hover' ? hoverCycle > 0 : true;
+  const shouldAnimate =
+    trigger === 'scroll' ? isInView : trigger === 'hover' ? hoverCycle > 0 : true;
   const animationCycle = trigger === 'hover' ? hoverCycle : shouldAnimate ? 1 : 0;
 
   const segments = useMemo(() => {
@@ -109,7 +131,9 @@ const FoldText = ({
 
     if (splitBy === 'line') {
       return text.split('\n').map((line, index) => (
-        <span className="block" key={`line-${index}`}>{renderSegment(line || '\u00A0', `segment-line-${index}`, 'line')}</span>
+        <span className="block" key={`line-${index}`}>
+          {renderSegment(line || '\u00A0', `segment-line-${index}`, 'line')}
+        </span>
       ));
     }
 
@@ -125,7 +149,21 @@ const FoldText = ({
       if (char === '\n') return <br key={`br-${index}`} />;
       return renderSegment(char === ' ' ? '\u00A0' : char, `segment-char-${index}`);
     });
-  }, [animationCycle, duration, ease, hinge, hingeConfig, reducedMotion, safeCrease, safePerspective, shouldAnimate, stagger, splitBy, text, trigger]);
+  }, [
+    animationCycle,
+    duration,
+    ease,
+    hinge,
+    hingeConfig,
+    reducedMotion,
+    safeCrease,
+    safePerspective,
+    shouldAnimate,
+    stagger,
+    splitBy,
+    text,
+    trigger,
+  ]);
 
   return (
     <span

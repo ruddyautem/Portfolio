@@ -9,7 +9,7 @@ import FoldText from './FoldText';
 const NavCard = ({ href, title, desc, icon: Icon }) => (
   <Link
     href={href}
-    className="group flex items-center gap-3 rounded-[10px] border border-white/[0.08] bg-[var(--theme-bg)] p-3.5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-white/[0.14] lg:gap-3.5 lg:p-3.5 2xl:gap-4 2xl:p-4"
+    className="group flex items-center gap-3 rounded-[10px] border border-white/8 bg-(--theme-bg) p-3.5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-white/14 lg:gap-3.5 lg:p-3.5 2xl:gap-4 2xl:p-4"
   >
     <span className="flex h-10 w-10 shrink-0 items-center justify-center text-accent transition-transform duration-300 group-hover:scale-110 lg:h-10 lg:w-10 2xl:h-11 2xl:w-11">
       <Icon className="h-5 w-5 lg:h-5 lg:w-5 2xl:h-5.5 2xl:w-5.5" />
@@ -18,7 +18,7 @@ const NavCard = ({ href, title, desc, icon: Icon }) => (
       <span className="block text-sm font-semibold text-white transition-colors group-hover:text-accent lg:text-base 2xl:text-lg">
         {title}
       </span>
-      <span className="mt-0.5 block overflow-hidden text-ellipsis whitespace-nowrap text-xs text-slate-400 lg:text-sm 2xl:text-sm">
+      <span className="mt-0.5 block overflow-hidden text-xs text-ellipsis whitespace-nowrap text-slate-400 lg:text-sm 2xl:text-sm">
         {desc}
       </span>
     </span>
@@ -56,8 +56,10 @@ const HeroSection = () => {
             </div>
           </div>
           <div className="w-full min-w-0 flex-1 sm:w-auto">
-            <h1 className="sr-only">{t('name')} {t('surname')}</h1>
-            <div className="-mb-8 flex h-28 w-full items-center justify-center sm:-mb-4 2xl:-ml-3 2xl:mb-0 2xl:h-24 2xl:w-[calc(100%+0.75rem)] 2xl:justify-start 2xl:pl-3">
+            <h1 className="sr-only">
+              {t('name')} {t('surname')}
+            </h1>
+            <div className="-mb-8 flex h-28 w-full items-center justify-center sm:-mb-4 2xl:mb-0 2xl:-ml-3 2xl:h-24 2xl:w-[calc(100%+0.75rem)] 2xl:justify-start 2xl:pl-3">
               <FoldText
                 text={`${t('name')} ${t('surname')}`}
                 fontWeight={800}
@@ -68,21 +70,23 @@ const HeroSection = () => {
                 hinge="top"
                 creaseShading={0}
                 trigger="mount"
-                className="inline-block origin-center tracking-[0.02em] text-center sm:max-xl:scale-125 2xl:text-left"
+                className="inline-block origin-center text-center tracking-[0.02em] sm:max-xl:scale-125 2xl:text-left"
                 style={{ fontSize: 'clamp(2.75rem, 4vw, 4.5rem)', wordSpacing: '-0.24em' }}
               />
             </div>
-            <p className="mt-1.5 inline-block origin-center whitespace-nowrap text-xl font-semibold tracking-[0.01em] text-accent sm:max-xl:scale-125 2xl:-translate-y-6 2xl:mt-2 2xl:text-[28px]">{t('title')}</p>
+            <p className="mt-1.5 inline-block origin-center text-xl font-semibold tracking-[0.01em] whitespace-nowrap text-accent sm:max-xl:scale-125 2xl:mt-2 2xl:-translate-y-6 2xl:text-[28px]">
+              {t('title')}
+            </p>
           </div>
         </div>
 
         <div className="mx-auto w-full max-w-xl text-center 2xl:mx-0 2xl:justify-self-end 2xl:text-left">
-          <h2 className="text-balance break-words text-lg font-semibold leading-snug tracking-tight text-white sm:text-xl 2xl:text-2xl">
+          <h2 className="text-lg leading-snug font-semibold tracking-tight text-balance break-words text-white sm:text-xl 2xl:text-2xl">
             {t.rich('introTitle', {
               accent: (chunks) => <span className="text-accent">{chunks}</span>,
             })}
           </h2>
-          <p className="mt-2 break-words text-sm leading-relaxed text-slate-300 sm:mt-4 sm:text-base 2xl:text-lg">
+          <p className="mt-2 text-sm leading-relaxed break-words text-slate-300 sm:mt-4 sm:text-base 2xl:text-lg">
             {t('description')}
           </p>
         </div>

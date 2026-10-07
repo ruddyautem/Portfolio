@@ -1,16 +1,15 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
 interface PageWrapperProps {
   children: React.ReactNode;
   className?: string;
   skipChildWrapping?: boolean;
-  showBackground?: boolean;
 }
 
-export const PageWrapper = ({ 
-  children, 
-  className, 
+export const PageWrapper = ({
+  children,
+  className,
   skipChildWrapping = false,
 }: PageWrapperProps) => {
   if (skipChildWrapping) {
@@ -28,9 +27,5 @@ export const PageWrapper = ({
     return child;
   });
 
-  return (
-    <div className={className}>
-      {wrappedChildren}
-    </div>
-  );
+  return <div className={className}>{wrappedChildren}</div>;
 };

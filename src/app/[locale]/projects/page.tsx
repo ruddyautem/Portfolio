@@ -1,11 +1,7 @@
 import ProjectsContent from '@/components/ProjectsContent/ProjectsContent';
 import { getTranslations } from 'next-intl/server';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'projectsPage' });
   return {
@@ -27,4 +23,3 @@ const Projects = () => {
 };
 
 export default Projects;
-

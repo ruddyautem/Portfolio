@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { createContext, useEffect, useState, useCallback } from "react";
-import { THEME_OPTIONS } from "@/lib/constants";
+import { createContext, useEffect, useState, useCallback } from 'react';
+import { THEME_OPTIONS } from '@/lib/constants';
 
 export interface ThemeContextType {
   theme: string;
@@ -9,13 +9,13 @@ export interface ThemeContextType {
 }
 
 export const ThemeContext = createContext<ThemeContextType>({
-  theme: "ayu",
+  theme: 'ayu',
   toggle: () => {},
 });
 
 export const ThemeContextProvider = ({
   children,
-  initialTheme = "ayu",
+  initialTheme = 'ayu',
 }: {
   children: React.ReactNode;
   initialTheme?: string;
@@ -25,18 +25,18 @@ export const ThemeContextProvider = ({
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       // Check localStorage in case cookie was out of sync or absent.
-      const savedTheme = localStorage.getItem("theme");
+      const savedTheme = localStorage.getItem('theme');
       if (!savedTheme) return;
 
-      const nextTheme = THEME_OPTIONS.includes(savedTheme) ? savedTheme : "ayu";
+      const nextTheme = THEME_OPTIONS.includes(savedTheme) ? savedTheme : 'ayu';
       if (nextTheme !== savedTheme) {
-        localStorage.setItem("theme", nextTheme);
+        localStorage.setItem('theme', nextTheme);
       }
 
       setTheme(nextTheme);
       document.cookie = `theme=${nextTheme}; path=/; max-age=31536000; SameSite=Lax`;
       const root = document.documentElement;
-      root.classList.remove(...THEME_OPTIONS, "githubDark", "githubLight");
+      root.classList.remove(...THEME_OPTIONS, 'githubDark', 'githubLight');
       root.classList.add(nextTheme);
     });
 
@@ -45,8 +45,8 @@ export const ThemeContextProvider = ({
 
   const toggle = useCallback((newTheme: string) => {
     setTheme(newTheme);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("theme", newTheme);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', newTheme);
       document.cookie = `theme=${newTheme}; path=/; max-age=31536000; SameSite=Lax`;
       const root = document.documentElement;
       root.classList.remove(...THEME_OPTIONS);
@@ -54,9 +54,5 @@ export const ThemeContextProvider = ({
     }
   }, []);
 
-  return (
-    <ThemeContext.Provider value={{ toggle, theme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={{ toggle, theme }}>{children}</ThemeContext.Provider>;
 };

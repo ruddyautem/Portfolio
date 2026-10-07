@@ -5,12 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import { useTranslations } from 'next-intl';
 import ContactForm from '../ContactForm/ContactForm';
 import { GithubIcon } from '@/components/Icons/Icons';
-import {
-  Mail,
-  Clock,
-  MapPin,
-  ExternalLink,
-} from 'lucide-react';
+import { Mail, Clock, MapPin, ExternalLink } from 'lucide-react';
 
 const LinkedinIcon = ({ className = 'h-5 w-5', ...props }: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} {...props}>
@@ -56,64 +51,53 @@ const SocialChannelCard = memo(
         href={href}
         target={isMailto ? '_self' : '_blank'}
         rel={isMailto ? undefined : 'noopener noreferrer'}
-        className={`group relative overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg)
-          p-2.5 sm:p-3.5 xl:p-5 transition-all duration-300 ${themeClasses.borderHover}
-          hover:border-white/[0.14] cursor-pointer block select-none
-          w-[calc((100%-0.5rem)/2)] sm:w-[calc((100%-1.5rem)/3)] xl:w-full xl:flex-1 xl:flex xl:flex-col xl:justify-center`}
+        className={`group relative overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg) p-2.5 transition-all duration-300 sm:p-3.5 xl:p-5 ${themeClasses.borderHover} block w-[calc((100%-0.5rem)/2)] cursor-pointer select-none hover:border-white/14 sm:w-[calc((100%-1.5rem)/3)] xl:flex xl:w-full xl:flex-1 xl:flex-col xl:justify-center`}
       >
         <div
-          className={`pointer-events-none absolute -right-10 -top-10 h-28 w-28 xl:h-32 xl:w-32 rounded-full
-            ${themeClasses.glow} opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100`}
+          className={`pointer-events-none absolute -top-10 -right-10 h-28 w-28 rounded-full xl:h-32 xl:w-32 ${themeClasses.glow} opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100`}
           aria-hidden="true"
         />
 
         {/* Mobile/Tablet View (< xl): Compact Tile */}
-        <div className="flex flex-col items-center justify-between text-center gap-2 xl:hidden h-full">
+        <div className="flex h-full flex-col items-center justify-between gap-2 text-center xl:hidden">
           <div
-            className={`flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg sm:rounded-xl border
-              transition-transform duration-300 group-hover:scale-105 ${themeClasses.badge}`}
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-105 sm:h-10 sm:w-10 sm:rounded-xl ${themeClasses.badge}`}
           >
             {icon}
           </div>
 
           <div className="w-full">
-            <h3 className="font-semibold text-xs sm:text-sm text-white truncate">
-              {name}
-            </h3>
+            <h3 className="truncate text-xs font-semibold text-white sm:text-sm">{name}</h3>
           </div>
 
-          <div
-            className="w-full max-w-50 sm:max-w-none inline-flex items-center justify-center gap-1 rounded-md border border-slate-700/60  py-1 px-1 text-[10px] sm:text-xs font-mono text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent"
-          >
+          <div className="inline-flex w-full max-w-50 items-center justify-center gap-1 rounded-md border border-slate-700/60 px-1 py-1 font-mono text-[10px] text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent sm:max-w-none sm:text-xs">
             <span>{mobileActionLabel ?? (isMailto ? 'Écrire' : 'Ouvrir')}</span>
-            <ExternalLink className="h-2.5 w-2.5 shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ExternalLink className="h-2.5 w-2.5 shrink-0 opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
           </div>
         </div>
 
         {/* Desktop View (xl:): Rich Horizontal Card */}
-        <div className="hidden xl:flex xl:flex-row items-center text-left gap-4 xl:gap-5">
+        <div className="hidden items-center gap-4 text-left xl:flex xl:flex-row xl:gap-5">
           <div
-            className={`flex h-10 w-10 sm:h-12 sm:w-12 xl:h-14 xl:w-14 shrink-0 items-center justify-center rounded-xl xl:rounded-2xl border
-              transition-transform duration-300 group-hover:scale-105 shadow-sm ${themeClasses.badge}`}
+            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12 xl:h-14 xl:w-14 xl:rounded-2xl ${themeClasses.badge}`}
           >
             {icon}
           </div>
 
-          <div className="flex-1 min-w-0 w-full">
+          <div className="w-full min-w-0 flex-1">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="font-semibold text-sm sm:text-base xl:text-lg text-white block leading-tight">
+              <h3 className="block text-sm leading-tight font-semibold text-white sm:text-base xl:text-lg">
                 {name}
               </h3>
             </div>
 
-            <p className="text-slate-400 text-xs sm:text-sm xl:text-sm font-mono mt-0.5 xl:mt-1 line-clamp-1">{description}</p>
+            <p className="mt-0.5 line-clamp-1 font-mono text-xs text-slate-400 sm:text-sm xl:mt-1 xl:text-sm">
+              {description}
+            </p>
 
-            <div
-              className="inline-flex items-center gap-1.5 text-xs xl:text-sm font-mono text-slate-300 transition-colors
-                group-hover:text-accent mt-1"
-            >
-              <span className="truncate max-w-50 sm:max-w-xs xl:max-w-sm">{displayUrl}</span>
-              <ExternalLink className="h-3 w-3 xl:h-3.5 xl:w-3.5 shrink-0 opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+            <div className="mt-1 inline-flex items-center gap-1.5 font-mono text-xs text-slate-300 transition-colors group-hover:text-accent xl:text-sm">
+              <span className="max-w-50 truncate sm:max-w-xs xl:max-w-sm">{displayUrl}</span>
+              <ExternalLink className="h-3 w-3 shrink-0 opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 xl:h-3.5 xl:w-3.5" />
             </div>
           </div>
         </div>
@@ -165,13 +149,15 @@ const ContactList = () => {
 
           {/* Content Grid */}
           <div className="p-3 sm:p-8 md:p-10 xl:p-12">
-            <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 sm:gap-8 items-start">
+            <div className="grid grid-cols-1 items-start gap-6 sm:gap-8 xl:grid-cols-12">
               {/* Left Column: Direct Channels & Reassurance (5 cols on xl) */}
               <div className="flex flex-col xl:col-span-5">
-                <div className="flex items-center justify-center xl:justify-start mb-2 sm:mb-3">
+                <div className="mb-2 flex items-center justify-center sm:mb-3 xl:justify-start">
                   <div className="inline-flex items-center gap-2.5 font-mono sm:gap-3">
                     <span className="text-xs text-slate-600 sm:text-sm">//</span>
-                    <span className="text-xs font-medium tracking-[0.16em] text-slate-500 uppercase sm:text-sm">01</span>
+                    <span className="text-xs font-medium tracking-[0.16em] text-slate-500 uppercase sm:text-sm">
+                      01
+                    </span>
                     <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
                     <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base lg:text-lg">
                       {t('networksTitle')}
@@ -192,7 +178,7 @@ const ContactList = () => {
                       href="mailto:ruddy.autem@gmail.com"
                       displayUrl="ruddy.autem@gmail.com"
                       description={t('socials.email')}
-                      icon={<Mail className="h-5 w-5 sm:h-6 sm:w-6 xl:h-7 xl:w-7 text-rose-400" />}
+                      icon={<Mail className="h-5 w-5 text-rose-400 sm:h-6 sm:w-6 xl:h-7 xl:w-7" />}
                       themeClasses={{
                         badge: 'border-rose-400/30 bg-rose-500/15 text-rose-300',
                         borderHover: 'hover:border-rose-400/50',
@@ -207,7 +193,9 @@ const ContactList = () => {
                       href="https://www.linkedin.com/in/ruddyautem/"
                       displayUrl="linkedin.com/in/ruddyautem"
                       description={t('socials.linkedin')}
-                      icon={<LinkedinIcon className="h-5 w-5 sm:h-6 sm:w-6 xl:h-7 xl:w-7 text-sky-400" />}
+                      icon={
+                        <LinkedinIcon className="h-5 w-5 text-sky-400 sm:h-6 sm:w-6 xl:h-7 xl:w-7" />
+                      }
                       themeClasses={{
                         badge: 'border-sky-400/30 bg-sky-500/15 text-sky-300',
                         borderHover: 'hover:border-sky-400/50',
@@ -222,7 +210,9 @@ const ContactList = () => {
                       href="https://github.com/ruddyautem"
                       displayUrl="github.com/ruddyautem"
                       description={t('socials.github')}
-                      icon={<GithubIcon className="h-5 w-5 sm:h-6 sm:w-6 xl:h-7 xl:w-7 text-purple-400" />}
+                      icon={
+                        <GithubIcon className="h-5 w-5 text-purple-400 sm:h-6 sm:w-6 xl:h-7 xl:w-7" />
+                      }
                       themeClasses={{
                         badge: 'border-purple-400/30 bg-purple-500/15 text-purple-300',
                         borderHover: 'hover:border-purple-400/50',
@@ -232,42 +222,37 @@ const ContactList = () => {
                     />
 
                     {/* Response Time Card */}
-                    <div
-                      className="group relative overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg)
-                        p-2.5 sm:p-3.5 xl:p-5 transition-all duration-300 hover:border-emerald-500/50
-                        select-none w-[calc((100%-0.5rem)/2)] sm:w-[calc((100%-1.5rem)/3)] xl:w-full xl:flex-1 xl:flex xl:flex-col xl:justify-center"
-                    >
+                    <div className="group relative w-[calc((100%-0.5rem)/2)] overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg) p-2.5 transition-all duration-300 select-none hover:border-emerald-500/50 sm:w-[calc((100%-1.5rem)/3)] sm:p-3.5 xl:flex xl:w-full xl:flex-1 xl:flex-col xl:justify-center xl:p-5">
                       <div
-                        className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 xl:h-32 xl:w-32 rounded-full
-                          bg-emerald-500/15 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+                        className="pointer-events-none absolute -top-10 -right-10 h-28 w-28 rounded-full bg-emerald-500/15 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100 xl:h-32 xl:w-32"
                         aria-hidden="true"
                       />
 
                       {/* Mobile View (< xl): Compact Tile */}
-                      <div className="flex flex-col items-center justify-between text-center gap-2 xl:hidden h-full">
-                        <div className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg sm:rounded-xl border border-emerald-500/30 bg-emerald-500/15 text-emerald-400 transition-transform duration-300 group-hover:scale-105">
+                      <div className="flex h-full flex-col items-center justify-between gap-2 text-center xl:hidden">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/15 text-emerald-400 transition-transform duration-300 group-hover:scale-105 sm:h-10 sm:w-10 sm:rounded-xl">
                           <Clock className="h-5 w-5 sm:h-6 sm:w-6" />
                         </div>
                         <div className="w-full">
-                          <h3 className="font-semibold text-xs sm:text-sm text-white truncate">
+                          <h3 className="truncate text-xs font-semibold text-white sm:text-sm">
                             {t('responseTime')}
                           </h3>
                         </div>
-                        <div className="w-full max-w-50 sm:max-w-none inline-flex items-center justify-center gap-1 rounded-md border border-slate-700/60  py-1 px-1 text-[10px] sm:text-xs font-mono text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent">
+                        <div className="inline-flex w-full max-w-50 items-center justify-center gap-1 rounded-md border border-slate-700/60 px-1 py-1 font-mono text-[10px] text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent sm:max-w-none sm:text-xs">
                           <span>{t('hours24')}</span>
                         </div>
                       </div>
 
                       {/* Desktop View (xl:): Horizontal Left-Aligned, Vertically Centered */}
-                      <div className="hidden xl:flex xl:flex-row items-center text-left gap-4 xl:gap-5 w-full">
-                        <div className="flex h-10 w-10 sm:h-12 sm:w-12 xl:h-14 xl:w-14 shrink-0 items-center justify-center rounded-xl xl:rounded-2xl border border-emerald-500/30 bg-emerald-500/15 text-emerald-400 shadow-sm transition-transform duration-300 group-hover:scale-105">
+                      <div className="hidden w-full items-center gap-4 text-left xl:flex xl:flex-row xl:gap-5">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-500/15 text-emerald-400 shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12 xl:h-14 xl:w-14 xl:rounded-2xl">
                           <Clock className="h-5 w-5 sm:h-6 sm:w-6 xl:h-7 xl:w-7" />
                         </div>
-                        <div className="flex-1 min-w-0 w-full">
-                          <h3 className="font-semibold text-sm sm:text-base xl:text-lg text-white block leading-tight">
+                        <div className="w-full min-w-0 flex-1">
+                          <h3 className="block text-sm leading-tight font-semibold text-white sm:text-base xl:text-lg">
                             {t('responseTime')}
                           </h3>
-                          <p className="text-slate-400 text-xs sm:text-sm xl:text-sm font-mono mt-0.5 xl:mt-1">
+                          <p className="mt-0.5 font-mono text-xs text-slate-400 sm:text-sm xl:mt-1 xl:text-sm">
                             {t('hours24')}
                           </p>
                         </div>
@@ -275,42 +260,37 @@ const ContactList = () => {
                     </div>
 
                     {/* Location Card */}
-                    <div
-                      className="group relative overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg)
-                        p-2.5 sm:p-3.5 xl:p-5 transition-all duration-300 hover:border-sky-500/50
-                        select-none w-[calc((100%-0.5rem)/2)] sm:w-[calc((100%-1.5rem)/3)] xl:w-full xl:flex-1 xl:flex xl:flex-col xl:justify-center"
-                    >
+                    <div className="group relative w-[calc((100%-0.5rem)/2)] overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg) p-2.5 transition-all duration-300 select-none hover:border-sky-500/50 sm:w-[calc((100%-1.5rem)/3)] sm:p-3.5 xl:flex xl:w-full xl:flex-1 xl:flex-col xl:justify-center xl:p-5">
                       <div
-                        className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 xl:h-32 xl:w-32 rounded-full
-                          bg-sky-500/15 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+                        className="pointer-events-none absolute -top-10 -right-10 h-28 w-28 rounded-full bg-sky-500/15 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100 xl:h-32 xl:w-32"
                         aria-hidden="true"
                       />
 
                       {/* Mobile View (< xl): Compact Tile */}
-                      <div className="flex flex-col items-center justify-between text-center gap-2 xl:hidden h-full">
-                        <div className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg sm:rounded-xl border border-sky-500/30 bg-sky-500/15 text-sky-400 transition-transform duration-300 group-hover:scale-105">
+                      <div className="flex h-full flex-col items-center justify-between gap-2 text-center xl:hidden">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-sky-500/30 bg-sky-500/15 text-sky-400 transition-transform duration-300 group-hover:scale-105 sm:h-10 sm:w-10 sm:rounded-xl">
                           <MapPin className="h-5 w-5 sm:h-6 sm:w-6" />
                         </div>
                         <div className="w-full">
-                          <h3 className="font-semibold text-xs sm:text-sm text-white truncate">
+                          <h3 className="truncate text-xs font-semibold text-white sm:text-sm">
                             {t('location')}
                           </h3>
                         </div>
-                        <div className="w-full max-w-50 sm:max-w-none inline-flex items-center justify-center gap-1 rounded-md border border-slate-700/60  py-1 px-1 text-[10px] sm:text-xs font-mono text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent">
+                        <div className="inline-flex w-full max-w-50 items-center justify-center gap-1 rounded-md border border-slate-700/60 px-1 py-1 font-mono text-[10px] text-slate-300 transition-colors group-hover:border-accent/40 group-hover:text-accent sm:max-w-none sm:text-xs">
                           <span>{t('locationDetail')}</span>
                         </div>
                       </div>
 
                       {/* Desktop View (xl:): Horizontal Left-Aligned, Vertically Centered */}
-                      <div className="hidden xl:flex xl:flex-row items-center text-left gap-4 xl:gap-5 w-full">
-                        <div className="flex h-10 w-10 sm:h-12 sm:w-12 xl:h-14 xl:w-14 shrink-0 items-center justify-center rounded-xl xl:rounded-2xl border border-sky-500/30 bg-sky-500/15 text-sky-400 shadow-sm transition-transform duration-300 group-hover:scale-105">
+                      <div className="hidden w-full items-center gap-4 text-left xl:flex xl:flex-row xl:gap-5">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-sky-500/30 bg-sky-500/15 text-sky-400 shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12 xl:h-14 xl:w-14 xl:rounded-2xl">
                           <MapPin className="h-5 w-5 sm:h-6 sm:w-6 xl:h-7 xl:w-7" />
                         </div>
-                        <div className="flex-1 min-w-0 w-full">
-                          <h3 className="font-semibold text-sm sm:text-base xl:text-lg text-white block leading-tight">
+                        <div className="w-full min-w-0 flex-1">
+                          <h3 className="block text-sm leading-tight font-semibold text-white sm:text-base xl:text-lg">
                             {t('location')}
                           </h3>
-                          <p className="text-slate-400 text-xs sm:text-sm xl:text-sm font-mono mt-0.5 xl:mt-1">
+                          <p className="mt-0.5 font-mono text-xs text-slate-400 sm:text-sm xl:mt-1 xl:text-sm">
                             {t('locationDetail')}
                           </p>
                         </div>
@@ -322,10 +302,12 @@ const ContactList = () => {
 
               {/* Right Column: High-Tech Terminal Contact Form (7 cols on xl) */}
               <div className="xl:col-span-7">
-                <div className="flex items-center justify-center xl:justify-start mb-2 sm:mb-3">
+                <div className="mb-2 flex items-center justify-center sm:mb-3 xl:justify-start">
                   <div className="inline-flex items-center gap-2.5 font-mono sm:gap-3">
                     <span className="text-xs text-slate-600 sm:text-sm">//</span>
-                    <span className="text-xs font-medium tracking-[0.16em] text-slate-500 uppercase sm:text-sm">02</span>
+                    <span className="text-xs font-medium tracking-[0.16em] text-slate-500 uppercase sm:text-sm">
+                      02
+                    </span>
                     <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
                     <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base lg:text-lg">
                       {t('sendMessageTitle')}

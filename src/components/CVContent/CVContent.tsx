@@ -9,7 +9,6 @@ import Link from 'next/link';
 import { PAGE_OUTER_CLASSES, PAGE_INNER_CLASSES, PAGE_CARD_CLASSES } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
-
 const cleanUrl = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
 const SectionHeading = ({ label }) => {
@@ -17,17 +16,11 @@ const SectionHeading = ({ label }) => {
     <div className="flex flex-col items-center gap-1.5 sm:items-start">
       <div className="flex items-center gap-2">
         <span className="text-base font-black text-slate-700">•</span>
-        <h2
-          className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-700
-            sm:text-[11px] md:text-[12px]"
-        >
+        <h2 className="text-[10px] font-black tracking-[0.18em] text-slate-700 uppercase sm:text-[11px] md:text-[12px]">
           {label}
         </h2>
       </div>
-      <div
-        className="h-0.5 w-full rounded-full bg-linear-to-r from-transparent via-slate-700/60
-          to-transparent sm:from-slate-700/60 sm:via-transparent sm:to-transparent"
-      ></div>
+      <div className="h-0.5 w-full rounded-full bg-linear-to-r from-transparent via-slate-700/60 to-transparent sm:from-slate-700/60 sm:via-transparent sm:to-transparent"></div>
     </div>
   );
 };
@@ -54,20 +47,13 @@ const DownloadIcon = ({ className }) => {
 
 const ContactChip = ({ contact }) => {
   const chipContent = (
-    <span
-      className="inline-flex cursor-pointer select-none items-center gap-1.5 rounded-md border
-        border-slate-200 bg-white px-2.5 py-1 text-[10px] font-medium text-slate-700 transition-all
-        duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-sm min-[375px]:px-3
-        min-[375px]:py-1.5 min-[375px]:text-[11px] sm:gap-2 sm:rounded-lg sm:px-3.5 sm:py-2
-        sm:text-[13px]"
-    >
+    <span className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-slate-200 bg-white px-2.5 py-1 text-[10px] font-medium text-slate-700 transition-all duration-300 select-none hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-sm min-[375px]:px-3 min-[375px]:py-1.5 min-[375px]:text-[11px] sm:gap-2 sm:rounded-lg sm:px-3.5 sm:py-2 sm:text-[13px]">
       <Image
         src={contact.icon}
         alt=""
         width={18}
         height={18}
-        className="h-3.5 w-3.5 shrink-0 opacity-70 min-[375px]:h-4 min-[375px]:w-4 sm:h-4.5
-          sm:w-4.5"
+        className="h-3.5 w-3.5 shrink-0 opacity-70 min-[375px]:h-4 min-[375px]:w-4 sm:h-4.5 sm:w-4.5"
       />
       {contact.text}
     </span>
@@ -88,18 +74,11 @@ const ContactChip = ({ contact }) => {
 const ProjectCardContent = ({ proj, idx }) => {
   return (
     <>
-      <span
-        className="cv-project-number absolute -left-3 -top-3 flex h-7 w-7 select-none items-center
-          justify-center rounded-full border border-slate-200 bg-white text-[10px] font-black
-          text-slate-700 transition-all duration-300 sm:h-8 sm:w-8 sm:text-xs"
-      >
+      <span className="cv-project-number absolute -top-3 -left-3 flex h-7 w-7 items-center justify-center rounded-full border border-slate-200 bg-white text-[10px] font-black text-slate-700 transition-all duration-300 select-none sm:h-8 sm:w-8 sm:text-xs">
         {String(idx + 1).padStart(2, '0')}
       </span>
 
-      <div
-        className="flex flex-col items-center gap-2 pl-3 sm:flex-row sm:items-start
-          sm:justify-between sm:gap-3"
-      >
+      <div className="flex flex-col items-center gap-2 pl-3 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
         <div className="min-w-0 flex-1 text-center sm:text-left">
           <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
             <span className="text-[13px] font-bold text-slate-700 sm:text-[14px] md:text-[15px]">
@@ -107,21 +86,15 @@ const ProjectCardContent = ({ proj, idx }) => {
             </span>
             {proj.link && (
               <>
-                <span className="select-none text-[10px] text-slate-300">•</span>
-                <span
-                  className="select-none rounded-lg border border-blue-200 bg-blue-50/50 px-3 py-1.5
-                    font-mono text-[11px] font-medium text-blue-600 sm:text-[11.5px]"
-                >
+                <span className="text-[10px] text-slate-300 select-none">•</span>
+                <span className="rounded-lg border border-blue-200 bg-blue-50/50 px-3 py-1.5 font-mono text-[11px] font-medium text-blue-600 select-none sm:text-[11.5px]">
                   {cleanUrl(proj.link)}
                 </span>
               </>
             )}
           </div>
         </div>
-        <span
-          className="shrink-0 select-none rounded-xl border border-slate-700/20 bg-slate-700 px-3
-            py-1.5 text-[10px] font-bold text-white sm:text-[11px]"
-        >
+        <span className="shrink-0 rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 text-[10px] font-bold text-white select-none sm:text-[11px]">
           {proj.year}
         </span>
       </div>
@@ -131,8 +104,7 @@ const ProjectCardContent = ({ proj, idx }) => {
           {proj.points.map((pt, pti) => (
             <li
               key={pti}
-              className="flex items-start justify-center gap-2 text-center text-[11px]
-                leading-relaxed text-slate-700/70 sm:justify-start sm:text-left sm:text-[12px]"
+              className="flex items-start justify-center gap-2 text-center text-[11px] leading-relaxed text-slate-700/70 sm:justify-start sm:text-left sm:text-[12px]"
             >
               <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-slate-700"></span>
               <span className="whitespace-pre-wrap">{pt}</span>
@@ -153,17 +125,10 @@ const CV = () => {
 
   return (
     <PageWrapper skipChildWrapping>
-      <div
-        className={cn(
-          PAGE_OUTER_CLASSES,
-          "font-['Inter','Segoe_UI',system-ui,sans-serif]",
-        )}
-      >
+      <div className={cn(PAGE_OUTER_CLASSES, "font-['Inter','Segoe_UI',system-ui,sans-serif]")}>
         <div className={PAGE_INNER_CLASSES}>
           <div className={PAGE_CARD_CLASSES}>
-            <div
-              className="border-b border-slate-700/30 px-4 py-5 text-center sm:px-6 sm:py-7 md:py-8"
-            >
+            <div className="border-b border-slate-700/30 px-4 py-5 text-center sm:px-6 sm:py-7 md:py-8">
               <h1 className="item-animate mb-2 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
                 {t('title')} <span className="text-accent">{t('titleAccent')}</span>
               </h1>
@@ -172,21 +137,12 @@ const CV = () => {
               </p>
             </div>
 
-            <div
-              className="mx-1 my-3 sm:mx-4 sm:my-6 min-h-[80vh] rounded-xl sm:rounded-2xl border border-slate-300 bg-[#f1f3f7] p-2.5
-                sm:p-4 md:p-5"
-            >
-              <div
-                className="item-animate relative mb-4 overflow-hidden rounded-2xl border
-                  border-slate-200 bg-white shadow-sm"
-              >
+            <div className="mx-1 my-3 min-h-[80vh] rounded-xl border border-slate-300 bg-[#f1f3f7] p-2.5 sm:mx-4 sm:my-6 sm:rounded-2xl sm:p-4 md:p-5">
+              <div className="item-animate relative mb-4 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                 {/* --- HEADER BACKGROUND --- */}
-                <div
-                  className="relative h-40 w-full bg-linear-to-r from-slate-800 via-slate-700
-                    to-slate-800 sm:h-40 md:h-48 lg:h-56 xl:h-64"
-                >
+                <div className="relative h-40 w-full bg-linear-to-r from-slate-800 via-slate-700 to-slate-800 sm:h-40 md:h-48 lg:h-56 xl:h-64">
                   <div
-                    className="absolute inset-0 opacity-[0.06]"
+                    className="absolute inset-0 opacity-6"
                     style={{
                       backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
                       backgroundSize: '16px 16px',
@@ -197,24 +153,15 @@ const CV = () => {
                   <a
                     href={t('cvFile')}
                     download={t('cvFileName')}
-                    className="absolute right-5 top-5 z-20 hidden sm:inline-flex cursor-pointer
-                      items-center justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 text-xs
-                      font-bold text-white shadow-md transition-all duration-300
-                      hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg md:right-6 md:top-6
-                      md:px-5 md:text-sm"
+                    className="absolute top-5 right-5 z-20 hidden cursor-pointer items-center justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 text-xs font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg sm:inline-flex md:top-6 md:right-6 md:px-5 md:text-sm"
                   >
                     <DownloadIcon className="block" />
                     <span>{t('downloadBtn')}</span>
                   </a>
 
-                  <div className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 -translate-y-1/2">
                     {/* --- PROFILE PICTURE  --- */}
-                    <div
-                      className="h-32 w-32 overflow-hidden rounded-2xl border-4 border-white
-                        bg-white shadow-lg min-[375px]:h-36 min-[375px]:w-36 min-[375px]:rounded-3xl
-                        min-[375px]:border-[5px] sm:h-44 sm:w-44 sm:border-[6px] md:h-48 md:w-48
-                        lg:h-64 lg:w-64 xl:h-72 xl:w-72"
-                    >
+                    <div className="h-32 w-32 overflow-hidden rounded-2xl border-4 border-white bg-white shadow-lg min-[375px]:h-36 min-[375px]:w-36 min-[375px]:rounded-3xl min-[375px]:border-5 sm:h-44 sm:w-44 sm:border-6 md:h-48 md:w-48 lg:h-64 lg:w-64 xl:h-72 xl:w-72">
                       <LoadingImage
                         src="/profile.jpg"
                         alt={name}
@@ -228,30 +175,16 @@ const CV = () => {
                 </div>
 
                 {/* --- TEXT CONTENT --- */}
-                <div
-                  className="flex flex-col items-center px-4 pb-6 pt-18 text-center min-[375px]:px-5
-                    min-[375px]:pb-8 min-[375px]:pt-22 sm:pt-28 md:pt-32 lg:pt-40 xl:pt-44"
-                >
-                  <span
-                    className="mb-2 inline-block rounded-md bg-slate-100 px-2.5 py-1 text-[9px]
-                      font-black uppercase tracking-[0.2em] text-slate-600 min-[375px]:mb-3
-                      min-[375px]:px-3 min-[375px]:py-1.5 min-[375px]:text-[10px] sm:text-xs
-                      md:text-sm"
-                  >
+                <div className="flex flex-col items-center px-4 pt-18 pb-6 text-center min-[375px]:px-5 min-[375px]:pt-22 min-[375px]:pb-8 sm:pt-28 md:pt-32 lg:pt-40 xl:pt-44">
+                  <span className="mb-2 inline-block rounded-md bg-slate-100 px-2.5 py-1 text-[9px] font-black tracking-[0.2em] text-slate-600 uppercase min-[375px]:mb-3 min-[375px]:px-3 min-[375px]:py-1.5 min-[375px]:text-[10px] sm:text-xs md:text-sm">
                     {title}
                   </span>
 
-                  <h1
-                    className="cv-name-gradient mb-4 text-3xl font-black leading-tight
-                      tracking-tight min-[375px]:mb-5 min-[375px]:text-4xl sm:text-5xl md:text-6xl
-                      lg:text-7xl"
-                  >
+                  <h1 className="cv-name-gradient mb-4 text-3xl leading-tight font-black tracking-tight min-[375px]:mb-5 min-[375px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
                     {name}
                   </h1>
 
-                  <div
-                    className="flex flex-wrap items-center justify-center gap-1.5 min-[375px]:gap-2"
-                  >
+                  <div className="flex flex-wrap items-center justify-center gap-1.5 min-[375px]:gap-2">
                     {contacts.map((c, i) => (
                       <ContactChip key={i} contact={c} />
                     ))}
@@ -261,10 +194,7 @@ const CV = () => {
                   <a
                     href={t('cvFile')}
                     download={t('cvFileName')}
-                    className="cv-download-btn mx-auto mt-4 flex w-full cursor-pointer items-center
-                      justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 transition-all
-                      duration-300 hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg
-                      sm:hidden"
+                    className="cv-download-btn mx-auto mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg sm:hidden"
                   >
                     <DownloadIcon className="text-white" />
                     <span className="text-xs font-semibold text-white">{t('downloadBtn')}</span>
@@ -275,24 +205,15 @@ const CV = () => {
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
                 <div className="flex flex-col gap-5 lg:col-span-2 lg:gap-6">
                   {about && (
-                    <div
-                      className="item-animate-1 rounded-2xl border border-slate-200 bg-white p-5
-                        shadow-sm sm:p-6"
-                    >
+                    <div className="item-animate-1 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
                       <SectionHeading label={t('aboutTitle')} />
-                      <p
-                        className="mt-4 whitespace-pre-wrap text-center text-sm leading-relaxed
-                          text-slate-700/80 sm:text-left sm:text-[13px] md:text-[14px]"
-                      >
+                      <p className="mt-4 text-center text-sm leading-relaxed whitespace-pre-wrap text-slate-700/80 sm:text-left sm:text-[13px] md:text-[14px]">
                         {about}
                       </p>
                     </div>
                   )}
 
-                  <div
-                    className="item-animate-2 flex-1 rounded-2xl border border-slate-200 bg-white p-5
-                      shadow-sm sm:p-6"
-                  >
+                  <div className="item-animate-2 flex-1 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
                     <SectionHeading label={t('projectsTitle')} />
                     <div className="mt-5 flex flex-col gap-4 lg:gap-5">
                       {projects.map((proj, idx) => {
@@ -324,29 +245,19 @@ const CV = () => {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <div
-                    className="item-animate-2 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm
-                      sm:p-5"
-                  >
+                  <div className="item-animate-2 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
                     <SectionHeading label={t('skillsTitle')} />
                     <div className="mt-4 space-y-4">
                       {skillGroups.map((group) => (
                         <div key={group.label} className="text-center sm:text-left">
-                          <p
-                            className="mb-2 select-none text-[9px] font-black uppercase
-                              tracking-[0.2em] text-slate-700/50 sm:text-[10px]"
-                          >
+                          <p className="mb-2 text-[9px] font-black tracking-[0.2em] text-slate-700/50 uppercase select-none sm:text-[10px]">
                             {group.label}
                           </p>
                           <div className="flex flex-wrap justify-center gap-1.5 sm:justify-start">
                             {group.skills.map((skill) => (
                               <span
                                 key={skill}
-                                className="cursor-pointer select-none rounded-xl border
-                                  border-slate-700/20 bg-slate-700 px-3 py-1.5 font-mono text-[10px]
-                                  font-semibold text-white transition-all duration-200
-                                  hover:-translate-y-1 hover:scale-105 hover:shadow-lg
-                                  sm:text-[11px]"
+                                className="cursor-pointer rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 font-mono text-[10px] font-semibold text-white transition-all duration-200 select-none hover:-translate-y-1 hover:scale-105 hover:shadow-lg sm:text-[11px]"
                               >
                                 {skill}
                               </span>
@@ -357,42 +268,25 @@ const CV = () => {
                     </div>
                   </div>
 
-                  <div
-                    className="item-animate-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm
-                      sm:p-5"
-                  >
+                  <div className="item-animate-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
                     <SectionHeading label={t('educationTitle')} />
                     <div className="mt-4 flex flex-col gap-2">
                       {formations.map((f, idx) => (
                         <div
                           key={idx}
-                          className="flex cursor-pointer flex-col items-center gap-2 rounded-xl
-                            border border-slate-200 bg-slate-50 p-3 text-center transition-all
-                            duration-300 hover:-translate-y-1 hover:border-slate-300
-                            hover:bg-slate-100/50 hover:shadow-md sm:flex-row sm:items-start
-                            sm:justify-between sm:text-left"
+                          className="flex cursor-pointer flex-col items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3 text-center transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:bg-slate-100/50 hover:shadow-md sm:flex-row sm:items-start sm:justify-between sm:text-left"
                         >
                           <div className="min-w-0 flex-1">
-                            <p
-                              className="text-[12px] font-bold leading-snug text-slate-700
-                                sm:text-[13px]"
-                            >
+                            <p className="text-[12px] leading-snug font-bold text-slate-700 sm:text-[13px]">
                               {f.title}
                             </p>
                             {f.institution && (
-                              <p
-                                className="mt-0.5 text-[10px] italic text-slate-700/55
-                                  sm:text-[11px]"
-                              >
+                              <p className="mt-0.5 text-[10px] text-slate-700/55 italic sm:text-[11px]">
                                 {f.institution}
                               </p>
                             )}
                           </div>
-                          <span
-                            className="shrink-0 select-none rounded-xl border border-slate-700/20
-                              bg-slate-700 px-3 py-1.5 text-[10px] font-black text-white
-                              sm:text-[11px]"
-                          >
+                          <span className="shrink-0 rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 text-[10px] font-black text-white select-none sm:text-[11px]">
                             {f.year}
                           </span>
                         </div>
@@ -400,28 +294,18 @@ const CV = () => {
                     </div>
                   </div>
 
-                  <div
-                    className="item-animate-4 flex-1 rounded-2xl border border-slate-200 bg-white p-4
-                      shadow-sm sm:p-5"
-                  >
+                  <div className="item-animate-4 flex-1 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
                     <SectionHeading label={t('languagesTitle')} />
                     <div className="mt-4 space-y-2">
                       {languages.map((l, i) => (
                         <div
                           key={i}
-                          className="flex cursor-pointer items-center justify-center gap-3
-                            rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5
-                            transition-all duration-300 hover:-translate-y-1 hover:border-slate-300
-                            hover:bg-slate-100/50 hover:shadow-md sm:justify-between"
+                          className="flex cursor-pointer items-center justify-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:bg-slate-100/50 hover:shadow-md sm:justify-between"
                         >
                           <span className="text-[12px] font-bold text-slate-700 sm:text-[13px]">
                             {l.language}
                           </span>
-                          <span
-                            className="select-none rounded-xl border border-slate-700/20
-                              bg-slate-700 px-3 py-1.5 text-[10px] font-bold text-white
-                              sm:text-[11px]"
-                          >
+                          <span className="rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 text-[10px] font-bold text-white select-none sm:text-[11px]">
                             {l.level}
                           </span>
                         </div>

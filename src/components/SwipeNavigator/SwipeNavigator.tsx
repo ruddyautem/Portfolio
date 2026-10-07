@@ -44,10 +44,7 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
       if (link === '/') {
         return currentRoute === '/' || currentRoute === `/${locale}` || currentRoute === '';
       }
-      return (
-        currentRoute === link ||
-        currentRoute === `/${locale}${link}`
-      );
+      return currentRoute === link || currentRoute === `/${locale}${link}`;
     },
     [currentRoute, locale],
   );
@@ -145,9 +142,9 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
         setShowHandHint(true);
         try {
           localStorage.setItem(STORAGE_KEY, 'true');
-          } catch {
-            // Ignore unavailable local storage.
-          }
+        } catch {
+          // Ignore unavailable local storage.
+        }
       }, 800);
 
       // Smooth unmount after 1600ms
@@ -178,7 +175,7 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
               <LineNumbersGutter contentRef={contentRef} />
             </div>
           </div>
-          <div ref={contentRef} className="flex-1 min-w-0">
+          <div ref={contentRef} className="min-w-0 flex-1">
             {children}
           </div>
         </div>
@@ -209,19 +206,19 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
 
   return (
     <div
-      className="relative flex-1 w-full overflow-hidden flex flex-col min-w-0 h-[calc(100dvh-88px)]"
+      className="relative flex h-[calc(100dvh-88px)] w-full min-w-0 flex-1 flex-col overflow-hidden"
       ref={emblaRef}
     >
       {/* Subtle right-edge indicator (docked flush against edge, smooth fade, no bounce) */}
       {showHandHint && (
-        <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 z-40 flex items-center">
-          <div className="animate-edge-hint flex items-center gap-2 rounded-l-xl border-y border-l border-slate-700/80 bg-slate-900/90 py-2.5 pl-3 pr-2 shadow-2xl backdrop-blur-md">
-            <span className="text-[11px] font-mono font-medium tracking-wider text-slate-300">
+        <div className="pointer-events-none absolute top-1/2 right-0 z-40 flex -translate-y-1/2 items-center">
+          <div className="animate-edge-hint flex items-center gap-2 rounded-l-xl border-y border-l border-slate-700/80 bg-slate-900/90 py-2.5 pr-2 pl-3 shadow-2xl backdrop-blur-md">
+            <span className="font-mono text-[11px] font-medium tracking-wider text-slate-300">
               {t('swipeHint')}
             </span>
             <div className="flex h-5 w-5 items-center justify-center rounded-md bg-accent/20 text-accent">
               <svg
-                className="h-3 w-3 stroke-[2.5]"
+                className="stroke-2.5 h-3 w-3"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -235,7 +232,9 @@ export default function SwipeNavigator({ children, className }: SwipeNavigatorPr
         </div>
       )}
 
-      <div className={`flex h-full w-full touch-pan-y ${showPeekAnimation ? 'animate-swipe-peek' : ''}`}>
+      <div
+        className={`flex h-full w-full touch-pan-y ${showPeekAnimation ? 'animate-swipe-peek' : ''}`}
+      >
         {slides.map((slide, index) => {
           const isActive = index === selectedIndex;
           const shouldMount = Math.abs(index - selectedIndex) <= 1;

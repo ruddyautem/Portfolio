@@ -50,7 +50,7 @@ const Projects = () => {
                       {t('featuredTitle')}
                     </h2>
                   </div>
-                  <p className="mt-2 max-w-2xl text-sm sm:text-base lg:text-lg text-slate-400">
+                  <p className="mt-2 max-w-2xl text-sm text-slate-400 sm:text-base lg:text-lg">
                     {t('featuredSubtitle')}
                   </p>
                 </div>
@@ -73,9 +73,9 @@ const Projects = () => {
               {/* Lab & Other Projects Section */}
               <section
                 aria-label={t('otherTitle')}
-                className="mt-12 sm:mt-24 border-t border-white/[0.08] pt-8 sm:pt-16"
+                className="mt-12 border-t border-white/8 pt-8 sm:mt-24 sm:pt-16"
               >
-                <div className="mb-6 sm:mb-8 flex flex-col items-center text-center">
+                <div className="mb-6 flex flex-col items-center text-center sm:mb-8">
                   <div className="inline-flex items-center gap-2.5 font-mono sm:gap-3">
                     <span className="text-xs text-slate-600 sm:text-sm">//</span>
                     <span className="text-xs font-medium tracking-[0.16em] text-slate-500 uppercase sm:text-sm">
@@ -86,13 +86,13 @@ const Projects = () => {
                       {t('otherTitle')}
                     </h2>
                   </div>
-                  <p className="mt-1.5 text-[11px] sm:text-sm text-slate-400 max-w-xl">
+                  <p className="mt-1.5 max-w-xl text-[11px] text-slate-400 sm:text-sm">
                     {t('otherSubtitle')}
                   </p>
                 </div>
 
                 {/* High-density Lab Grid */}
-                <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
                   {otherProjects.map((project) => (
                     <ArchiveProjectCard
                       key={project.id}

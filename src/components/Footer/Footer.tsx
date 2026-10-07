@@ -33,7 +33,8 @@ const Footer = () => {
     { icon: '/bell.svg', label: null, alt: 'Notifications' },
   ];
 
-  const containerClasses = 'flex h-5 cursor-pointer items-center rounded-xs px-1 leading-none hover:bg-white/10';
+  const containerClasses =
+    'flex h-5 cursor-pointer items-center rounded-xs px-1 leading-none hover:bg-white/10';
   const footerClasses =
     'bg-menu text-opacity-50 z-50 hidden lg:flex h-5 w-full items-center gap-1 text-[10px] leading-none relative select-none';
 
@@ -68,10 +69,7 @@ const Footer = () => {
       <div className="ml-auto flex items-center gap-1 px-1">
         {rightSideItems.map((item, index) => (
           <Tooltip key={index} content={item.alt} side="top" align="end">
-            <div
-              className={cn(containerClasses, 'hidden sm:flex')}
-              aria-label={item.alt}
-            >
+            <div className={cn(containerClasses, 'hidden sm:flex')} aria-label={item.alt}>
               <FooterItem {...item} />
             </div>
           </Tooltip>

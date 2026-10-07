@@ -15,7 +15,6 @@ import MobileNav from '@/components/MobileNav/MobileNav';
 import SwipeNavigator from '@/components/SwipeNavigator/SwipeNavigator';
 import LightPillar from '@/components/LightPillar/LightPillar';
 import { ThemeContextProvider } from '@/context/ThemeContext';
-import ThemeProvider from '../providers/ThemeProvider';
 import { THEME_OPTIONS } from '@/lib/constants';
 import { SITE_URL } from '@/lib/site';
 
@@ -196,43 +195,36 @@ export default async function RootLayout({
         />
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[99999]
-            focus:px-4 focus:py-2 focus:bg-accent focus:text-slate-950 focus:font-bold
-            focus:rounded-md focus:shadow-lg focus:outline-none"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-99999 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:font-bold focus:text-slate-950 focus:shadow-lg focus:outline-none"
         >
           {isFr ? 'Passer au contenu principal' : 'Skip to main content'}
         </a>
         <NextIntlClientProvider messages={messages}>
           <ThemeContextProvider initialTheme={initialTheme}>
-            <ThemeProvider>
-              <LightPillar className="z-[60] opacity-20" />
-              <Menu />
+            <LightPillar className="z-60 opacity-20" />
+            <Menu />
 
-              <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden">
-                <div className="m-1 hidden h-[calc(100dvh-60px)] shrink-0 rounded-[10px] border border-white/[0.08] lg:flex">
-                  <Sidebar />
-                  <Explorer />
-                </div>
-
-                <main
-                  id="main-content"
-                  tabIndex={-1}
-                  className="flex min-h-0 min-w-0 flex-1 flex-col bg-[var(--theme-bg)] outline-none lg:my-1 lg:mr-1 lg:overflow-hidden lg:rounded-[10px] lg:border lg:border-white/[0.08]"
-                >
-                  <Tabsbar />
-                  <BreadcrumbBar />
-                  <SwipeNavigator
-                    className="font-inconsolata text-light h-[calc(100dvh-88px)] min-h-0 bg-[var(--theme-bg)] lg:h-auto lg:flex-1
-                      overflow-y-auto overflow-x-hidden p-0"
-                  >
-                    {children}
-                  </SwipeNavigator>
-                </main>
+            <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden">
+              <div className="m-1 hidden h-[calc(100dvh-60px)] shrink-0 rounded-[10px] border border-white/8 lg:flex">
+                <Sidebar />
+                <Explorer />
               </div>
 
-              <Footer />
-              <MobileNav />
-            </ThemeProvider>
+              <main
+                id="main-content"
+                tabIndex={-1}
+                className="flex min-h-0 min-w-0 flex-1 flex-col bg-(--theme-bg) outline-none lg:my-1 lg:mr-1 lg:overflow-hidden lg:rounded-[10px] lg:border lg:border-white/8"
+              >
+                <Tabsbar />
+                <BreadcrumbBar />
+                <SwipeNavigator className="h-[calc(100dvh-88px)] min-h-0 overflow-x-hidden overflow-y-auto bg-(--theme-bg) p-0 font-inconsolata text-light lg:h-auto lg:flex-1">
+                  {children}
+                </SwipeNavigator>
+              </main>
+            </div>
+
+            <Footer />
+            <MobileNav />
           </ThemeContextProvider>
         </NextIntlClientProvider>
       </body>

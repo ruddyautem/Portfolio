@@ -28,7 +28,10 @@ export default function CommandPalette({ open, setOpen }) {
 
   useEffect(() => {
     const down = (e) => {
-      if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === 'p' && (e.metaKey || e.ctrlKey))) {
+      if (
+        (e.key === 'k' && (e.metaKey || e.ctrlKey)) ||
+        (e.key === 'p' && (e.metaKey || e.ctrlKey))
+      ) {
         e.preventDefault();
         setOpen((prev) => !prev);
       }
@@ -47,76 +50,70 @@ export default function CommandPalette({ open, setOpen }) {
   );
 
   return (
-    <Command.Dialog
-      open={open}
-      onOpenChange={setOpen}
-      label="Command Menu"
-    >
+    <Command.Dialog open={open} onOpenChange={setOpen} label="Command Menu">
       <div cmdk-input-wrapper="">
         <Command.Input
           placeholder={
             isFr
-              ? '> Tapez une commande ou le nom d\'un fichier...'
+              ? "> Tapez une commande ou le nom d'un fichier..."
               : '> Type a command or file name to open...'
           }
         />
       </div>
       <Command.List>
-        <Command.Empty>
-          {isFr ? 'Aucun résultat trouvé.' : 'No results found.'}
-        </Command.Empty>
+        <Command.Empty>{isFr ? 'Aucun résultat trouvé.' : 'No results found.'}</Command.Empty>
 
         {/* Navigation Group */}
         <Command.Group heading={isFr ? 'Fichiers & Navigation' : 'Files & Navigation'}>
-          <Command.Item
-            onSelect={() => runCommand(() => router.push('/'))}
-          >
+          <Command.Item onSelect={() => runCommand(() => router.push('/'))}>
             <FileCode className="h-4 w-4 text-accent" />
             <span>{isFr ? 'accueil.tsx' : 'home.tsx'} (Home)</span>
           </Command.Item>
-          <Command.Item
-            onSelect={() => runCommand(() => router.push('/about'))}
-          >
+          <Command.Item onSelect={() => runCommand(() => router.push('/about'))}>
             <User className="h-4 w-4 text-blue-400" />
-            <span>{isFr ? 'profil.md' : 'about.md'} ({isFr ? 'À propos / Compétences' : 'About / Skills'})</span>
+            <span>
+              {isFr ? 'profil.md' : 'about.md'} (
+              {isFr ? 'À propos / Compétences' : 'About / Skills'})
+            </span>
           </Command.Item>
-          <Command.Item
-            onSelect={() => runCommand(() => router.push('/projects'))}
-          >
+          <Command.Item onSelect={() => runCommand(() => router.push('/projects'))}>
             <FolderKanban className="h-4 w-4 text-amber-400" />
-            <span>{isFr ? 'projets.ts' : 'projects.ts'} ({isFr ? 'Mes Projets' : 'Projects'})</span>
+            <span>
+              {isFr ? 'projets.ts' : 'projects.ts'} ({isFr ? 'Mes Projets' : 'Projects'})
+            </span>
           </Command.Item>
-          <Command.Item
-            onSelect={() => runCommand(() => router.push('/cv'))}
-          >
+          <Command.Item onSelect={() => runCommand(() => router.push('/cv'))}>
             <FileText className="h-4 w-4 text-emerald-400" />
             <span>{isFr ? 'cv.pdf' : 'resume.pdf'} (Curriculum Vitae)</span>
           </Command.Item>
-          <Command.Item
-            onSelect={() => runCommand(() => router.push('/contact'))}
-          >
+          <Command.Item onSelect={() => runCommand(() => router.push('/contact'))}>
             <Mail className="h-4 w-4 text-pink-400" />
             <span>contact.tsx ({isFr ? 'Me contacter' : 'Contact Me'})</span>
           </Command.Item>
-          <Command.Item
-            onSelect={() => runCommand(() => router.push('/settings'))}
-          >
+          <Command.Item onSelect={() => runCommand(() => router.push('/settings'))}>
             <Sliders className="h-4 w-4 text-purple-400" />
-            <span>{isFr ? 'parametres.json' : 'settings.json'} ({isFr ? 'Paramètres IDE' : 'IDE Settings'})</span>
+            <span>
+              {isFr ? 'parametres.json' : 'settings.json'} (
+              {isFr ? 'Paramètres IDE' : 'IDE Settings'})
+            </span>
           </Command.Item>
         </Command.Group>
 
         {/* Themes Group */}
         <Command.Group heading={isFr ? 'Thèmes VS Code' : 'VS Code Themes'}>
           {THEME_OPTIONS.map((themeKey) => (
-            <Command.Item
-              key={themeKey}
-              onSelect={() => runCommand(() => setTheme(themeKey))}
-            >
-              <span className={cn('h-2.5 w-2.5 rounded-full ring-1 ring-white/30', THEME_DOT_COLORS[themeKey])} />
+            <Command.Item key={themeKey} onSelect={() => runCommand(() => setTheme(themeKey))}>
+              <span
+                className={cn(
+                  'h-2.5 w-2.5 rounded-full ring-1 ring-white/30',
+                  THEME_DOT_COLORS[themeKey],
+                )}
+              />
               <span>{THEME_LABELS[themeKey] ?? themeKey}</span>
               {theme === themeKey && (
-                <span className="ml-auto text-xs text-slate-500">{isFr ? '(Actif)' : '(Active)'}</span>
+                <span className="ml-auto text-xs text-slate-500">
+                  {isFr ? '(Actif)' : '(Active)'}
+                </span>
               )}
             </Command.Item>
           ))}
@@ -139,7 +136,9 @@ export default function CommandPalette({ open, setOpen }) {
               <Globe className="h-4 w-4 text-slate-400" />
               <span>{lang.title}</span>
               {locale === lang.code && (
-                <span className="ml-auto text-xs text-slate-500">{isFr ? '(Actuel)' : '(Current)'}</span>
+                <span className="ml-auto text-xs text-slate-500">
+                  {isFr ? '(Actuel)' : '(Current)'}
+                </span>
               )}
             </Command.Item>
           ))}
@@ -155,7 +154,7 @@ export default function CommandPalette({ open, setOpen }) {
             }
           >
             <Copy className="h-4 w-4 text-slate-400" />
-            <span>{isFr ? 'Copier l\'adresse email' : 'Copy email address'}</span>
+            <span>{isFr ? "Copier l'adresse email" : 'Copy email address'}</span>
           </Command.Item>
           <Command.Item
             onSelect={() =>

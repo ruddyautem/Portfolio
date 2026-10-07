@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { getStrictContext } from "@/components/ui/primitives-animate-files-utils/get-strict-context";
+import * as React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { getStrictContext } from '@/components/ui/primitives-animate-files-utils/get-strict-context';
 
 type FilesContextType = {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -22,12 +22,11 @@ type FolderItemContextType = {
   toggle: () => void;
 };
 
-const [FilesProvider, useFiles] =
-  getStrictContext<FilesContextType>("FilesContext");
+const [FilesProvider, useFiles] = getStrictContext<FilesContextType>('FilesContext');
 const [FolderItemProvider, useFolderItem] =
-  getStrictContext<FolderItemContextType>("FolderItemContext");
+  getStrictContext<FolderItemContextType>('FolderItemContext');
 
-type FilesProps = React.ComponentProps<"div"> & {
+type FilesProps = React.ComponentProps<'div'> & {
   defaultOpenFolders?: string[];
 };
 
@@ -41,9 +40,7 @@ function Files({ children, className, ...props }: FilesProps) {
   } | null>(null);
 
   return (
-    <FilesProvider
-      value={{ containerRef, highlightBounds, setHighlightBounds }}
-    >
+    <FilesProvider value={{ containerRef, highlightBounds, setHighlightBounds }}>
       <div
         ref={containerRef}
         className={className}
@@ -58,12 +55,7 @@ function Files({ children, className, ...props }: FilesProps) {
 
 type FilesHighlightProps = React.ComponentProps<typeof motion.div>;
 
-function FilesHighlight({
-  className,
-  style,
-  children,
-  ...props
-}: FilesHighlightProps) {
+function FilesHighlight({ className, style, children, ...props }: FilesHighlightProps) {
   const { highlightBounds } = useFiles();
 
   return (
@@ -82,8 +74,8 @@ function FilesHighlight({
               height: highlightBounds.height,
             }}
             exit={{ opacity: 0 }}
-            transition={{ type: "spring", stiffness: 750, damping: 40 }}
-            style={{ position: "absolute", pointerEvents: "none", ...style }}
+            transition={{ type: 'spring', stiffness: 750, damping: 40 }}
+            style={{ position: 'absolute', pointerEvents: 'none', ...style }}
             {...props}
           />
         )}
@@ -114,15 +106,11 @@ function useHighlightHover() {
   return { ref, onMouseEnter };
 }
 
-type FolderItemProps = React.ComponentProps<"div"> & {
+type FolderItemProps = React.ComponentProps<'div'> & {
   defaultOpen?: boolean;
 };
 
-function FolderItem({
-  children,
-  defaultOpen = false,
-  ...props
-}: FolderItemProps) {
+function FolderItem({ children, defaultOpen = false, ...props }: FolderItemProps) {
   const [isOpen, setIsOpen] = React.useState(defaultOpen);
   const toggle = React.useCallback(() => setIsOpen((v) => !v), []);
 
@@ -133,13 +121,13 @@ function FolderItem({
   );
 }
 
-type FolderHeaderProps = React.ComponentProps<"div">;
+type FolderHeaderProps = React.ComponentProps<'div'>;
 
 function FolderHeader({ children, ...props }: FolderHeaderProps) {
   return <div {...props}>{children}</div>;
 }
 
-type FolderTriggerProps = React.ComponentProps<"button">;
+type FolderTriggerProps = React.ComponentProps<'button'>;
 
 function FolderTrigger({ children, onClick, ...props }: FolderTriggerProps) {
   const { toggle } = useFolderItem();
@@ -158,7 +146,7 @@ function FolderTrigger({ children, onClick, ...props }: FolderTriggerProps) {
   );
 }
 
-type FolderHighlightProps = React.ComponentProps<"div">;
+type FolderHighlightProps = React.ComponentProps<'div'>;
 
 function FolderHighlight({ children, ...props }: FolderHighlightProps) {
   const { ref, onMouseEnter } = useHighlightHover();
@@ -170,7 +158,7 @@ function FolderHighlight({ children, ...props }: FolderHighlightProps) {
   );
 }
 
-type FolderProps = React.ComponentProps<"div">;
+type FolderProps = React.ComponentProps<'div'>;
 
 function Folder({ children, ...props }: FolderProps) {
   return <div {...props}>{children}</div>;
@@ -184,16 +172,16 @@ type FolderIconProps = {
 function FolderIcon({ openIcon, closeIcon }: FolderIconProps) {
   const { isOpen } = useFolderItem();
   return (
-    <span className="inline-flex shrink-0 relative size-[1.125rem]">
+    <span className="relative inline-flex size-4.5 shrink-0">
       <AnimatePresence initial={false} mode="popLayout">
         <motion.span
-          key={isOpen ? "open" : "close"}
+          key={isOpen ? 'open' : 'close'}
           className="inline-flex"
           initial={{ scale: 0.5, opacity: 0, rotate: -15 }}
           animate={{ scale: 1, opacity: 1, rotate: 0 }}
           exit={{ scale: 0.5, opacity: 0, rotate: 15 }}
           transition={{
-            type: "spring",
+            type: 'spring',
             stiffness: 500,
             damping: 30,
             mass: 0.8,
@@ -206,13 +194,13 @@ function FolderIcon({ openIcon, closeIcon }: FolderIconProps) {
   );
 }
 
-type FileLabelProps = React.ComponentProps<"span">;
+type FileLabelProps = React.ComponentProps<'span'>;
 
 function FileLabel({ children, ...props }: FileLabelProps) {
   return <span {...props}>{children}</span>;
 }
 
-type FolderContentProps = Omit<React.ComponentProps<"div">, "children"> & {
+type FolderContentProps = Omit<React.ComponentProps<'div'>, 'children'> & {
   children: React.ReactNode;
 };
 
@@ -224,11 +212,11 @@ function FolderContent({ children, className }: FolderContentProps) {
       {isOpen && (
         <motion.div
           initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
+          animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 750, damping: 40 }}
+          transition={{ type: 'spring', stiffness: 750, damping: 40 }}
           className={className}
-          style={{ overflow: "hidden" }}
+          style={{ overflow: 'hidden' }}
         >
           {children}
         </motion.div>
@@ -237,7 +225,7 @@ function FolderContent({ children, className }: FolderContentProps) {
   );
 }
 
-type FileHighlightProps = React.ComponentProps<"div">;
+type FileHighlightProps = React.ComponentProps<'div'>;
 
 function FileHighlight({ children, ...props }: FileHighlightProps) {
   const { ref, onMouseEnter } = useHighlightHover();
@@ -249,13 +237,13 @@ function FileHighlight({ children, ...props }: FileHighlightProps) {
   );
 }
 
-type FileProps = React.ComponentProps<"div">;
+type FileProps = React.ComponentProps<'div'>;
 
 function File({ children, ...props }: FileProps) {
   return <div {...props}>{children}</div>;
 }
 
-type FileIconProps = React.ComponentProps<"span">;
+type FileIconProps = React.ComponentProps<'span'>;
 
 function FileIcon({ children, ...props }: FileIconProps) {
   return (

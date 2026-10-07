@@ -82,15 +82,15 @@ export default function LineNumbersGutter({ contentRef }: LineNumbersGutterProps
   return (
     <div
       aria-hidden="true"
-      className="hidden lg:flex h-full w-full select-none flex-col pt-12 lg:pt-14 2xl:pt-16"
+      className="hidden h-full w-full flex-col pt-12 select-none lg:flex lg:pt-14 2xl:pt-16"
     >
-      <aside className="flex w-full flex-col items-center border-r border-white/[0.08]">
+      <aside className="flex w-full flex-col items-center border-r border-white/8">
         {Array.from({ length: lineCount }, (_, i) => {
           const lineNum = i + 1;
           return (
             <span
               key={lineNum}
-              className="flex h-6 w-full items-center justify-center text-center text-[#787f8d] hover:text-accent font-inconsolata text-[14.5px] tracking-wide transition-colors duration-100 cursor-default select-none font-normal"
+              className="flex h-6 w-full cursor-default items-center justify-center text-center font-inconsolata text-[14.5px] font-normal tracking-wide text-[#787f8d] transition-colors duration-100 select-none hover:text-accent"
             >
               {lineNum}
             </span>

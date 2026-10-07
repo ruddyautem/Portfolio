@@ -60,45 +60,45 @@ const MorphingBadge = memo(({ badge }: MorphingBadgeProps) => {
 
   return (
     <Tooltip content={badge} side="top">
-    <button
-      type="button"
-      onClick={(e) => {
-        e.stopPropagation();
-        if (parts.length > 1) {
-          setIndex((prev) => (prev + 1) % parts.length);
-        }
-      }}
-      className="shrink-0 inline-flex items-center gap-1.5 rounded-md border border-accent/30
-        bg-accent/10 px-2 py-0.5 font-mono text-[9px] sm:text-[10px] font-medium text-accent
-        transition-all duration-300 ease-out select-none cursor-pointer hover:bg-accent/15
-        active:scale-95 shadow-xs"
-    >
-      <Sparkles
-        key={`sparkle-${index}`}
-        className="h-2.5 w-2.5 shrink-0 text-accent animate-sparkle-twinkle"
-      />
-      {/* On mobile (< sm): dynamic morphing carousel without any truncation */}
-      <span className="sm:hidden inline-flex items-center gap-1.5">
-        <span key={`text-${index}`} className="inline-block animate-badge-morph whitespace-nowrap">
-          {parts[index]}
-        </span>
-        {parts.length > 1 && (
-          <span className="inline-flex items-center gap-1 ml-0.5 opacity-80">
-            {parts.map((_, i) => (
-              <span
-                key={i}
-                className={cn(
-                  'h-1 rounded-full transition-all duration-300 ease-out',
-                  i === index ? 'w-2.5 bg-accent' : 'w-1 bg-accent/30',
-                )}
-              />
-            ))}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          if (parts.length > 1) {
+            setIndex((prev) => (prev + 1) % parts.length);
+          }
+        }}
+        className="inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-md border border-accent/30 bg-accent/10 px-2 py-0.5 font-mono text-[9px] font-medium text-accent shadow-xs transition-all duration-300 ease-out select-none hover:bg-accent/15 active:scale-95 sm:text-[10px]"
+      >
+        <Sparkles
+          key={`sparkle-${index}`}
+          className="animate-sparkle-twinkle h-2.5 w-2.5 shrink-0 text-accent"
+        />
+        {/* On mobile (< sm): dynamic morphing carousel without any truncation */}
+        <span className="inline-flex items-center gap-1.5 sm:hidden">
+          <span
+            key={`text-${index}`}
+            className="animate-badge-morph inline-block whitespace-nowrap"
+          >
+            {parts[index]}
           </span>
-        )}
-      </span>
-      {/* On larger screens (sm+): full badge displayed continuously */}
-      <span className="hidden sm:inline whitespace-nowrap">{badge}</span>
-    </button>
+          {parts.length > 1 && (
+            <span className="ml-0.5 inline-flex items-center gap-1 opacity-80">
+              {parts.map((_, i) => (
+                <span
+                  key={i}
+                  className={cn(
+                    'h-1 rounded-full transition-all duration-300 ease-out',
+                    i === index ? 'w-2.5 bg-accent' : 'w-1 bg-accent/30',
+                  )}
+                />
+              ))}
+            </span>
+          )}
+        </span>
+        {/* On larger screens (sm+): full badge displayed continuously */}
+        <span className="hidden whitespace-nowrap sm:inline">{badge}</span>
+      </button>
     </Tooltip>
   );
 });
@@ -356,46 +356,28 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
   return (
     <div className="flex w-full flex-col gap-1.5 lg:gap-1 xl:gap-1.5 2xl:gap-2">
       {/* Subtle compact header above the spotlight container */}
-      <div
-        className="flex items-center justify-between px-1 text-[11px] sm:text-xs lg:text-sm
-          xl:text-base"
-      >
-        <div
-          className="flex items-center gap-1.5 font-mono text-[11px] sm:text-xs lg:text-sm
-            xl:text-base font-semibold tracking-wider text-slate-300 uppercase"
-        >
-          <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4 text-accent" />
+      <div className="flex items-center justify-between px-1 text-[11px] sm:text-xs lg:text-sm xl:text-base">
+        <div className="flex items-center gap-1.5 font-mono text-[11px] font-semibold tracking-wider text-slate-300 uppercase sm:text-xs lg:text-sm xl:text-base">
+          <Sparkles className="h-3 w-3 text-accent sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4" />
           <span>{t('spotlightTitle')}</span>
         </div>
         <Link
           href="/projects"
-          className="group flex items-center gap-1 font-mono text-[11px] sm:text-xs lg:text-sm
-            xl:text-base text-slate-400 transition-colors hover:text-accent"
+          className="group flex items-center gap-1 font-mono text-[11px] text-slate-400 transition-colors hover:text-accent sm:text-xs lg:text-sm xl:text-base"
         >
           <span>{t('ctaProjects')}</span>
-          <ArrowUpRight
-            className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4 transition-transform
-              group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-          />
+          <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4" />
         </Link>
       </div>
 
       <div
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
-        className="relative flex w-full flex-col overflow-hidden rounded-[10px] border
-          border-white/8 bg-(--theme-bg) transition-colors duration-300
-          hover:border-white/12"
+        className="relative flex w-full flex-col overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg) transition-colors duration-300 hover:border-white/12"
       >
         {/* Browser address bar: Centered with subtle background and padlock */}
-        <div
-          className="relative z-20 flex items-center justify-center border-b border-white/8
-            bg-(--theme-bg) px-3.5 py-1.5 font-mono text-[11px]"
-        >
-          <div
-            className="flex max-w-[85%] sm:max-w-md items-center gap-1.5 truncate rounded-md border
-              border-white/8 bg-transparent px-2.5 py-0.5 text-slate-300"
-          >
+        <div className="relative z-20 flex items-center justify-center border-b border-white/8 bg-(--theme-bg) px-3.5 py-1.5 font-mono text-[11px]">
+          <div className="flex max-w-[85%] items-center gap-1.5 truncate rounded-md border border-white/8 bg-transparent px-2.5 py-0.5 text-slate-300 sm:max-w-md">
             <Lock className="h-2.5 w-2.5 shrink-0 text-emerald-400 sm:h-3 sm:w-3" />
             <span className="truncate text-slate-200">{activeProject.displayUrl}</span>
           </div>
@@ -449,7 +431,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
 
             return (
               <div
-                className="hidden xl:flex w-full flex-col bg-[var(--theme-bg)] p-2 sm:p-3 lg:p-4"
+                className="hidden w-full flex-col bg-(--theme-bg) p-2 sm:p-3 lg:p-4 xl:flex"
                 style={{
                   containerType: 'inline-size',
                   ...vars,
@@ -494,7 +476,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                             'group/squeeze relative isolate h-full shrink-0 cursor-pointer overflow-hidden border p-0 transition-colors duration-200 outline-none',
                             front
                               ? 'border-slate-600/80 bg-slate-800/35 shadow-2xl'
-                              : 'border-slate-700/40 bg-slate-800/10 hover:border-slate-500/60 hover:bg-slate-800/30 opacity-75 hover:opacity-100',
+                              : 'border-slate-700/40 bg-slate-800/10 opacity-75 hover:border-slate-500/60 hover:bg-slate-800/30 hover:opacity-100',
                           )}
                           style={{
                             width: widthOf(col),
@@ -523,14 +505,14 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                 'object-cover object-top transition-transform duration-300 ease-out',
                                 front
                                   ? 'group-hover/squeeze:scale-101'
-                                  : 'filter brightness-75 group-hover/squeeze:brightness-95',
+                                  : 'brightness-75 filter group-hover/squeeze:brightness-95',
                               )}
                             />
 
                             {/* Non-active overlay label - vector SVG text: 100% crisp, zero raster blur, bigger on larger displays */}
                             {!front && (
-                              <div className="absolute inset-0 flex items-center justify-center py-5 px-0 bg-slate-950/60 hover:bg-slate-950/35 transition-colors select-none">
-                                <div className="flex-1 h-full w-full flex items-center justify-center">
+                              <div className="absolute inset-0 flex items-center justify-center bg-slate-950/60 px-0 py-5 transition-colors select-none hover:bg-slate-950/35">
+                                <div className="flex h-full w-full flex-1 items-center justify-center">
                                   <svg
                                     className="h-[85%] max-h-85 w-full overflow-visible"
                                     viewBox="0 0 60 340"
@@ -543,7 +525,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                       textAnchor="middle"
                                       dominantBaseline="central"
                                       transform="rotate(-90 30 170)"
-                                      className="fill-slate-100 font-mono font-bold text-[14px] 2xl:text-[15px] tracking-[0.2em] uppercase"
+                                      className="fill-slate-100 font-mono text-[14px] font-bold tracking-[0.2em] uppercase 2xl:text-[15px]"
                                       style={{
                                         textRendering: 'geometricPrecision',
                                       }}
@@ -578,16 +560,16 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                         }}
                       >
                         {/* Balanced 2-Block Split Layout: Left (6 cols) Info, Right (6 cols) Architecture & Highlights */}
-                        <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 items-stretch min-h-52.5">
+                        <div className="grid min-h-52.5 grid-cols-1 items-stretch gap-4 xl:grid-cols-12">
                           {/* Left Block (6 cols): Identity, Pitch, Tech Stack & Action Links */}
-                          <div className="flex flex-col justify-between gap-3 xl:col-span-6 rounded-xl border border-slate-700/60 p-4 sm:p-4.5">
+                          <div className="flex flex-col justify-between gap-3 rounded-xl border border-slate-700/60 p-4 sm:p-4.5 xl:col-span-6">
                             <div className="flex flex-col gap-2">
                               {/* Header row: project name left, URL right, category below the project name. */}
                               <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3 gap-y-2">
                                 <div className="flex min-w-0 flex-col items-start gap-1">
                                   <Link
                                     href="/projects"
-                                  className="max-w-full truncate text-lg font-bold tracking-tight text-white transition-colors hover:text-accent xl:text-xl"
+                                    className="max-w-full truncate text-lg font-bold tracking-tight text-white transition-colors hover:text-accent xl:text-xl"
                                   >
                                     {project.title}
                                   </Link>
@@ -600,12 +582,14 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                   rel="noopener noreferrer"
                                   className="max-w-full justify-self-end font-mono text-xs font-semibold text-accent transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent xl:text-sm"
                                 >
-                                  <span className="block max-w-full truncate whitespace-nowrap">{project.displayUrl}</span>
+                                  <span className="block max-w-full truncate whitespace-nowrap">
+                                    {project.displayUrl}
+                                  </span>
                                 </Link>
                               </div>
 
                               {/* Clean, Readable Description */}
-                              <p className="text-xs xl:text-sm leading-relaxed text-slate-200 line-clamp-3 min-h-10">
+                              <p className="line-clamp-3 min-h-10 text-xs leading-relaxed text-slate-200 xl:text-sm">
                                 {project.desc}
                               </p>
                             </div>
@@ -617,7 +601,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                 {project.tags.slice(0, 5).map((tag) => (
                                   <span
                                     key={tag}
-                                    className={`inline-flex items-center rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[11px] font-mono font-medium transition-colors hover:border-white/20 hover:bg-white/10 ${
+                                    className={`inline-flex items-center rounded-md border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[11px] font-medium transition-colors hover:border-white/20 hover:bg-white/10 ${
                                       TAG_COLORS_CARD[tag]?.split(' ')[2] || 'text-slate-300'
                                     }`}
                                   >
@@ -634,7 +618,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
-                                    className="inline-flex items-center gap-1.5 rounded-lg border border-white/10  px-3 py-1.5 text-xs font-mono font-medium text-slate-200 transition-all duration-150 hover:border-white/25 hover:bg-slate-700 hover:text-white active:scale-95"
+                                    className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-1.5 font-mono text-xs font-medium text-slate-200 transition-all duration-150 hover:border-white/25 hover:bg-slate-700 hover:text-white active:scale-95"
                                   >
                                     <GithubIcon className="h-3.5 w-3.5" />
                                     <span>{t('carousel.codeSource')}</span>
@@ -647,7 +631,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
-                                    className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-mono font-bold text-slate-950 shadow-sm transition-all duration-150 hover:bg-accent/90 active:scale-95"
+                                    className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 font-mono text-xs font-bold text-slate-950 shadow-sm transition-all duration-150 hover:bg-accent/90 active:scale-95"
                                   >
                                     <Globe className="h-3.5 w-3.5" />
                                     <span>{t('carousel.liveDemo')}</span>
@@ -658,11 +642,11 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                           </div>
 
                           {/* Right Block (6 cols): Architecture & Highlights Right-sized Card Block */}
-                          <div className="flex flex-col justify-between xl:col-span-6 rounded-xl border border-slate-700/60 p-4 sm:p-4.5">
+                          <div className="flex flex-col justify-between rounded-xl border border-slate-700/60 p-4 sm:p-4.5 xl:col-span-6">
                             {project.highlights && project.highlights.length > 0 ? (
                               <>
                                 <div className="mb-2 flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2">
-                                  <div className="flex items-center gap-2 text-lg xl:text-xl font-bold tracking-tight text-accent">
+                                  <div className="flex items-center gap-2 text-lg font-bold tracking-tight text-accent xl:text-xl">
                                     <Layers className="h-5 w-5 shrink-0 text-accent" />
                                     <h3>{t('carousel.architectureTitle')}</h3>
                                   </div>
@@ -671,11 +655,11 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                   </span>
                                 </div>
 
-                                <ul className="flex flex-col justify-between flex-1 gap-1.5">
+                                <ul className="flex flex-1 flex-col justify-between gap-1.5">
                                   {project.highlights.map((highlight, hIdx) => (
                                     <li
                                       key={hIdx}
-                                      className="flex min-w-0 items-center gap-2.5 rounded-lg border border-slate-700/30 px-3 py-1.5 text-slate-200 min-h-10"
+                                      className="flex min-h-10 min-w-0 items-center gap-2.5 rounded-lg border border-slate-700/30 px-3 py-1.5 text-slate-200"
                                     >
                                       <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
                                       <Tooltip
@@ -684,9 +668,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                         className="max-w-xs whitespace-normal"
                                         wrapperClassName="min-w-0 flex-1"
                                       >
-                                        <span
-                                          className="block w-full truncate text-xs leading-relaxed xl:text-sm"
-                                        >
+                                        <span className="block w-full truncate text-xs leading-relaxed xl:text-sm">
                                           {highlight}
                                         </span>
                                       </Tooltip>
@@ -710,24 +692,16 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
           })()}
 
           {/* Kept mounted for the existing Embla synchronization hooks. */}
-          <div ref={emblaRef} className="xl:hidden w-full overflow-hidden">
+          <div ref={emblaRef} className="w-full overflow-hidden xl:hidden">
             <div className="flex touch-pan-y">
               {projects.map((project, idx) => {
                 return (
                   <div key={project.id} className="min-w-0 flex-[0_0_100%]">
                     <div className="group/card relative flex h-full flex-col overflow-hidden">
                       {/* Responsive Container: Vertical stack on mobile/sm/md, side-by-side 2 columns on lg (1024px) */}
-                      <div
-                        className="flex flex-col lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-4
-                          p-3 sm:p-4"
-                      >
+                      <div className="flex flex-col p-3 sm:p-4 lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-4">
                         {/* Project Visual Preview (scale-up ONLY on active slide hover) */}
-                        <div
-                          className="relative aspect-video sm:aspect-video lg:aspect-auto lg:h-full
-                            lg:min-h-70 w-full overflow-hidden rounded-lg sm:rounded-xl
-                            bg-slate-950/60 max-h-65 sm:max-h-80 lg:max-h-none lg:col-span-6 border
-                            border-slate-700/40"
-                        >
+                        <div className="relative aspect-video max-h-65 w-full overflow-hidden rounded-lg border border-slate-700/40 bg-slate-950/60 sm:aspect-video sm:max-h-80 sm:rounded-xl lg:col-span-6 lg:aspect-auto lg:h-full lg:max-h-none lg:min-h-70">
                           <Link href="/projects" className="relative block h-full w-full">
                             <LoadingImage
                               src={project.img || '/placeholder.jpg'}
@@ -735,28 +709,19 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                               fill
                               sizes="(max-width: 1024px) 95vw, 50vw"
                               priority={idx === 0}
-                              className="object-cover object-top transition-transform duration-500
-                                ease-out group-hover/card:scale-103"
+                              className="object-cover object-top transition-transform duration-500 ease-out group-hover/card:scale-103"
                             />
-                            <div
-                              className="absolute inset-0 bg-linear-to-t from-slate-950/70
-                                via-transparent to-transparent opacity-0
-                                group-hover/card:opacity-100 transition-opacity duration-300"
-                            />
+                            <div className="absolute inset-0 bg-linear-to-t from-slate-950/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />
                           </Link>
                         </div>
 
                         {/* Project Info & Highlights Block */}
-                        <div
-                          className="flex flex-col justify-between gap-2 pt-2.5 text-center
-                            sm:h-[390px] sm:gap-2.5 sm:pt-3 sm:text-left lg:pt-0 lg:col-span-6"
-                        >
+                        <div className="flex flex-col justify-between gap-2 pt-2.5 text-center sm:h-97.5 sm:gap-2.5 sm:pt-3 sm:text-left lg:col-span-6 lg:pt-0">
                           <div className="flex flex-col gap-1.5 sm:gap-2">
                             <div className="flex min-h-14 min-w-0 flex-col items-center justify-center gap-2 text-center xl:min-h-0 xl:flex-row xl:justify-between">
                               <Link
                                 href="/projects"
-                                className="shrink-0 text-center text-base font-bold tracking-tight text-white
-                                  transition-colors group-hover/card:text-accent sm:text-lg xl:text-left"
+                                className="shrink-0 text-center text-base font-bold tracking-tight text-white transition-colors group-hover/card:text-accent sm:text-lg xl:text-left"
                               >
                                 {project.title}
                               </Link>
@@ -764,26 +729,19 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                               {project.badge && <MorphingBadge badge={project.badge} />}
                             </div>
 
-                            <p
-                              className="h-9 min-h-9 text-center text-xs leading-relaxed sm:h-15 sm:text-sm
-                                text-slate-300 line-clamp-2 sm:line-clamp-3 xl:text-left"
-                            >
+                            <p className="line-clamp-2 h-9 min-h-9 text-center text-xs leading-relaxed text-slate-300 sm:line-clamp-3 sm:h-15 sm:text-sm xl:text-left">
                               {project.shortDesc || project.desc}
                             </p>
 
                             {/* Key Architecture Highlights Box */}
                             {project.highlights && project.highlights.length > 0 && (
-                              <div
-                                className="flex h-[168px] sm:h-[152px] w-full flex-col justify-between rounded-lg border border-slate-700/50 p-2.5 text-center xl:text-left"
-                              >
-                                <div
-                                  className="flex items-center justify-between gap-1.5 border-b border-slate-700/40 pb-1.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-accent sm:text-[11px] xl:mb-1.5 xl:border-slate-700/30 xl:pb-1"
-                                >
+                              <div className="flex h-42 w-full flex-col justify-between rounded-lg border border-slate-700/50 p-2.5 text-center sm:h-38 xl:text-left">
+                                <div className="flex items-center justify-between gap-1.5 border-b border-slate-700/40 pb-1.5 font-mono text-[10px] font-semibold tracking-wider text-accent uppercase sm:text-[11px] xl:mb-1.5 xl:border-slate-700/30 xl:pb-1">
                                   <div className="flex items-center gap-1.5">
                                     <Layers className="h-3 w-3 text-accent" />
                                     <span>{t('carousel.architectureTitle')}</span>
                                   </div>
-                                  <span className="text-[10px] font-mono text-slate-400">
+                                  <span className="font-mono text-[10px] text-slate-400">
                                     {project.category.toUpperCase()}
                                   </span>
                                 </div>
@@ -793,10 +751,10 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                       key={hIdx}
                                       className="flex flex-1 items-center justify-center gap-1.5 text-center text-xs leading-snug text-slate-200 sm:justify-start sm:text-left"
                                     >
-                                      <CheckCircle2
-                                        className="h-3.5 w-3.5 shrink-0 text-accent"
-                                      />
-                                      <span className="line-clamp-2 text-center sm:text-left">{highlight}</span>
+                                      <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-accent" />
+                                      <span className="line-clamp-2 text-center sm:text-left">
+                                        {highlight}
+                                      </span>
                                     </li>
                                   ))}
                                 </ul>
@@ -804,18 +762,15 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                             )}
                           </div>
 
-                          <div className="mt-auto flex flex-col gap-2 pt-1 border-t border-slate-700/40">
+                          <div className="mt-auto flex flex-col gap-2 border-t border-slate-700/40 pt-1">
                             {/* Tech Stack Badges */}
-                            <div
-                              className="flex h-11 sm:h-auto flex-wrap items-center justify-center content-center gap-1.5
-                                xl:justify-start"
-                            >
+                            <div className="flex h-11 flex-wrap content-center items-center justify-center gap-1.5 sm:h-auto xl:justify-start">
                               {project.tags.slice(0, 5).map((tag) => (
                                 <span
                                   key={tag}
-                                  className={`inline-flex items-center rounded-md border px-2 py-0.5
-                                  text-[10px] sm:text-[11px] font-mono font-medium ${getTagStyle(
-                                  tag, )}`}
+                                  className={`inline-flex items-center rounded-md border px-2 py-0.5 font-mono text-[10px] font-medium sm:text-[11px] ${getTagStyle(
+                                    tag,
+                                  )}`}
                                 >
                                   #{tag}
                                 </span>
@@ -823,17 +778,13 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                             </div>
 
                             {/* Action Buttons: Locked to identical height across all projects */}
-                            <div className="flex h-9 sm:h-auto gap-2">
+                            <div className="flex h-9 gap-2 sm:h-auto">
                               {project.source && (
                                 <a
                                   href={project.source}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex h-full flex-1 items-center justify-center gap-1.5
-                                    rounded-lg border border-slate-700 bg-transparent py-1.5
-                                    sm:py-2 text-xs font-semibold text-slate-300 transition-all
-                                    duration-200 hover:border-slate-500 hover:bg-white/5
-                                    hover:text-white active:scale-95"
+                                  className="flex h-full flex-1 items-center justify-center gap-1.5 rounded-lg border border-slate-700 bg-transparent py-1.5 text-xs font-semibold text-slate-300 transition-all duration-200 hover:border-slate-500 hover:bg-white/5 hover:text-white active:scale-95 sm:py-2"
                                 >
                                   <GithubIcon className="h-3.5 w-3.5" />
                                   <span>{t('carousel.codeSource')}</span>
@@ -845,10 +796,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                   href={project.demo}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex h-full flex-1 items-center justify-center gap-1.5
-                                    rounded-lg bg-accent py-1.5 sm:py-2 text-xs font-bold
-                                    text-slate-950 shadow-md transition-all duration-200
-                                    hover:bg-accent/90 hover:shadow-accent/20 active:scale-95"
+                                  className="flex h-full flex-1 items-center justify-center gap-1.5 rounded-lg bg-accent py-1.5 text-xs font-bold text-slate-950 shadow-md transition-all duration-200 hover:bg-accent/90 hover:shadow-accent/20 active:scale-95 sm:py-2"
                                 >
                                   <Globe className="h-3.5 w-3.5" />
                                   <span>{t('carousel.liveDemo')}</span>
@@ -867,10 +815,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
         </div>
 
         {/* Bottom Pagination Bar: only on small mobiles (<sm) */}
-        <div
-          className="relative z-30 flex xl:hidden items-center justify-center border-t
-            border-white/[0.08] bg-transparent px-3 py-2"
-        >
+        <div className="relative z-30 flex items-center justify-center border-t border-white/8 bg-transparent px-3 py-2 xl:hidden">
           {/* Animated Progress Bar across top of bottom bar */}
           <div className="absolute top-0 left-0 h-0.5 w-full bg-slate-700/40">
             <div
@@ -879,19 +824,14 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
             />
           </div>
 
-          <div
-            className="flex items-center justify-center gap-1.5 rounded-xl border
-              border-slate-600/40 bg-transparent px-1.5 py-1.5"
-          >
+          <div className="flex items-center justify-center gap-1.5 rounded-xl border border-slate-600/40 bg-transparent px-1.5 py-1.5">
             <button
               type="button"
               aria-label={t('carousel.previous')}
               onClick={handlePrev}
-              className="flex h-8 w-8 touch-manipulation items-center justify-center rounded-lg
-                text-slate-400 active:scale-95 cursor-pointer outline-none focus:outline-none
-                focus-visible:outline-none select-none [-webkit-tap-highlight-color:transparent]"
+              className="flex h-8 w-8 cursor-pointer touch-manipulation items-center justify-center rounded-lg text-slate-400 outline-none select-none [-webkit-tap-highlight-color:transparent] focus:outline-none focus-visible:outline-none active:scale-95"
             >
-              <ChevronLeft className="h-3.5 w-3.5 stroke-[2.5]" />
+              <ChevronLeft className="stroke-2.5 h-3.5 w-3.5" />
             </button>
 
             <div className="flex items-center gap-0.5">
@@ -903,11 +843,9 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                     type="button"
                     aria-label={t('carousel.goTo', { title: project.title })}
                     onClick={() => selectProject(idx)}
-                    className={`flex h-8 w-8 touch-manipulation items-center justify-center
-                    rounded-lg font-mono font-bold text-sm transition-colors duration-150
-                    cursor-pointer ${
+                    className={`flex h-8 w-8 cursor-pointer touch-manipulation items-center justify-center rounded-lg font-mono text-sm font-bold transition-colors duration-150 ${
                       isActive
-                        ? 'bg-transparent text-accent font-extrabold'
+                        ? 'bg-transparent font-extrabold text-accent'
                         : 'text-slate-400 hover:text-white'
                     }`}
                   >
@@ -921,11 +859,9 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
               type="button"
               aria-label={t('carousel.next')}
               onClick={handleNext}
-              className="flex h-8 w-8 touch-manipulation items-center justify-center rounded-lg
-                text-slate-400 active:scale-95 cursor-pointer outline-none focus:outline-none
-                focus-visible:outline-none select-none [-webkit-tap-highlight-color:transparent]"
+              className="flex h-8 w-8 cursor-pointer touch-manipulation items-center justify-center rounded-lg text-slate-400 outline-none select-none [-webkit-tap-highlight-color:transparent] focus:outline-none focus-visible:outline-none active:scale-95"
             >
-              <ChevronRight className="h-3.5 w-3.5 stroke-[2.5]" />
+              <ChevronRight className="stroke-2.5 h-3.5 w-3.5" />
             </button>
           </div>
         </div>

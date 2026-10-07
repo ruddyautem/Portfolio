@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image, { type ImageProps } from 'next/image';
@@ -14,10 +13,7 @@ export const LoadingImage = ({ className, onLoad, onError, ...props }: ImageProp
   return (
     <>
       {!isLoaded && (
-        <div
-          className="absolute inset-0 z-10 overflow-hidden bg-slate-950/80"
-          aria-hidden="true"
-        >
+        <div className="absolute inset-0 z-10 overflow-hidden bg-slate-950/80" aria-hidden="true">
           <div className="loading-skeleton absolute inset-0" />
         </div>
       )}

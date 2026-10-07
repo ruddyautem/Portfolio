@@ -19,7 +19,7 @@ export default function NotFound() {
               <div className="mb-4 flex items-center justify-between border-b border-slate-700/50 pb-3">
                 <div className="flex items-center gap-2 text-rose-400">
                   <FileQuestion className="h-5 w-5" />
-                  <span className="font-mono text-xs font-semibold uppercase tracking-wider">
+                  <span className="font-mono text-xs font-semibold tracking-wider uppercase">
                     Error 404 • ENOENT
                   </span>
                 </div>
@@ -32,7 +32,8 @@ export default function NotFound() {
               <div className="rounded-lg bg-slate-950/80 p-4 text-left font-mono text-xs leading-relaxed text-slate-300">
                 <p className="text-slate-500">
                   <span className="mr-3 text-slate-600 select-none">1</span>
-                  // 404: {isFr ? 'La page demandée n\'existe pas.' : 'The requested route does not exist.'}
+                  // 404:{' '}
+                  {isFr ? "La page demandée n'existe pas." : 'The requested route does not exist.'}
                 </p>
                 <p>
                   <span className="mr-3 text-slate-600 select-none">2</span>
@@ -49,17 +50,17 @@ export default function NotFound() {
                 </p>
               </div>
 
-              <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Link
                   href="/"
-                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2 text-xs font-semibold text-slate-950 transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2 text-xs font-semibold text-slate-950 transition-transform hover:scale-102 active:scale-98 sm:w-auto"
                 >
                   <Home className="h-4 w-4" />
                   {isFr ? "Retour à l'accueil" : 'Back to Home'}
                 </Link>
                 <Link
                   href="/projects"
-                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border border-slate-700 bg-slate-800/60 px-4 py-2 text-xs font-semibold text-slate-200 transition-colors hover:border-slate-500 hover:text-white"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-700 bg-slate-800/60 px-4 py-2 text-xs font-semibold text-slate-200 transition-colors hover:border-slate-500 hover:text-white sm:w-auto"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   {isFr ? 'Voir les projets' : 'View Projects'}

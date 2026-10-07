@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export function getStrictContext<T>(name = "Context") {
+export function getStrictContext<T>(name = 'Context') {
   const Context = React.createContext<T | undefined>(undefined);
 
   function useStrictContext() {

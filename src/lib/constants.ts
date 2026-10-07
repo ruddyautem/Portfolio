@@ -2,13 +2,8 @@ export const LANGUAGES = [
   { code: 'fr', label: 'FR', title: 'Français', flag: '/fr.svg' },
   { code: 'en', label: 'EN', title: 'English', flag: '/en.svg' },
 ];
- 
-export const THEME_OPTIONS = [
-  'ayu',
-  'oneDarkPro',
-  'dracula',
-  'poimandres',
-];
+
+export const THEME_OPTIONS = ['ayu', 'oneDarkPro', 'dracula', 'poimandres'];
 
 export const THEME_LABELS: Record<string, string> = {
   ayu: 'Ayu',
@@ -23,7 +18,7 @@ export const THEME_DOT_COLORS: Record<string, string> = {
   dracula: 'bg-[#ff79c6]',
   poimandres: 'bg-[#5de4c7]',
 };
- 
+
 // ──────────────────────────────────────────────
 // Navigation
 // ──────────────────────────────────────────────
@@ -35,7 +30,7 @@ export const NAV_ITEMS = [
   { id: 'cv', link: '/cv' },
   { id: 'settings', link: '/settings' },
 ];
- 
+
 // Icons for the Sidebar (VS Code activity-bar style)
 export const SIDEBAR_NAV_ICONS: Record<string, string> = {
   home: '/files.svg',
@@ -45,7 +40,7 @@ export const SIDEBAR_NAV_ICONS: Record<string, string> = {
   cv: '/cv-sidebar.svg',
   settings: '/settings-gear.svg',
 };
- 
+
 // Icons for the Tabsbar (file-type tab icons)
 export const TABS_NAV_ICONS: Record<string, string> = {
   home: '/react.svg',
@@ -56,10 +51,8 @@ export const TABS_NAV_ICONS: Record<string, string> = {
   settings: '/json.svg',
 };
 
-export const BOTTOM_SIDEBAR_ITEMS = [
-  { id: 'accounts', icon: '/account.svg' },
-];
- 
+export const BOTTOM_SIDEBAR_ITEMS = [{ id: 'accounts', icon: '/account.svg' }];
+
 export const TAG_COLORS_CARD = {
   react: 'bg-blue-500/20 border-blue-500/30 text-blue-300',
   tailwindcss: 'bg-cyan-500/20 border-cyan-500/30 text-cyan-300',
@@ -90,7 +83,7 @@ export const TAG_COLORS_CARD = {
   'cloudflare-r2': 'bg-orange-500/20 border-orange-500/30 text-orange-300',
   r2: 'bg-orange-500/20 border-orange-500/30 text-orange-300',
 };
- 
+
 // ──────────────────────────────────────────────
 // Common page layout styles reused across all pages (Home, About, Projects, Contact, Settings, CV)
 export const PAGE_OUTER_CLASSES =
@@ -98,20 +91,18 @@ export const PAGE_OUTER_CLASSES =
 
 export const PAGE_INNER_CLASSES =
   'relative z-10 mx-auto flex w-full max-w-7xl flex-col 2xl:max-w-[100rem]';
- 
+
 // Reduced for single-column pages (e.g. CV)
-export const PAGE_INNER_NARROW_CLASSES =
-  'relative z-10 mx-auto w-full max-w-5xl';
- 
-export const PAGE_CARD_CLASSES =
-  'flex min-h-full flex-col';
- 
+export const PAGE_INNER_NARROW_CLASSES = 'relative z-10 mx-auto w-full max-w-5xl';
+
+export const PAGE_CARD_CLASSES = 'flex min-h-full flex-col';
+
 // Section heading with title + subtitle (used by About, Projects, Contact)
 export const SECTION_HEADER_CLASSES =
-  'border-b border-white/[0.08] px-4 py-6 text-center sm:p-8 md:p-10';
- 
+  'border-b border-white/8 px-4 py-6 text-center sm:p-8 md:p-10';
+
 export const HEADING_CLASSES =
   'item-animate mb-3 text-2xl font-bold text-white sm:mb-4 sm:text-4xl md:text-5xl 2xl:text-6xl';
- 
+
 export const SUBHEADING_CLASSES =
   'item-animate mx-auto max-w-2xl text-sm text-slate-300 sm:text-lg md:text-xl 2xl:text-2xl';

@@ -48,11 +48,7 @@ export default function MobileNav() {
     (link: string) => {
       // Handle home route
       if (link === '/') {
-        return (
-          effectiveRoute === '/' ||
-          effectiveRoute === `/${locale}` ||
-          effectiveRoute === ''
-        );
+        return effectiveRoute === '/' || effectiveRoute === `/${locale}` || effectiveRoute === '';
       }
       // Handle subroutes (/about, /projects, etc. with or without locale prefix)
       return (
@@ -67,7 +63,7 @@ export default function MobileNav() {
   return (
     <nav
       aria-label="Mobile navigation"
-      className="fixed inset-x-0 bottom-0 z-50 flex min-h-16 items-center gap-0.5 border-t border-white/10 bg-menu/95 px-2 pb-[max(0.375rem,env(safe-area-inset-bottom))] pt-1.5 shadow-[0_-8px_20px_rgba(0,0,0,0.12)] backdrop-blur-xl lg:hidden sm:px-5"
+      className="fixed inset-x-0 bottom-0 z-50 flex min-h-16 items-center gap-0.5 border-t border-white/10 bg-menu/95 px-2 pt-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] shadow-[0_-8px_20px_rgba(0,0,0,0.12)] backdrop-blur-xl sm:px-5 lg:hidden"
     >
       {NAV_ITEMS.map((item) => {
         const isActive = checkIsActive(item.link);
@@ -101,7 +97,7 @@ export default function MobileNav() {
             {isActive && (
               <motion.span
                 layoutId="mobile-nav-active-tile"
-                className="pointer-events-none absolute inset-0 z-0 rounded-lg bg-white/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
+                className="pointer-events-none absolute inset-0 z-0 rounded-lg bg-white/7 shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
                 transition={{ type: 'spring', stiffness: 500, damping: 36, mass: 0.6 }}
                 aria-hidden="true"
               />

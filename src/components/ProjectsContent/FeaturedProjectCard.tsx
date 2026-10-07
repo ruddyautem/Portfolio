@@ -81,19 +81,16 @@ export const FeaturedProjectCard = ({
 
   return (
     <article
-      className={`group relative overflow-hidden rounded-[10px] border border-white/[0.08] bg-[var(--theme-bg)]
-        transition-all duration-300 ${currentTheme.borderHover} hover:border-white/[0.14]`}
+      className={`group relative overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg) transition-all duration-300 ${currentTheme.borderHover} hover:border-white/14`}
     >
       {/* Subtle background accent */}
       <div
-        className={`pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-gradient-to-br
-          ${currentTheme.glow} opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-70`}
+        className={`pointer-events-none absolute -top-20 -right-20 h-96 w-96 rounded-full bg-gradient-to-br ${currentTheme.glow} opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-70`}
         aria-hidden="true"
       />
 
       <div
-        className={`relative grid grid-cols-1 items-center gap-5 p-4 sm:p-7 xl:grid-cols-12 xl:gap-8 xl:p-8
-          ${isReversed ? 'xl:flex-row-reverse' : ''}`}
+        className={`relative grid grid-cols-1 items-center gap-5 p-4 sm:p-7 xl:grid-cols-12 xl:gap-8 xl:p-8 ${isReversed ? 'xl:flex-row-reverse' : ''}`}
       >
         {/* Browser Mockup Visual Frame (7 cols on xl) */}
         <div
@@ -101,26 +98,19 @@ export const FeaturedProjectCard = ({
             isReversed ? 'xl:order-2' : 'xl:order-1'
           }`}
         >
-          <div
-            className="group/browser relative flex flex-col overflow-hidden rounded-[10px] border
-              border-white/[0.08] bg-[var(--theme-bg)] transition-colors duration-300
-              hover:border-white/[0.14]"
-          >
+          <div className="group/browser relative flex flex-col overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg) transition-colors duration-300 hover:border-white/14">
             {/* Browser Header Bar */}
-            <div
-              className="flex h-8 items-center justify-center border-b border-white/[0.08]
-                bg-[var(--theme-bg)] px-3 sm:px-3.5"
-            >
+            <div className="flex h-8 items-center justify-center border-b border-white/8 bg-(--theme-bg) px-3 sm:px-3.5">
               <Link
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex max-w-[85%] items-center gap-1.5 truncate rounded-md border border-white/[0.08]
-                  bg-transparent px-2 py-0.5 text-[10px] font-mono text-slate-300 transition-colors
-                  hover:border-white/[0.14] hover:text-white sm:max-w-xs sm:text-[11px] sm:px-2.5"
+                className="flex max-w-[85%] items-center gap-1.5 truncate rounded-md border border-white/8 bg-transparent px-2 py-0.5 font-mono text-[10px] text-slate-300 transition-colors hover:border-white/14 hover:text-white sm:max-w-xs sm:px-2.5 sm:text-[11px]"
               >
                 <Lock className="h-2.5 w-2.5 shrink-0 text-emerald-400 sm:h-3 sm:w-3" />
-                <span className="truncate">{project.displayUrl || project.demo.replace('https://', '')}</span>
+                <span className="truncate">
+                  {project.displayUrl || project.demo.replace('https://', '')}
+                </span>
               </Link>
             </div>
 
@@ -138,15 +128,12 @@ export const FeaturedProjectCard = ({
                 fill
                 priority={index === 0}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 50vw"
-                className="object-cover object-top transition-transform duration-500 ease-out will-change-transform group-hover:scale-[1.02]"
+                className="object-cover object-top transition-transform duration-500 ease-out will-change-transform group-hover:scale-102"
               />
 
               {/* Hover overlay */}
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent
-                  opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              >
-                <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 px-2.5 py-1 text-xs font-semibold text-white shadow-xl backdrop-blur-md sm:bottom-3 sm:right-3 sm:px-3 sm:py-1.5">
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="absolute right-2.5 bottom-2.5 flex items-center gap-1.5 rounded-lg border border-slate-700/80 bg-slate-900/90 px-2.5 py-1 text-xs font-semibold text-white shadow-xl backdrop-blur-md sm:right-3 sm:bottom-3 sm:px-3 sm:py-1.5">
                   <span>{liveDemoText}</span>
                   <Globe className="h-3.5 w-3.5 text-accent" />
                 </div>
@@ -157,7 +144,7 @@ export const FeaturedProjectCard = ({
 
         {/* Technical Specs & Details Column (5 cols on xl) */}
         <div
-          className={`flex flex-col justify-center items-center text-center gap-3 xl:items-start xl:text-left xl:col-span-5 ${
+          className={`flex flex-col items-center justify-center gap-3 text-center xl:col-span-5 xl:items-start xl:text-left ${
             isReversed ? 'xl:order-1' : 'xl:order-2'
           }`}
         >
@@ -165,8 +152,7 @@ export const FeaturedProjectCard = ({
           {project.badge && (
             <div className="flex w-full justify-center xl:justify-start">
               <span
-                className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5
-                  text-[10px] sm:text-xs font-mono font-medium tracking-wide ${currentTheme.badgeStyle}`}
+                className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-[10px] font-medium tracking-wide sm:text-xs ${currentTheme.badgeStyle}`}
               >
                 <Sparkles className="h-3 w-3" />
                 {project.badge}
@@ -176,7 +162,7 @@ export const FeaturedProjectCard = ({
 
           {/* Project Title */}
           <div className="w-full">
-            <h2 className="text-center text-xl sm:text-2xl xl:text-left xl:text-3xl font-bold tracking-tight text-white transition-colors group-hover:text-accent">
+            <h2 className="text-center text-xl font-bold tracking-tight text-white transition-colors group-hover:text-accent sm:text-2xl xl:text-left xl:text-3xl">
               <Link
                 href={project.demo}
                 target="_blank"
@@ -184,20 +170,19 @@ export const FeaturedProjectCard = ({
                 className="inline-flex items-center justify-center gap-1.5 hover:underline xl:justify-start"
               >
                 {project.title}
-                
               </Link>
             </h2>
           </div>
 
           {/* Description */}
-          <p className="w-full max-w-xl self-center text-center text-xs sm:text-sm leading-relaxed text-slate-300 xl:self-start xl:text-left xl:text-base">
+          <p className="w-full max-w-xl self-center text-center text-xs leading-relaxed text-slate-300 sm:text-sm xl:self-start xl:text-left xl:text-base">
             {project.desc}
           </p>
 
           {/* Key Architecture Highlights Box */}
           {project.highlights && project.highlights.length > 0 && (
             <div className="w-full rounded-xl border border-slate-700/50 bg-slate-800/35 p-3 text-center shadow-sm sm:p-3.5 xl:text-left">
-              <div className="mb-2.5 flex items-center justify-center gap-1.5 border-b border-slate-700/40 pb-2 text-[11px] sm:text-xs font-mono font-semibold uppercase tracking-wider text-accent xl:mb-2 xl:justify-start xl:border-0 xl:pb-0">
+              <div className="mb-2.5 flex items-center justify-center gap-1.5 border-b border-slate-700/40 pb-2 font-mono text-[11px] font-semibold tracking-wider text-accent uppercase sm:text-xs xl:mb-2 xl:justify-start xl:border-0 xl:pb-0">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 {architectureTitleText}
               </div>
@@ -205,9 +190,9 @@ export const FeaturedProjectCard = ({
                 {project.highlights.map((highlight, hIdx) => (
                   <li
                     key={hIdx}
-                    className="flex items-start justify-center gap-2 text-center text-xs sm:text-sm text-slate-200 leading-relaxed xl:justify-start xl:text-left"
+                    className="flex items-start justify-center gap-2 text-center text-xs leading-relaxed text-slate-200 sm:text-sm xl:justify-start xl:text-left"
                   >
-                    <CheckCircle2 className="h-4 w-4 shrink-0 text-accent mt-0.5" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                     <span>{highlight}</span>
                   </li>
                 ))}
@@ -218,11 +203,13 @@ export const FeaturedProjectCard = ({
           {/* Tech Tags */}
           <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-1.5 xl:justify-start">
             {project.tags.map((tag) => {
-              const tagColor = TAG_COLORS_CARD[tag as keyof typeof TAG_COLORS_CARD] || 'border-white/10 text-slate-300 bg-white/5';
+              const tagColor =
+                TAG_COLORS_CARD[tag as keyof typeof TAG_COLORS_CARD] ||
+                'border-white/10 text-slate-300 bg-white/5';
               return (
                 <span
                   key={tag}
-                  className={`rounded-md border px-2 py-0.5 text-[10px] sm:text-xs font-medium font-mono transition-colors ${tagColor}`}
+                  className={`rounded-md border px-2 py-0.5 font-mono text-[10px] font-medium transition-colors sm:text-xs ${tagColor}`}
                 >
                   #{tag}
                 </span>
@@ -236,9 +223,7 @@ export const FeaturedProjectCard = ({
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-9 sm:h-10 min-w-0 flex-1 basis-0 items-center justify-center gap-1.5 rounded-xl
-                bg-accent px-3 text-xs sm:text-sm font-semibold text-slate-950 shadow-md transition-all duration-300
-                hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 xl:min-w-40 xl:flex-none xl:basis-auto"
+              className="inline-flex h-9 min-w-0 flex-1 basis-0 items-center justify-center gap-1.5 rounded-xl bg-accent px-3 text-xs font-semibold text-slate-950 shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 sm:h-10 sm:text-sm xl:min-w-40 xl:flex-none xl:basis-auto"
             >
               <Globe className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="truncate">{liveDemoText}</span>
@@ -248,9 +233,7 @@ export const FeaturedProjectCard = ({
               href={project.source}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-9 sm:h-10 min-w-0 flex-1 basis-0 items-center justify-center gap-1.5 rounded-xl border
-                border-slate-700 bg-slate-800/60 px-3.5 sm:px-5 text-xs sm:text-sm font-medium text-slate-200 transition-all
-                duration-300 hover:border-slate-500 hover:bg-slate-700/60 hover:text-white hover:-translate-y-0.5 xl:min-w-40 xl:flex-none xl:basis-auto"
+              className="inline-flex h-9 min-w-0 flex-1 basis-0 items-center justify-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800/60 px-3.5 text-xs font-medium text-slate-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-500 hover:bg-slate-700/60 hover:text-white sm:h-10 sm:px-5 sm:text-sm xl:min-w-40 xl:flex-none xl:basis-auto"
             >
               <GithubIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="truncate">{codeSourceText}</span>

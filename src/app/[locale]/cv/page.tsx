@@ -1,11 +1,7 @@
 import CVContent from '@/components/CVContent/CVContent';
 import { getTranslations } from 'next-intl/server';
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) => {
+export const generateMetadata = async ({ params }: { params: Promise<{ locale: string }> }) => {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'cv' });
   return {
@@ -27,4 +23,3 @@ const CV = () => {
 };
 
 export default CV;
-

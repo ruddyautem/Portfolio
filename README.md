@@ -16,14 +16,14 @@ Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais 
 
 ### 📑 Les pages
 
-| Route         | Ce qu'on y trouve                                                                                                                                                              |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `/` (Accueil) | Héro animé avec navigation rapide, projecteur de projets tactile et ruban animé de technologies (`LogoCarousel`)                                                          |
+| Route         | Ce qu'on y trouve                                                                                                                                                                    |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `/` (Accueil) | Héro animé avec navigation rapide, projecteur de projets tactile et ruban animé de technologies (`LogoCarousel`)                                                                     |
 | `/about`      | Bento grid complet : biographie, 4 cartes de bonnes pratiques (architecture, performance, sécurité, qualité), profil VS Code interactif, compétences filtrables et téléchargement CV |
-| `/projects`   | Vitrine complète des projets — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — avec cartes mises en avant et archives            |
-| `/contact`    | Formulaire sécurisé avec validation Zod, protection anti-spam honeypot, rate limiting et notifications toast centrées et intégrées au thème                                      |
-| `/cv`         | Rendu du CV interactif & stylisé, basé sur des données bilingues typées, avec liens directs vers les projets et bouton de téléchargement PDF                                    |
-| `/settings`   | Page de configuration (`parametres.json`) : sélection des 4 thèmes et choix de la langue                                                                                   |
+| `/projects`   | Vitrine complète des projets — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — avec cartes mises en avant et archives                  |
+| `/contact`    | Formulaire sécurisé avec validation Zod, protection anti-spam honeypot, rate limiting et notifications toast centrées et intégrées au thème                                          |
+| `/cv`         | Rendu du CV interactif & stylisé, basé sur des données bilingues typées, avec liens directs vers les projets et bouton de téléchargement PDF                                         |
+| `/settings`   | Page de configuration (`parametres.json`) : sélection des 4 thèmes et choix de la langue                                                                                             |
 
 ### ✨ Dernières évolutions de l’interface
 
@@ -183,14 +183,14 @@ Welcome to the source code of my portfolio. As a Full Stack developer, I wanted 
 
 ### 📑 Pages
 
-| Route       | What's there                                                                                                                                                            |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/` (Home)  | Animated hero with quick navigation, touch-friendly project spotlight, and responsive animated technology ribbon (`LogoCarousel`)                                     |
+| Route       | What's there                                                                                                                                                                                                           |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/` (Home)  | Animated hero with quick navigation, touch-friendly project spotlight, and responsive animated technology ribbon (`LogoCarousel`)                                                                                      |
 | `/about`    | Full bento grid: developer narrative, 4 best-practice cards (architecture, performance, security, code quality), interactive VS Code profile snapshot, filterable skill tags (Front-End, Back-End, Tools), CV download |
-| `/projects` | Complete project showcase — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — with featured spotlight cards and archives  |
-| `/contact`  | Secured contact form with Zod validation, honeypot spam protection, rate limiting, and theme-integrated centered toast notifications                                  |
-| `/cv`       | Interactive & styled resume view rendered from typed bilingual data with direct project links and PDF download                                                          |
-| `/settings` | Built-in settings page (`settings.json`): theme switcher (4 themes) and language selector                                                                           |
+| `/projects` | Complete project showcase — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — with featured spotlight cards and archives                                                   |
+| `/contact`  | Secured contact form with Zod validation, honeypot spam protection, rate limiting, and theme-integrated centered toast notifications                                                                                   |
+| `/cv`       | Interactive & styled resume view rendered from typed bilingual data with direct project links and PDF download                                                                                                         |
+| `/settings` | Built-in settings page (`settings.json`): theme switcher (4 themes) and language selector                                                                                                                              |
 
 ### ✨ Recent interface updates
 

@@ -16,7 +16,7 @@ export const ChevronDown = ({ className }) => (
     />
   </svg>
 );
- 
+
 export const ChevronUp = ({ className }) => (
   <svg
     width="10"
@@ -35,7 +35,7 @@ export const ChevronUp = ({ className }) => (
     />
   </svg>
 );
- 
+
 export const CheckIcon = ({ className }) => (
   <svg
     width="12"
@@ -54,4 +54,3 @@ export const CheckIcon = ({ className }) => (
     />
   </svg>
 );
- 

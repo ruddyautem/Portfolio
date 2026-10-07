@@ -11,8 +11,8 @@ interface NavItemProps {
   item: {
     id: string;
     icon: string;
-  name: string;
-  link?: string;
+    name: string;
+    link?: string;
   };
   isActive?: boolean;
   onSelect?: (link: string) => void;
@@ -82,7 +82,6 @@ const Sidebar = () => {
   const [pendingRoute, setPendingRoute] = useState<string | null>(null);
   const t = useTranslations('sidebar');
 
-
   // Prefetch all sidebar routes on mount
   useEffect(() => {
     NAV_ITEMS.forEach((item) => {
@@ -100,7 +99,7 @@ const Sidebar = () => {
 
   return (
     <aside
-      className="bg-sidebar-bg hidden h-full w-12 flex-col justify-between rounded-[9px] border-r border-white/[0.08] xl:rounded-r-none lg:flex"
+      className="hidden h-full w-12 flex-col justify-between rounded-[9px] border-r border-white/8 bg-sidebar-bg lg:flex xl:rounded-r-none"
       aria-label="Sidebar navigation"
     >
       {/* SECTION HAUTE */}

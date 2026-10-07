@@ -75,7 +75,10 @@ const ContactForm = () => {
   const validateForm = () => {
     const errors: Record<string, string> = {};
     FIELDS_CONFIG.forEach((field) => {
-      const msg = getFieldValidationMessage(field.name, formData[field.name as keyof typeof formData]);
+      const msg = getFieldValidationMessage(
+        field.name,
+        formData[field.name as keyof typeof formData],
+      );
       if (msg) errors[field.name] = msg;
     });
     return errors;
@@ -147,20 +150,22 @@ const ContactForm = () => {
   const isComplete = progressPercentage === 100;
 
   return (
-    <div className="relative overflow-hidden rounded-[10px] border border-white/8 bg-transparent transition-colors duration-300 hover:border-white/[0.14]">
+    <div className="relative overflow-hidden rounded-[10px] border border-white/8 bg-transparent transition-colors duration-300 hover:border-white/14">
       {/* IDE Terminal Header */}
       <div className="flex h-9 items-center justify-between bg-transparent px-3.5">
         <div className="flex h-full items-center">
           {/* Active file tab */}
-          <div className="flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-mono text-slate-200">
+          <div className="flex items-center gap-1.5 px-2.5 py-0.5 font-mono text-[11px] text-slate-200">
             <span className="text-accent">ts</span>
             <span>send-message.ts</span>
           </div>
         </div>
 
         {/* Status Pill */}
-        <div className="flex items-center gap-1.5 self-center rounded-full border border-slate-700/50 px-2 py-0.5 text-[10px] font-mono text-slate-300">
-          <span className={`h-1.5 w-1.5 rounded-full ${isComplete ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
+        <div className="flex items-center gap-1.5 self-center rounded-full border border-slate-700/50 px-2 py-0.5 font-mono text-[10px] text-slate-300">
+          <span
+            className={`h-1.5 w-1.5 rounded-full ${isComplete ? 'animate-pulse bg-emerald-400' : 'bg-amber-400'}`}
+          />
           <span>{isComplete ? t('ui.ready') : `${validFields}/${FIELDS_CONFIG.length}`}</span>
         </div>
       </div>
@@ -168,8 +173,8 @@ const ContactForm = () => {
       <div className="p-4 sm:p-6 xl:p-7">
         {/* 4-Step Segmented Progress Tracker */}
         <div className="mb-5">
-          <div className="mb-2.5 flex items-center justify-between text-xs font-mono">
-            <span className={isComplete ? 'text-emerald-400 font-semibold' : 'text-slate-300'}>
+          <div className="mb-2.5 flex items-center justify-between font-mono text-xs">
+            <span className={isComplete ? 'font-semibold text-emerald-400' : 'text-slate-300'}>
               {isComplete ? t('ui.progressComplete') : t('ui.progressIncomplete')}
             </span>
             <span className={`font-semibold ${isComplete ? 'text-emerald-400' : 'text-accent'}`}>
@@ -179,10 +184,13 @@ const ContactForm = () => {
 
           <div className="grid grid-cols-4 gap-2">
             {FIELDS_CONFIG.map((field) => {
-              const isValid = isFieldValid(field.name, formData[field.name as keyof typeof formData]);
+              const isValid = isFieldValid(
+                field.name,
+                formData[field.name as keyof typeof formData],
+              );
               const fieldLabel = t(`fields.${field.name}`);
               return (
-                <div key={field.name} className="flex flex-col gap-1.5 min-w-0">
+                <div key={field.name} className="flex min-w-0 flex-col gap-1.5">
                   {/* Segment Bar */}
                   <div className="relative h-1.5 w-full overflow-hidden rounded-full bg-slate-700/40">
                     <div
@@ -197,14 +205,14 @@ const ContactForm = () => {
                   </div>
 
                   {/* Segment Label with Check/Dot */}
-                  <div className="flex items-center gap-1 text-[11px] font-mono min-w-0">
+                  <div className="flex min-w-0 items-center gap-1 font-mono text-[11px]">
                     <span
                       className={`inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full text-[9px] font-bold transition-all duration-300 ${
                         isValid
                           ? isComplete
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                            : 'bg-accent/15 text-accent border border-accent/40'
-                          : 'bg-slate-700/40 text-slate-500 border border-slate-700/50'
+                            ? 'border border-emerald-500/40 bg-emerald-500/20 text-emerald-400'
+                            : 'border border-accent/40 bg-accent/15 text-accent'
+                          : 'border border-slate-700/50 bg-slate-700/40 text-slate-500'
                       }`}
                       aria-hidden="true"
                     >
@@ -214,8 +222,8 @@ const ContactForm = () => {
                       className={`truncate transition-colors duration-200 ${
                         isValid
                           ? isComplete
-                            ? 'text-emerald-300 font-medium'
-                            : 'text-accent font-medium'
+                            ? 'font-medium text-emerald-300'
+                            : 'font-medium text-accent'
                           : 'text-slate-400'
                       }`}
                     >
@@ -236,7 +244,7 @@ const ContactForm = () => {
             onChange={handleChange}
             tabIndex={-1}
             autoComplete="off"
-            className="hidden pointer-events-none"
+            className="pointer-events-none hidden"
             aria-hidden="true"
           />
 
@@ -255,7 +263,10 @@ const ContactForm = () => {
                 error={validationErrors[field.name]}
                 isValid={isFieldValid(field.name, formData[field.name as keyof typeof formData])}
                 isTouched={touchedFields[field.name]}
-                validationMessage={getFieldValidationMessage(field.name, formData[field.name as keyof typeof formData])}
+                validationMessage={getFieldValidationMessage(
+                  field.name,
+                  formData[field.name as keyof typeof formData],
+                )}
               />
             ))}
           </div>
@@ -274,7 +285,10 @@ const ContactForm = () => {
               error={validationErrors[field.name]}
               isValid={isFieldValid(field.name, formData[field.name as keyof typeof formData])}
               isTouched={touchedFields[field.name]}
-              validationMessage={getFieldValidationMessage(field.name, formData[field.name as keyof typeof formData])}
+              validationMessage={getFieldValidationMessage(
+                field.name,
+                formData[field.name as keyof typeof formData],
+              )}
             />
           ))}
 
@@ -283,12 +297,11 @@ const ContactForm = () => {
             <button
               type="submit"
               disabled={status.loading || progressPercentage < 100}
-              className={`flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl
-                font-mono font-semibold text-sm transition-all duration-300 ${
-                  progressPercentage === 100 && !status.loading
-                    ? 'bg-accent text-slate-950 hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 active:scale-[0.99]'
-                    : ' text-slate-500 border border-slate-700/50 cursor-not-allowed opacity-60'
-                }`}
+              className={`flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl font-mono text-sm font-semibold transition-all duration-300 ${
+                progressPercentage === 100 && !status.loading
+                  ? 'bg-accent text-slate-950 hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 active:scale-99'
+                  : 'cursor-not-allowed border border-slate-700/50 text-slate-500 opacity-60'
+              }`}
             >
               {status.loading ? (
                 <>
@@ -307,8 +320,10 @@ const ContactForm = () => {
             </button>
 
             <p
-              className={`mt-2 text-center text-[11px] font-mono text-slate-400 transition-opacity duration-200 ${
-                progressPercentage < 100 ? 'opacity-100' : 'opacity-0 pointer-events-none select-none'
+              className={`mt-2 text-center font-mono text-[11px] text-slate-400 transition-opacity duration-200 ${
+                progressPercentage < 100
+                  ? 'opacity-100'
+                  : 'pointer-events-none opacity-0 select-none'
               }`}
               aria-hidden={progressPercentage === 100}
             >

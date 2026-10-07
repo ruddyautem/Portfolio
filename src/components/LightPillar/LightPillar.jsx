@@ -97,7 +97,11 @@ export default function LightPillar({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const gl = canvas?.getContext('webgl', { alpha: true, antialias: false, powerPreference: 'low-power' });
+    const gl = canvas?.getContext('webgl', {
+      alpha: true,
+      antialias: false,
+      powerPreference: 'low-power',
+    });
     if (!canvas || !gl) return undefined;
 
     const vertex = createShader(gl, gl.VERTEX_SHADER, vertexShader);
@@ -121,10 +125,18 @@ export default function LightPillar({
 
     const uniform = (name) => gl.getUniformLocation(program, name);
     const uniforms = {
-      time: uniform('uTime'), resolution: uniform('uResolution'), mouse: uniform('uMouse'),
-      topColor: uniform('uTopColor'), bottomColor: uniform('uBottomColor'), intensity: uniform('uIntensity'),
-      glowAmount: uniform('uGlowAmount'), pillarWidth: uniform('uPillarWidth'), pillarHeight: uniform('uPillarHeight'),
-      noiseIntensity: uniform('uNoiseIntensity'), rotCos: uniform('uRotCos'), rotSin: uniform('uRotSin'),
+      time: uniform('uTime'),
+      resolution: uniform('uResolution'),
+      mouse: uniform('uMouse'),
+      topColor: uniform('uTopColor'),
+      bottomColor: uniform('uBottomColor'),
+      intensity: uniform('uIntensity'),
+      glowAmount: uniform('uGlowAmount'),
+      pillarWidth: uniform('uPillarWidth'),
+      pillarHeight: uniform('uPillarHeight'),
+      noiseIntensity: uniform('uNoiseIntensity'),
+      rotCos: uniform('uRotCos'),
+      rotSin: uniform('uRotSin'),
     };
     gl.uniform3fv(uniforms.topColor, hexToRgb(topColor));
     gl.uniform3fv(uniforms.bottomColor, hexToRgb(bottomColor));
@@ -172,7 +184,24 @@ export default function LightPillar({
       gl.deleteShader(vertex);
       gl.deleteShader(fragment);
     };
-  }, [topColor, bottomColor, intensity, rotationSpeed, interactive, glowAmount, pillarWidth, pillarHeight, noiseIntensity]);
+  }, [
+    topColor,
+    bottomColor,
+    intensity,
+    rotationSpeed,
+    interactive,
+    glowAmount,
+    pillarWidth,
+    pillarHeight,
+    noiseIntensity,
+  ]);
 
-  return <canvas ref={canvasRef} aria-hidden="true" className={`pointer-events-none fixed inset-0 ${className}`} style={{ mixBlendMode }} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      className={`pointer-events-none fixed inset-0 ${className}`}
+      style={{ mixBlendMode }}
+    />
+  );
 }

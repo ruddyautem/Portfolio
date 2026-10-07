@@ -2,11 +2,7 @@ import SettingsContent from '@/components/Settings/SettingsContent';
 import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
 import { getTranslations } from 'next-intl/server';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'settingsPage' });
   return {

@@ -71,21 +71,16 @@ export function BeUITooltip({
     >
       {children}
 
-      <div
-        className={cn(
-          'pointer-events-none absolute z-[9999] whitespace-nowrap',
-          placementClass,
-        )}
-      >
+      <div className={cn('pointer-events-none absolute z-9999 whitespace-nowrap', placementClass)}>
         <div
           role="tooltip"
-          className="invisible opacity-0 -translate-x-2.5 scale-[0.96] transition-all duration-200 ease-out group-hover/tooltip:visible group-hover/tooltip:opacity-100 group-hover/tooltip:translate-x-0 group-hover/tooltip:scale-100 group-focus-within/tooltip:visible group-focus-within/tooltip:opacity-100 group-focus-within/tooltip:translate-x-0 group-focus-within/tooltip:scale-100"
+          className="invisible -translate-x-2.5 scale-96 opacity-0 transition-all duration-200 ease-out group-focus-within/tooltip:visible group-focus-within/tooltip:translate-x-0 group-focus-within/tooltip:scale-100 group-focus-within/tooltip:opacity-100 group-hover/tooltip:visible group-hover/tooltip:translate-x-0 group-hover/tooltip:scale-100 group-hover/tooltip:opacity-100"
         >
           <div
             className={cn(
               'relative flex items-center rounded-lg border border-white/10',
               'bg-[#1f2430]/95 px-2.5 py-1 text-[11px] font-medium text-slate-200',
-              'shadow-xl shadow-black/40 ring-1 ring-white/5 backdrop-blur-md',
+              'shadow-xl ring-1 shadow-black/40 ring-white/5 backdrop-blur-md',
               className,
             )}
           >
@@ -94,10 +89,10 @@ export function BeUITooltip({
                 aria-hidden="true"
                 className={cn(
                   'absolute h-1.5 w-1.5 rotate-45 border border-white/10 bg-[#1f2430]',
-                  side === 'top' && '-bottom-[4px] border-t-0 border-l-0',
-                  side === 'bottom' && '-top-[4px] border-b-0 border-r-0',
-                  side === 'left' && '-right-[4px] border-b-0 border-l-0',
-                  side === 'right' && '-left-[4px] border-t-0 border-r-0',
+                  side === 'top' && '-bottom-1 border-t-0 border-l-0',
+                  side === 'bottom' && '-top-1 border-r-0 border-b-0',
+                  side === 'left' && '-right-1 border-b-0 border-l-0',
+                  side === 'right' && '-left-1 border-t-0 border-r-0',
                   // Alignment offsets
                   (side === 'top' || side === 'bottom') &&
                     align === 'center' &&

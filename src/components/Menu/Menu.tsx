@@ -45,29 +45,37 @@ const OVERFLOW_SAFETY_BUFFER = 6;
 // Small pieces
 // ----------------------------------------------------------------------------------
 const MenuItem = memo(({ item }: { item: string }) => (
-  <li
-    className="shrink-0 cursor-pointer whitespace-nowrap rounded-md px-2 py-0.5 transition-colors
-      hover:bg-white/10"
-  >
+  <li className="shrink-0 cursor-pointer rounded-md px-2 py-0.5 whitespace-nowrap transition-colors hover:bg-white/10">
     {item}
   </li>
 ));
 MenuItem.displayName = 'MenuItem';
 
-const IconButton = memo(({ icon: Icon, onClick, variant = 'default', tabIndex, ...rest }: React.ButtonHTMLAttributes<HTMLButtonElement> & { icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; variant?: 'default' | 'danger' }) => (
-  <button
-    onClick={onClick}
-    tabIndex={tabIndex}
-    className={cn(
-      'cursor-pointer px-3 py-2 transition-colors',
-      variant === 'danger' ? 'hover:bg-red-500' : 'hover:bg-white/10',
-    )}
-    aria-label={Icon.name || 'Menu action'}
-    {...rest}
-  >
-    <Icon />
-  </button>
-));
+const IconButton = memo(
+  ({
+    icon: Icon,
+    onClick,
+    variant = 'default',
+    tabIndex,
+    ...rest
+  }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    variant?: 'default' | 'danger';
+  }) => (
+    <button
+      onClick={onClick}
+      tabIndex={tabIndex}
+      className={cn(
+        'cursor-pointer px-3 py-2 transition-colors',
+        variant === 'danger' ? 'hover:bg-red-500' : 'hover:bg-white/10',
+      )}
+      aria-label={Icon.name || 'Menu action'}
+      {...rest}
+    >
+      <Icon />
+    </button>
+  ),
+);
 IconButton.displayName = 'IconButton';
 
 const NavIcon = memo(
@@ -109,7 +117,10 @@ const CmdIcon = memo(({ className = 'h-2.5 w-2.5' }: { className?: string }) => 
 ));
 CmdIcon.displayName = 'CmdIcon';
 
-const MoreButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement> & { isOpen?: boolean }>(({ onClick, isOpen, ...props }, ref) => (
+const MoreButton = forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { isOpen?: boolean }
+>(({ onClick, isOpen, ...props }, ref) => (
   <button
     ref={ref}
     onClick={onClick}
@@ -209,7 +220,7 @@ const AnchoredPortal = ({
     <div
       ref={overlayRef}
       style={{ position: 'fixed', top: coords.top, left: coords.left, right: coords.right }}
-      className={cn('z-9999 animate-in fade-in slide-in-from-top-1 duration-150', className)}
+      className={cn('z-9999 animate-in duration-150 fade-in slide-in-from-top-1', className)}
     >
       {children}
     </div>,
@@ -305,11 +316,8 @@ const MenuNav = memo(() => {
   }, [hiddenItems.length, closeMore]);
 
   return (
-    <nav
-      className="text-light col-start-1 hidden h-8 min-w-0 overflow-hidden text-xs font-semibold
-        text-opacity-80 lg:flex"
-    >
-      <ul ref={containerRef} className="flex min-w-0 w-full items-center overflow-hidden">
+    <nav className="text-opacity-80 col-start-1 hidden h-8 min-w-0 overflow-hidden text-xs font-semibold text-light lg:flex">
+      <ul ref={containerRef} className="flex w-full min-w-0 items-center overflow-hidden">
         <li className="mx-2 shrink-0">
           <NavIcon src={LOGO_CONFIG.src} alt={LOGO_CONFIG.alt} />
         </li>
@@ -333,7 +341,7 @@ const MenuNav = memo(() => {
       >
         <ul
           role="menu"
-          className="bg-menu w-40 overflow-hidden rounded-md border border-white/10 py-1 shadow-lg"
+          className="w-40 overflow-hidden rounded-md border border-white/10 bg-menu py-1 shadow-lg"
         >
           {hiddenItems.map((item) => (
             <li key={item} role="none">
@@ -341,8 +349,7 @@ const MenuNav = memo(() => {
                 role="menuitem"
                 type="button"
                 onClick={closeMore}
-                className="w-full cursor-pointer px-3 py-1.5 text-left text-xs transition-colors
-                  hover:bg-white/10"
+                className="w-full cursor-pointer px-3 py-1.5 text-left text-xs transition-colors hover:bg-white/10"
               >
                 {item}
               </button>
@@ -406,49 +413,48 @@ const LanguageMenu = memo(({ className }: { className?: string }) => {
   return (
     <div ref={anchorRef} className={cn('relative shrink-0', className)}>
       <Tooltip content={t('language') ?? 'Language'} side="bottom" disabled={isOpen}>
-      <button
-        type="button"
-        onClick={toggle}
-        aria-haspopup="menu"
-        aria-expanded={isOpen}
-        aria-label={t('language') ?? 'Language'}
-        disabled={isPending}
-        className={cn(
-          `flex h-5 cursor-pointer items-center gap-0.5 rounded px-1 text-white/70
-          transition-colors`,
-          'hover:bg-white/10 hover:text-white sm:h-5.5 sm:gap-1 sm:px-1.5',
-          isOpen && 'bg-white/10 text-white',
-          isPending && 'opacity-50',
-        )}
-      >
-        {isPending ? (
-          <span
-            className="h-3 w-3 animate-spin rounded-full border border-current border-t-transparent"
-            aria-label="Loading"
-          />
-        ) : (
-          <Image
-            src={currentLanguage.flag}
-            alt=""
-            width={16}
-            height={12}
-            className="h-2.5 w-3.5 rounded-xs object-contain sm:h-3 sm:w-4"
-          />
-        )}
-        <ChevronDown
+        <button
+          type="button"
+          onClick={toggle}
+          aria-haspopup="menu"
+          aria-expanded={isOpen}
+          aria-label={t('language') ?? 'Language'}
+          disabled={isPending}
           className={cn(
-            'h-2 w-2 sm:h-2.5 sm:w-2.5 transition-transform duration-150',
-            isOpen && 'rotate-180',
+            `flex h-5 cursor-pointer items-center gap-0.5 rounded px-1 text-white/70 transition-colors`,
+            'hover:bg-white/10 hover:text-white sm:h-5.5 sm:gap-1 sm:px-1.5',
+            isOpen && 'bg-white/10 text-white',
+            isPending && 'opacity-50',
           )}
-        />
-      </button>
+        >
+          {isPending ? (
+            <span
+              className="h-3 w-3 animate-spin rounded-full border border-current border-t-transparent"
+              aria-label="Loading"
+            />
+          ) : (
+            <Image
+              src={currentLanguage.flag}
+              alt=""
+              width={16}
+              height={12}
+              className="h-2.5 w-3.5 rounded-xs object-contain sm:h-3 sm:w-4"
+            />
+          )}
+          <ChevronDown
+            className={cn(
+              'h-2 w-2 transition-transform duration-150 sm:h-2.5 sm:w-2.5',
+              isOpen && 'rotate-180',
+            )}
+          />
+        </button>
       </Tooltip>
 
       <AnchoredPortal anchorRef={anchorRef} overlayRef={overlayRef} isOpen={isOpen} align="right">
         <ul
           role="menu"
           aria-label={t('selectLanguage')}
-          className="bg-menu w-40 overflow-hidden rounded-md border border-white/10 py-1 shadow-lg"
+          className="w-40 overflow-hidden rounded-md border border-white/10 bg-menu py-1 shadow-lg"
         >
           {LANGUAGES.map((lang) => {
             const isActive = locale === lang.code;
@@ -460,8 +466,7 @@ const LanguageMenu = memo(({ className }: { className?: string }) => {
                   onClick={() => switchLanguage(lang.code)}
                   disabled={isPending}
                   className={cn(
-                    `flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left text-[11px]
-                    font-medium`,
+                    `flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left text-[11px] font-medium`,
                     'transition-colors hover:bg-white/10',
                     isActive ? 'text-white' : 'text-white/60',
                   )}
@@ -505,39 +510,38 @@ const ThemeMenu = memo(({ className }: { className?: string }) => {
   return (
     <div ref={anchorRef} className={cn('relative shrink-0', className)}>
       <Tooltip content={t('theme')} side="bottom" disabled={isOpen}>
-      <button
-        type="button"
-        onClick={toggle}
-        aria-haspopup="menu"
-        aria-expanded={isOpen}
-        aria-label={t('theme')}
-        className={cn(
-          `flex h-5 cursor-pointer items-center gap-0.5 rounded px-1 text-white/70
-          transition-colors`,
-          'hover:bg-white/10 hover:text-white sm:h-5.5 sm:gap-1 sm:px-1.5',
-          isOpen && 'bg-white/10 text-white',
-        )}
-      >
-        <span
+        <button
+          type="button"
+          onClick={toggle}
+          aria-haspopup="menu"
+          aria-expanded={isOpen}
+          aria-label={t('theme')}
           className={cn(
-            'h-2 w-2 shrink-0 rounded-full ring-1 ring-white/30 sm:h-2.5 sm:w-2.5',
-            THEME_DOT_COLORS[theme],
+            `flex h-5 cursor-pointer items-center gap-0.5 rounded px-1 text-white/70 transition-colors`,
+            'hover:bg-white/10 hover:text-white sm:h-5.5 sm:gap-1 sm:px-1.5',
+            isOpen && 'bg-white/10 text-white',
           )}
-        />
-        <ChevronDown
-          className={cn(
-            'h-2 w-2 sm:h-2.5 sm:w-2.5 transition-transform duration-150',
-            isOpen && 'rotate-180',
-          )}
-        />
-      </button>
+        >
+          <span
+            className={cn(
+              'h-2 w-2 shrink-0 rounded-full ring-1 ring-white/30 sm:h-2.5 sm:w-2.5',
+              THEME_DOT_COLORS[theme],
+            )}
+          />
+          <ChevronDown
+            className={cn(
+              'h-2 w-2 transition-transform duration-150 sm:h-2.5 sm:w-2.5',
+              isOpen && 'rotate-180',
+            )}
+          />
+        </button>
       </Tooltip>
 
       <AnchoredPortal anchorRef={anchorRef} overlayRef={overlayRef} isOpen={isOpen} align="right">
         <ul
           role="menu"
           aria-label={t('selectTheme')}
-          className="bg-menu w-40 overflow-hidden rounded-md border border-white/10 py-1 shadow-lg"
+          className="w-40 overflow-hidden rounded-md border border-white/10 bg-menu py-1 shadow-lg"
         >
           {THEME_OPTIONS.map((option) => {
             const isActive = theme === option;
@@ -548,8 +552,7 @@ const ThemeMenu = memo(({ className }: { className?: string }) => {
                   type="button"
                   onClick={() => handleThemeSelect(option)}
                   className={cn(
-                    `flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left text-[11px]
-                    font-medium`,
+                    `flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left text-[11px] font-medium`,
                     'transition-colors hover:bg-white/10',
                     isActive ? 'text-white' : 'text-white/60',
                   )}
@@ -610,7 +613,7 @@ const Menu = () => {
       <CommandPalette open={isCommandOpen} setOpen={setIsCommandOpen} />
       <div
         className={cn(
-          'bg-menu relative z-50 grid h-8 items-center',
+          'relative z-50 grid h-8 items-center bg-menu',
           'grid-cols-[minmax(0,1fr)_auto_minmax(max-content,1fr)]',
         )}
       >
@@ -625,9 +628,8 @@ const Menu = () => {
           <div
             style={{ width: SEARCH_BAR_WIDTH }}
             className={cn(
-              'hover:border-accent group relative flex h-7 shrink-0 items-center overflow-hidden',
-              `rounded border border-gray-100/10 text-xs font-semibold text-light
-              transition-colors`,
+              'group relative flex h-7 shrink-0 items-center overflow-hidden hover:border-accent',
+              `rounded border border-gray-100/10 text-xs font-semibold text-light transition-colors`,
               showSearchNudge && 'animate-search-bar-nudge',
             )}
           >
@@ -644,8 +646,8 @@ const Menu = () => {
                   'pointer-events-none absolute inset-0 flex items-center justify-center gap-1.5 px-2 text-accent',
                   'transition-all duration-500 ease-in-out',
                   showSearchNudge
-                    ? 'opacity-100 translate-y-0 scale-100'
-                    : 'opacity-0 -translate-y-1 scale-95 pointer-events-none',
+                    ? 'translate-y-0 scale-100 opacity-100'
+                    : 'pointer-events-none -translate-y-1 scale-95 opacity-0',
                 )}
                 aria-hidden={!showSearchNudge}
               >
@@ -671,8 +673,8 @@ const Menu = () => {
                   'pointer-events-none flex items-center justify-center',
                   'transition-all duration-500 ease-in-out',
                   showSearchNudge
-                    ? 'opacity-0 translate-y-1 scale-95'
-                    : 'opacity-100 translate-y-0 scale-100',
+                    ? 'translate-y-1 scale-95 opacity-0'
+                    : 'translate-y-0 scale-100 opacity-100',
                 )}
               >
                 {/* Search icon placed right next to the name */}
@@ -682,10 +684,7 @@ const Menu = () => {
                 <span className="truncate text-xs font-normal text-white/80">{t('search')}</span>
 
                 {/* ⌘K badge visible on sm and above */}
-                <kbd
-                  className="ml-1.5 hidden h-4 bg-white/10 items-center gap-0.5 rounded px-1.5 font-mono text-[9px]
-                    font-medium leading-none text-slate-400 select-none sm:inline-flex"
-                >
+                <kbd className="ml-1.5 hidden h-4 items-center gap-0.5 rounded bg-white/10 px-1.5 font-mono text-[9px] leading-none font-medium text-slate-400 select-none sm:inline-flex">
                   <CmdIcon className="h-2.5 w-2.5 shrink-0 text-slate-400" />
                   <span className="leading-none">K</span>
                 </kbd>
@@ -697,7 +696,7 @@ const Menu = () => {
 
             {/* Embedded Language and Theme buttons pinned to the far right with slight vertical separators */}
             <div
-              className="absolute right-1 top-1/2 flex -translate-y-1/2 items-center gap-0.5"
+              className="absolute top-1/2 right-1 flex -translate-y-1/2 items-center gap-0.5"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="h-3 w-px bg-white/10" aria-hidden="true" />
@@ -708,9 +707,7 @@ const Menu = () => {
           </div>
         </div>
 
-        <div
-          className="col-start-3 flex min-w-0 items-center justify-end gap-0.5 overflow-hidden pr-1"
-        >
+        <div className="col-start-3 flex min-w-0 items-center justify-end gap-0.5 overflow-hidden pr-1">
           <div className="hidden items-center border-white/10 lg:flex" aria-hidden="true">
             <IconButton icon={Minimize} variant="default" tabIndex={-1} aria-hidden="true" />
             <IconButton icon={Restore} variant="default" tabIndex={-1} aria-hidden="true" />

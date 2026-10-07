@@ -62,17 +62,18 @@ const Tabsbar = () => {
   );
 
   return (
-    <nav aria-label="Open tabs" className="text-darker hidden lg:block h-7 w-full relative">
+    <nav aria-label="Open tabs" className="relative hidden h-7 w-full text-darker lg:block">
       <div
         role="tablist"
-        className="relative flex flex-row items-center justify-center lg:justify-start overflow-x-auto no-scrollbar h-full scroll-smooth"
+        className="no-scrollbar relative flex h-full flex-row items-center justify-center overflow-x-auto scroll-smooth lg:justify-start"
       >
         {currentTabs.map(({ id, link }) => {
           const name = t(id);
           const icon = TABS_NAV_ICONS[id];
           const isActive = checkIsActive(link);
           const baseName = name.replace(/\..+$/, '');
-          const compactName = id === 'settings' ? (locale === 'fr' ? 'param.' : 'settings') : baseName;
+          const compactName =
+            id === 'settings' ? (locale === 'fr' ? 'param.' : 'settings') : baseName;
 
           return (
             <Link
@@ -85,13 +86,21 @@ const Tabsbar = () => {
               onClick={() => setPendingRoute(link)}
               className={cn(
                 'relative flex h-full shrink-0 cursor-pointer items-center justify-center rounded-[2px] px-2 transition-colors sm:flex-none sm:px-3',
-                isActive ? cn(activeStyles.bg, 'text-accent') : 'text-darker hover:bg-white/[0.06] hover:text-white',
+                isActive
+                  ? cn(activeStyles.bg, 'text-accent')
+                  : 'text-darker hover:bg-white/6 hover:text-white',
               )}
             >
-              <div className="flex items-center gap-1 sm:gap-1.5 text-[10px] sm:my-1 sm:text-sm">
-                <Image src={icon} width={16} height={16} alt="" className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
-                <span className="sm:hidden whitespace-nowrap">{compactName}</span>
-                <span className="hidden sm:inline whitespace-nowrap">{name}</span>
+              <div className="flex items-center gap-1 text-[10px] sm:my-1 sm:gap-1.5 sm:text-sm">
+                <Image
+                  src={icon}
+                  width={16}
+                  height={16}
+                  alt=""
+                  className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4"
+                />
+                <span className="whitespace-nowrap sm:hidden">{compactName}</span>
+                <span className="hidden whitespace-nowrap sm:inline">{name}</span>
               </div>
             </Link>
           );
