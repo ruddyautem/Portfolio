@@ -1,6 +1,9 @@
 import Image from 'next/image';
 
+const DARK_ICON_SKILLS = new Set(['Next.js', 'Cursor', 'Dokploy', 'Codex', 'GitHub']);
+
 const SkillList = ({ skill, icon, altText, category }) => {
+  const usesDarkIconOnLightTheme = DARK_ICON_SKILLS.has(skill);
   const categoryStyles = {
     frontend: {
       border: 'border-slate-700/60',
@@ -53,7 +56,7 @@ const SkillList = ({ skill, icon, altText, category }) => {
 
   return (
     <div
-      className={`item-animate group relative flex w-full flex-col items-center justify-center gap-2.5 overflow-hidden rounded-xl border ${style.border} ${style.bg} cursor-pointer p-3.5 text-center backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 active:scale-98 sm:gap-3 sm:p-4 ${style.hoverBorder} ${style.hoverBg} ${style.shadowGlow}`}
+      className={`skill-list-item item-animate group relative flex w-full flex-col items-center justify-center gap-2.5 overflow-hidden rounded-xl border ${style.border} ${style.bg} cursor-pointer p-3.5 text-center backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 active:scale-98 sm:gap-3 sm:p-4 ${style.hoverBorder} ${style.hoverBg} ${style.shadowGlow}`}
     >
       <div
         className={`pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent ${style.shimmerColor} to-transparent opacity-0 transition-none group-hover:translate-x-full group-hover:opacity-100 group-hover:transition-all group-hover:duration-600 group-hover:ease-in-out`}
@@ -74,7 +77,9 @@ const SkillList = ({ skill, icon, altText, category }) => {
           alt={altText}
           width={24}
           height={24}
-          className="relative z-10 h-6 w-6 object-contain transition-all duration-300 group-hover:brightness-110"
+          className={`skill-icon relative z-10 h-6 w-6 object-contain transition-all duration-300 group-hover:brightness-110 ${
+            usesDarkIconOnLightTheme ? 'skill-icon--dark-on-light' : ''
+          }`}
         />
       </div>
 

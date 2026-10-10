@@ -181,7 +181,7 @@ export const FeaturedProjectCard = ({
 
           {/* Key Architecture Highlights Box */}
           {project.highlights && project.highlights.length > 0 && (
-            <div className="w-full rounded-xl border border-slate-700/50 bg-slate-800/35 p-3 text-center shadow-sm sm:p-3.5 xl:text-left">
+            <div className="project-architecture w-full rounded-xl border border-slate-700/50 bg-slate-800/35 p-3 text-center shadow-sm sm:p-3.5 xl:text-left">
               <div className="mb-2.5 flex items-center justify-center gap-1.5 border-b border-slate-700/40 pb-2 font-mono text-[11px] font-semibold tracking-wider text-accent uppercase sm:text-xs xl:mb-2 xl:justify-start xl:border-0 xl:pb-0">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 {architectureTitleText}
@@ -233,7 +233,7 @@ export const FeaturedProjectCard = ({
               href={project.source}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-9 min-w-0 flex-1 basis-0 items-center justify-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800/60 px-3.5 text-xs font-medium text-slate-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-500 hover:bg-slate-700/60 hover:text-white sm:h-10 sm:px-5 sm:text-sm xl:min-w-40 xl:flex-none xl:basis-auto"
+              className="project-source-link inline-flex h-9 min-w-0 flex-1 basis-0 items-center justify-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800/60 px-3.5 text-xs font-medium text-slate-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-500 hover:bg-slate-700/60 hover:text-white sm:h-10 sm:px-5 sm:text-sm xl:min-w-40 xl:flex-none xl:basis-auto"
             >
               <GithubIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="truncate">{codeSourceText}</span>

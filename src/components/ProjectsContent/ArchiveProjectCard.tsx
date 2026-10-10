@@ -90,22 +90,22 @@ export const ArchiveProjectCard = ({
         {/* Action Buttons */}
         <div className="flex items-center gap-2 border-t border-slate-700/40 pt-2.5 text-[11px] sm:text-xs">
           <Link
-            href={project.source}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/5 font-medium text-slate-300 transition-colors hover:border-white/20 hover:bg-white/10 hover:text-white sm:h-9"
-          >
-            <GithubIcon className="h-3.5 w-3.5" />
-            <span>{codeSourceText}</span>
-          </Link>
-          <Link
             href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg bg-accent/80 font-semibold text-slate-950 transition-colors hover:bg-accent sm:h-9"
+            className="inline-flex h-9 min-w-0 flex-1 basis-0 items-center justify-center gap-1.5 rounded-xl bg-accent px-3 text-xs font-semibold text-slate-950 shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
           >
             <Globe className="h-3.5 w-3.5" />
             <span>{liveDemoText}</span>
+          </Link>
+          <Link
+            href={project.source}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-source-link inline-flex h-9 min-w-0 flex-1 basis-0 items-center justify-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800/60 px-3 text-xs font-medium text-slate-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-500 hover:bg-slate-700/60 hover:text-white"
+          >
+            <GithubIcon className="h-3.5 w-3.5" />
+            <span>{codeSourceText}</span>
           </Link>
         </div>
       </div>

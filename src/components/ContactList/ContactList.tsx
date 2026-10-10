@@ -51,7 +51,7 @@ const SocialChannelCard = memo(
         href={href}
         target={isMailto ? '_self' : '_blank'}
         rel={isMailto ? undefined : 'noopener noreferrer'}
-        className={`group relative overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg) p-2.5 transition-all duration-300 sm:p-3.5 xl:p-5 ${themeClasses.borderHover} block w-[calc((100%-0.5rem)/2)] cursor-pointer select-none hover:border-white/14 sm:w-[calc((100%-1.5rem)/3)] xl:flex xl:w-full xl:flex-1 xl:flex-col xl:justify-center`}
+        className={`group relative block w-[calc((100%-0.5rem)/2)] cursor-pointer overflow-hidden rounded-[10px] border border-white/8 bg-(--theme-bg) p-2.5 transition-all duration-300 select-none hover:border-white/14 sm:w-[calc((100%-1.5rem)/3)] sm:p-3.5 xl:flex xl:w-full xl:flex-1 xl:flex-col xl:justify-center xl:p-5 ${themeClasses.borderHover}`}
       >
         <div
           className={`pointer-events-none absolute -top-10 -right-10 h-28 w-28 rounded-full xl:h-32 xl:w-32 ${themeClasses.glow} opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100`}

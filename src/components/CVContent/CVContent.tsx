@@ -94,7 +94,7 @@ const ProjectCardContent = ({ proj, idx }) => {
             )}
           </div>
         </div>
-        <span className="shrink-0 rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 text-[10px] font-bold text-white select-none sm:text-[11px]">
+        <span className="cv-project-year shrink-0 rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 text-[10px] font-bold text-white select-none sm:text-[11px]">
           {proj.year}
         </span>
       </div>
@@ -153,7 +153,7 @@ const CV = () => {
                   <a
                     href={t('cvFile')}
                     download={t('cvFileName')}
-                    className="absolute top-5 right-5 z-20 hidden cursor-pointer items-center justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 text-xs font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg sm:inline-flex md:top-6 md:right-6 md:px-5 md:text-sm"
+                    className="cv-download-button absolute top-5 right-5 z-20 hidden cursor-pointer items-center justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 text-xs font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg sm:inline-flex md:top-6 md:right-6 md:px-5 md:text-sm"
                   >
                     <DownloadIcon className="block" />
                     <span>{t('downloadBtn')}</span>
@@ -194,7 +194,7 @@ const CV = () => {
                   <a
                     href={t('cvFile')}
                     download={t('cvFileName')}
-                    className="cv-download-btn mx-auto mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg sm:hidden"
+                    className="cv-download-button cv-download-btn mx-auto mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-slate-700 px-4 py-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-600 hover:shadow-lg sm:hidden"
                   >
                     <DownloadIcon className="text-white" />
                     <span className="text-xs font-semibold text-white">{t('downloadBtn')}</span>
@@ -257,7 +257,7 @@ const CV = () => {
                             {group.skills.map((skill) => (
                               <span
                                 key={skill}
-                                className="cursor-pointer rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 font-mono text-[10px] font-semibold text-white transition-all duration-200 select-none hover:-translate-y-1 hover:scale-105 hover:shadow-lg sm:text-[11px]"
+                                className="cv-skill-pill cursor-pointer rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 font-mono text-[10px] font-semibold text-white transition-all duration-200 select-none hover:-translate-y-1 hover:scale-105 hover:shadow-lg sm:text-[11px]"
                               >
                                 {skill}
                               </span>
@@ -286,7 +286,7 @@ const CV = () => {
                               </p>
                             )}
                           </div>
-                          <span className="shrink-0 rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 text-[10px] font-black text-white select-none sm:text-[11px]">
+                          <span className="cv-education-year shrink-0 rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 text-[10px] font-black text-white select-none sm:text-[11px]">
                             {f.year}
                           </span>
                         </div>
@@ -305,7 +305,7 @@ const CV = () => {
                           <span className="text-[12px] font-bold text-slate-700 sm:text-[13px]">
                             {l.language}
                           </span>
-                          <span className="rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 text-[10px] font-bold text-white select-none sm:text-[11px]">
+                          <span className="cv-language-level rounded-xl border border-slate-700/20 bg-slate-700 px-3 py-1.5 text-[10px] font-bold text-white select-none sm:text-[11px]">
                             {l.level}
                           </span>
                         </div>

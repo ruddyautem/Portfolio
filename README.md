@@ -12,7 +12,7 @@
 
 ### 📋 Présentation
 
-Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais envie d'un site qui me ressemble un peu plus qu'un template classique — alors j'ai eu l'idée de le construire comme une véritable interface **VS Code** : barre de menu, sidebar, explorateur de fichiers redimensionnable, onglets ouverts et gouttière de numéros de ligne, le tout recréé de zéro en React & TypeScript. Le site est bilingue (FR/EN) et se décline en quatre thèmes visuels, au choix.
+Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais envie d'un site qui me ressemble un peu plus qu'un template classique — alors j'ai eu l'idée de le construire comme une véritable interface **VS Code** : barre de menu, sidebar, explorateur de fichiers redimensionnable, onglets ouverts et gouttière de numéros de ligne, le tout recréé de zéro en React & TypeScript. Le site est bilingue (FR/EN) et se décline en huit thèmes visuels, au choix.
 
 ### 📑 Les pages
 
@@ -23,7 +23,7 @@ Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais 
 | `/projects`   | Vitrine complète des projets — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — avec cartes mises en avant et archives                  |
 | `/contact`    | Formulaire sécurisé avec validation Zod, protection anti-spam honeypot, rate limiting et notifications toast centrées et intégrées au thème                                          |
 | `/cv`         | Rendu du CV interactif & stylisé, basé sur des données bilingues typées, avec liens directs vers les projets et bouton de téléchargement PDF                                         |
-| `/settings`   | Page de configuration (`parametres.json`) : sélection des 4 thèmes et choix de la langue                                                                                             |
+| `/settings`   | Page de configuration (`parametres.json`) : sélection des 8 thèmes et choix de la langue                                                                                             |
 
 ### ✨ Dernières évolutions de l’interface
 
@@ -37,7 +37,7 @@ Bienvenue sur le code source de mon portfolio. Développeur Full Stack, j'avais 
 Accessible à tout moment via `Ctrl+K` / `Cmd+K` ou depuis la barre de recherche supérieure :
 
 - Navigation instantanée entre les fichiers du portfolio.
-- Bascule de thème en direct (Ayu, One Dark Pro, Dracula, Poimandres).
+- Bascule de thème en direct entre les huit thèmes disponibles.
 - Changement instantané de langue (Français / Anglais).
 - Actions rapides (téléchargement du CV, accès au code source GitHub).
 
@@ -72,14 +72,18 @@ Sécurisation complète de la route d'envoi d'emails (via Resend + Zod) :
 
 ### 🎨 Les thèmes
 
-Quatre thèmes inspirés des éditeurs de code, mémorisés par cookies et `localStorage` avec zéro flash (FOUC) au rafraîchissement :
+Huit thèmes inspirés des éditeurs de code, mémorisés par cookies et `localStorage` avec zéro flash (FOUC) au rafraîchissement :
 
-| Thème                | Couleur d'accent | Ambiance                                       |
-| -------------------- | ---------------- | ---------------------------------------------- |
-| **Ayu** (par défaut) | `#ffcc66`        | Nuances sombres et dorées chaleureuses         |
-| **One Dark Pro**     | `#98c379`        | Nuances anthracite et vert pastel sobre        |
-| **Dracula**          | `#ff79c6`        | Nuances sombres aux touches violettes et roses |
-| **Poimandres**       | `#5de4c7`        | Nuances bleu nuit et turquoise épuré           |
+| Thème                 | Couleur d'accent | Ambiance                                       |
+| --------------------- | ---------------- | ---------------------------------------------- |
+| **Ayu** (par défaut)  | `#ffcc66`        | Nuances sombres et dorées chaleureuses         |
+| **One Dark Pro**      | `#98c379`        | Nuances anthracite et vert pastel sobre        |
+| **Dracula**           | `#ff79c6`        | Nuances sombres aux touches violettes et roses |
+| **Poimandres**        | `#5de4c7`        | Nuances bleu nuit et turquoise épuré           |
+| **Andromeda Mariana** | `#00e8c6`        | Anthracite profond et cyan lumineux            |
+| **Monokai Pro**       | `#ffd866`        | Palette sombre chaude et jaune doré            |
+| **SynthWave '84**     | `#ff7edb`        | Ambiance néon rétro-futuriste                  |
+| **GitHub Light**      | `#0969da`        | Interface claire inspirée de GitHub            |
 
 ### ⚡ Performance & Core Web Vitals
 
@@ -91,19 +95,19 @@ Quatre thèmes inspirés des éditeurs de code, mémorisés par cookies et `loca
 
 ### 🛠 Stack technique
 
-| Catégorie            | Technologies                       |
-| -------------------- | ---------------------------------- |
-| Framework            | Next.js 16 (Turbopack, App Router) |
-| Librairie UI         | React 19                           |
-| Langage              | TypeScript                         |
-| Package manager      | Bun                                |
-| Styling              | Tailwind CSS v4                    |
-| Internationalisation | next-intl                          |
-| UI & Accessibilité   | Radix UI, Lucide React, cmdk       |
-| Animations           | Framer Motion + CSS Keyframes      |
-| Carrousel            | Embla Carousel                     |
-| Email                | Resend API + Zod                   |
-| Qualité de code      | ESLint + Prettier                  |
+| Catégorie            | Technologies                         |
+| -------------------- | ------------------------------------ |
+| Framework            | Next.js 16 (Turbopack, App Router)   |
+| Librairie UI         | React 19                             |
+| Langage              | TypeScript                           |
+| Package manager      | Bun                                  |
+| Styling              | Tailwind CSS v4                      |
+| Internationalisation | next-intl                            |
+| UI & Accessibilité   | Radix UI, Lucide React, cmdk, Sonner |
+| Animations           | Framer Motion + CSS Keyframes        |
+| Carrousel            | Embla Carousel                       |
+| Email                | Resend API + Zod                     |
+| Qualité de code      | ESLint + Prettier                    |
 
 ### 📁 Structure du projet
 
@@ -179,7 +183,7 @@ Je suis Ruddy Autem, développeur Full Stack. Si le code vous inspire ou que vou
 
 ### 📋 Overview
 
-Welcome to the source code of my portfolio. As a Full Stack developer, I wanted something that felt more like _me_ than a standard template — so I built it as a real **VS Code**-style interface: menu bar, sidebar, resizable file explorer, open tabs, and an editor line-number gutter, all recreated from scratch in React & TypeScript. The site is bilingual (FR/EN) and comes with four selectable visual themes.
+Welcome to the source code of my portfolio. As a Full Stack developer, I wanted something that felt more like _me_ than a standard template — so I built it as a real **VS Code**-style interface: menu bar, sidebar, resizable file explorer, open tabs, and an editor line-number gutter, all recreated from scratch in React & TypeScript. The site is bilingual (FR/EN) and comes with eight selectable visual themes.
 
 ### 📑 Pages
 
@@ -190,7 +194,7 @@ Welcome to the source code of my portfolio. As a Full Stack developer, I wanted 
 | `/projects` | Complete project showcase — Temporis, DressCode, Style-D, Stokki, Portfolio, OhMyBlog!, Mytasky, Laxxy, CoolMail, GPT-3 — with featured spotlight cards and archives                                                   |
 | `/contact`  | Secured contact form with Zod validation, honeypot spam protection, rate limiting, and theme-integrated centered toast notifications                                                                                   |
 | `/cv`       | Interactive & styled resume view rendered from typed bilingual data with direct project links and PDF download                                                                                                         |
-| `/settings` | Built-in settings page (`settings.json`): theme switcher (4 themes) and language selector                                                                                                                              |
+| `/settings` | Built-in settings page (`settings.json`): theme switcher (8 themes) and language selector                                                                                                                              |
 
 ### ✨ Recent interface updates
 
@@ -204,7 +208,7 @@ Welcome to the source code of my portfolio. As a Full Stack developer, I wanted 
 Open anytime with `Ctrl+K` / `Cmd+K` or by clicking the top search bar:
 
 - Quick file navigation across the portfolio.
-- Live theme switching (Ayu, One Dark Pro, Dracula, Poimandres).
+- Live switching between all eight available themes.
 - Instant language toggle (French / English).
 - Quick actions (download resume, view GitHub source).
 
@@ -242,14 +246,18 @@ Fully secured email submission route (via Resend + Zod):
 
 ### 🎨 Themes
 
-Four themes inspired by developer editors, persisted via cookies & `localStorage` with zero flash of unstyled content (FOUC):
+Eight themes inspired by developer editors, persisted via cookies & `localStorage` with zero flash of unstyled content (FOUC):
 
-| Theme             | Accent color | Atmosphere                                        |
-| ----------------- | ------------ | ------------------------------------------------- |
-| **Ayu** (default) | `#ffcc66`    | Warm dark palette with golden accents             |
-| **One Dark Pro**  | `#98c379`    | Understated anthracite with soft green accents    |
-| **Dracula**       | `#ff79c6`    | Classic dark palette with purple and pink touches |
-| **Poimandres**    | `#5de4c7`    | Deep midnight blue with clean turquoise accents   |
+| Theme                 | Accent color | Atmosphere                                        |
+| --------------------- | ------------ | ------------------------------------------------- |
+| **Ayu** (default)     | `#ffcc66`    | Warm dark palette with golden accents             |
+| **One Dark Pro**      | `#98c379`    | Understated anthracite with soft green accents    |
+| **Dracula**           | `#ff79c6`    | Classic dark palette with purple and pink touches |
+| **Poimandres**        | `#5de4c7`    | Deep midnight blue with clean turquoise accents   |
+| **Andromeda Mariana** | `#00e8c6`    | Deep charcoal with vivid cyan accents             |
+| **Monokai Pro**       | `#ffd866`    | Warm dark palette with golden yellow accents      |
+| **SynthWave '84**     | `#ff7edb`    | Retro-futuristic neon atmosphere                  |
+| **GitHub Light**      | `#0969da`    | GitHub-inspired light interface                   |
 
 ### ⚡ Performance & Core Web Vitals
 
@@ -261,19 +269,19 @@ Four themes inspired by developer editors, persisted via cookies & `localStorage
 
 ### 🛠 Tech stack
 
-| Category             | Technologies                       |
-| -------------------- | ---------------------------------- |
-| Framework            | Next.js 16 (Turbopack, App Router) |
-| UI Library           | React 19                           |
-| Language             | TypeScript                         |
-| Package manager      | Bun                                |
-| Styling              | Tailwind CSS v4                    |
-| Internationalisation | next-intl                          |
-| UI & Accessibility   | Radix UI, Lucide React, cmdk       |
-| Animations           | Framer Motion + CSS Keyframes      |
-| Carousel             | Embla Carousel                     |
-| Email                | Resend API + Zod                   |
-| Code quality         | ESLint + Prettier                  |
+| Category             | Technologies                         |
+| -------------------- | ------------------------------------ |
+| Framework            | Next.js 16 (Turbopack, App Router)   |
+| UI Library           | React 19                             |
+| Language             | TypeScript                           |
+| Package manager      | Bun                                  |
+| Styling              | Tailwind CSS v4                      |
+| Internationalisation | next-intl                            |
+| UI & Accessibility   | Radix UI, Lucide React, cmdk, Sonner |
+| Animations           | Framer Motion + CSS Keyframes        |
+| Carousel             | Embla Carousel                       |
+| Email                | Resend API + Zod                     |
+| Code quality         | ESLint + Prettier                    |
 
 ### 📁 Project structure
 

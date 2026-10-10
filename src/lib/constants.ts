@@ -3,13 +3,26 @@ export const LANGUAGES = [
   { code: 'en', label: 'EN', title: 'English', flag: '/en.svg' },
 ];
 
-export const THEME_OPTIONS = ['ayu', 'oneDarkPro', 'dracula', 'poimandres'];
+export const THEME_OPTIONS = [
+  'ayu',
+  'oneDarkPro',
+  'dracula',
+  'poimandres',
+  'andromedaMariana',
+  'monokaiPro',
+  'synthWave84',
+  'githubLight',
+];
 
 export const THEME_LABELS: Record<string, string> = {
   ayu: 'Ayu',
   oneDarkPro: 'One Dark Pro',
   dracula: 'Dracula',
   poimandres: 'Poimandres',
+  andromedaMariana: 'Andromeda Mariana',
+  monokaiPro: 'Monokai Pro',
+  synthWave84: "SynthWave '84",
+  githubLight: 'GitHub Light',
 };
 
 export const THEME_DOT_COLORS: Record<string, string> = {
@@ -17,6 +30,10 @@ export const THEME_DOT_COLORS: Record<string, string> = {
   oneDarkPro: 'bg-[#98c379]',
   dracula: 'bg-[#ff79c6]',
   poimandres: 'bg-[#5de4c7]',
+  andromedaMariana: 'bg-[#00e8c6]',
+  monokaiPro: 'bg-[#ffd866]',
+  synthWave84: 'bg-[#ff7edb]',
+  githubLight: 'bg-[#0969da]',
 };
 
 // ──────────────────────────────────────────────

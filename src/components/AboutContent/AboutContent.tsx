@@ -233,7 +233,7 @@ const AboutContent = () => {
                   </div>
 
                   {/* Code Editor Body */}
-                  <div className="-mx-5 mt-3 flex-1 overflow-x-auto py-1 font-mono text-xs leading-relaxed sm:-mx-7 sm:text-sm xl:text-[14px] 2xl:text-[15px]">
+                  <div className="about-code-editor -mx-5 mt-3 flex-1 overflow-x-auto py-1 font-mono text-xs leading-relaxed sm:-mx-7 sm:text-sm xl:text-[14px] 2xl:text-[15px]">
                     <div className="grid grid-cols-[4rem_minmax(0,1fr)]">
                       <aside aria-hidden="true" className="border-r border-white/8 select-none">
                         <div className="mb-3 flex w-full items-center justify-center text-center font-inconsolata text-[14.5px] text-[#787f8d]">
@@ -412,6 +412,7 @@ const AboutContent = () => {
                         label: t('filterAll'),
                         count: allSkillsList.length,
                         dot: 'bg-accent',
+                        countStyle: 'bg-blue-100 text-blue-700',
                       },
                       {
                         id: 'frontend',
@@ -457,10 +458,8 @@ const AboutContent = () => {
                           />
                           <span className="relative">{tab.label}</span>
                           <span
-                            className={`py-0.2 relative rounded-full px-1.5 text-[10px] xl:text-xs ${
-                              isActive
-                                ? 'bg-slate-950/20 text-slate-950'
-                                : 'bg-slate-700/50 text-slate-400'
+                            className={`skill-filter-count py-0.2 relative rounded-full px-1.5 text-[10px] xl:text-xs ${
+                              isActive ? 'bg-white/25 text-white' : tab.countStyle
                             }`}
                           >
                             {tab.count}
@@ -482,6 +481,7 @@ const AboutContent = () => {
                         dot: 'bg-blue-400',
                         accentText: 'text-blue-400',
                         borderSubtle: 'border-blue-500/20',
+                        countStyle: 'bg-sky-100 text-sky-700',
                         items: skills.frontend,
                         category: 'frontend' as const,
                       },
@@ -492,6 +492,7 @@ const AboutContent = () => {
                         dot: 'bg-purple-400',
                         accentText: 'text-purple-400',
                         borderSubtle: 'border-purple-500/20',
+                        countStyle: 'bg-purple-100 text-purple-700',
                         items: skills.backend,
                         category: 'backend' as const,
                       },
@@ -502,6 +503,7 @@ const AboutContent = () => {
                         dot: 'bg-emerald-400',
                         accentText: 'text-emerald-400',
                         borderSubtle: 'border-emerald-500/20',
+                        countStyle: 'bg-emerald-100 text-emerald-700',
                         items: skills.tools,
                         category: 'tools' as const,
                       },
@@ -515,7 +517,9 @@ const AboutContent = () => {
                             <h3 className="text-sm font-bold tracking-tight text-white sm:text-base xl:text-lg">
                               {group.title}
                             </h3>
-                            <span className="rounded-full border border-slate-700/60 bg-slate-800/80 px-2 py-0.5 font-mono text-[10px] text-slate-400 xl:text-xs">
+                            <span
+                              className={`skill-group-count skill-group-count--${group.key} rounded-full border border-slate-700/60 bg-slate-800/80 px-2 py-0.5 font-mono text-[10px] text-slate-400 xl:text-xs`}
+                            >
                               {group.items.length}
                             </span>
                           </div>

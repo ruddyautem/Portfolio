@@ -64,7 +64,7 @@ const HeroSection = () => {
                 text={`${t('name')} ${t('surname')}`}
                 fontWeight={800}
                 fontSize={72}
-                color="#ffffff"
+                color="var(--hero-name-color, #ffffff)"
                 whiteSpace="nowrap"
                 splitBy="char"
                 hinge="top"

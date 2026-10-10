@@ -2,21 +2,19 @@
 
 import { useEffect, useContext, useCallback } from 'react';
 import { Command } from 'cmdk';
+import { toast } from 'sonner';
+import Image from 'next/image';
 import { useRouter, usePathname } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { ThemeContext } from '@/context/ThemeContext';
-import { THEME_OPTIONS, THEME_DOT_COLORS, THEME_LABELS, LANGUAGES } from '@/lib/constants';
 import {
-  FileCode,
-  FolderKanban,
-  User,
-  Mail,
-  FileText,
-  Globe,
-  Copy,
-  Download,
-  Sliders,
-} from 'lucide-react';
+  THEME_OPTIONS,
+  THEME_DOT_COLORS,
+  THEME_LABELS,
+  LANGUAGES,
+  TABS_NAV_ICONS,
+} from '@/lib/constants';
+import { Copy, Download } from 'lucide-react';
 import { cn, saveScrollPosition } from '@/lib/utils';
 
 export default function CommandPalette({ open, setOpen }) {
@@ -66,36 +64,109 @@ export default function CommandPalette({ open, setOpen }) {
         {/* Navigation Group */}
         <Command.Group heading={isFr ? 'Fichiers & Navigation' : 'Files & Navigation'}>
           <Command.Item onSelect={() => runCommand(() => router.push('/'))}>
-            <FileCode className="h-4 w-4 text-accent" />
+            <Image src={TABS_NAV_ICONS.home} alt="" width={16} height={16} className="h-4 w-4" />
             <span>{isFr ? 'accueil.tsx' : 'home.tsx'} (Home)</span>
           </Command.Item>
           <Command.Item onSelect={() => runCommand(() => router.push('/about'))}>
-            <User className="h-4 w-4 text-blue-400" />
+            <Image src={TABS_NAV_ICONS.about} alt="" width={16} height={16} className="h-4 w-4" />
             <span>
               {isFr ? 'profil.md' : 'about.md'} (
               {isFr ? 'À propos / Compétences' : 'About / Skills'})
             </span>
           </Command.Item>
           <Command.Item onSelect={() => runCommand(() => router.push('/projects'))}>
-            <FolderKanban className="h-4 w-4 text-amber-400" />
+            <Image
+              src={TABS_NAV_ICONS.projects}
+              alt=""
+              width={16}
+              height={16}
+              className="h-4 w-4"
+            />
             <span>
               {isFr ? 'projets.ts' : 'projects.ts'} ({isFr ? 'Mes Projets' : 'Projects'})
             </span>
           </Command.Item>
           <Command.Item onSelect={() => runCommand(() => router.push('/cv'))}>
-            <FileText className="h-4 w-4 text-emerald-400" />
+            <Image src={TABS_NAV_ICONS.cv} alt="" width={16} height={16} className="h-4 w-4" />
             <span>{isFr ? 'cv.pdf' : 'resume.pdf'} (Curriculum Vitae)</span>
           </Command.Item>
           <Command.Item onSelect={() => runCommand(() => router.push('/contact'))}>
-            <Mail className="h-4 w-4 text-pink-400" />
+            <Image src={TABS_NAV_ICONS.contact} alt="" width={16} height={16} className="h-4 w-4" />
             <span>contact.tsx ({isFr ? 'Me contacter' : 'Contact Me'})</span>
           </Command.Item>
           <Command.Item onSelect={() => runCommand(() => router.push('/settings'))}>
-            <Sliders className="h-4 w-4 text-purple-400" />
+            <Image
+              src={TABS_NAV_ICONS.settings}
+              alt=""
+              width={16}
+              height={16}
+              className="h-4 w-4"
+            />
             <span>
               {isFr ? 'parametres.json' : 'settings.json'} (
               {isFr ? 'Paramètres IDE' : 'IDE Settings'})
             </span>
+          </Command.Item>
+        </Command.Group>
+
+        {/* Languages Group */}
+        <Command.Group heading={isFr ? 'Langue / Language' : 'Language / Langue'}>
+          {LANGUAGES.map((lang) => (
+            <Command.Item
+              key={lang.code}
+              onSelect={() =>
+                runCommand(() => {
+                  if (locale !== lang.code) {
+                    saveScrollPosition();
+                    router.replace(pathname, { locale: lang.code, scroll: false });
+                  }
+                })
+              }
+            >
+              <Image src={lang.flag} alt="" width={16} height={16} className="h-4 w-4 shrink-0" />
+              <span>{lang.title}</span>
+              {locale === lang.code && (
+                <span className="ml-auto text-xs text-slate-500">
+                  {isFr ? '(Actuel)' : '(Current)'}
+                </span>
+              )}
+            </Command.Item>
+          ))}
+        </Command.Group>
+
+        {/* Quick Actions */}
+        <Command.Group heading={isFr ? 'Actions Rapides' : 'Quick Actions'}>
+          <Command.Item
+            onSelect={() =>
+              runCommand(() => {
+                void navigator.clipboard
+                  .writeText('ruddy.autem@gmail.com')
+                  .then(() =>
+                    toast.success(isFr ? 'Adresse email copiée !' : 'Email address copied!'),
+                  )
+                  .catch(() =>
+                    toast.error(
+                      isFr
+                        ? "Impossible de copier l'adresse email."
+                        : 'Unable to copy the email address.',
+                    ),
+                  );
+              })
+            }
+          >
+            <Copy className="h-4 w-4 text-slate-400" />
+            <span>{isFr ? "Copier l'adresse email" : 'Copy email address'}</span>
+          </Command.Item>
+          <Command.Item
+            onSelect={() =>
+              runCommand(() => {
+                const pdf = isFr ? '/Autem_Ruddy_CV.pdf' : '/Autem_Ruddy_Resume.pdf';
+                window.open(pdf, '_blank');
+              })
+            }
+          >
+            <Download className="h-4 w-4 text-slate-400" />
+            <span>{isFr ? 'Télécharger le CV (PDF)' : 'Download CV / Resume (PDF)'}</span>
           </Command.Item>
         </Command.Group>
 
@@ -117,56 +188,6 @@ export default function CommandPalette({ open, setOpen }) {
               )}
             </Command.Item>
           ))}
-        </Command.Group>
-
-        {/* Languages Group */}
-        <Command.Group heading={isFr ? 'Langue / Language' : 'Language / Langue'}>
-          {LANGUAGES.map((lang) => (
-            <Command.Item
-              key={lang.code}
-              onSelect={() =>
-                runCommand(() => {
-                  if (locale !== lang.code) {
-                    saveScrollPosition();
-                    router.replace(pathname, { locale: lang.code, scroll: false });
-                  }
-                })
-              }
-            >
-              <Globe className="h-4 w-4 text-slate-400" />
-              <span>{lang.title}</span>
-              {locale === lang.code && (
-                <span className="ml-auto text-xs text-slate-500">
-                  {isFr ? '(Actuel)' : '(Current)'}
-                </span>
-              )}
-            </Command.Item>
-          ))}
-        </Command.Group>
-
-        {/* Quick Actions */}
-        <Command.Group heading={isFr ? 'Actions Rapides' : 'Quick Actions'}>
-          <Command.Item
-            onSelect={() =>
-              runCommand(() => {
-                navigator.clipboard.writeText('ruddy.autem@gmail.com');
-              })
-            }
-          >
-            <Copy className="h-4 w-4 text-slate-400" />
-            <span>{isFr ? "Copier l'adresse email" : 'Copy email address'}</span>
-          </Command.Item>
-          <Command.Item
-            onSelect={() =>
-              runCommand(() => {
-                const pdf = isFr ? '/Autem_Ruddy_CV.pdf' : '/Autem_Ruddy_Resume.pdf';
-                window.open(pdf, '_blank');
-              })
-            }
-          >
-            <Download className="h-4 w-4 text-slate-400" />
-            <span>{isFr ? 'Télécharger le CV (PDF)' : 'Download CV / Resume (PDF)'}</span>
-          </Command.Item>
         </Command.Group>
       </Command.List>
     </Command.Dialog>

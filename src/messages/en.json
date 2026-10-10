@@ -365,7 +365,11 @@
       "ayu": "Warm dark and golden tones (default)",
       "oneDarkPro": "Charcoal tones and soft pastel green",
       "dracula": "Dark tones with purple and pink accents",
-      "poimandres": "Midnight blue and clean turquoise tones"
+      "poimandres": "Midnight blue and clean turquoise tones",
+      "andromedaMariana": "Midnight blue, lavender, and bright cyan",
+      "monokaiPro": "Deep charcoal, warm yellow, and colorful accents",
+      "synthWave84": "Retro purple, neon pink, and electric cyan",
+      "githubLight": "Light surfaces, GitHub blue, and subtle contrast"
     }
   }
 }

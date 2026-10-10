@@ -22,6 +22,7 @@ import { LANGUAGES, THEME_OPTIONS, THEME_DOT_COLORS, THEME_LABELS } from '@/lib/
 import { ChevronDown, CheckIcon } from '@/lib/icons';
 import { Tooltip } from '@/components/ui/beui-tooltip';
 import dynamic from 'next/dynamic';
+import { Toaster } from 'sonner';
 
 const CommandPalette = dynamic(() => import('@/components/CommandPalette/CommandPalette'), {
   ssr: false,
@@ -610,6 +611,7 @@ const Menu = () => {
 
   return (
     <>
+      <Toaster position="top-center" closeButton richColors />
       <CommandPalette open={isCommandOpen} setOpen={setIsCommandOpen} />
       <div
         className={cn(
@@ -628,7 +630,7 @@ const Menu = () => {
           <div
             style={{ width: SEARCH_BAR_WIDTH }}
             className={cn(
-              'group relative flex h-7 shrink-0 items-center overflow-hidden hover:border-accent',
+              'cmdk-trigger group relative flex h-7 shrink-0 items-center overflow-hidden hover:border-accent',
               `rounded border border-gray-100/10 text-xs font-semibold text-light transition-colors`,
               showSearchNudge && 'animate-search-bar-nudge',
             )}
@@ -684,7 +686,7 @@ const Menu = () => {
                 <span className="truncate text-xs font-normal text-white/80">{t('search')}</span>
 
                 {/* ⌘K badge visible on sm and above */}
-                <kbd className="ml-1.5 hidden h-4 items-center gap-0.5 rounded bg-white/10 px-1.5 font-mono text-[9px] leading-none font-medium text-slate-400 select-none sm:inline-flex">
+                <kbd className="cmdk-shortcut ml-1.5 hidden h-4 items-center gap-0.5 rounded bg-white/10 px-1.5 font-mono text-[9px] leading-none font-medium text-slate-400 select-none sm:inline-flex">
                   <CmdIcon className="h-2.5 w-2.5 shrink-0 text-slate-400" />
                   <span className="leading-none">K</span>
                 </kbd>

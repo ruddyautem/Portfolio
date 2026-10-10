@@ -365,7 +365,11 @@
       "ayu": "Nuances sombres et dorées chaleureuses (défaut)",
       "oneDarkPro": "Nuances anthracite et vert pastel sobre",
       "dracula": "Nuances sombres aux touches violettes et roses",
-      "poimandres": "Nuances bleu nuit et turquoise épuré"
+      "poimandres": "Nuances bleu nuit et turquoise épuré",
+      "andromedaMariana": "Bleu nuit, lavande et cyan lumineux",
+      "monokaiPro": "Anthracite profond, jaune chaud et accents colorés",
+      "synthWave84": "Violet rétro, rose néon et cyan électrique",
+      "githubLight": "Fond clair, bleu GitHub et contrastes sobres"
     }
   }
 }
