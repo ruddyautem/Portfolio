@@ -601,9 +601,9 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                                 {project.tags.slice(0, 5).map((tag) => (
                                   <span
                                     key={tag}
-                                    className={`inline-flex items-center rounded-md border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[11px] font-medium transition-colors hover:border-white/20 hover:bg-white/10 ${
-                                      TAG_COLORS_CARD[tag]?.split(' ')[2] || 'text-slate-300'
-                                    }`}
+                                    className={`project-carousel-tag inline-flex items-center rounded-md border px-2 py-0.5 font-mono text-[11px] font-medium transition-colors ${getTagStyle(
+                                      tag,
+                                    )}`}
                                   >
                                     #{tag}
                                   </span>
@@ -768,7 +768,7 @@ export default function ProjectSpotlight({ projects, t }: ProjectSpotlightProps)
                               {project.tags.slice(0, 5).map((tag) => (
                                 <span
                                   key={tag}
-                                  className={`inline-flex items-center rounded-md border px-2 py-0.5 font-mono text-[10px] font-medium sm:text-[11px] ${getTagStyle(
+                                  className={`project-carousel-tag inline-flex items-center rounded-md border px-2 py-0.5 font-mono text-[10px] font-medium sm:text-[11px] ${getTagStyle(
                                     tag,
                                   )}`}
                                 >

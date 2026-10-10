@@ -402,6 +402,58 @@
     brightness(94%) contrast(91%);
 }
 
+.githubLight .logo-carousel__logo--dark-on-light {
+  filter: brightness(0) saturate(100%) invert(13%) sepia(14%) saturate(1189%) hue-rotate(169deg)
+    brightness(94%) contrast(91%);
+}
+
+.logo-carousel__light-wordmark {
+  display: none;
+}
+
+.githubLight .logo-carousel__light-wordmark {
+  display: block;
+  filter: brightness(0) saturate(100%) invert(13%) sepia(14%) saturate(1189%) hue-rotate(169deg)
+    brightness(94%) contrast(91%);
+}
+
+.githubLight .logo-carousel__light-wordmark--tailwind {
+  clip-path: inset(0 0 0 24%);
+}
+
+.githubLight .logo-carousel__light-wordmark--vite {
+  clip-path: inset(0 0 0 43%);
+}
+
+.githubLight .logo-carousel__light-wordmark--git {
+  clip-path: inset(0 0 0 47%);
+}
+
+.logo-carousel__dark-wordmark {
+  display: block;
+  filter: brightness(0) invert(1);
+}
+
+.logo-carousel__dark-wordmark--clerk {
+  clip-path: inset(0 0 0 28%);
+}
+
+.githubLight .logo-carousel__dark-wordmark {
+  display: none;
+}
+
+.githubLight .beui-tooltip-content {
+  background-color: #fff !important;
+  border-color: #d0d7de !important;
+  color: #24292f !important;
+  box-shadow: 0 8px 20px rgb(31 35 40 / 0.16) !important;
+}
+
+.githubLight .beui-tooltip-arrow {
+  background-color: #fff !important;
+  border-color: #d0d7de !important;
+}
+
 .githubLight .skill-filter-count.text-white {
   color: #fff !important;
 }
@@ -451,6 +503,61 @@
   background-color: #eaeef2 !important;
   border-color: #0969da !important;
   color: #0969da !important;
+}
+
+.githubLight .project-carousel-tag[class*='text-blue'],
+.githubLight .project-carousel-tag[class*='text-sky'] {
+  background-color: #ddf4ff !important;
+  border-color: #b6e3ff !important;
+  color: #0969da !important;
+}
+
+.githubLight .project-carousel-tag[class*='text-cyan'] {
+  background-color: #dff7f5 !important;
+  border-color: #a5f3fc !important;
+  color: #0f766e !important;
+}
+
+.githubLight .project-carousel-tag[class*='text-green'],
+.githubLight .project-carousel-tag[class*='text-emerald'] {
+  background-color: #dafbe1 !important;
+  border-color: #aceebb !important;
+  color: #1a7f37 !important;
+}
+
+.githubLight .project-carousel-tag[class*='text-purple'],
+.githubLight .project-carousel-tag[class*='text-violet'],
+.githubLight .project-carousel-tag[class*='text-indigo'] {
+  background-color: #fbefff !important;
+  border-color: #e2c5ff !important;
+  color: #8250df !important;
+}
+
+.githubLight .project-carousel-tag[class*='text-pink'] {
+  background-color: #ffeff7 !important;
+  border-color: #ffc2e0 !important;
+  color: #bf3989 !important;
+}
+
+.githubLight .project-carousel-tag[class*='text-red'] {
+  background-color: #ffebe9 !important;
+  border-color: #ffcecb !important;
+  color: #cf222e !important;
+}
+
+.githubLight .project-carousel-tag[class*='text-orange'],
+.githubLight .project-carousel-tag[class*='text-amber'],
+.githubLight .project-carousel-tag[class*='text-yellow'] {
+  background-color: #fff8c5 !important;
+  border-color: #f8e3a1 !important;
+  color: #9a6700 !important;
+}
+
+.githubLight .project-carousel-tag[class*='text-gray'],
+.githubLight .project-carousel-tag[class*='text-zinc'] {
+  background-color: #eaeef2 !important;
+  border-color: #d0d7de !important;
+  color: #57606a !important;
 }
 
 .githubLight .cv-download-button {

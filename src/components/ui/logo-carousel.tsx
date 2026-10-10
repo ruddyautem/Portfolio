@@ -10,6 +10,9 @@ export interface Logo {
   name: string;
   img?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   src?: string;
+  needsDarkIconOnLightTheme?: boolean;
+  lightThemeWordmark?: 'tailwind' | 'vite' | 'git';
+  darkThemeWordmark?: 'clerk';
 }
 
 // Responsive column breakpoints for portfolio layout
@@ -23,20 +26,30 @@ const BREAKPOINTS = [
 
 export const TECH_LOGOS: Logo[] = [
   { id: 1, name: 'React', src: '/react-wordmark.svg' },
-  { id: 2, name: 'Next.js', src: '/nextjs-wordmark.svg' },
-  { id: 3, name: 'Dokploy', src: '/dokploy.svg' },
+  { id: 2, name: 'Next.js', src: '/nextjs-wordmark.svg', needsDarkIconOnLightTheme: true },
+  { id: 3, name: 'Dokploy', src: '/dokploy.svg', needsDarkIconOnLightTheme: true },
   { id: 4, name: 'TypeScript', src: '/typescript-wordmark.svg' },
-  { id: 5, name: 'Tailwind CSS', src: '/tailwind-wordmark.svg' },
-  { id: 6, name: 'Vite', src: '/vite-wordmark.svg' },
+  {
+    id: 5,
+    name: 'Tailwind CSS',
+    src: '/tailwind-wordmark.svg',
+    lightThemeWordmark: 'tailwind',
+  },
+  {
+    id: 6,
+    name: 'Vite',
+    src: '/vite-wordmark.svg',
+    lightThemeWordmark: 'vite',
+  },
   { id: 7, name: 'Styled Components', src: '/styled-wordmark.svg' },
-  { id: 8, name: 'Shadcn', src: '/shadcn-wordmark.svg' },
-  { id: 9, name: 'Git', src: '/git-wordmark.svg' },
-  { id: 10, name: 'Codex', src: '/codex-text.svg' },
+  { id: 8, name: 'Shadcn', src: '/shadcn-wordmark.svg', needsDarkIconOnLightTheme: true },
+  { id: 9, name: 'Git', src: '/git-wordmark.svg', lightThemeWordmark: 'git' },
+  { id: 10, name: 'Codex', src: '/codex-text.svg', needsDarkIconOnLightTheme: true },
   { id: 11, name: 'MongoDB', src: '/mongodb-wordmark.svg' },
-  { id: 12, name: 'GitHub', src: '/github-wordmark2.svg' },
+  { id: 12, name: 'GitHub', src: '/github-wordmark2.svg', needsDarkIconOnLightTheme: true },
   { id: 13, name: 'Zustand', src: '/zustand.svg' },
-  { id: 14, name: 'Clerk', src: '/clerk-wordmark.svg' },
-  { id: 15, name: 'Express', src: '/express-wordmark.svg' },
+  { id: 14, name: 'Clerk', src: '/clerk-wordmark.svg', darkThemeWordmark: 'clerk' },
+  { id: 15, name: 'Express', src: '/express-wordmark.svg', needsDarkIconOnLightTheme: true },
   { id: 16, name: 'Sanity', src: '/sanity-wordmark.svg' },
   { id: 17, name: 'SSH', src: '/ssh-wordmark.svg' },
   { id: 18, name: 'Prisma', src: '/prisma-wordmark.svg' },
@@ -70,10 +83,8 @@ const distributeLogos = (allLogos: Logo[], columnCount: number): Logo[][] => {
   // Ensure all columns have the same number of logos by filling shorter columns
   const maxLength = Math.max(...columns.map((col) => col.length));
   columns.forEach((col, colIdx) => {
-    let fillIdx = 0;
     while (col.length < maxLength) {
-      col.push(mixed[(colIdx + fillIdx * columnCount) % mixed.length] || allLogos[0]);
-      fillIdx++;
+      col.push(mixed[(colIdx + col.length * columnCount) % mixed.length] || allLogos[0]);
     }
   });
 
@@ -125,7 +136,7 @@ const LogoColumn = memo(
   ({ logos, index, currentTime, cycleInterval = 2000 }: LogoColumnProps) => {
     if (!logos || logos.length === 0) return null;
 
-    const columnDelay = index * 200; // Stagger the start of each column's animation
+    const columnDelay = index * 200;
     const totalDuration = cycleInterval * logos.length;
     const adjustedTime = (currentTime + columnDelay) % (totalDuration || 1);
     const currentIndex = Math.floor(adjustedTime / cycleInterval) % logos.length;
@@ -182,10 +193,38 @@ const LogoColumn = memo(
                   alt={currentLogo.name}
                   fill
                   sizes="(max-width: 768px) 96px, 160px"
-                  className="pointer-events-none object-contain select-none"
+                  className={`logo-carousel__logo pointer-events-none object-contain select-none ${
+                    currentLogo.needsDarkIconOnLightTheme
+                      ? 'logo-carousel__logo--dark-on-light'
+                      : ''
+                  }`}
                   priority
                   unoptimized
                 />
+                {currentLogo.lightThemeWordmark ? (
+                  <Image
+                    src={currentLogo.src}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes="(max-width: 768px) 96px, 160px"
+                    className={`logo-carousel__light-wordmark pointer-events-none object-contain select-none logo-carousel__light-wordmark--${currentLogo.lightThemeWordmark}`}
+                    priority
+                    unoptimized
+                  />
+                ) : null}
+                {currentLogo.darkThemeWordmark ? (
+                  <Image
+                    src={currentLogo.src}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes="(max-width: 768px) 96px, 160px"
+                    className={`logo-carousel__dark-wordmark pointer-events-none object-contain select-none logo-carousel__dark-wordmark--${currentLogo.darkThemeWordmark}`}
+                    priority
+                    unoptimized
+                  />
+                ) : null}
               </div>
             ) : null}
           </motion.div>
@@ -242,8 +281,8 @@ export function LogoCarousel({
   useEffect(() => {
     logos.forEach((logo) => {
       if (logo.src && typeof window !== 'undefined') {
-        const img = new window.Image();
-        img.src = logo.src;
+        const image = new window.Image();
+        image.src = logo.src;
       }
     });
   }, [logos]);

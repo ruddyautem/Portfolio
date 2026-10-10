@@ -5,13 +5,13 @@ export const LANGUAGES = [
 
 export const THEME_OPTIONS = [
   'ayu',
+  'githubLight',
   'oneDarkPro',
   'dracula',
   'poimandres',
+  'synthWave84',
   'andromedaMariana',
   'monokaiPro',
-  'synthWave84',
-  'githubLight',
 ];
 
 export const THEME_LABELS: Record<string, string> = {

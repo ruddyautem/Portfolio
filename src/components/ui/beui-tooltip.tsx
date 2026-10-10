@@ -78,7 +78,7 @@ export function BeUITooltip({
         >
           <div
             className={cn(
-              'relative flex items-center rounded-lg border border-white/10',
+              'beui-tooltip-content relative flex items-center rounded-lg border border-white/10',
               'bg-[#1f2430]/95 px-2.5 py-1 text-[11px] font-medium text-slate-200',
               'shadow-xl ring-1 shadow-black/40 ring-white/5 backdrop-blur-md',
               className,
@@ -88,7 +88,7 @@ export function BeUITooltip({
               <span
                 aria-hidden="true"
                 className={cn(
-                  'absolute h-1.5 w-1.5 rotate-45 border border-white/10 bg-[#1f2430]',
+                  'beui-tooltip-arrow absolute h-1.5 w-1.5 rotate-45 border border-white/10 bg-[#1f2430]',
                   side === 'top' && '-bottom-1 border-t-0 border-l-0',
                   side === 'bottom' && '-top-1 border-r-0 border-b-0',
                   side === 'left' && '-right-1 border-b-0 border-l-0',
