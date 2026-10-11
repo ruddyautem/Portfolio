@@ -159,7 +159,7 @@ const ContactList = () => {
                       01
                     </span>
                     <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
-                    <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base lg:text-lg">
+                    <h2 className="text-[13px] font-semibold tracking-wide text-accent sm:text-base lg:text-lg">
                       {t('networksTitle')}
                     </h2>
                   </div>
@@ -309,7 +309,7 @@ const ContactList = () => {
                       02
                     </span>
                     <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
-                    <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base lg:text-lg">
+                    <h2 className="text-[13px] font-semibold tracking-wide text-accent sm:text-base lg:text-lg">
                       {t('sendMessageTitle')}
                     </h2>
                   </div>

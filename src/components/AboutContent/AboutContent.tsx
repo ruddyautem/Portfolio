@@ -326,7 +326,7 @@ const AboutContent = () => {
               {/* ============================================================
                   SECTION 2: Engineering Pillars & Methodology (2x2 Bento)
                   ============================================================ */}
-              <section aria-label={t('pillarsTitle')}>
+              <section aria-label={tHome('carousel.architectureTitle')}>
                 <div className="mb-6 text-center sm:mb-8 sm:text-left">
                   <div className="inline-flex items-center gap-2.5 font-mono sm:gap-3">
                     <span className="text-xs text-slate-600 sm:text-sm">//</span>
@@ -334,8 +334,8 @@ const AboutContent = () => {
                       02
                     </span>
                     <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
-                    <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base xl:text-lg">
-                      {t('pillarsTitle')}
+                    <h2 className="text-[13px] font-semibold tracking-wide text-accent sm:text-base xl:text-lg">
+                      {tHome('carousel.architectureTitle')}
                     </h2>
                   </div>
                   <p className="mx-auto mt-2 max-w-2xl text-xs text-slate-400 sm:mx-0 sm:text-sm xl:text-base">
@@ -391,7 +391,7 @@ const AboutContent = () => {
                         03
                       </span>
                       <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
-                      <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base xl:text-lg">
+                      <h2 className="text-[13px] font-semibold tracking-wide text-accent sm:text-base xl:text-lg">
                         {t('stackTitle')}
                       </h2>
                     </div>

@@ -53,7 +53,8 @@ export const TECH_LOGOS: Logo[] = [
   { id: 16, name: 'Sanity', src: '/sanity-wordmark.svg' },
   { id: 17, name: 'SSH', src: '/ssh-wordmark.svg' },
   { id: 18, name: 'Prisma', src: '/prisma-wordmark.svg' },
-  { id: 19, name: 'Elysia', src: '/elysia.svg' },
+  { id: 19, name: 'Zod', src: '/zod.svg' },
+  { id: 20, name: 'Elysia', src: '/elysia.svg' },
 ];
 
 // Distribute logos across columns with deterministic shuffling for SSR-safe varied mixing

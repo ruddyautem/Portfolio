@@ -46,7 +46,7 @@ const Projects = () => {
                       {t('featuredEyebrow')}
                     </span>
                     <span aria-hidden="true" className="h-px w-5 bg-accent/60 sm:w-7" />
-                    <h2 className="text-sm font-semibold tracking-wide text-accent sm:text-base lg:text-lg">
+                    <h2 className="text-[13px] font-semibold tracking-wide text-accent sm:text-base lg:text-lg">
                       {t('featuredTitle')}
                     </h2>
                   </div>
@@ -82,7 +82,7 @@ const Projects = () => {
                       02
                     </span>
                     <span aria-hidden="true" className="h-px w-5 bg-slate-600 sm:w-7" />
-                    <h2 className="text-sm font-semibold tracking-wide text-slate-300 sm:text-base lg:text-lg">
+                    <h2 className="text-[13px] font-semibold tracking-wide text-slate-300 sm:text-base lg:text-lg">
                       {t('otherTitle')}
                     </h2>
                   </div>
