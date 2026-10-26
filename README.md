@@ -348,3 +348,8 @@ Then head to [http://localhost:3000](http://localhost:3000).
 ### About me
 
 I'm Ruddy Autem, a Full Stack developer. If the code speaks to you or you just want to say hi, feel free — you'll find me at [autem.dev](https://autem.dev) or on [GitHub](https://github.com/ruddyautem).
+
+
+### Contact : configuration et vérifications
+
+Le corps reçu est limité à 32 Kio même sans Content-Length. L’appel au limiteur partagé expire après 5 secondes et échoue avec 503 sans envoyer d’email. RESEND_FROM permet de définir un expéditeur vérifié ; le défaut onboarding@resend.dev reste réservé aux restrictions du compte de test Resend. En staging, vérifier le remplacement fiable de x-real-ip par le proxy, les variables Upstash, MY_EMAIL, RESEND_API_KEY et la réception réelle. Tester également le quatrième envoi bloqué et une panne Redis. bun run test exécute les régressions avec Resend et le réseau simulés.

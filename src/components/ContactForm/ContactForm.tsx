@@ -90,6 +90,8 @@ const ContactForm = () => {
 
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
+      const invalidField = (e.currentTarget as HTMLFormElement).elements.namedItem(Object.keys(errors)[0]);
+      if (invalidField instanceof HTMLElement) invalidField.focus();
       setTouchedFields(Object.fromEntries(FIELDS_CONFIG.map((field) => [field.name, true])));
       toast.error(t('validation.formError'));
       return;

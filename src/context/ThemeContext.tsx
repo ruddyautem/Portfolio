@@ -25,12 +25,13 @@ export const ThemeContextProvider = ({
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       // Check localStorage in case cookie was out of sync or absent.
-      const savedTheme = localStorage.getItem('theme');
+      let savedTheme: string | null;
+      try { savedTheme = localStorage.getItem('theme'); } catch { return; }
       if (!savedTheme) return;
 
       const nextTheme = THEME_OPTIONS.includes(savedTheme) ? savedTheme : 'ayu';
       if (nextTheme !== savedTheme) {
-        localStorage.setItem('theme', nextTheme);
+        try { localStorage.setItem('theme', nextTheme); } catch { /* Keep the cookie preference. */ }
       }
 
       setTheme(nextTheme);
@@ -46,7 +47,7 @@ export const ThemeContextProvider = ({
   const toggle = useCallback((newTheme: string) => {
     setTheme(newTheme);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('theme', newTheme);
+      try { localStorage.setItem('theme', newTheme); } catch { /* The current session and cookie still retain the theme. */ }
       document.cookie = `theme=${newTheme}; path=/; max-age=31536000; SameSite=Lax`;
       const root = document.documentElement;
       root.classList.remove(...THEME_OPTIONS);

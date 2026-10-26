@@ -73,6 +73,8 @@ const InputField = ({
       <div className="group relative">
         {isTextarea ? (
           <textarea
+            aria-invalid={hasError || undefined}
+            aria-describedby={hasError ? `${name}-error` : showValidation ? `${name}-help` : undefined}
             id={name}
             name={name}
             value={value}
@@ -86,6 +88,8 @@ const InputField = ({
           />
         ) : (
           <input
+            aria-invalid={hasError || undefined}
+            aria-describedby={hasError ? `${name}-error` : showValidation ? `${name}-help` : undefined}
             id={name}
             name={name}
             type={type}
@@ -112,14 +116,14 @@ const InputField = ({
       </div>
 
       {hasError && (
-        <p className="mt-0.5 flex animate-in items-center justify-center gap-1.5 text-xs text-red-400 duration-200 fade-in xl:justify-start">
+        <p id={`${name}-error`} role="alert" className="mt-0.5 flex animate-in items-center justify-center gap-1.5 text-xs text-red-400 duration-200 fade-in xl:justify-start">
           <AlertCircle className="h-3.5 w-3.5 shrink-0" />
           <span>{error}</span>
         </p>
       )}
 
       {showValidation && (
-        <p className="mt-0.5 flex animate-in items-center justify-center gap-1.5 text-xs text-amber-400 duration-200 fade-in xl:justify-start">
+        <p id={`${name}-help`} className="mt-0.5 flex animate-in items-center justify-center gap-1.5 text-xs text-amber-400 duration-200 fade-in xl:justify-start">
           <Info className="h-3.5 w-3.5 shrink-0" />
           <span>{validationMessage}</span>
         </p>

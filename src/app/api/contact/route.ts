@@ -89,6 +89,7 @@ async function checkContactRateLimit(request: Request, locale: string) {
         String(RATE_LIMIT_WINDOW_SECONDS),
       ]),
       cache: 'no-store',
+      signal: AbortSignal.timeout(5000),
     });
 
     if (!response.ok) {
@@ -195,7 +196,7 @@ const escapeHtml = (str = '') => {
     .replace(/'/g, '&#39;');
 };
 
-export const POST = async (request) => {
+export const POST = async (request: Request) => {
   const contentLength = request.headers.get('content-length');
   if (contentLength) {
     const declaredSize = Number(contentLength);
@@ -209,7 +210,24 @@ export const POST = async (request) => {
 
   let body;
   try {
-    body = await request.json();
+    const reader = request.body?.getReader();
+    const chunks: Uint8Array[] = [];
+    let bytes = 0;
+    if (reader) {
+      try {
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          bytes += value.byteLength;
+          if (bytes > MAX_REQUEST_BODY_BYTES) { await reader.cancel(); return payloadTooLargeResponse('fr'); }
+          chunks.push(value);
+        }
+      } finally { reader.releaseLock(); }
+    }
+    const data = new Uint8Array(bytes);
+    let offset = 0;
+    for (const chunk of chunks) { data.set(chunk, offset); offset += chunk.byteLength; }
+    body = JSON.parse(new TextDecoder().decode(data));
   } catch {
     return NextResponse.json({ message: 'Invalid request body.' }, { status: 400 });
   }
@@ -263,7 +281,7 @@ export const POST = async (request) => {
     const { error } = await resend.emails.send({
       // Resend requires a verified domain to send from. 'onboarding@resend.dev' works for testing
       // but only to your registered Resend email address.
-      from: 'Portfolio Contact <onboarding@resend.dev>',
+      from: process.env.RESEND_FROM || 'Portfolio Contact <onboarding@resend.dev>',
       to: myEmail,
       replyTo: safeData.email,
       subject: `📬 Nouveau message de ${safeData.name} - ${safeData.sujet}`,
