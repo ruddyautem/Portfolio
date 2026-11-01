@@ -74,6 +74,14 @@
     "rights": "© {year} autem.dev - tous droits réservés"
   },
   "projectsData": {
+    "upcheck": {
+      "badge": "Analyse de dépendances • GitHub & OSV",
+      "desc": "Gardez vos projets JavaScript et TypeScript à jour : analysez vos dépôts GitHub, d'autres dépôts ou des fichiers package.json, puis préparez leurs mises à jour et corrigez les vulnérabilités connues.",
+      "shortDesc": "Repérez les mises à jour et vulnérabilités des dépendances et préparez leur mise à jour.",
+      "h1": "Analyse de dépôts GitHub et de fichiers package.json",
+      "h2": "Détection des paquets obsolètes ou vulnérables via npm et OSV",
+      "h3": "Génération de commandes, prompts IA et manifestes à jour"
+    },
     "portfolio": {
       "badge": "Portfolio VS Code • Next.js 16 & i18n",
       "desc": "Portfolio interactif inspiré de l'éditeur VS Code. Système d'onglets, palette de commandes cmdk, thèmes dynamiques, internationalisation complète next-intl (FR/EN) et formulaire de contact sécurisé avec Resend.",

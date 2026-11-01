@@ -74,6 +74,14 @@
     "rights": "© {year} autem.dev - all rights reserved"
   },
   "projectsData": {
+    "upcheck": {
+      "badge": "Dependency Analysis • GitHub & OSV",
+      "desc": "Keep your JavaScript and TypeScript projects up to date: analyze your GitHub repositories, other repositories, or package.json files, then plan updates and address known vulnerabilities.",
+      "shortDesc": "Find dependency updates and vulnerabilities, and generate an update plan.",
+      "h1": "Analysis of GitHub repositories and package.json files",
+      "h2": "Detection of outdated or vulnerable packages via npm & OSV",
+      "h3": "Generation of commands, AI prompts, and updated manifests"
+    },
     "portfolio": {
       "badge": "VS Code Portfolio • Next.js 16 & i18n",
       "desc": "Interactive portfolio inspired by VS Code. Multi-tab navigation, cmdk command palette, dynamic color themes, full next-intl (FR/EN) internationalisation, and secure Resend contact API.",

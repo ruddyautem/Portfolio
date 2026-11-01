@@ -46,6 +46,16 @@ export const cvData = {
     ],
     projects: [
       {
+        title: 'Upcheck',
+        year: '2026',
+        link: 'https://upcheck.autem.dev',
+        points: [
+          'Built a Next.js and TypeScript tool to analyze GitHub and package.json dependencies.',
+          'Implemented version and vulnerability checks using the npm registry and OSV.',
+          'Generated update commands, AI prompts, and updated manifests for Bun, npm, pnpm, and Yarn.',
+        ],
+      },
+      {
         title: 'Temporis',
         year: '2026',
         link: 'https://temporis.autem.dev',
@@ -73,16 +83,6 @@ export const cvData = {
           'Developed a responsive online store for mobile and desktop with React, Vite, and styled-components.',
           'Integrated Google authentication via Firebase Auth, with user order history stored in Firestore.',
           'Implemented secure card payments via Stripe and reactive cart state management with Zustand.',
-        ],
-      },
-      {
-        title: 'Stokki',
-        year: '2024',
-        link: 'https://stokki.autem.dev',
-        points: [
-          'Built a Next.js stock management dashboard with quantity updates and low-stock alerts.',
-          'Created interactive Recharts visualisations to track product additions and stock levels.',
-          'Set up a PostgreSQL relational database with Prisma ORM and strict form validation via Zod.',
         ],
       },
     ],
@@ -153,6 +153,16 @@ export const cvData = {
     ],
     projects: [
       {
+        title: 'Upcheck',
+        year: '2026',
+        link: 'https://upcheck.autem.dev',
+        points: [
+          "Développement d'un outil Next.js et TypeScript d'analyse des dépendances GitHub et package.json.",
+          'Mise en place de la vérification des versions et des failles via le registre npm et OSV.',
+          'Génération de commandes, prompts IA et manifestes mis à jour pour Bun, npm, pnpm et Yarn.',
+        ],
+      },
+      {
         title: 'Temporis',
         year: '2026',
         link: 'https://temporis.autem.dev',
@@ -180,16 +190,6 @@ export const cvData = {
           "Développement d'une boutique responsive mobile et desktop avec React, Vite et styled-components.",
           "Intégration d'une authentification Google via Firebase Auth, historique des commandes sur Firestore.",
           "Mise en place d'un paiement par carte sécurisé via Stripe et gestion réactive du panier avec Zustand.",
-        ],
-      },
-      {
-        title: 'Stokki',
-        year: '2024',
-        link: 'https://stokki.autem.dev',
-        points: [
-          "Développement d'un tableau de bord de stocks Next.js avec suivi des quantités et alertes de stock faible.",
-          'Création de graphiques interactifs Recharts pour suivre les ajouts de produits et les niveaux de stock.',
-          "Mise en place d'une base PostgreSQL avec Prisma ORM et validation stricte des formulaires via Zod.",
         ],
       },
     ],

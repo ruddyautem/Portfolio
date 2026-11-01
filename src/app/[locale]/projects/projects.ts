@@ -23,6 +23,22 @@ export interface Project {
 
 export const getProjects = (t: (key: string) => string): Project[] => [
   {
+    id: 11,
+    title: 'Upcheck',
+    badge: t('upcheck.badge'),
+    img: '/upcheck.png',
+    desc: t('upcheck.desc'),
+    shortDesc: t('upcheck.shortDesc'),
+    tags: ['nextjs', 'typescript', 'react', 'tailwindcss'],
+    source: 'https://github.com/ruddyautem/upcheck',
+    demo: 'https://upcheck.autem.dev',
+    displayUrl: 'upcheck.autem.dev',
+    featured: true,
+    category: 'fullstack',
+    categories: ['fullstack', 'nextjs'],
+    highlights: [t('upcheck.h1'), t('upcheck.h2'), t('upcheck.h3')],
+  },
+  {
     id: 1,
     title: 'Temporis',
     badge: t('temporis.badge'),
